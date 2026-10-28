@@ -1,0 +1,478 @@
+{
+  "schemaVersion": "pr299-local-browser-evidence.v1",
+  "baseCommit": "6e38018d2ab794bdf4034286fa05bd031c699a23",
+  "sourceCommit": "8bcb388e3eb27fb5d602557f0fa03ecfdb8755ea",
+  "sourceTree": "1325966de5df35028c2f783413c51b03f9024f5d",
+  "sourceFile": "data/lessons.ts",
+  "sourceFileSha256": "ebef4b43e92c9a97d036bf5e86a563c04ab6cd650d6a14d0a299f62ef9fd02b2",
+  "previousExecution": {
+    "checkedAt": "2026-10-28T04:23:16.891267+00:00",
+    "sourceWorktreeHeadAtExecution": "6e38018d2ab794bdf4034286fa05bd031c699a23",
+    "sourceFileSha256": "ebef4b43e92c9a97d036bf5e86a563c04ab6cd650d6a14d0a299f62ef9fd02b2",
+    "recordSha256": "3dcf0a955c63b15ec054dcb5c9ba3c6ee5d0721ee477433dba2322ce7144b4ef",
+    "priorA18RecordSha256": "3c79b3f38da54932887cb8d63f0cff46217ddae25d98a2a71de4601ee501dd5c",
+    "priorA18Reviewer": "/root/a18_p2_copy_review",
+    "priorA18Verdict": "approved-for-integration-review"
+  },
+  "evidenceVerification": {
+    "reviewer": "/root/p2_evidence_review",
+    "manifestSha256": "1bd6042007531a88a03b458f96ec191e09b76cdffa5a9e675f40b8996b1d3f50",
+    "originalIndependentA18Verified": true
+  },
+  "provenance": "Consumed prior local desktop execution at identical source and dependency bytes; no CI browser replay or production validation.",
+  "browserReexecutedInCi": false,
+  "liveAllowed": false,
+  "wholeLessonApproved": false,
+  "route": "/student/lessons/p2-length-data",
+  "languages": [
+    "en",
+    "zh",
+    "zhHans"
+  ],
+  "stateCount": 24,
+  "results": [
+    {
+      "language": "en",
+      "states": [
+        {
+          "label": "initial",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "A maximum with two longest",
+          "values": [
+            12,
+            9,
+            12
+          ],
+          "total": 33,
+          "longest": "A, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all maximum and three longest",
+          "values": [
+            12,
+            12,
+            12
+          ],
+          "total": 36,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "C minimum",
+          "values": [
+            12,
+            12,
+            1
+          ],
+          "total": 25,
+          "longest": "A, B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all minimum",
+          "values": [
+            1,
+            1,
+            1
+          ],
+          "total": 3,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "keyboard unit step",
+          "values": [
+            1,
+            2,
+            1
+          ],
+          "total": 4,
+          "longest": "B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "pointer drag C maximum",
+          "values": [
+            1,
+            2,
+            12
+          ],
+          "total": 15,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "reset",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        }
+      ],
+      "pageErrors": [],
+      "exactTitleAndCopyVisible": true
+    },
+    {
+      "language": "zh",
+      "states": [
+        {
+          "label": "initial",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "A maximum with two longest",
+          "values": [
+            12,
+            9,
+            12
+          ],
+          "total": 33,
+          "longest": "A, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all maximum and three longest",
+          "values": [
+            12,
+            12,
+            12
+          ],
+          "total": 36,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "C minimum",
+          "values": [
+            12,
+            12,
+            1
+          ],
+          "total": 25,
+          "longest": "A, B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all minimum",
+          "values": [
+            1,
+            1,
+            1
+          ],
+          "total": 3,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "keyboard unit step",
+          "values": [
+            1,
+            2,
+            1
+          ],
+          "total": 4,
+          "longest": "B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "pointer drag C maximum",
+          "values": [
+            1,
+            2,
+            12
+          ],
+          "total": 15,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "reset",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        }
+      ],
+      "pageErrors": [],
+      "exactTitleAndCopyVisible": true
+    },
+    {
+      "language": "zhHans",
+      "states": [
+        {
+          "label": "initial",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "A maximum with two longest",
+          "values": [
+            12,
+            9,
+            12
+          ],
+          "total": 33,
+          "longest": "A, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all maximum and three longest",
+          "values": [
+            12,
+            12,
+            12
+          ],
+          "total": 36,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "C minimum",
+          "values": [
+            12,
+            12,
+            1
+          ],
+          "total": 25,
+          "longest": "A, B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "all minimum",
+          "values": [
+            1,
+            1,
+            1
+          ],
+          "total": 3,
+          "longest": "A, B, C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "keyboard unit step",
+          "values": [
+            1,
+            2,
+            1
+          ],
+          "total": 4,
+          "longest": "B",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "pointer drag C maximum",
+          "values": [
+            1,
+            2,
+            12
+          ],
+          "total": 15,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        },
+        {
+          "label": "reset",
+          "values": [
+            6,
+            9,
+            12
+          ],
+          "total": 27,
+          "longest": "C",
+          "barGeometryAndVisibleSummary": true
+        }
+      ],
+      "pageErrors": [],
+      "exactTitleAndCopyVisible": true
+    }
+  ],
+  "actions": "real keyboard Home/End/ArrowRight and mouse pointer drag",
+  "artifacts": [
+    {
+      "path": ".local/pr172-p2-length-copy/candidate.json",
+      "sha256": "a06a413478933ea21d6538b0bc93a9a7115487dfe967f19c3c7f9d69e6ec3e76",
+      "bytes": 913
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/a18-review.json",
+      "sha256": "3c79b3f38da54932887cb8d63f0cff46217ddae25d98a2a71de4601ee501dd5c",
+      "bytes": 959
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/verification.json",
+      "sha256": "3dcf0a955c63b15ec054dcb5c9ba3c6ee5d0721ee477433dba2322ce7144b4ef",
+      "bytes": 10180
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/session.md",
+      "sha256": "079ea72a58e36a0f4c082e565b150d290e97e898e5668d3fa91afa2b95fb7656",
+      "bytes": 843
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/verification-dependency-versions.json",
+      "sha256": "c4bbe14b88efab8dd6a48378f8a284070a0520c53e6e7b136804f796f9afbc2a",
+      "bytes": 1146
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/type-check.log",
+      "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d",
+      "bytes": 77
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/targeted-regressions.log",
+      "sha256": "319786c228f3267f14f4fb80e381f394cf122f29ae84b75d71d47d078231bd03",
+      "bytes": 795
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/zh-hans-audit.log",
+      "sha256": "3f78f32a3e2c24a5ad914d27026bde043fbf2b5abd67d5800016ce31e688d1f4",
+      "bytes": 82572
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-en.log",
+      "sha256": "a95d4c1a224992e573a0d3c25c0ba6598db64e4b4816b6390b60c89195a857a9",
+      "bytes": 5083
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-zh.log",
+      "sha256": "7bd0419241888a51fb3a36cbc66d8367046cccc4763cef57e71d766dc8cf0953",
+      "bytes": 4891
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-zh-Hans.log",
+      "sha256": "ee3db541f19f4c5433a8f734037af7242a531e9302817cadedd52245478c2cb7",
+      "bytes": 4830
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-en-code.txt",
+      "sha256": "6ae5ba15dda2315ece32250e0837d3baf79772399136bb9e3e8a12a85433654b",
+      "bytes": 3815
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-zh-code.txt",
+      "sha256": "62df5db7809f3569af724b047df17b381a3bd885b14a45f1fa2c2ba7f21aed76",
+      "bytes": 3811
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/browser-zh-Hans-code.txt",
+      "sha256": "f42414c43fcd30e8d011ad17e267a868b646f3b10b9135da9ebca1f0c77dda50",
+      "bytes": 3746
+    },
+    {
+      "path": ".local/pr172-p2-length-copy/zh-Hans-reload-code.txt",
+      "sha256": "a707e69e1b89df7c8f18b50bfad0d8529bd72b4958eab7d1802363aea0d45acf",
+      "bytes": 1182
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "components/visualizations/GeometryExplorer.tsx",
+      "sha256": "bed0fc1e081720293cdea19479ec734e3430536597ac22ad4fcaa593bfd7900c",
+      "same_as_baseline": true
+    },
+    {
+      "path": "components/lesson/LessonView.tsx",
+      "sha256": "27d3c3420b986500f948d5f1b3bd4e204ea76c74e558c73413aa71991cd088bd",
+      "same_as_baseline": true
+    },
+    {
+      "path": "components/lesson/lessonContentText.ts",
+      "sha256": "5a41082852116a890afc790e5fc418c59eadbb90272a75861de7f450a530351f",
+      "same_as_baseline": true
+    },
+    {
+      "path": "data/topics.ts",
+      "sha256": "91215da1fd6b955d898459e32169742191442e6942e07a7880ddf7fe198268ff",
+      "same_as_baseline": true
+    },
+    {
+      "path": "data/visualizationLabs.ts",
+      "sha256": "53e742b29845f014d378440829ea6e03c2b4ce2f26fe493b002d022890998923",
+      "same_as_baseline": true
+    },
+    {
+      "path": "lib/i18n.ts",
+      "sha256": "9832c03eb485e7efec3ced47394bfe393006cae14a0d5748d5aae9f7e03a71bb",
+      "same_as_baseline": true
+    },
+    {
+      "path": "types/index.ts",
+      "sha256": "b244961341a1f5296cdd6169c4bf5370f39c11eb8b27a8098bdc7837702985d7",
+      "same_as_baseline": true
+    },
+    {
+      "path": "components/visualizations/lessonVisualizationRender.test.tsx",
+      "sha256": "0a1b3f63d3fe9d57d001ab810a7020c9132cfa631d066befe4f39387db327c45",
+      "same_as_baseline": true
+    },
+    {
+      "path": "components/visualizations/bespokeLabRouting.test.ts",
+      "sha256": "567bcf43cc7bb4c0412b6c9335c067f7fd9fae5e116e2059c1112687df38c2da",
+      "same_as_baseline": true
+    },
+    {
+      "path": "tsconfig.lesson-visualization-render.json",
+      "sha256": "325dcb622458e488c5fe4d14521a32c4545497c71f3d02c576f8c57bcdc9d37f",
+      "same_as_baseline": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f",
+      "same_as_baseline": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+      "same_as_baseline": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "output/playwright/pr172-p2-length-copy/en-desktop.png",
+      "sha256": "b560331e101b08bbdeb5a74c05af864038c46b42d2d332d8f86877953316a226",
+      "bytes": 73182
+    },
+    {
+      "path": "output/playwright/pr172-p2-length-copy/zh-desktop.png",
+      "sha256": "793eb1b43b49e2c2c1c28c2aefe004abcae7ba7586095c58f33d23aa99da5d94",
+      "bytes": 75039
+    },
+    {
+      "path": "output/playwright/pr172-p2-length-copy/zh-Hans-desktop-reloaded.png",
+      "sha256": "e7c69da322060b358674fa3ccbdbe77e5126935987718b0dd59aa0eff0782c4c",
+      "bytes": 68197
+    }
+  ],
+  "visualLimit": "all three review screenshots inspected; a partially painted Simplified Chinese screenshot was retained separately and fresh-reload screenshot verified complete"
+}

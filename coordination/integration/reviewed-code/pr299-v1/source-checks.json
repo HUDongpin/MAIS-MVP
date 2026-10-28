@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "pr299-source-checks.v1",
+  "sourceCommit": "8bcb388e3eb27fb5d602557f0fa03ecfdb8755ea",
+  "sourceTree": "1325966de5df35028c2f783413c51b03f9024f5d",
+  "executedAt": "2026-10-28T04:55:36.178Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "lesson-render-routing",
+      "args": [
+        "node_modules/tsx/dist/cli.mjs",
+        "--tsconfig",
+        "tsconfig.lesson-visualization-render.json",
+        "--test",
+        "--test-reporter=tap",
+        "components/visualizations/lessonVisualizationRender.test.tsx",
+        "components/visualizations/bespokeLabRouting.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "0f0def36a02054581c6fdba8177035d066f70797567c5debec2679fea4a56968",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "8b585d58dc37c6628a1eec352ff5ba17427660061e1393e8946c83a2b2fdefda"
+      }
+    },
+    {
+      "name": "zh-hans",
+      "args": [
+        "scripts/audit-zh-hans.mjs",
+        "--fail-on-critical"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "ec363d5a3025c50f4c7298e425f45d85281ad5e56585d5071e6a1ec80ae28acd",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "advisory": 3509,
+        "ceiling": 3512,
+        "nonPackCritical": 0,
+        "packRegression": false
+      }
+    }
+  ]
+}

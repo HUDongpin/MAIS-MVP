@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr299-admission.v1",
+  "pullRequest": 299,
+  "scope": "exact-pr299-p2-copy-required-check-only",
+  "baseCommit": "6e38018d2ab794bdf4034286fa05bd031c699a23",
+  "sourceCommit": "8bcb388e3eb27fb5d602557f0fa03ecfdb8755ea",
+  "sourceTree": "1325966de5df35028c2f783413c51b03f9024f5d",
+  "sourceInventoryDigest": "8f8b1311cf07600c31e61253b77f885dd99f6a629abbf7647af09e7bdb137a41",
+  "toolingCommit": "10f23b640d62ef1c789e7ea07a5d9c5e386a0cf3",
+  "toolingTree": "ba62f14f0dea87545ea9bfc368308c523f123bfb",
+  "toolingInventoryDigest": "d61f8ea2dbe26032f041014f1079cf890518fc3193a5238de537befcd72d6149",
+  "checksRawSha256": "a5e916a43b1ab49c0e544489131a19e7a836600b165a2c950a4de63078f970e9",
+  "runtimeEvidenceRawSha256": "069d7c90e07711e265e3d159f14cc6996e10b03e7b62f98d43ff3a7474d01294",
+  "reviews": {
+    "A18": {
+      "decisionRawSha256": "a6145cebd4eee0f45f17cb60f862f259bad44c4379b2b7b043f72de9ae437695",
+      "reportRawSha256": "8c3ef15d3e1969d2e14fdcd725c98aa124b4d8d2d52edd2b4b8c86f62404452c"
+    },
+    "A11": {
+      "decisionRawSha256": "1550bd00d0c214e0cde2c949c4d344db5bbaa497f35b8fd1c3abf93e65d88826",
+      "reportRawSha256": "fce382bd8cf6f1e48c4243bd59120a9debe4d4da33bda302517965d4308c1df2"
+    },
+    "A23": {
+      "decisionRawSha256": "5fd4a39936899933cc7374d4a02a471c033b56e07996be209e163dd25899c318",
+      "reportRawSha256": "210220b55c2729e7763db140f45be6a3673f5eaef88fe414560329a9d58a8f92"
+    }
+  },
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

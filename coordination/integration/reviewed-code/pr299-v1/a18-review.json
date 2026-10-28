@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "pr299-independent-review.v1",
+  "role": "A18",
+  "reviewerIdentity": "/root/p2_a18_admission",
+  "result": "approved-for-integration-review",
+  "scope": "exact-pr299-p2-copy-required-check-only",
+  "sourceCommit": "8bcb388e3eb27fb5d602557f0fa03ecfdb8755ea",
+  "sourceTree": "1325966de5df35028c2f783413c51b03f9024f5d",
+  "sourceInventoryDigest": "8f8b1311cf07600c31e61253b77f885dd99f6a629abbf7647af09e7bdb137a41",
+  "toolingCommit": "10f23b640d62ef1c789e7ea07a5d9c5e386a0cf3",
+  "toolingTree": "ba62f14f0dea87545ea9bfc368308c523f123bfb",
+  "toolingInventoryDigest": "d61f8ea2dbe26032f041014f1079cf890518fc3193a5238de537befcd72d6149",
+  "checksRawSha256": "a5e916a43b1ab49c0e544489131a19e7a836600b165a2c950a4de63078f970e9",
+  "runtimeEvidenceRawSha256": "069d7c90e07711e265e3d159f14cc6996e10b03e7b62f98d43ff3a7474d01294",
+  "reportRawSha256": "8c3ef15d3e1969d2e14fdcd725c98aa124b4d8d2d52edd2b4b8c86f62404452c",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-28T05:05:56.402Z",
+  "findings": [
+    "0 项内容阻断，0 项需修复文案；结论仅为六条 P2 字符串 approved-for-integration-review。",
+    "三语操作与 A/B/C 整数 1–12 cm 滑块、条形比较和总长一致；并列最长不要求唯一答案。",
+    "24 个既有本地浏览器状态的原始结果、求和及并列最大值已独立比对；三张最终截图已查看。",
+    "T 的四文件工具切片未改变文案及12个相关依赖；完整文件替换、源清单、runtime来源和workflow重建验证通过。",
+    "消费原本地浏览器执行证据，不声称新 CI 浏览器重演、整课/整包批准、合并、部署或 live 验收；六项权限均为 false。"
+  ]
+}
