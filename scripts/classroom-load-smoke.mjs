@@ -1940,6 +1940,10 @@ async function runSelfTest() {
     const unsafeModeResult = path.join(unsafeModeDir, "last-run.json");
     await fs.writeFile(unsafeModeResult, "unsafe\n", { mode: 0o644 });
     try {
+      // Creation mode is filtered by the caller's umask; pin this deliberately
+      // unsafe fixture so a private CI umask cannot turn it into a safe file.
+      await fs.chmod(unsafeModeResult, 0o644);
+      assert.equal((await fs.lstat(unsafeModeResult)).mode & 0o777, 0o644);
       await assert.rejects(
         () => writeReport({ unsafeMode: true }, unsafeModeDir),
         /permission|unsafe|artifact/i

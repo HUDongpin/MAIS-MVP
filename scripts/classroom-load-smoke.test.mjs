@@ -1720,6 +1720,15 @@ test("required governance executes the security self-test concurrently without s
   assert.equal(right.stderr, "");
 });
 
+test("the security self-test retains unsafe fixture permissions under a private caller umask", async () => {
+  const result = await execFileAsync(process.execPath, [
+    "--input-type=module", "-e", "process.umask(0o077); await import(process.argv[1]);",
+    smokePath, "--self-test",
+  ], { cwd: repoRoot, maxBuffer: 1024 * 1024, timeout: 60_000 });
+  assert.match(result.stdout, /classroom-load-smoke self-test: PASS/u);
+  assert.equal(result.stderr, "");
+});
+
 test("classroom smoke artifacts stay in ignored local-only storage", () => {
   assert.match(source(".gitignore"), /^\.tmp\/?$/mu);
   assert.doesNotMatch(source("package.json"), /classroom-load-smoke[^\n]*(certify:production|vercel:production)/u);
