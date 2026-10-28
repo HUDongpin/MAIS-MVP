@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "pr301-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/pr286_source_review",
+  "result": "approved-for-exact-pr301-required-check",
+  "scope": "exact-pr301-nova-voice-formatting-required-check-only",
+  "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+  "sourceTree": "f2b917b9b696fc85464810412bf8a611e46450e7",
+  "sourceInventoryDigest": "ac767603f4afb4ac1767ddc84317a11abf1125945ca95775d2b9c02c86cd526e",
+  "toolingCommit": "86d83e89ceed45c50d1ffb4d8ac0794fec134c51",
+  "toolingTree": "2fdc779531a779d185e68216c51c3f96d1fcf632",
+  "toolingInventoryDigest": "cd3bfb97e1f8576d9852a0639f4f0710a7f91d384e9609724ea2c504baa9d9f3",
+  "checksRawSha256": "c51a01272d74dd9958ee33ea78590732380e348078411377c3ce03a0828f6a23",
+  "runtimeEvidenceRawSha256": "a16f7217aa8598c57e3ba4d35c7e9a63f331dae8ec0f56e32ca4eb2794c9d859",
+  "reportRawSha256": "84a47c5192f8404ed7c120523ec440f39c0af8c6a73237d8b66034f6d9556f65",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-28T19:46:11.036Z",
+  "findings": [
+    "No blocking actionable finding remains in the immutable PR301 source/tooling slice; the newline/code preservation, build-path and bounded mobile grid corrections retain their reviewed source bytes.",
+    "Verified exact source parent/ancestry, S -> T relation, source/tooling trees, twelve/four-path inventories, freeze hashes and all twenty-two runtime dependencies at S, T and worktree.",
+    "Fresh actual-T tests under umask 077 passed 41 gate contracts, strict TypeScript with empty stdout/stderr, and 40 provider/newline/display cases with zero failures or skips.",
+    "Original clean-S source checks and stdout/stderr hashes, complete test names/counts and source-to-tooling chronology verified independently.",
+    "Actual clean/stable S build M-lRkZo1mG8k0xmqg5RWi attestation, logs and complete declared artifact tree independently rehashed: 2560 files, 104819306 bytes, root 558f6f163d478da769bd9a8021370bc90a3a57d5be190f46206cf093b74ac60e.",
+    "Desktop 3, mobile 1, backend 6 and compiled voice 1 retained runtime results verified against raw hashes and exact test records; no retries/skips/flaky failures. Backend parsing removed only the exact known npm prefix after full raw hash validation.",
+    "Both hash-bound screenshots visually inspected: paragraph separation and rendered inequality/nabla are visible without math errors or horizontal panel clipping. Full-page width and normal-click acceptance derive from source-bound assertions.",
+    "Promotion workflow retains old contracts and adds only deterministic PR301 selection/check/upload changes; executable negatives cover strict event/history/source/tooling/evidence/review/runtime/permission boundaries.",
+    "Actual-T full Git materialization remains blocked-local by ENAMETOOLONG; unchanged Ubuntu final E/main before-and-after materialization checks remain required and are not waived.",
+    "Build/browser runtime evidence is consumed, not replayed by Promotion or by this formal reviewer; final remote/main acceptance, live provider/device operation, deployment and historical authority transfer are not asserted, and all permissions remain false."
+  ]
+}

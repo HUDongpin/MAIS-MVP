@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr301-independent-review.v1",
+  "role": "A23",
+  "reviewerIdentity": "/root/pr300_a23",
+  "result": "approved-for-exact-pr301-required-check",
+  "scope": "exact-pr301-nova-voice-formatting-required-check-only",
+  "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+  "sourceTree": "f2b917b9b696fc85464810412bf8a611e46450e7",
+  "sourceInventoryDigest": "ac767603f4afb4ac1767ddc84317a11abf1125945ca95775d2b9c02c86cd526e",
+  "toolingCommit": "86d83e89ceed45c50d1ffb4d8ac0794fec134c51",
+  "toolingTree": "2fdc779531a779d185e68216c51c3f96d1fcf632",
+  "toolingInventoryDigest": "cd3bfb97e1f8576d9852a0639f4f0710a7f91d384e9609724ea2c504baa9d9f3",
+  "checksRawSha256": "c51a01272d74dd9958ee33ea78590732380e348078411377c3ce03a0828f6a23",
+  "runtimeEvidenceRawSha256": "a16f7217aa8598c57e3ba4d35c7e9a63f331dae8ec0f56e32ca4eb2794c9d859",
+  "reportRawSha256": "0f24c29522ce91998226ff6375edadd28963e2b26a02f80c200a0a823cada635",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-28T19:43:53.786Z",
+  "findings": [
+    "No actionable issue found in actual immutable PR301 T; this is a distinct committed-T review, not reused preliminary or PR300 authority.",
+    "Exact clean HEAD/tree, source/tooling parent relations and inventories, regular file modes/blob bytes, preserved previous workflow and absence of future E evidence were independently verified.",
+    "Fresh Node v24.15.0 checks under umask 0077 passed 41 contracts, strict TypeScript with empty stdout/stderr, and 40 provider/display units; no failures, cancellations, skips or TODOs.",
+    "Frozen source output hashes, TAP summaries and source/check/tooling chronology matched. Runtime evidence raw hash and all 22 source/dependency bindings matched S and actual T.",
+    "Original clean-source build attestation, build logs, compiled voice TAP, complete 2560-file artifact tree, desktop 3/mobile 1/backend 6 results and screenshot hashes/dimensions were independently revalidated; exact hash-bound screenshots were visually inspected.",
+    "Backend raw npm stdout was hashed in full; only its exact verified script preamble was removed before strict parsing of the JSON payload. No evidence bytes were changed.",
+    "Runtime proof is consumed local evidence: no build or browser rerun by Promotion, and no live provider, microphone, speaker or deployment claim. All six permissions remain false.",
+    "Parent actual-T full materialization reports blocked-local ENAMETOOLONG and fullMaterialization=false; full unchanged before/after Ubuntu final-E PR/main guards remain required without waiver.",
+    "This approval is scoped source/tooling eligibility only; actual E, final-head remote checks, preserving main merge and main acceptance remain unestablished."
+  ]
+}
