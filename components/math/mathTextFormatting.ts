@@ -467,5 +467,5 @@ export function normalizeMathTextForDisplay(value: string) {
   next = formatOutsideMathDelimiters(next, formatBarePowerTokensInPlainText);
   next = formatOutsideMathDelimiters(next, formatPlainTexCommands);
   next = normalizeDelimitedMathCommands(next);
-  return next.replace(/\s{2,}/g, " ");
+  return next.replace(/[^\S\r\n]{2,}/g, " ");
 }
