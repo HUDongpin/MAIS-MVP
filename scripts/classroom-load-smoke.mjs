@@ -46,15 +46,14 @@ function requiredOptionValue(argv, index, option) {
 }
 
 export function boundedInteger(value, fallback, min, max, label = "value") {
-  if (value === undefined || value === null) return fallback;
-  if (typeof value === "string" && !value.trim()) {
-    throw new Error(`${label} must be a finite number.`);
+  const candidate = value === undefined || value === null ? fallback : value;
+  const validType = typeof candidate === "number" ||
+    (typeof candidate === "string" && /^\d+$/u.test(candidate));
+  const parsed = validType ? Number(candidate) : Number.NaN;
+  if (!Number.isSafeInteger(parsed) || parsed < min || parsed > max) {
+    throw new Error(`${label} must be an integer from ${min} through ${max}.`);
   }
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed)) {
-    throw new Error(`${label} must be a finite number.`);
-  }
-  return Math.min(max, Math.max(min, Math.round(parsed)));
+  return parsed;
 }
 
 export function parseArgs(argv, env = process.env) {
@@ -96,7 +95,7 @@ export function parseArgs(argv, env = process.env) {
       deferredUsernameOptionIndex = index;
       index += 1;
     } else {
-      throw new Error(`Unknown argument: ${option}`);
+      throw new Error("Unknown argument.");
     }
   }
 
@@ -910,21 +909,18 @@ export async function runSeatRound(
     ok: attempt.ok && attemptPersistenceAcknowledged(attempt)
   });
 
-  // Current main binds lesson-progress to the authenticated cookie but does
-  // not consume the expected-user guard used by /api/attempts. Keep that
-  // limitation explicit rather than claiming a server-side identity guard.
+  // Both write routes require the expected identity bound to this session.
+  // Carry the same constraint through headers and body as /api/attempts.
   const progress = await timedFetch(
     `${session.baseUrl}/api/lesson-progress`,
     {
       body: JSON.stringify({
         action: round === config.rounds - 1 ? "complete" : "update",
         durationSeconds: 30,
+        expectedUserId: session.userId,
         slug: workload.lessonSlug
       }),
-      headers: {
-        "Content-Type": "application/json",
-        ...authHeaders(session.cookie, "", env)
-      },
+      headers,
       method: "POST",
       redirect: "manual",
       timeoutMs: config.timeoutMs
@@ -1185,6 +1181,10 @@ function sameFingerprint(left, right) {
 }
 
 export async function writeReport(report, artifactDir, env = process.env, hooks = {}) {
+  const serialized = `${JSON.stringify(report, null, 2)}\n`;
+  if (Buffer.byteLength(serialized, "utf8") > MAX_ARTIFACT_FINGERPRINT_BYTES) {
+    throw new Error(`Artifact report exceeds the ${MAX_ARTIFACT_FINGERPRINT_BYTES} byte limit.`);
+  }
   const admittedDirectory = await resolveArtifactDirectory(artifactDir, env);
   const targetDirectory = admittedDirectory.canonical;
   const artifactPath = path.join(targetDirectory, "last-run.json");
@@ -1300,7 +1300,6 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     await assertDirectoryStable("lock creation");
     await assertLockStable("lock creation");
     const existingFingerprint = await safeResultFingerprint(artifactPath, hooks);
-    const serialized = `${JSON.stringify(report, null, 2)}\n`;
     temporaryPath = path.join(targetDirectory, `.last-run.json.${process.pid}.${randomUUID()}.tmp`);
     const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | (fsConstants.O_NOFOLLOW ?? 0);
     temporaryHandle = await fs.open(temporaryPath, flags, 0o600);
@@ -1443,14 +1442,12 @@ export async function executeClassroomLoad(args, dependencies = {}) {
     });
   const credentialArgs = resolveClassroomCredentials(args, env);
   let authMode;
-  let distinctIdentities;
   let sessions;
 
   if (credentialArgs.cookie) {
     const resolved = await resolveCookie(credentialArgs.cookie, config, env);
     assertTargetIsNotProduction(resolved.baseUrl);
     authMode = "cookie";
-    distinctIdentities = 1;
     sessions = Array.from({ length: config.students }, (_, index) => ({
       ...resolved,
       seat: index + 1
@@ -1480,7 +1477,6 @@ export async function executeClassroomLoad(args, dependencies = {}) {
       return { ...identity, seat: student.seat };
     });
     authMode = roster.authMode;
-    distinctIdentities = roster.distinctIdentities;
   }
 
   // This is the final redirect-origin gate before any attempt/progress write.
@@ -1490,9 +1486,37 @@ export async function executeClassroomLoad(args, dependencies = {}) {
       throw new Error("Classroom Preview binding resolved away from the provider-verified immutable deployment.");
     }
   }
+
+  const sessionsByCookie = new Map();
+  for (const session of sessions) {
+    const existing = sessionsByCookie.get(session.cookie);
+    if (existing && existing.userId !== session.userId) {
+      throw new Error("Classroom session identity is inconsistent across virtual seats.");
+    }
+    if (!existing) sessionsByCookie.set(session.cookie, session);
+  }
+  // Cookie authentication already performed one strict /api/me check. Login
+  // responses need a cookie-bound check before discovery. Round checks are
+  // outside measured traffic and run once per session, not per virtual seat.
+  let continuityChecks = authMode === "cookie" ? 1 : 0;
+  const verifySessionContinuity = async () => {
+    await Promise.all([...sessionsByCookie.values()].map(async (session) => {
+      const verified = await resolveCookie(session.cookie, config, env);
+      if (
+        verified.userId !== session.userId ||
+        normalizeBaseUrl(verified.baseUrl) !== normalizeBaseUrl(session.baseUrl)
+      ) {
+        throw new Error("Classroom session identity changed; refusing further workload requests.");
+      }
+      continuityChecks += 1;
+    }));
+  };
+  if (authMode !== "cookie") await verifySessionContinuity();
+
   const workload = await discover(sessions[0], config, env);
   const measurements = [];
   for (let round = 0; round < config.rounds; round += 1) {
+    await verifySessionContinuity();
     const roundResults = await Promise.all(
       sessions.map((session) => runRound(session, workload, config, round, env))
     );
@@ -1514,8 +1538,10 @@ export async function executeClassroomLoad(args, dependencies = {}) {
     authMode,
     baseUrl: sessions[0].baseUrl,
     concurrency: config.students,
-    distinctIdentities,
+    continuity: { checks: continuityChecks, status: "pass" },
+    distinctIdentities: new Set(sessions.map((session) => session.userId)).size,
     endpointTopologyComplete,
+    executionEnvironment: isLoopbackOrigin(config.baseUrl) ? "local" : "preview",
     expectedRequestsPerEndpoint,
     generatedAt: new Date().toISOString(),
     grade: config.grade,
@@ -1547,8 +1573,11 @@ export async function runSmoke(args, dependencies = {}) {
   if (args.json) {
     console.log(JSON.stringify(report, null, 2));
   } else {
+    if (report.executionEnvironment === "local") {
+      console.log("LOCAL VERIFICATION ONLY — not Preview or staging evidence.");
+    }
     console.log(
-      `Classroom load smoke: ${report.ok ? "PASS" : "FAIL"} ${report.baseUrl} grade=${report.grade} students=${report.concurrency} rounds=${report.rounds} requests=${report.totalRequests}`
+      `Classroom load smoke: ${report.ok ? "PASS" : "FAIL"} ${report.baseUrl} environment=${report.executionEnvironment} grade=${report.grade} seats=${report.concurrency} rounds=${report.rounds} requests=${report.totalRequests}`
     );
     console.log(
       `Identities: ${report.distinctIdentities}; logins=${report.login.count}; p95=${report.login.p95Ms}ms; max=${report.login.maxMs}ms`
@@ -1577,21 +1606,30 @@ async function runSelfTest() {
     teamId: APPROVED_VERCEL_TEAM_ID,
     teamSlug: APPROVED_VERCEL_TEAM_SLUG,
   });
+  const selfTestUsers = new Map([
+    ["fixture-cookie", "fixture-user"],
+    ["fixture-cookie-1", "fixture-user-1"],
+    ["fixture-cookie-2", "fixture-user-2"],
+  ]);
+  const selfTestResolveCookie = async (cookie, config) => {
+    assert.ok(selfTestUsers.has(cookie), "self-test must resolve a known authenticated session");
+    return { baseUrl: config.baseUrl, cookie, loginMs: 0, userId: selfTestUsers.get(cookie), username: "Fixture" };
+  };
   assert.equal(normalizeBaseUrl("http://localhost:3210/"), "http://127.0.0.1:3210");
   assert.equal(normalizeBaseUrl("http://127.0.0.1:3210/"), "http://127.0.0.1:3210");
   assert.throws(() => normalizeBaseUrl("http://preview.example"), /requires HTTPS/i);
   assert.equal(percentile([100, 200, 300], 95), 300);
   assert.equal(percentile([], 95), null);
   assert.throws(() => parseArgs(["--unknown"], {}), /Unknown argument/);
-  assert.throws(() => parseArgs(["--students", "not-a-number"], {}), /--students must be a finite number/);
+  assert.throws(() => parseArgs(["--students", "not-a-number"], {}), /--students must be an integer/);
   assert.throws(
     () => parseArgs([], { CLASSROOM_LOAD_ROUNDS: "not-a-number" }),
-    /CLASSROOM_LOAD_ROUNDS must be a finite number/
+    /CLASSROOM_LOAD_ROUNDS must be an integer/
   );
-  assert.equal(parseArgs(["--students", "9999"], {}).students, 200);
-  assert.equal(parseArgs(["--students", "0"], {}).students, 1);
-  assert.equal(parseArgs(["--rounds", "9999"], {}).rounds, 50);
-  assert.equal(parseArgs(["--rounds", "0"], {}).rounds, 1);
+  assert.throws(() => parseArgs(["--students", "9999"], {}), /integer from 1 through 200/u);
+  assert.throws(() => parseArgs(["--students", "0"], {}), /integer from 1 through 200/u);
+  assert.throws(() => parseArgs(["--rounds", "9999"], {}), /integer from 1 through 50/u);
+  assert.throws(() => parseArgs(["--rounds", "0"], {}), /integer from 1 through 50/u);
   assert.throws(() => smokeConfig(parseArgs([], {}), {}), /requires an explicit --base-url/i);
   for (const origin of ["https://mais.ac", "https://www.mais.ac", "https://mais.hk", "https://www.mais.hk"]) {
     assert.throws(
@@ -1646,6 +1684,7 @@ async function runSelfTest() {
     {
       env: demoEnv,
       loadPreviewBinding: selfTestPreviewBinding,
+      resolveCookieSession: selfTestResolveCookie,
       loginIdentity: async (identity) => {
         loginCalls += 1;
         return {
@@ -1754,8 +1793,8 @@ async function runSelfTest() {
   }
   assert.equal(fetchCalls[0].options.headers["X-MAIS-Expected-User-Id"], "fixture-user");
   assert.equal(JSON.parse(fetchCalls[0].options.body).expectedUserId, "fixture-user");
-  assert.equal(fetchCalls[1].options.headers["X-MAIS-Expected-User-Id"], undefined);
-  assert.equal(JSON.parse(fetchCalls[1].options.body).expectedUserId, undefined);
+  assert.equal(fetchCalls[1].options.headers["X-MAIS-Expected-User-Id"], "fixture-user");
+  assert.equal(JSON.parse(fetchCalls[1].options.body).expectedUserId, "fixture-user");
   const requestResults = aggregate(seatMeasurements, endpointBudgets(config));
   assert.deepEqual(
     seatMeasurements.map((measurement) => measurement.endpoint),
@@ -1777,6 +1816,7 @@ async function runSelfTest() {
     {
       env: errorEnv,
       loadPreviewBinding: selfTestPreviewBinding,
+      resolveCookieSession: selfTestResolveCookie,
       loginIdentity: async (identity) => ({
         baseUrl: "https://preview.example",
         cookie: "fixture-cookie",
@@ -1808,6 +1848,7 @@ async function runSelfTest() {
       {
         env: artifactEnv,
         loadPreviewBinding: selfTestPreviewBinding,
+        resolveCookieSession: selfTestResolveCookie,
         loginIdentity: async (identity) => ({
           baseUrl: "https://preview.example",
           cookie: "fixture-cookie",
