@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-24",
+  "updatedAt": "2026-10-29",
   "policy": {
     "allowedFinalStates": [
       "reviewed commit",
@@ -73,7 +73,8 @@
         "scripts/next-clean-build.test.mjs",
         "package.json",
         "package-lock.json",
-        "next.config.ts"
+        "next.config.ts",
+        "vercel.json"
       ],
       "checks": [
         "npm run test:release-governance",

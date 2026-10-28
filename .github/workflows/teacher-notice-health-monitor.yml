@@ -2,12 +2,14 @@ name: Teacher notice production health
 
 on:
   schedule:
-    # The delivery worker runs on minute 0/5. Offset the monitor so its bounded
+    # The source delivery-worker cron is */10; confirm its deployed cadence.
+    # Offset the monitor so its bounded
     # retry window observes a completed durable heartbeat instead of colliding
     # with the worker. Steady state probes every worker interval so a later
     # success cannot systematically hide an intervening failed heartbeat.
     # #294 / #273: temporary hourly offset while #273 stays red and floods
     # Actions. Restore cron "3-59/5 * * * *" after #273 closes on a healthy run.
+    # Recheck that restoration offset against the deployed worker cadence first.
     - cron: "7 * * * *"
   workflow_dispatch:
     inputs:
