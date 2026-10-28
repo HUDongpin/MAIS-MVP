@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "pr299-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/p2_evidence_review",
+  "result": "approved-for-exact-pr299-required-check",
+  "scope": "exact-pr299-p2-copy-required-check-only",
+  "sourceCommit": "8bcb388e3eb27fb5d602557f0fa03ecfdb8755ea",
+  "sourceTree": "1325966de5df35028c2f783413c51b03f9024f5d",
+  "sourceInventoryDigest": "8f8b1311cf07600c31e61253b77f885dd99f6a629abbf7647af09e7bdb137a41",
+  "toolingCommit": "10f23b640d62ef1c789e7ea07a5d9c5e386a0cf3",
+  "toolingTree": "ba62f14f0dea87545ea9bfc368308c523f123bfb",
+  "toolingInventoryDigest": "d61f8ea2dbe26032f041014f1079cf890518fc3193a5238de537befcd72d6149",
+  "checksRawSha256": "a5e916a43b1ab49c0e544489131a19e7a836600b165a2c950a4de63078f970e9",
+  "runtimeEvidenceRawSha256": "069d7c90e07711e265e3d159f14cc6996e10b03e7b62f98d43ff3a7474d01294",
+  "reportRawSha256": "fce382bd8cf6f1e48c4243bd59120a9debe4d4da33bda302517965d4308c1df2",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-28T07:22:56.722Z",
+  "findings": [
+    "Actual tooling T 10f23b640d62ef1c789e7ea07a5d9c5e386a0cf3 and tree ba62f14f0dea87545ea9bfc368308c523f123bfb were independently read; sole-parent S, clean checkout, and recomputed source/tooling inventories match.",
+    "B to S is exactly the one-file six-string P2 copy replacement; S to T is exactly four tooling paths, and deterministic workflow reconstruction preserves all earlier gates and action/permission boundaries.",
+    "Actual 43-test contract log and all frozen source-check stdout/stderr hashes were read and parsed: 43/43 gate contracts, 8/8 render-routing tests, strict types and zh-Hans3509/3512 all satisfy the recorded zero-failure/skip limits.",
+    "Prior independent A18 source review was read back from its real reviewer record; the same source hash and twelve dependency hashes bind the consumed browser and content provenance.",
+    "Three prior local browser raw results and final screenshots support24 states at unchanged source bytes; browserReexecutedInCi=false and no production or whole-lesson claim remain explicit.",
+    "Review schema, timestamps, exact identities, permission fields, frozen evidence hashes, child execution checks and negative test coverage have no actionable issue in this bounded actual-T review.",
+    "This is an actual post-T independent A11 decision only; E construction, actual event preflight/full materialization and real remote CI must still be checked. No merge, deployment or historical authority is granted."
+  ]
+}

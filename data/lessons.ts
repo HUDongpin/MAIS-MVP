@@ -457,10 +457,11 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Compare lengths on a diagram", zh: "在圖形上比較長度" },
+      title: { en: "Adjust lengths and compare bars", zh: "調整長度，並比較棒形圖", zhHans: "调整长度，并比较条形图" },
       content: {
-        en: "Move points and compare side lengths to support measurement language.",
-        zh: "移動點並比較邊長，支援度量語言。"
+        en: "Use the A, B and C sliders to change each length in centimetres. Compare the bars to find the longest, then check the total length.",
+        zh: "使用 A、B、C 滑塊調整各項的厘米長度。比較棒形圖，找出最長的一項，再查看總長。",
+        zhHans: "使用 A、B、C 滑块调整各项的厘米长度。比较条形图，找出最长的一项，再查看总长。"
       },
       moduleId: "geometry-explorer",
       source: "geometry"
