@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "pr300-v2-independent-review.v1",
+  "role": "A23",
+  "reviewerIdentity": "/root/pr300_a23",
+  "result": "approved-for-exact-pr300-v2-required-check",
+  "scope": "exact-pr300-v2-classroom-safety-required-check-only",
+  "sourceCommit": "455d6ed9247163341599e219d2deef18271d01d2",
+  "sourceTree": "b4cdfd4a8eb5794e3471b6816efc9125d4550110",
+  "sourceInventoryDigest": "d452d4d2eb7b0bfbd97424beebf6b5432812d301aca7beb2b3b64cbe6632e7ab",
+  "toolingCommit": "49205d3b661ec50c69527ca5e30d0d437e075931",
+  "toolingTree": "71e85941d9745d4a1c56b15ccb2fc63ae8627212",
+  "toolingInventoryDigest": "0b225a5e90f7e60d18e5f9ff4a8566a0c8065bd47e4f7c8c4e572ced359751a4",
+  "checksRawSha256": "99840b075cb5c81935bfca74f239bc2980005657b828db2854af024e1ff6ccd9",
+  "reportRawSha256": "80386b2dcdac649967d871bd5c2c85b6842ed883ce23843e16ab599bf12f2d8b",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-28T16:28:02.062Z",
+  "findings": [
+    "No actionable issue found in actual immutable T2; this is a distinct committed-T2 review, not reused v1 or preliminary v2 approval.",
+    "Actual clean HEAD/tree, E1-to-R repair, direct R-to-T2 parent, exact inventories, regular file modes and blob/worktree bytes were independently verified; future E2 records are absent.",
+    "V1 checker and evidence bytes remain preserved. The sole source/tooling overlap is the workflow, constrained by exact deterministic reconstruction. The prior failed artifact remains a failure.",
+    "Fresh Node v24.15.0 tests at actual T2 under umask 0077 passed 37 contract, 71 classroom, 7 release-build and 24 prod-certification cases, with zero failures, cancellations, skips or TODOs.",
+    "Every frozen clean-R stdout/stderr hash and TAP summary matched source-checks.json; its raw hash and source-before-check-before-tooling time order were independently verified.",
+    "Exact event/commit/path/time/review/permission bindings, strict JSON, fixed offline commands, private temporary outputs and unchanged before/after full materialization controls remain fail-closed.",
+    "The parent actual-T2 materialization receipt records blocked-local ENAMETOOLONG and fullMaterialization=false. The full guard has not passed locally and must pass before and after execution on actual final-E2 Ubuntu PR/main runs.",
+    "Approval is scoped ordinary-code source/tooling eligibility only; actual E2, remote final-head checks, main merge, historical Promotion or content authority, live classroom and deployment acceptance remain unestablished."
+  ]
+}

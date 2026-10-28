@@ -350,16 +350,36 @@ revalidation below supplies that live identity check.
 
 `CLASSROOM_LOAD_WRITE_P95_MS` controls the shared attempts/lesson-progress p95 budget (default
 2,000 ms); `CLASSROOM_LOAD_READ_P95_MS` controls the separate dashboard-read budget (default
-3,000 ms). Any HTTP/network error fails even when it returns quickly. An attempt HTTP 200 counts
+3,000 ms). Numeric CLI options and environment overrides must be decimal integers within their
+documented bounds: 1–200 virtual seats, 1–50 rounds, 1,000–180,000 ms timeout, and 500–120,000 ms
+read/write p95 budgets. Missing values retain their defaults; empty, fractional, or out-of-range
+values fail instead of being rounded or clamped. Rejected arguments use value-free error messages,
+including mistaken `--password=...` or `--cookie=...` arguments.
+
+After login and before every round, the smoke checks each independent cookie-bound session through
+`/api/me?includeLessonEntry=false`. The authenticated student ID and origin must still match the
+bound session. Expired, missing, changed-role, changed-identity, or unavailable sessions abort before
+the next workload round and do not publish a new report. Earlier accepted writes are not rolled back;
+an existing report from an earlier run is not evidence for the aborted run. These checks run once per
+session rather than once per virtual seat and are excluded from measured request counts and latency.
+
+Any HTTP/network error fails even when it returns quickly. An attempt HTTP 200 counts
 as a successful write only when its API response explicitly contains `persisted: true`; grading
 feedback with `persisted: false` remains a failed write. The JSON report records the actual
-distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
+distinct authenticated user-ID count separately from login count and virtual-seat `concurrency`,
+so a multi-seat demo run is not misread as per-user fan-out. Its additive `executionEnvironment`
+field is `local` for loopback and `preview` for a provider-verified Preview; an operator mode label
+cannot change that classification. Human-readable local output starts with `LOCAL VERIFICATION ONLY`,
+and `continuity` records the successful session-check count without exposing session identities.
 On Vercel, practice-attempt persistence never falls back to local SQLite: missing durable
 PostgreSQL configuration or a failed row transaction returns `persisted: false`. The student UI
 keeps that answer retryable and performs no success side effects, including progress, reward,
 mistake-refresh, or pager advancement.
 `CLASSROOM_LOAD_ARTIFACT_DIR` redirects `last-run.json` into task-owned temporary storage; the
 fallback is ignored local output under `.tmp/classroom-load-smoke/`.
+The serialized JSON report, including its trailing newline, must be at most 8 MiB in UTF-8.
+Oversized reports fail before directory creation, lock acquisition, or temporary-file writes,
+leaving any existing report unchanged.
 The writer permits only that repository default or a canonical direct child of the OS temporary
 directory (or a pre-existing exact `CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT`). Traversal, symlinked
 ancestors, unsafe node types, hardlinks, and group/other permissions fail closed. The cooperative
@@ -383,10 +403,9 @@ and candidate SHA metadata, while cross-binding the receipt's outer, deployment,
 staging candidate/source-manifest claims. Provider failures are redacted and fail closed. The token
 is sensitive runtime input and must never be printed or placed in the receipt. This revalidation
 confirms live deployment identity and provider metadata; it does not independently redownload and
-rehash every deployed source byte. Current
-`/api/lesson-progress` also binds the write only to
-the supplied student session cookie; unlike `/api/attempts`, it has no server-side expected-user
-guard. The smoke exercises that current contract but does not certify such a guard.
+rehash every deployed source byte. Both `/api/attempts` and `/api/lesson-progress` require an
+expected-user constraint matching the authenticated student. The smoke sends the bound student
+ID in both the request header and body for each write, in addition to the session cookie.
 
 The authenticated account remains the default curriculum authority. Unless an operator explicitly
 sets `CLASSROOM_LOAD_CURRICULUM_TRACK`, login and question discovery omit a curriculum override so

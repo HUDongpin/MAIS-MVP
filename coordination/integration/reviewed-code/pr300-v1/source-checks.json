@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "pr300-source-checks.v1",
+  "sourceCommit": "bc967e739480db7c66a824bb1369ef3a7268b93f",
+  "sourceTree": "df2adb27f2ccf3ae5fd2f4fb15270d35b1936ebb",
+  "executedAt": "2026-10-28T15:34:47.917Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "classroom",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "scripts/classroom-load-smoke.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e32c75319efb4f7ff01c468c92fa8add7b1f327232ba0dfa69f812fc4cb92676",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 70,
+        "suites": 0,
+        "pass": 70,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "d117d2b2daea42ef1b4c571456c690df60cacb41de07158cadfd536d39db6d7b"
+      }
+    },
+    {
+      "name": "release-build",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "scripts/release-build-gate.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "530c35d6be3802235721565d4669cdeee8297648a75411ff937dc192326f0d08",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "28ed218fee536690fdc8ddccec7c7128d3ac5423bea07b0d1bee897c8f3d4088"
+      }
+    },
+    {
+      "name": "prod-certification",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "scripts/prod-certification.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "f7a575db4473aa56109c3f9feff7e12d76675b692b0e466390db88709ce333fd",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 24,
+        "suites": 0,
+        "pass": 24,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "1cf30b79d3e3c6c78d5cb8bd53cc444012ec85256eb8b7d09da6cd3c65f931dc"
+      }
+    }
+  ]
+}
