@@ -152,10 +152,13 @@ function recentLogs(logs: string[]) {
 
 function nextDistEnvForHarness() {
   if (!playwrightNextDistDir) return {};
-  const buildIdPath = path.resolve(projectRoot, playwrightNextDistDir, "BUILD_ID");
-  if (!existsSync(buildIdPath)) return {};
+  const absoluteDistDir = path.resolve(projectRoot, playwrightNextDistDir);
+  if (!existsSync(path.join(absoluteDistDir, "BUILD_ID"))) {
+    throw new Error("The isolated Nova test build is missing its BUILD_ID.");
+  }
   return {
-    NEXT_DIST_DIR: playwrightNextDistDir
+    // Next joins distDir to its project root, so its runtime value is relative.
+    NEXT_DIST_DIR: path.relative(projectRoot, absoluteDistDir).replace(/\\/g, "/")
   };
 }
 
