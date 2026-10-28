@@ -2198,6 +2198,8 @@ test("frontend Nova Tutor keeps paragraph breaks and LaTeX in a reply", async ({
   });
 
   const tutorPanel = await openTutorAt(page, "/dashboard");
+  const pageWidth = await page.evaluate(() => ({ content: document.documentElement.scrollWidth, viewport: document.documentElement.clientWidth }));
+  expect(pageWidth.content).toBeLessThanOrEqual(pageWidth.viewport + 1);
   await tutorPanel.locator("#ai-tutor-input").fill("Explain the next step.");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
