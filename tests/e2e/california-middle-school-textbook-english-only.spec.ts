@@ -24,6 +24,20 @@ test("California middle-school textbook keeps anonymous readers behind the lesso
   await expect(page.getByTestId("california-textbook-page")).toHaveCount(0);
 });
 
+test("California middle-school review identifies the interactive content without inheriting historical approval metadata", async ({ page }) => {
+  const route = "/lesson/california-middle-school-textbook/review";
+  await page.goto(route);
+  await expect(page).toHaveURL((url) => url.pathname === "/login" && url.searchParams.get("next") === route);
+  await loginAsCaliforniaStudent(page, "P6");
+  await page.goto(route);
+  await expect(page).toHaveURL((url) => url.pathname === route);
+  await expect(page).toHaveTitle(/Interactive Textbook Review/);
+  await expect(page).not.toHaveTitle(/Approved/i);
+  await expect(page.locator('meta[name="description"]')).not.toHaveAttribute("content", /approved/i);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
+  await expect(page.getByTestId("california-textbook-chapter")).toHaveCount(15);
+});
+
 test("California Grade 6-8 interactive textbook renders every chapter with a hydrated interactive opener, English only", async ({ page }) => {
   await loginAsCaliforniaStudent(page, "P6");
   await page.goto(middleSchoolRoute);
