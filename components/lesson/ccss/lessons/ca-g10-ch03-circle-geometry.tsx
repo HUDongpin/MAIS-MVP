@@ -227,8 +227,8 @@ export default function Lesson() {
         the central angle standing on the same arc, with the similarity of circles read from the inside, through angles and chords.{" "}
         <strong>Incircles, Circumcircles, Tangents</strong>{" "}hands you the construction tools &mdash; angle bisectors meeting at the incenter, perpendicular
         bisectors meeting at the circumcenter, and the right angle where a radius meets a tangent. <strong>Arc Length &amp; Sector Area</strong>{" "}takes the fraction you have been sliding above and rewrites it in radians,
-        where the arc is simply R&theta;. <strong>Where Volume Formulas Come From</strong>{" "}explains the one third in the cone volume instead of asking you to
-        memorize it, by slicing solids and comparing cross-sections. <strong>Volumes of Solids</strong>{" "}puts the cylinder, cone, sphere and pyramid formulas
+        where the arc is simply R&theta;. <strong>Where Volume Formulas Come From</strong>{" "}uses equal cross-sections and shear to introduce the reasoning behind volume comparisons,
+        then states its extension to cones and pyramids. <strong>Volumes of Solids</strong>{" "}puts the cylinder, cone, sphere and pyramid formulas
         to work on real containers. <strong>Cross-Sections &amp; Revolutions</strong>{" "}generalizes the triangle hiding inside the cone: any slice of a solid
         is a flat shape, and any flat shape spun about a line sweeps out a solid.
       </p>

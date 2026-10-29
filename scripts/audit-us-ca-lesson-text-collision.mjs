@@ -57,7 +57,7 @@ const ROUTES = [
  * every <svg> after each state. Serialized into the page, so it may not close
  * over anything in this module.
  */
-export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs }) => {
+export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs, unansweredMask }) => {
   if (!Number.isFinite(tol) || tol > 0 || !Number.isSafeInteger(maxPresses) || maxPresses <= 0 || !Number.isFinite(maxMs) || maxMs <= 0) {
     return { slug, error: "invalid tolerance or finite traversal limits" };
   }
@@ -138,11 +138,27 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
     const steps = names.map((name) => axes.find((a) => a.kind === "stepper" && a.name === name));
     if (!mode || !terms || !targets || steps.some((a) => !a)) return { slug, error: "ticket lesson control contract changed" };
     steps[2].aliasGroup = terms.group;
+    // These buttons have a stored target even in evaluate mode, when none is
+    // shown pressed. That conditional presentation is not an unanswered state.
+    targets.initiallyUnselected = false;
     const ordered = new Set([mode, terms, targets, ...steps]);
     axes = [...axes.filter((a) => !ordered.has(a)), steps[0], steps[1], targets, steps[2], mode];
   }
-  const unselected = axes.filter((a) => a.kind === "choice" && a.initiallyUnselected);
-  if (unselected.length > 1) return { slug, error: "multiple initially unselected groups require an explicit reset/replay contract" };
+  let unselected = axes.filter((a) => a.kind === "choice" && a.initiallyUnselected);
+  const frozenUnanswered = [];
+  if (unselected.length > 1) {
+    if (slug !== "ca-g8-ch03-transformations-similarity" || unselected.length !== 2 || !Number.isInteger(unansweredMask) || unansweredMask < 0 || unansweredMask > 3) {
+      return { slug, error: "multiple initially unselected groups require an explicit reset/replay contract" };
+    }
+    // The CLI reloads the page for each of the four answered/unanswered masks.
+    // Frozen groups stay untouched; the other groups enumerate chosen options.
+    unselected.forEach((a, index) => {
+      a.initiallyUnselected = false;
+      if (unansweredMask & (1 << index)) frozenUnanswered.push(a);
+    });
+    axes = axes.filter((a) => !frozenUnanswered.includes(a));
+    unselected = [];
+  } else if (unansweredMask !== undefined) return { slug, error: "unexpected unanswered-mask contract" };
   // The unanswered state cannot be restored by choosing an answer. Visit its
   // entire remaining grid FIRST, before selecting any option in this group.
   axes = [...unselected, ...axes.filter((a) => !unselected.includes(a)),
@@ -169,6 +185,11 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
     }
     for (const input of root_.querySelectorAll("input,select,textarea")) {
       if (!ranges.includes(input)) unsupported.add(inputId(input));
+    }
+    for (const a of frozenUnanswered) {
+      if ([...a.group.querySelectorAll('[aria-pressed]')].some((button) => button.getAttribute("aria-pressed") !== "false")) {
+        stuck.add(`${a.name} (frozen unanswered group changed)`);
+      }
     }
     [...root_.querySelectorAll("svg")].forEach((svg, si) => {
       const items = [];
@@ -207,15 +228,28 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
     if (a.kind === "walkthrough") {
       const reset = get(a.reset), advance = get(a.advance);
       if (!reset || !advance) { lost.add(a.name); return; }
+      const panel = document.getElementById(advance.getAttribute("aria-controls") || "") || advance.parentElement?.parentElement || root_;
+      if (!root_.contains(panel) && panel !== root_) { stuck.add(`${a.name} (reveal panel lies outside the lesson)`); return; }
       reset.click(); presses += 1; await settle();
+      if (!reset.disabled || advance.disabled || advance.getAttribute("aria-expanded") === "true") {
+        stuck.add(`${a.name} (reset did not restore the observable initial state)`); return;
+      }
       a.at = 0;
       for (let step = 0; step <= maxPresses; step += 1) {
         await walk(k + 1);
         if (capped || advance.disabled) break;
         if (step === maxPresses) { stuck.add(`${a.name} (reveal did not terminate)`); break; }
-        advance.click(); presses += 1; a.at += 1; await settle();
+        const before = panel.innerHTML;
+        advance.click(); presses += 1; await settle();
+        if (reset.disabled || panel.innerHTML === before || advance.getAttribute("aria-expanded") === "false") {
+          stuck.add(`${a.name} (advance did not produce an observable reveal transition)`); return;
+        }
+        a.at += 1;
       }
       reset.click(); presses += 1; await settle();
+      if (!reset.disabled || advance.disabled || advance.getAttribute("aria-expanded") === "true") {
+        stuck.add(`${a.name} (reset did not restore the observable initial state)`);
+      }
       return;
     }
     if (a.kind === "range") {
@@ -270,6 +304,9 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
         const el = get(members[m]);
         if (!el) { lost.add(`${a.name}[${m}]`); continue; }
         el.click(); presses += 1; await settle();
+        if (get(members[m])?.getAttribute("aria-pressed") !== "true") {
+          stuck.add(`${a.name}[${m}] (choice did not become selected)`); return;
+        }
         a.at = m;
         await walk(k + 1);
         if (capped) return;
@@ -309,6 +346,8 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
   await walk(0);
   return {
     slug,
+    unansweredMask: unansweredMask ?? null,
+    frozenUnansweredGroups: frozenUnanswered.map((a) => a.name),
     axes: axes.map((a) => ({ kind: a.kind, name: a.name, values: [...axisValues.get(a)] })),
     unsupported: [...unsupported],
     aliasActions: Object.fromEntries(aliasActions),
@@ -334,6 +373,9 @@ const ctx = await browser.newContext({
   storageState: { cookies: [{ name: SESSION_COOKIE_NAME, value: token, domain: new URL(BASE).hostname, path: "/", httpOnly: true, secure: false, sameSite: "Lax" }], origins: [] },
 });
 const page = await ctx.newPage();
+const browserErrors = [];
+page.on("pageerror", (error) => browserErrors.push(String(error)));
+page.on("response", (response) => { if (response.status() >= 500) browserErrors.push(`${response.status()} ${response.url()}`); });
 
 const abort = async (lines) => {
   for (const line of lines) console.error(line);
@@ -378,14 +420,34 @@ for (const route of ROUTES) {
 
   for (const slug of slugs) {
     if (only.length && !only.includes(slug)) continue;
-    await page.locator(`[data-ccss-lesson="${slug}"]`).waitFor({ state: "attached" });
-    await page.waitForFunction((id) => document.querySelector(`[data-ccss-lesson="${id}"]`)?.getAttribute("data-ccss-diagram-hydrated") === "true", slug);
-    const r = await page.evaluate(auditLessonControlStates, { slug, tol: TOL, maxPresses: MAX_PRESSES, maxMs: MAX_MS });
+    const masks = slug === "ca-g8-ch03-transformations-similarity" ? [0, 1, 2, 3] : [undefined];
+    const variants = [];
+    for (const unansweredMask of masks) {
+      if (unansweredMask !== undefined) {
+        await page.reload({ waitUntil: "domcontentloaded" });
+        if (new URL(page.url()).pathname !== route) await abort([`${slug}: reload did not restore the expected route`]);
+      }
+      await page.locator(`[data-ccss-lesson="${slug}"]`).waitFor({ state: "attached" });
+      await page.waitForFunction((id) => document.querySelector(`[data-ccss-lesson="${id}"]`)?.getAttribute("data-ccss-diagram-hydrated") === "true", slug);
+      await page.evaluate(() => document.fonts.ready);
+      const value = await page.evaluate(auditLessonControlStates, { slug, tol: TOL, maxPresses: MAX_PRESSES, maxMs: MAX_MS, unansweredMask });
+      if (value.error) await abort([`\n✗ ${slug} — ${value.error}`]);
+      variants.push(value);
+    }
+    const r = variants.length === 1 ? variants[0] : {
+      slug, variants, axes: variants.map((v) => ({ unansweredMask: v.unansweredMask, axes: v.axes })),
+      visited: variants.reduce((n, v) => n + v.visited, 0), presses: variants.reduce((n, v) => n + v.presses, 0),
+      ms: variants.reduce((n, v) => n + v.ms, 0), capped: variants.some((v) => v.capped),
+      svgs: Math.max(...variants.map((v) => v.svgs)), texts: Math.max(...variants.map((v) => v.texts)),
+      lost: variants.flatMap((v) => v.lost), stuck: variants.flatMap((v) => v.stuck), unsupported: variants.flatMap((v) => v.unsupported),
+      findings: variants.flatMap((v) => v.findings.map((finding) => ({ ...finding, state: `unanswered-mask=${v.unansweredMask}; ${finding.state}` }))),
+    };
     results.push(r);
     if (r.error) await abort([`\n✗ ${slug} — ${r.error}`]);
     audited += 1;
     states += r.visited;
     if (r.visited === 0) unsound.push(`${slug}: visited no states`);
+    if (r.svgs === 0) unsound.push(`${slug}: no SVG figure was inspected`);
     // This lesson intentionally labels its functions in adjacent HTML cards.
     // Verify that its source declares no SVG text before recording N/A for
     // label collisions; its SVG geometry still needs the separate bounds QA.
@@ -409,10 +471,11 @@ for (const route of ROUTES) {
 }
 
 await browser.close();
+unsound.push(...browserErrors.map((error) => `browser: ${error}`));
 for (const slug of only) if (!results.some((r) => r.slug === slug)) unsound.push(`${slug}: requested lesson was not audited`);
 if (process.env.CCSS_AUDIT_REPORT) writeFileSync(process.env.CCSS_AUDIT_REPORT, `${JSON.stringify({
-  schemaVersion: "ccss-figure-label-control-grid.v2", audited, states,
-  domain: "default plus joint finite choices including one initial unanswered group, toggles, steppers, every discrete range value and all worked-example reveal steps; live controls rescanned in every state",
+  schemaVersion: "ccss-figure-label-control-grid.v3", audited, states,
+  domain: "joint finite controls and verified reveal transitions; unanswered states precede choices, with four fresh-page masks for G8-ch03's two independent exercises; live controls rescanned in every state",
   tolerance: TOL, results, unsound, failures,
 }, null, 2)}\n`);
 

@@ -104,3 +104,48 @@ test("visits shared SVG reveal changes jointly instead of assuming independence"
     assert.deepEqual(result.stuck, []);
   } finally { await page.close(); }
 });
+
+test("a reset that leaves the revealed state active is an explicit coverage failure", async () => {
+  const page = await withWalkthrough(false);
+  try {
+    await page.evaluate(() => { document.getElementById("reset").onclick = () => {}; });
+    const result = await page.evaluate(auditLessonControlStates, options);
+    assert.ok(result.stuck.some((message) => message.includes("reset did not restore the observable initial state")));
+  } finally { await page.close(); }
+});
+
+test("four fresh-page masks cover both unanswered groups crossed with the full range", async () => {
+  const page = await browser.newPage();
+  const slug = "ca-g8-ch03-transformations-similarity";
+  const html = `<section data-lesson-role="opener"><div data-ccss-lesson="${slug}">
+    <svg width="200" height="80"><text x="10" y="30">Alpha</text><text id="moving" x="110" y="30">Beta</text></svg>
+    <input type="range" aria-label="Position" min="0" max="4" step="1" value="0">
+    <div id="first"><button type="button" aria-pressed="false">A1</button><button type="button" aria-pressed="false">A2</button></div>
+    <div id="second"><button type="button" aria-pressed="false">B1</button><button type="button" aria-pressed="false">B2</button></div>
+    </div></section><script>(() => {
+      let first = false, second = false;
+      const slider = document.querySelector('input');
+      const draw = () => document.getElementById('moving').setAttribute('x', first && !second && slider.value === '2' ? '10' : '110');
+      slider.oninput = draw;
+      ['first', 'second'].forEach(id => {
+        const group = document.getElementById(id);
+        group.querySelectorAll('button').forEach(button => button.onclick = () => {
+          if (id === 'first') first = true; else second = true;
+          group.querySelectorAll('button').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+          draw();
+        });
+      });
+    })();</script>`;
+  try {
+    const results = [];
+    for (const unansweredMask of [0, 1, 2, 3]) {
+      await page.setContent(html);
+      const result = await page.evaluate(auditLessonControlStates, { ...options, slug, unansweredMask });
+      assert.deepEqual(result.stuck, []);
+      assert.deepEqual(result.unsupported, []);
+      results.push(result);
+    }
+    assert.equal(results.reduce((total, result) => total + result.visited, 0), 49); // 3 x 3 x 5, plus four fresh defaults
+    assert.deepEqual(results.map((result) => result.findings.length > 0), [false, false, true, false]);
+  } finally { await page.close(); }
+});

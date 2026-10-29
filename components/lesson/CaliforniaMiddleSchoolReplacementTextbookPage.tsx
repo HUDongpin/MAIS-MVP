@@ -21,7 +21,7 @@ export function CaliforniaMiddleSchoolReplacementTextbookPage() {
       testIdPrefix="california-textbook"
       eyebrow="California Middle School Mathematics · Interactive textbook"
       heading="Interactive Grade 6-8 Textbook"
-      intro="Fifteen chapters for Grades 6, 7, and 8. Each chapter opens with an interactive lesson that models the chapter's big idea, unfolds a worked example step by step, and ends with a Math check; the interactive lessons for every standard in the chapter follow, with a hand-checked chapter check to finish."
+      intro="Fifteen chapters for Grades 6, 7, and 8. Each chapter opens with an interactive lesson that models the chapter's big idea, unfolds a worked example step by step, and ends with a Math check; related interactive lessons supporting the chapter's listed standards follow, with a hand-checked chapter check to finish."
       groups={groups}
     />
   );
