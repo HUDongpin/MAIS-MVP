@@ -1,0 +1,83 @@
+TAP version 13
+# Subtest: late controls cannot silently escape the coverage roster
+ok 1 - late controls cannot silently escape the coverage roster
+  ---
+  duration_ms: 314.3475
+  type: 'test'
+  ...
+# Subtest: unanswered choice state is crossed with all range values
+ok 2 - unanswered choice state is crossed with all range values
+  ---
+  duration_ms: 61.754083
+  type: 'test'
+  ...
+# Subtest: worked-example SVG dependencies are crossed with all range values
+ok 3 - worked-example SVG dependencies are crossed with all range values
+  ---
+  duration_ms: 81.347417
+  type: 'test'
+  ...
+# Subtest: nonfinite tolerance is rejected before measurement
+ok 4 - nonfinite tolerance is rejected before measurement
+  ---
+  duration_ms: 38.354625
+  type: 'test'
+  ...
+# [{"id":"dynamic-unclassified-control","auditReturnedClean":false,"actualOverlap":{"x":29.328125,"y":18}},{"id":"unselected-choice-cross-range","auditReturnedClean":false,"actualOverlap":{"x":29.328125,"y":18}},{"id":"reveal-dependent-svg-hidden-during-grid","auditReturnedClean":false,"actualOverlap":{"x":29.328125,"y":18}},{"id":"nonfinite-tolerance","auditReturnedClean":false,"actualOverlap":{"x":29.328125,"y":18}}]
+# Subtest: detects a collision only reachable at an interior range value with a singleton toggle enabled
+ok 5 - detects a collision only reachable at an interior range value with a singleton toggle enabled
+  ---
+  duration_ms: 525.256291
+  type: 'test'
+  ...
+# Subtest: reports an unclassified control instead of silently claiming full coverage
+ok 6 - reports an unclassified control instead of silently claiming full coverage
+  ---
+  duration_ms: 46.002292
+  type: 'test'
+  ...
+# Subtest: rejects a range without a finite discrete domain
+ok 7 - rejects a range without a finite discrete domain
+  ---
+  duration_ms: 45.102
+  type: 'test'
+  ...
+# Subtest: a missing opener is a coverage error
+ok 8 - a missing opener is a coverage error
+  ---
+  duration_ms: 35.019
+  type: 'test'
+  ...
+# Subtest: checks the full product of diagram controls and worked-example reveal steps
+ok 9 - checks the full product of diagram controls and worked-example reveal steps
+  ---
+  duration_ms: 47.4555
+  type: 'test'
+  ...
+# Subtest: visits shared SVG reveal changes jointly instead of assuming independence
+ok 10 - visits shared SVG reveal changes jointly instead of assuming independence
+  ---
+  duration_ms: 41.309708
+  type: 'test'
+  ...
+# Subtest: a reset that leaves the revealed state active is an explicit coverage failure
+ok 11 - a reset that leaves the revealed state active is an explicit coverage failure
+  ---
+  duration_ms: 44.57175
+  type: 'test'
+  ...
+# Subtest: four fresh-page masks cover both unanswered groups crossed with the full range
+ok 12 - four fresh-page masks cover both unanswered groups crossed with the full range
+  ---
+  duration_ms: 53.976167
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1153.153542

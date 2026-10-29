@@ -1,0 +1,596 @@
+{
+  "schemaVersion": "source-a11-candidate-v5-correction-consumption.v1",
+  "description": "Actual static post-R2 review of candidate inventory correction. No new source/browser/grid/native execution. Historical regression010 retains its superseded candidate identity; this report supplies the new candidate inventory binding.",
+  "verification": {
+    "reviewer": "/root/pr304_native_a23",
+    "role": "source-A11",
+    "reviewedAt": "2026-10-29T09:41:55.034Z",
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+    "checkerReleaseCommit": "0adfef5b8fcb10a5718967e23d7476d9d7049d2b",
+    "oldCandidateDigest": "4a62735ccfaa7861147f2700fe2982ee926ec6c89ce30ea53756f4fd8c19d973",
+    "candidateDigest": "d8cb04471d8390b2936b17314b3f0d47615ace7c6ead44823152d1c9ec0ae9e6",
+    "dispositionDigest": "45aa6ad7048a0269a6b81b8dfe60296926fdb05e6efc68e674a00ffe1605adb3",
+    "onlyCandidateDelta": "remove sole coordination session-log inventory entry",
+    "removedEntry": {
+      "path": "coordination/session-logs/2026-10-29-A05-pr225-current-main-01a1824f.md",
+      "mode": "100644",
+      "objectId": "7f96eb99faabad6187bfa220bc2e645a56a0d6e3",
+      "sha256": "dff1e93632251282bff33424a1d08233b43faab69030ea9d4fc92f7413466971"
+    },
+    "candidateFileCount": 137,
+    "explicitProductRemovals": [
+      "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+      "components/lesson/CaliforniaMiddleSchoolTextbookPage.tsx"
+    ],
+    "sourceInventoryDigest": "ff2bdd1a53161ec7c05be2961e5d1ce1525fb22240b4fc282075caa567b5a85f",
+    "sourceLogStillBound": true,
+    "allProductFilesAndSemanticsUnchanged": true,
+    "all137ModesBlobsHashesVerified": true,
+    "dispositionOnlyCandidateDigestChanged": true,
+    "registryOnlyReplacementCandidateDigestChanged": true,
+    "auditAndAllAssetReportsByteIdentical": true,
+    "productTestsRerun": false,
+    "nativeAttemptExecuted": false,
+    "liveAllowed": false
+  },
+  "nativeScopeCheck": {
+    "at": "2026-10-29T09:42:39.148Z",
+    "candidateDigest": "d8cb04471d8390b2936b17314b3f0d47615ace7c6ead44823152d1c9ec0ae9e6",
+    "oldCandidateRejectedByScope": [
+      "coordination/session-logs/2026-10-29-A05-pr225-current-main-01a1824f.md"
+    ],
+    "all137ProductFilesAdmitted": true,
+    "complete139PathSourceDeltaCovered": true,
+    "sourceInventoryDigest": "ff2bdd1a53161ec7c05be2961e5d1ce1525fb22240b4fc282075caa567b5a85f",
+    "closedSchemaAndMetadataParityPassed": true,
+    "projected": {
+      "slugs": [
+        "ca-g10-ch01-congruence-proof",
+        "ca-g10-ch02-similarity-right-triangle-reasoning",
+        "ca-g10-ch03-circle-geometry",
+        "ca-g10-ch04-quadratic-structure",
+        "ca-g10-ch05-conditional-probability",
+        "ca-g11-ch01-function-transformations-inverses",
+        "ca-g11-ch02-exponential-logarithmic-models",
+        "ca-g11-ch03-trigonometric-functions-graphs",
+        "ca-g11-ch04-data-modeling-residuals",
+        "ca-g11-ch05-statistical-inference-claims",
+        "ca-g12-ch01-quantities-units-precision",
+        "ca-g12-ch02-polynomial-structure-behavior",
+        "ca-g12-ch03-decision-statistics",
+        "ca-g12-ch04-function-analysis-rates",
+        "ca-g12-ch05-capstone-modeling",
+        "ca-g6-ch01-ratios-rates-percent-reasoning",
+        "ca-g6-ch02-rational-numbers-number-line",
+        "ca-g6-ch03-expressions-equations-variables",
+        "ca-g6-ch04-geometry-area-surface-area",
+        "ca-g6-ch05-statistics-data-distributions",
+        "ca-g7-ch01-proportional-relationships",
+        "ca-g7-ch02-operations-rational-numbers",
+        "ca-g7-ch03-linear-expressions-equations",
+        "ca-g7-ch04-scale-geometry-measurement",
+        "ca-g7-ch05-sampling-probability-inference",
+        "ca-g8-ch01-linear-equations-systems-readiness",
+        "ca-g8-ch02-functions-rate-change",
+        "ca-g8-ch03-transformations-similarity",
+        "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+        "ca-g8-ch05-bivariate-data-claims",
+        "ca-g9-ch01-equations-context",
+        "ca-g9-ch02-function-notation-interpretation",
+        "ca-g9-ch03-linear-quadratic-models",
+        "ca-g9-ch04-coordinate-geometry-methods",
+        "ca-g9-ch05-modeling-evidence"
+      ],
+      "middle": [
+        "ca-g6-ch01-ratios-rates-percent-reasoning",
+        "ca-g6-ch02-rational-numbers-number-line",
+        "ca-g6-ch03-expressions-equations-variables",
+        "ca-g6-ch04-geometry-area-surface-area",
+        "ca-g6-ch05-statistics-data-distributions",
+        "ca-g7-ch01-proportional-relationships",
+        "ca-g7-ch02-operations-rational-numbers",
+        "ca-g7-ch03-linear-expressions-equations",
+        "ca-g7-ch04-scale-geometry-measurement",
+        "ca-g7-ch05-sampling-probability-inference",
+        "ca-g8-ch01-linear-equations-systems-readiness",
+        "ca-g8-ch02-functions-rate-change",
+        "ca-g8-ch03-transformations-similarity",
+        "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+        "ca-g8-ch05-bivariate-data-claims"
+      ],
+      "high": [
+        "ca-g10-ch01-congruence-proof",
+        "ca-g10-ch02-similarity-right-triangle-reasoning",
+        "ca-g10-ch03-circle-geometry",
+        "ca-g10-ch04-quadratic-structure",
+        "ca-g10-ch05-conditional-probability",
+        "ca-g11-ch01-function-transformations-inverses",
+        "ca-g11-ch02-exponential-logarithmic-models",
+        "ca-g11-ch03-trigonometric-functions-graphs",
+        "ca-g11-ch04-data-modeling-residuals",
+        "ca-g11-ch05-statistical-inference-claims",
+        "ca-g12-ch01-quantities-units-precision",
+        "ca-g12-ch02-polynomial-structure-behavior",
+        "ca-g12-ch03-decision-statistics",
+        "ca-g12-ch04-function-analysis-rates",
+        "ca-g12-ch05-capstone-modeling",
+        "ca-g9-ch01-equations-context",
+        "ca-g9-ch02-function-notation-interpretation",
+        "ca-g9-ch03-linear-quadratic-models",
+        "ca-g9-ch04-coordinate-geometry-methods",
+        "ca-g9-ch05-modeling-evidence"
+      ],
+      "checks": [
+        {
+          "id": "ca-g10-ch01-congruence-proof-check-1",
+          "digest": "4bbaa162330f23952dd7a1f44e9f20f8ebb0842aeee154d27c9f0127b848c47b"
+        },
+        {
+          "id": "ca-g10-ch01-congruence-proof-check-2",
+          "digest": "ddad04c748e55af9fb5b7b8ca90fd2f7f047ec48bcd42ec0de0ebdb1cd8c4aff"
+        },
+        {
+          "id": "ca-g10-ch01-congruence-proof-check-3",
+          "digest": "d61a79c6f461103e183866ea75da6bc70e0b4c94874e9084cbe459fc3a213d9e"
+        },
+        {
+          "id": "ca-g10-ch02-similarity-right-triangle-reasoning-check-1",
+          "digest": "558db358d0afac2fec08ade77d989201cc4e795f108f78b1ddfe2aeeff1d9fea"
+        },
+        {
+          "id": "ca-g10-ch02-similarity-right-triangle-reasoning-check-2",
+          "digest": "0d1d725a152413b1156c0760c09d610fc9b5b4878dec9247e753e36345788720"
+        },
+        {
+          "id": "ca-g10-ch02-similarity-right-triangle-reasoning-check-3",
+          "digest": "82660c05dc8fed18d6055d564da23a2661c40b07998b6594832302bfd3e02316"
+        },
+        {
+          "id": "ca-g10-ch03-circle-geometry-check-1",
+          "digest": "523bf4691556af481613beba68afad2eadbd4cfaa90eb819eefd53f8b93d7a39"
+        },
+        {
+          "id": "ca-g10-ch03-circle-geometry-check-2",
+          "digest": "1f1097909d2901b565f6582f0ffdc24e3aa2e095bfb1dcaccd99ebec82b24544"
+        },
+        {
+          "id": "ca-g10-ch03-circle-geometry-check-3",
+          "digest": "ff295f190c1f183c2e52ba9e9b23ee724cd698c0ca089a2aec93a5e13f2ad79a"
+        },
+        {
+          "id": "ca-g10-ch04-quadratic-structure-check-1",
+          "digest": "a2feaad8ff14acd65011f7aaeab9dfc752cb5946c418e5e3e0aa396832413cb0"
+        },
+        {
+          "id": "ca-g10-ch04-quadratic-structure-check-2",
+          "digest": "62b5a7c41f9adba7c2022d107bf87ac6edc8f05b8cacacfecf9a17a633b934e3"
+        },
+        {
+          "id": "ca-g10-ch04-quadratic-structure-check-3",
+          "digest": "21ba38251b748bd9de96ea71051bc1ad2331bd35ec41288deb9677ec316588a2"
+        },
+        {
+          "id": "ca-g10-ch05-conditional-probability-check-1",
+          "digest": "ea883d5bbc8211ea11f1f576cc700059dfb57ab746d7ff613f5ac6885ba50450"
+        },
+        {
+          "id": "ca-g10-ch05-conditional-probability-check-2",
+          "digest": "d6c2432e8b97abaabd310019a8cd2fdf5f191cf094e2e6630aa6860b3b20a0cd"
+        },
+        {
+          "id": "ca-g10-ch05-conditional-probability-check-3",
+          "digest": "b4ae68f9256f18db531f413689f0e6c638517912ed61cf863cf31b93e792bf2c"
+        },
+        {
+          "id": "ca-g11-ch01-function-transformations-inverses-check-1",
+          "digest": "9ea59cd4d12d79b01178ca10ac0bd89fa267eefa1e72abb04d8f006c1d64ab3b"
+        },
+        {
+          "id": "ca-g11-ch01-function-transformations-inverses-check-2",
+          "digest": "09dda459dee98210d9b29f485eed18aaf70b17516705dc4698c07d42a87144b5"
+        },
+        {
+          "id": "ca-g11-ch01-function-transformations-inverses-check-3",
+          "digest": "a3a0933c7baa5ab3aca157e39e4a0443559dd884e045bb14502d29ec0509e43a"
+        },
+        {
+          "id": "ca-g11-ch02-exponential-logarithmic-models-check-1",
+          "digest": "a2f3667d17bc70597e424ebedb16eeb268f93e788f9a8a83e3f785040e7bd83b"
+        },
+        {
+          "id": "ca-g11-ch02-exponential-logarithmic-models-check-2",
+          "digest": "cd9c666fd3f9a986eca1b5d4cccbbea78304a0a582705dd8832d5c52d7558ffa"
+        },
+        {
+          "id": "ca-g11-ch02-exponential-logarithmic-models-check-3",
+          "digest": "a6f5d35c95c5a58598ef75f7fc1ffaabb54e89dc8ff5882c410bb8092209833f"
+        },
+        {
+          "id": "ca-g11-ch03-trigonometric-functions-graphs-check-1",
+          "digest": "d3d195de59a07d3edb15ba02e85ca0868999f21407ffe39eafdd90191850c861"
+        },
+        {
+          "id": "ca-g11-ch03-trigonometric-functions-graphs-check-2",
+          "digest": "f944502e6b301962324abf250277d22b67f9cb1e6fcf4dbd365eb95a0f44f905"
+        },
+        {
+          "id": "ca-g11-ch03-trigonometric-functions-graphs-check-3",
+          "digest": "e1dfe232e1c2ab560e2767ef45c3ba23bd45faddb80ce03acbae9ad1d146c7eb"
+        },
+        {
+          "id": "ca-g11-ch04-data-modeling-residuals-check-1",
+          "digest": "e0068469abb0fc413e1bb5856b737d1740f39e47cdc8c6ab85bffb8fbd3f9993"
+        },
+        {
+          "id": "ca-g11-ch04-data-modeling-residuals-check-2",
+          "digest": "60c012a6f7793ad373dd6a9df756c62e35985fd7314059479d627a50f0485d5d"
+        },
+        {
+          "id": "ca-g11-ch04-data-modeling-residuals-check-3",
+          "digest": "675ceb579a070292d08c2cdf15bc6f2c1ca94c75a2d1ddadc860425b0bfeaec7"
+        },
+        {
+          "id": "ca-g11-ch05-statistical-inference-claims-check-1",
+          "digest": "5d2abf70f135ac40deff4a4b9ab3ad83b4ad8088af0f5aa3ddbdc8004353e46e"
+        },
+        {
+          "id": "ca-g11-ch05-statistical-inference-claims-check-2",
+          "digest": "0012c865772fd916e67682ba6073a6de5bde4e10271200a820737d51e13ba7ce"
+        },
+        {
+          "id": "ca-g11-ch05-statistical-inference-claims-check-3",
+          "digest": "0fdb0ae32d0183a9667ab2850004786775f2879a0281eff06e756188d5af5f49"
+        },
+        {
+          "id": "ca-g12-ch01-quantities-units-precision-check-1",
+          "digest": "213318486c17c6f0adb6e1dbf76ee606ba54b5cda7cb91d98bf93e27120123b3"
+        },
+        {
+          "id": "ca-g12-ch01-quantities-units-precision-check-2",
+          "digest": "35f01b9fd5daeec33bffc84d7f3dc74ffd15fd79208a69b4dd88e83d06a4240c"
+        },
+        {
+          "id": "ca-g12-ch01-quantities-units-precision-check-3",
+          "digest": "d65d69cecef0464b537316fcb5a155e3c940c98268c6044675e5576fb609e1b8"
+        },
+        {
+          "id": "ca-g12-ch02-polynomial-structure-behavior-check-1",
+          "digest": "ff29d0759da48ed94495e92b33052e91886c28fd8bc3fae4541bd38530f2f22d"
+        },
+        {
+          "id": "ca-g12-ch02-polynomial-structure-behavior-check-2",
+          "digest": "a513a3d91c170150d2b0756120bfbd730b03a974476d682c2c9cfc0579cbd0bb"
+        },
+        {
+          "id": "ca-g12-ch02-polynomial-structure-behavior-check-3",
+          "digest": "adf2bdcfe2831cc52d5d8ada72bc6792c4661cde3d7ded4847c34486aa512229"
+        },
+        {
+          "id": "ca-g12-ch03-decision-statistics-check-1",
+          "digest": "5a2cf9793d29206e84b8dc3fd41947c72b762055f2d1f96270b86c305d4f35ea"
+        },
+        {
+          "id": "ca-g12-ch03-decision-statistics-check-2",
+          "digest": "c6b0b232a8b167a82a323cb3d3b6cf66644e26ba95f0155608e48407694f94ee"
+        },
+        {
+          "id": "ca-g12-ch03-decision-statistics-check-3",
+          "digest": "e239219f3cdd1d2bbb3704cdd1bf83e78a6b5c4449f44ed95b8bd1d6727cf640"
+        },
+        {
+          "id": "ca-g12-ch04-function-analysis-rates-check-1",
+          "digest": "bec217e061bb7ed55e78091d88ecbc113511dfd17d06a118c171c47ac1428cd6"
+        },
+        {
+          "id": "ca-g12-ch04-function-analysis-rates-check-2",
+          "digest": "15f35fc6893656e9cd8dc2aab1de94c18987cb615ba10d91f2482ca6f899384a"
+        },
+        {
+          "id": "ca-g12-ch04-function-analysis-rates-check-3",
+          "digest": "bb2fd1c109e01bcd42fcf1d477ed9d70e76ad14d03a4985bf658018d1aa31eef"
+        },
+        {
+          "id": "ca-g12-ch05-capstone-modeling-check-1",
+          "digest": "2a3f85caae998893f49f83607cf14ce652fa73850ec600c948b88e009e22786a"
+        },
+        {
+          "id": "ca-g12-ch05-capstone-modeling-check-2",
+          "digest": "45c86270685d613fa96b88ab3917f077f1d250a80be9b8ffed7fe5aa25da9718"
+        },
+        {
+          "id": "ca-g12-ch05-capstone-modeling-check-3",
+          "digest": "c7346a41b8faecf1e2ab079092a20c0ed01be6a3d1138b4099f68124a5ee2a28"
+        },
+        {
+          "id": "ca-g6-ch01-ratios-rates-percent-reasoning-check-1",
+          "digest": "2578315e536d5b4e65e48c381aa3095b74338822b59f75e04119b70fe03a57b0"
+        },
+        {
+          "id": "ca-g6-ch01-ratios-rates-percent-reasoning-check-2",
+          "digest": "dca2431f146133556cc5ae78745fbd25aa7069d27c2cb67de0a2ce82dd4f4739"
+        },
+        {
+          "id": "ca-g6-ch01-ratios-rates-percent-reasoning-check-3",
+          "digest": "5e4480b79dde9de48e34fc9aad43f23248c24d7a3f991614dca0bf7e2578fa84"
+        },
+        {
+          "id": "ca-g6-ch02-rational-numbers-number-line-check-1",
+          "digest": "d509f05698fb2571721be62f387a82124e52275e9efc70f95927a98541b6afd5"
+        },
+        {
+          "id": "ca-g6-ch02-rational-numbers-number-line-check-2",
+          "digest": "d4ae4ad87c8e16c059ab101545323c97502ed5d8ec480438a20129ac93665578"
+        },
+        {
+          "id": "ca-g6-ch02-rational-numbers-number-line-check-3",
+          "digest": "3082e97802d4d07aef8b8ecbd18d721b83d38aa3a40d644b0d4093b1820c1702"
+        },
+        {
+          "id": "ca-g6-ch03-expressions-equations-variables-check-1",
+          "digest": "020059d9b37f78f395a5f049440a4fc06fe7136cefe081d045671f3978cc7836"
+        },
+        {
+          "id": "ca-g6-ch03-expressions-equations-variables-check-2",
+          "digest": "b0205719ccc3ad1de2e314c104662aab62e5b61ac9fead979db965a04311221c"
+        },
+        {
+          "id": "ca-g6-ch03-expressions-equations-variables-check-3",
+          "digest": "99c30e5890e7d7db404c3cce21f88dc23d8f71222dafd2b17f80901c881e5095"
+        },
+        {
+          "id": "ca-g6-ch04-geometry-area-surface-area-check-1",
+          "digest": "679c9f45aeb1b9028f138aa4d65236d80bddf99759e1742186d2ba563f74280a"
+        },
+        {
+          "id": "ca-g6-ch04-geometry-area-surface-area-check-2",
+          "digest": "1fc7ad6400363ac4990997a6c93765131cbf4b7a6494557d3a1446133e625eaf"
+        },
+        {
+          "id": "ca-g6-ch04-geometry-area-surface-area-check-3",
+          "digest": "031ae948cc50cd5f586f4873381e748efc058efcf18f97d70bdef0807112b5fb"
+        },
+        {
+          "id": "ca-g6-ch05-statistics-data-distributions-check-1",
+          "digest": "0465820261c3ad856e5ee5ba231c5c8c367e197487b8c439b207a358ad64ef40"
+        },
+        {
+          "id": "ca-g6-ch05-statistics-data-distributions-check-2",
+          "digest": "e5743ce2c9a87148ead5b626f994517ba067e83eabfe2103d4f2b1171f38f9ad"
+        },
+        {
+          "id": "ca-g6-ch05-statistics-data-distributions-check-3",
+          "digest": "d7da33e1224708ffeb4e032ee64439943dd0e3273dbab55de2c354d77ed019ae"
+        },
+        {
+          "id": "ca-g7-ch01-proportional-relationships-check-1",
+          "digest": "f9180fc4e5e3e7c6e37d746f344af28037e8e73cf0da66a49f4d491368cad948"
+        },
+        {
+          "id": "ca-g7-ch01-proportional-relationships-check-2",
+          "digest": "2afe634d6439b5fb3c6a09abb7461ddd86d6ff4aaab308ec9b4346d05cf90e16"
+        },
+        {
+          "id": "ca-g7-ch01-proportional-relationships-check-3",
+          "digest": "246838cb2688ab50edd7bfc3f5a6025e9f8ee2a58c9cfa404a757b784c859931"
+        },
+        {
+          "id": "ca-g7-ch02-operations-rational-numbers-check-1",
+          "digest": "a9b501399b3bca19046bb2f1a0dd48b8aebc65b8a19a3f49274f905ba2f17e7b"
+        },
+        {
+          "id": "ca-g7-ch02-operations-rational-numbers-check-2",
+          "digest": "94f773e8f648c2d397f1f61c6f9426450efec14451b09d50ec824ab4ec81ae5b"
+        },
+        {
+          "id": "ca-g7-ch02-operations-rational-numbers-check-3",
+          "digest": "e0f2d21923311e4cfb84d831324ae77bd051670f51c3cd48d0520883a37b285b"
+        },
+        {
+          "id": "ca-g7-ch03-linear-expressions-equations-check-1",
+          "digest": "dd5b707b6915b6cf94bf69b5446ae546110afb13455467ede0f957b2a0c7a06c"
+        },
+        {
+          "id": "ca-g7-ch03-linear-expressions-equations-check-2",
+          "digest": "77b71ccbfbce1651cfa6d9c4a8057d28021b927736e8e5d93474bff5e2b09a3f"
+        },
+        {
+          "id": "ca-g7-ch03-linear-expressions-equations-check-3",
+          "digest": "d5460e345b84bbb7775395616e915fe273681c04dc756727e104df9a4f38b7a9"
+        },
+        {
+          "id": "ca-g7-ch04-scale-geometry-measurement-check-1",
+          "digest": "1b23b1fba0d66208f657b03f781b4095df74728f559625c806df836198601e3e"
+        },
+        {
+          "id": "ca-g7-ch04-scale-geometry-measurement-check-2",
+          "digest": "9d05bf3a8d4a2d88cb9cc31d4313e3d05b51312a12d4d9122cfccbd30744ea03"
+        },
+        {
+          "id": "ca-g7-ch04-scale-geometry-measurement-check-3",
+          "digest": "5cdd93393968836346a062278b527387b13197b83b1687ef25ee4e99b9e64491"
+        },
+        {
+          "id": "ca-g7-ch05-sampling-probability-inference-check-1",
+          "digest": "3e4a4f4db784d82246cb0629e28eb876b417d3af2bfd1fe61de315a0aa049fd9"
+        },
+        {
+          "id": "ca-g7-ch05-sampling-probability-inference-check-2",
+          "digest": "5ff96b5a898c17c70890bf730079e754637bf70086a1602fbfdb5851045bda49"
+        },
+        {
+          "id": "ca-g7-ch05-sampling-probability-inference-check-3",
+          "digest": "a28c32f3303d6ee914938bc31998c8c9032180551111c0e2d0f947081540164b"
+        },
+        {
+          "id": "ca-g8-ch01-linear-equations-systems-readiness-check-1",
+          "digest": "86c96be6e5aee068199ab60abdff470b5b6f3287bc24016726eff2b8709f0fa6"
+        },
+        {
+          "id": "ca-g8-ch01-linear-equations-systems-readiness-check-2",
+          "digest": "6b22ac274324dec54555d2f3d4aa807dcceeefce0979bb0a79a04348f472859b"
+        },
+        {
+          "id": "ca-g8-ch01-linear-equations-systems-readiness-check-3",
+          "digest": "98e984b91c78bad44149c58d7b296ba447ecd7610c191c2db23af3978cf077f3"
+        },
+        {
+          "id": "ca-g8-ch02-functions-rate-change-check-1",
+          "digest": "2cb6f9264c2ec213ae764e908c7614b6146d050c0a9c2a086ffd6dda8f3ac8ad"
+        },
+        {
+          "id": "ca-g8-ch02-functions-rate-change-check-2",
+          "digest": "0204d184a7ff1ec66375a95e06e3215ceb4be705015749543642f11bb9d94c8c"
+        },
+        {
+          "id": "ca-g8-ch02-functions-rate-change-check-3",
+          "digest": "68706d9a4b3e5f2380384266ab62eedda2e029221e3efab521662d9dee49c716"
+        },
+        {
+          "id": "ca-g8-ch03-transformations-similarity-check-1",
+          "digest": "c86beacdf23fe341980079f8a67976567903a7712a3d466907cc5fca874ec6bb"
+        },
+        {
+          "id": "ca-g8-ch03-transformations-similarity-check-2",
+          "digest": "7e09eec11fd5718d2802f981ebca70ab390eca484e0c4bb880061fc49aaf928f"
+        },
+        {
+          "id": "ca-g8-ch03-transformations-similarity-check-3",
+          "digest": "036de3fee7b27597d1574aec49178e23cfc37e2bb6999d1c652fcc5f06269508"
+        },
+        {
+          "id": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry-check-1",
+          "digest": "a740ef4f81b5928d99af16d69f5196aa983ecf6a0028226e0b5d2277915f55bf"
+        },
+        {
+          "id": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry-check-2",
+          "digest": "5c2d0e21c7436cdcf9e71160424e97488b4afa16bd88535f36b81731bfd9a3b1"
+        },
+        {
+          "id": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry-check-3",
+          "digest": "0e17853cfcc2eb1a182283039cd3d46e764da9a23886aae056643c50f25434a0"
+        },
+        {
+          "id": "ca-g8-ch05-bivariate-data-claims-check-1",
+          "digest": "b6c5e572d5b975c26c3bd951a349148a033dcf7db5179278f3d0c66bcfa9b722"
+        },
+        {
+          "id": "ca-g8-ch05-bivariate-data-claims-check-2",
+          "digest": "1dc78ce6acdea2e23319792dd6edb4af9d9601870eb213974e4373cccddf16d8"
+        },
+        {
+          "id": "ca-g8-ch05-bivariate-data-claims-check-3",
+          "digest": "c51fa12c68289cf3026494d03b8d606c36c5b6480f6b4cce74193655318ae1e3"
+        },
+        {
+          "id": "ca-g9-ch01-equations-context-check-1",
+          "digest": "b04c93ce136bd3a9e371c32feb3fc995435123d05240ddb3abb333e25ea6dc39"
+        },
+        {
+          "id": "ca-g9-ch01-equations-context-check-2",
+          "digest": "4c0e9f85ec558cfd61bf6fa0e31a5c814708eb5dd1085b7017039b6b74d526d3"
+        },
+        {
+          "id": "ca-g9-ch01-equations-context-check-3",
+          "digest": "61f51f56b4ec8e108085295a1da040c16a6a1af9d959b22113748ae6606b528d"
+        },
+        {
+          "id": "ca-g9-ch02-function-notation-interpretation-check-1",
+          "digest": "f132392c4414580d3625823c92bdc82ef869f9e130d8a18e19cd2f3ffb026b15"
+        },
+        {
+          "id": "ca-g9-ch02-function-notation-interpretation-check-2",
+          "digest": "fd701880bf144c9daa105380ad18b63c629ebe94ae8411cc7a873511a58cd870"
+        },
+        {
+          "id": "ca-g9-ch02-function-notation-interpretation-check-3",
+          "digest": "0f6d878bdad89cbb9d5b2fa800c0f8a07f8e515c66f510b08af9f7ae52bd68ac"
+        },
+        {
+          "id": "ca-g9-ch03-linear-quadratic-models-check-1",
+          "digest": "b66f74c19e4913975ec131464c215d14bc729787832218390ff6ed75497dcc3b"
+        },
+        {
+          "id": "ca-g9-ch03-linear-quadratic-models-check-2",
+          "digest": "02ff8639ae9a5a7325d2d74151009be29cff2dea629a3dcd40de4268a81d02f8"
+        },
+        {
+          "id": "ca-g9-ch03-linear-quadratic-models-check-3",
+          "digest": "f3b309c7d2c1d1d59198c0f2ab79700b03b72a340e2b3e0e7123162b65ad1782"
+        },
+        {
+          "id": "ca-g9-ch04-coordinate-geometry-methods-check-1",
+          "digest": "87d8c5cfcb67b828f44ca571296e5baf63d96818e10f947340d8e0949cf32dc9"
+        },
+        {
+          "id": "ca-g9-ch04-coordinate-geometry-methods-check-2",
+          "digest": "2227cab1e315e62a3e32948a888cc25696e7f1e799bdcc2ac777392c65ee793a"
+        },
+        {
+          "id": "ca-g9-ch04-coordinate-geometry-methods-check-3",
+          "digest": "6ebb4b7c82701d3e8c0522fcebe51431d8971e19ad4ae3cd874a85cd060d3bed"
+        },
+        {
+          "id": "ca-g9-ch05-modeling-evidence-check-1",
+          "digest": "a96dd2cb66eb4eebbd294459ecaaeda896a420bbd5fa2a5212b5dc80280809fe"
+        },
+        {
+          "id": "ca-g9-ch05-modeling-evidence-check-2",
+          "digest": "b2b58b4efd8ab076205126a813936f099416ba59c86438d26dc8c1ae3e678a09"
+        },
+        {
+          "id": "ca-g9-ch05-modeling-evidence-check-3",
+          "digest": "f5ee6c4ab66e2f542e2d2081314f17d6861032377345c49109186e03bf305b69"
+        }
+      ],
+      "checksDigest": "94423ea3e288f4b734096eb9f0cec65f0f2ede8a6d0a597513cc7e4eb8f8518a"
+    },
+    "nativeAttemptExecuted": false,
+    "liveAllowed": false
+  },
+  "priorRecordSha256": "1fdc45fcf7a2d5811cb5fcaa1d84cdd6fe2312eccbaa038fc3fd3139b9704fe8",
+  "priorReportSha256": "c29726ab2921d92fe5475a238f7ab6b78ff8cbc7e91d9c327a8897061d151024",
+  "priorRegressionHashes": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-001.txt",
+      "sha256": "f827686c0b8dfc88f443d733792455237cfc79fc79fe22e7f6b20a34d78e033c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-002.txt",
+      "sha256": "9d341652bf99264be3636936c8cd991c7b5553274ff04a4e2e88d4c4a02621ca"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-003.txt",
+      "sha256": "c01fc684172f64397a8396e7f2302fcf8def864d1eea9660aa14cc55c1f12ccc"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-004.txt",
+      "sha256": "ac21d2eac7c3028b1d7d0a9b4b3995fc6ca235e23d4e7a66f3870c44e3b8e24d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-005.txt",
+      "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-006.txt",
+      "sha256": "dcd18ca5293d1d426258e23c66c14ef23f52c33827f3567ee7dd0ec83d2e891d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-007.txt",
+      "sha256": "d282f59194b4012be523f6ab293653956f18c2b81ad51434ed04c252592cb4d3"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-008.txt",
+      "sha256": "664c8a55b7695217f3ea5527de68469976b78dc6f185a698bdf6877b9067b98e"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-009.txt",
+      "sha256": "be614dc518ca377184222b515d2de0a176df6fa587afee2c9694a2860bbec4cb"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/a11/regression-010.txt",
+      "sha256": "a719931a93d1456c5fe2a94d51f615fb92e1ac4164801d203bdeee6293f520d5"
+    }
+  ],
+  "checkerBundleUnchanged": "8ad8093a171ae7541fb329f688d7a6499c25dcd513e3a45e0664b6f1e1d66011"
+}

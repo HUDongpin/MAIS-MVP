@@ -1,0 +1,772 @@
+{
+  "schemaVersion": "source-a11-r2-consumption.v1",
+  "description": "Post-R2 read-only evidence consumption and unchanged-source rebind; not a new source test, browser/grid run or native attempt.",
+  "verification": {
+    "reviewedAt": "2026-10-29T08:13:54.536Z",
+    "reviewer": "/root/pr304_native_a23",
+    "role": "source-A11",
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+    "checkerReleaseCommit": "0adfef5b8fcb10a5718967e23d7476d9d7049d2b",
+    "priorCheckerReleaseCommit": "c9bf7a2525a4494ec134ce0f8d24198ef011490e",
+    "candidateDigest": "4a62735ccfaa7861147f2700fe2982ee926ec6c89ce30ea53756f4fd8c19d973",
+    "candidateRawBytesUnchanged": true,
+    "dispositionDigest": "858b6258c4b974b4898aa5d02327a326f9670f5a45591e54ba2da1f9aa75f1ba",
+    "auditDigest": "b20edcfbfd4ea4a09243e467128a4c54ecb8c363faa93fc022fa571904120df4",
+    "registryOnlyExpectedAuditChanged": true,
+    "priorEvidenceInputsRehashed": 127,
+    "sourceFilesVerified": 138,
+    "removalsVerified": 2,
+    "originalContentEvidenceUnchanged": true,
+    "sourceToSourceDelta": [],
+    "newNativeSuite": {
+      "producer": "/root/pr304_native_a11",
+      "testedBundleDigest": "c58d66b2e4bbfa7850f9c80161663f9994639634b06d02e17b2eb71a4695a4dc",
+      "tests": 145,
+      "fail": 0,
+      "executedByThisReviewer": false
+    },
+    "budgetReview": {
+      "reviewer": "/root/pr304_native_a11",
+      "at": "2026-10-29T08:09:59.784432+00:00",
+      "verdict": "ready-for-new-checker-release-freeze",
+      "findings": [],
+      "finalBundleDigest": "8ad8093a171ae7541fb329f688d7a6499c25dcd513e3a45e0664b6f1e1d66011",
+      "actualBootstrapProbeCases": 12,
+      "targetedTestsPass": 3,
+      "innerImplementationsByteIdenticalToR1": 4,
+      "nativeAttemptExecuted": false,
+      "actualNewReleaseCommit": null,
+      "liveAllowed": false
+    },
+    "buildAttestationUnchanged": true,
+    "priorBuildFullRehashRetained": {
+      "reviewedAt": "2026-10-29T07:46:49.684Z",
+      "reviewer": "/root/pr304_native_a23",
+      "role": "source-A11",
+      "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+      "buildId": "HbU0MJd-0kP7iOKha49jw",
+      "attestationSha256": "c350fb77e77e529b4e13b64ea7e30ba03c86a2f09fd9377752d28ba19f7c59c6",
+      "artifactTree": {
+        "algorithm": "sha256",
+        "exclusions": [
+          "mais-build-attestation.json",
+          "cache/**",
+          "diagnostics/**",
+          "trace",
+          "trace-build"
+        ],
+        "fileCount": 2627,
+        "totalBytes": 138749928,
+        "root": "f46ae94acfdf2741a085c63fd3ee0a22a9847ad8f4e053e9690e8d92da313782"
+      },
+      "allIndividualAndTreeHashesVerified": true,
+      "buildExecutedByThisReviewer": false
+    },
+    "globalInventoryPassed": false,
+    "nativeAttemptExecuted": false,
+    "liveAllowed": false
+  },
+  "checkerContinuity": {
+    "fromBundle": "c58d66b2e4bbfa7850f9c80161663f9994639634b06d02e17b2eb71a4695a4dc",
+    "toBundle": "8ad8093a171ae7541fb329f688d7a6499c25dcd513e3a45e0664b6f1e1d66011",
+    "changedBundlePaths": [
+      "coordination/integration/ca-textbook-successor/promotion.mjs",
+      "coordination/integration/ca-textbook-successor/repository.test.mjs"
+    ],
+    "dependencyUnchanged": true,
+    "latest145RawSha256": "d282f59194b4012be523f6ab293653956f18c2b81ad51434ed04c252592cb4d3",
+    "negativeCategoryCount": 8,
+    "allNegativeTitlesFound": true,
+    "timeoutCliRawSha256": "664c8a55b7695217f3ea5527de68469976b78dc6f185a698bdf6877b9067b98e",
+    "originalRunIdentitiesPreserved": true
+  },
+  "inputs": {
+    "inputs": [
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/inputs/candidate.json",
+        "sha256": "8d60af626e460158eae74770b709a72f0d014c285e284fe200c73c03a7eb127b",
+        "bytes": 67547
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-01.md",
+        "sha256": "7c20107c5b1d1ef354a20d0f125641c0545bb1b81099bbf4a169864e8801031a",
+        "bytes": 2613
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-02.md",
+        "sha256": "c7e2ad23e8ea42aec38fddc7a8afdfef2cd6127f1748ea2bfb4befe082d65ef4",
+        "bytes": 3198
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-03.md",
+        "sha256": "9111d926709b6024f2cc9a5c80bf15247f2ab7a128ba5b34f0fa970068150512",
+        "bytes": 2614
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-04.md",
+        "sha256": "c410745cde488fd446b741142a9f49e9d6c4d7d79408e2d063e3d8759217b98f",
+        "bytes": 2598
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-05.md",
+        "sha256": "1cffc88acbf54e851e6ca6c19bef66d7ad8604f8fcbd742a2135a3c0bb7f2840",
+        "bytes": 2956
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-06.md",
+        "sha256": "019a00563d847378e947b9196120efe5731fd670a3f7bb7b5294f1f015922cdb",
+        "bytes": 2576
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-07.md",
+        "sha256": "57176538c4b8bd93e1297607f047ce5a066d3f36446990cf4085700d1ea056dd",
+        "bytes": 2636
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-08.md",
+        "sha256": "e18719513d0f313b8c6e52a5d41fa067950612c0ea3501e06609a3f9a084dfa0",
+        "bytes": 2589
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-09.md",
+        "sha256": "98e800b549b273b8a906d2458b4e39b21b07a2d78c8b6a4a69c3d64e85119de2",
+        "bytes": 3006
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-10.md",
+        "sha256": "2289409c12166e938165c1c9c6d1038b983fc70a2424378342cb7513319796bf",
+        "bytes": 2670
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-11.md",
+        "sha256": "523d8c9f453173d96eb43b15be8209eae55e004364279ce9ad56e3f60ab59636",
+        "bytes": 2676
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-12.md",
+        "sha256": "504b18914510e89e1bdef60770fd744ba8c2598c46f6563ce6a822305dba5802",
+        "bytes": 3882
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-13.md",
+        "sha256": "2e392af0ed16e8dbf8274030905c97596cee0bf4cfcdb61c227ece8a4e5aeb62",
+        "bytes": 3000
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-14.md",
+        "sha256": "be24be70b31e804cb6e9525fb1909086665602dc60e4494762941848547d7bf7",
+        "bytes": 3630
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/source-evidence-v3/coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/assets/old-15.md",
+        "sha256": "3b3bddf854e890f7674c81670174d85d6fd44e7a6a08878a4dc3a738af3936bf",
+        "bytes": 2640
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/artifact-manifest.json",
+        "sha256": "ea58f6b75aeb2ed8d68994299cd9a43c89648c0df93bc5d64a86e44ad5106263",
+        "bytes": 4616
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/CURRENT.md",
+        "sha256": "325dc91c6833e3d5f0791a854bfc064ffb4df32a009e4067cfcd6a458033ddb8",
+        "bytes": 650
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/audit-tests.json",
+        "sha256": "7669bccd4a0e7b6c189365683fb1ef24a7010fbf5e904c43658b7a3b69a1309b",
+        "bytes": 706
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/audit-tests.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/audit-tests.stdout",
+        "sha256": "9d341652bf99264be3636936c8cd991c7b5553274ff04a4e2e88d4c4a02621ca",
+        "bytes": 2966
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/build-verification.json",
+        "sha256": "946e5ddc6a2ebb3a13b9a71ae89274f7a22ff831903ed739a0f69e9739c237f3",
+        "bytes": 706
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-classes.json",
+        "sha256": "e42c14cad18774ce7b454e7780dee5a429a03e5f5744fc2622356ae792d52712",
+        "bytes": 474
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-classes.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-classes.stdout",
+        "sha256": "ac21d2eac7c3028b1d7d0a9b4b3995fc6ca235e23d4e7a66f3870c44e3b8e24d",
+        "bytes": 46
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-contract.json",
+        "sha256": "cbe6510611b96326d60bc1eaf14d8f1aa82103245038efbd08becb11afcdb8e5",
+        "bytes": 647
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-contract.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/ccss-contract.stdout",
+        "sha256": "c01fc684172f64397a8396e7f2302fcf8def864d1eea9660aa14cc55c1f12ccc",
+        "bytes": 1692
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/consume-evidence.py",
+        "sha256": "765f3d061bfbcaf702d7b640025fbac57a65077a0d7d672cada1da1d55245940",
+        "bytes": 14915
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/consumed-input-manifest.json",
+        "sha256": "72f6385439f113db90489b4eaabef28506f01f839a8b309266be0b0ed963d27f",
+        "bytes": 11047
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/evidence-consumption.json",
+        "sha256": "b31737edf0877d45ec9a319dd089fa6f7e8efcbfe574ac6884112d317ae31130",
+        "bytes": 17406
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/fresh-checks.json",
+        "sha256": "f2e2542f8c5bb41c84877f7f059838cdeae8de8fc9e43eb4afb62b8610d1d754",
+        "bytes": 6672
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/global-inventory.json",
+        "sha256": "8f0c302833589c4faa6f5a0551745e7f9d35632b57ed0c6fab7c1cda0436c805",
+        "bytes": 986070
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/global-inventory.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/lesson-tests.json",
+        "sha256": "12702d4ac23055002a11a7f3c71e4b442661d9a95ad66e3bd614788e82703fcb",
+        "bytes": 3587
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/lesson-tests.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/lesson-tests.stdout",
+        "sha256": "f827686c0b8dfc88f443d733792455237cfc79fc79fe22e7f6b20a34d78e033c",
+        "bytes": 54749
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/review-result.json",
+        "sha256": "4b83c39a5cf91e3c1c221d4cc3fe9b27ba0a273a48b616498fb31a28e16a1323",
+        "bytes": 4895
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/review.md",
+        "sha256": "b0287cb207ebdfe370ee9c5db739d823408566f36d5a54db6e30da9b31fa5d6b",
+        "bytes": 9528
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/run-checks.py",
+        "sha256": "23b1c4908e1c2f28f6f93b9857ff047a1e080e5a1fe44d3434b90203acac939a",
+        "bytes": 2490
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/source-delta-binding.json",
+        "sha256": "265c9aed3505ba068b9aaaef026cc2516c99e76a1e64888a98825c1574caeff7",
+        "bytes": 38675
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/strict-types.json",
+        "sha256": "f2499c8112abadc634d4da81576aaf69a6e286a6d0c5cc0dec83f74c3dc9158f",
+        "bytes": 457
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/strict-types.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/strict-types.stdout",
+        "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d",
+        "bytes": 77
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-pre-review/witness-binding-checks.json",
+        "sha256": "4ec5f8bcfb2d9e02c83303988f8345b38b08d2b0fded34367f6f4f682ba9e2f9",
+        "bytes": 14548
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/CURRENT.md",
+        "sha256": "9b06e8b3c026b5932ca0c422421d49853ef2d62987d0705843ee0c41db88be4c",
+        "bytes": 1169
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/a18-decision.json",
+        "sha256": "b2b545c67b22a24432631edf5a01df34b08e7405e25e6ef6c8310fb1c158a4f7",
+        "bytes": 7903
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/a18-decision.md",
+        "sha256": "ce64fd42df9abc6b14bee53471168661d9ebdb8be09e63e2a0b41d41e9be2244",
+        "bytes": 9436
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/baseline-related-observations.json",
+        "sha256": "a2572dccb35e8e4269ecc8b9db3e9b9b7fd3fcf4ecc56a7e36296ed63be03ccc",
+        "bytes": 4693
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/evidence-consumption.json",
+        "sha256": "ff92e4b5fb0d0da3aeb3c6ce6bc3375e00002f050b9ad7c896914a57ccb698dd",
+        "bytes": 61054
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/input-manifest.json",
+        "sha256": "f4f8ed6011df0ebe572188db198deaf2284ac6d073ba04ed2ff2ecab602414c0",
+        "bytes": 31814
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/manifest.json",
+        "sha256": "e7645a01314b42b3daec31cdaaf06118b359ce13d74425c3085c20cf164b4818",
+        "bytes": 1597
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/semantic-asset-coverage.json",
+        "sha256": "8afa9ab95edd47a816529e6195a1703260468ba4f8843d7a5fe26b2ff6bcd739",
+        "bytes": 41787
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-rendered-asset-review-r2/topic-reachability-delta.json",
+        "sha256": "e6b2c06a40b0dfb74aa5aaebfe72c0f429eae1725603ae0cc18c5255556fb3d2",
+        "bytes": 57893
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/baseline-diagram-inventory.stdout",
+        "sha256": "a7b6dfe9c4c13544a196c6887b9054339886ed3a5b992652765156486d430134",
+        "bytes": 937441
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/build-custody.json",
+        "sha256": "cc6ebb83f249a932b404bd05b25ebe85483fb1106ace604641746e30133b8f9e",
+        "bytes": 479
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/figure-visual-diagnostics-r2/manifest.json",
+        "sha256": "6e84b8ade1f8d1b39fef91e779059b9ea10c3fc4d640bfcd39d72214c74c36a8",
+        "bytes": 18218
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/figure-visual-diagnostics-r2b/manifest.json",
+        "sha256": "035150442ff3893657f084326aa58fda69c0b8aea6c54036790ff0eb146f811d",
+        "bytes": 32223
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/label-grid-source-r2-execution.json",
+        "sha256": "da3814efa409f73d1e1bf62d27d1ba04b3bdd3509c83507c3e7e712abf9ff49d",
+        "bytes": 745
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/label-grid-source-r2.json",
+        "sha256": "58deb2896e67ad052cd2cc6f2dd58acc10c39dad061438840912107c0bc2026d",
+        "bytes": 72543
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/label-grid-source-r2.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/label-grid-source-r2.stdout",
+        "sha256": "896f9a7ae0884b19ac38d6ef1c4b635e0fd53ed221d87137f39e5073e51a622d",
+        "bytes": 2954
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/ordinary-routes-r2.json",
+        "sha256": "62c920cb961341277cb7541a05d2f29d5ccbe70d1ad436ff62ded499ba7eec6c",
+        "bytes": 29162
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/ordinary-routes-r2.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/ordinary-routes-r2.stdout",
+        "sha256": "111e9fc1cee23a6e6c9ba3321ee56f9acb2e7a5b892ba0f2dfb68775965b9580",
+        "bytes": 3487
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/pr304-source-ci-success.json",
+        "sha256": "14aff7d5e4cbeee4aa44f50b0dd9b97edc376ddc403cec8454a340e0f577cb11",
+        "bytes": 1599
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/probe-ordinary-lessons.mjs",
+        "sha256": "8f7ceafa3885d874f112cb4a7aa4463b7859d16d2ffabe6848d3b4102ef4bb0d",
+        "bytes": 3217
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/rendered-review-handoff.json",
+        "sha256": "78e96a70b9b1696c486fbdb06d59f630b748abe6edc9e2e74bf17f6dfb5f7c1a",
+        "bytes": 1530
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/rendered-source-r2/manifest.json",
+        "sha256": "c4a1914d8da912691f282124d0eba8ac838ca7429812221464b3ba9b3e022026",
+        "bytes": 109173
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/runtime-artifact-verification.json",
+        "sha256": "0934d0f45f124ba2263994755ecf078f9d44b55e46d1cfc05d1f054c720ce365",
+        "bytes": 506
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-r2.json",
+        "sha256": "cce22910321eb5526ce2c614e63e97fb43413a91f23cbc71fac8b5c33845da5d",
+        "bytes": 1964
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-r2.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-r2.stdout",
+        "sha256": "c1b0ad4bb03eee97e093fbbe6882324130e81977eec9fbcdd1e4f537c3e8ac8d",
+        "bytes": 34899
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-r2-diagram-inventory-execution.json",
+        "sha256": "d757ce97a51a8b40f89821c8c957d71a8a68eecf615a638959523b2d44d088f9",
+        "bytes": 2600
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-r2-diagram-inventory.json",
+        "sha256": "8f0c302833589c4faa6f5a0551745e7f9d35632b57ed0c6fab7c1cda0436c805",
+        "bytes": 986070
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.tmp/china-lesson-e2e-runtime/outputs/pr225-source-3dcbd2b1-r2/next-dist/mais-build-attestation.json",
+        "sha256": "adcbb3ade91c7234685ebf3b1861709b7a1e90e9571e94fe163c423b734d4a22",
+        "bytes": 1005
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:data/ccssLessonAssignments.test.ts",
+        "sha256": "09e89b7eab81e7ff8824539d4889bf82a5ce7d2ca17ce873b9a14f1dec3127e0",
+        "bytes": 5726
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:package-lock.json",
+        "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+        "bytes": 108429
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:package.json",
+        "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f",
+        "bytes": 21106
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/audit-ccss-lesson-classes.mjs",
+        "sha256": "d575fac58d8a705788f0dbd62f8c48bb5678a584dcb583bc241ed4d0435695aa",
+        "bytes": 2508
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/audit-math-diagram-inventory.ts",
+        "sha256": "fe488efd49f5827d4b5a6fc534394476c64a7f2b0682236be803b331ce3f84bd",
+        "bytes": 29286
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/audit-us-ca-lesson-text-collision-adversarial.test.mjs",
+        "sha256": "89eb2f39eee0416c89ee0ba2673f0f7399d96541baf85fd5bd9f99d9f7c0895d",
+        "bytes": 5932
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/audit-us-ca-lesson-text-collision.mjs",
+        "sha256": "23894833f58aadf7ea0c5fc2a1f0ac192876ed250fdbb83515f1b1c557e75d4c",
+        "bytes": 26205
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/audit-us-ca-lesson-text-collision.test.mjs",
+        "sha256": "64cc32ee52266cde57018c4fa100efa4faf7144af7fa776395ad26264ca61df0",
+        "bytes": 7814
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:scripts/next-clean-build.mjs",
+        "sha256": "0fef158c03b111a227201a0068bd8bb2c31bd2f4a4579c3fa192e8219f3f73ec",
+        "bytes": 23410
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:tests/e2e/california-high-school-textbook-review.spec.ts",
+        "sha256": "cb2b8794b86aa94e6ba72574f35a40861928714de0450cbf87263f8611edf1d2",
+        "bytes": 3747
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:tests/e2e/california-high-school-textbook-student-release.spec.ts",
+        "sha256": "cb185b5bc95fdf8bab9bae318e543aac00fda40ca2ad91775257424701668f07",
+        "bytes": 2512
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:tests/e2e/california-middle-school-textbook-english-only.spec.ts",
+        "sha256": "bff28963ee3f1055600a003a24c6b4c27e8219c2001e63d8414fed3ba08c1b41",
+        "bytes": 4702
+      },
+      {
+        "path": "git:3dcbd2b111f5f339b9e1f6d47a7229ec1f9b3997:tsconfig.json",
+        "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8",
+        "bytes": 1109
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/artifact-manifest.json",
+        "sha256": "8460a78815bac1952977d623f2ec6bc4090d064fe08e005c11be7b80d96ce838",
+        "bytes": 1602
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/CURRENT.md",
+        "sha256": "7c65404a5df1fd36f140c4318e2ce4cd51e6faa89a5a8bb681967dc8c5a017c7",
+        "bytes": 864
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/build-verification.json",
+        "sha256": "99a71dfe1fa125debad2c04b4f92bb6ed32869c667b0f3a6be7ff1b5eba0159e",
+        "bytes": 662
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/content-audit-bindings.json",
+        "sha256": "3db89800fd851a9cd1df3a594f9e2418f3b05ae064fa4fa82804fb42c47b900f",
+        "bytes": 15506
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/input-manifest.json",
+        "sha256": "b50709976512721bbf3c69aaf76fe9b1c3ab3b19cdc566cb3766921e24fff44a",
+        "bytes": 8243
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/review-result.json",
+        "sha256": "812e31ea4cce4f32c9a5c776ed42cdfd855ea55d59c60348fb8c2cc05b2d7de2",
+        "bytes": 2261
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/review.md",
+        "sha256": "03ec2ab41a88e58da74852a165bdc977edd9ab5ddf954c771c9506130bb25d8d",
+        "bytes": 5923
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/verification.json",
+        "sha256": "3dce9c9950e0d03e29b10e93e7e12d6397f0c8eb9280c5d5d1a5a052476750c2",
+        "bytes": 6938
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-a11-claim-delta/verify-rebind.py",
+        "sha256": "bb2160a54574f64b27ec68193319e1d1786352a9876c2ad455687a9791e7af9f",
+        "bytes": 9750
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/CURRENT.md",
+        "sha256": "3a25c27616573ee35be81a1969ba1f5ce47fb8f996b99fff9caada682c95c700",
+        "bytes": 902
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/build-587c706f-attestation.json",
+        "sha256": "934e14bc25e5c82dc8ace70f44c00e54e8fb1819b412252e3370008c5228c196",
+        "bytes": 1008
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/build-98d086c8-attestation.json",
+        "sha256": "c350fb77e77e529b4e13b64ea7e30ba03c86a2f09fd9377752d28ba19f7c59c6",
+        "bytes": 1014
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/failed-587c706f-source-browser-claim.json",
+        "sha256": "13f73a623e34483cbcaf213d7fe92580a0a7727977887d826be58d0285881fcc",
+        "bytes": 1985
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/failed-587c706f-source-browser-claim.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/failed-587c706f-source-browser-claim.stdout",
+        "sha256": "0ef779c0e301b1fa02a48122d85e6794532ca250324147233472eccef5096064",
+        "bytes": 50722
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/final-source-rebinding.json",
+        "sha256": "0153e24a30740bbef3a4892c146b6e533f453a7468fad078a0a29ec9069dbef6",
+        "bytes": 17125
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/first-run-disposition.json",
+        "sha256": "9d6bf975244738ca3b2e638d40465a628b0c3bfa7c19d2f5d572407c9c3fe080",
+        "bytes": 546
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/historical-provenance-check.json",
+        "sha256": "90d208b6b24a173e7611a92d8f626560719a1139a69cfd445747602fe592aa76",
+        "bytes": 13299
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/manifest.json",
+        "sha256": "9036f208fea1905a480967a1f082082b0e2d1d56d4e9f72a9fa6a27406d0ace8",
+        "bytes": 2757
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/passed-98d086c8-source-browser-claim-fixed.json",
+        "sha256": "1c33b646f1c5ee06320df8ecaaf7e2603e8561a882d2129294befa1cd29018e0",
+        "bytes": 2001
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/passed-98d086c8-source-browser-claim-fixed.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/passed-98d086c8-source-browser-claim-fixed.stdout",
+        "sha256": "dcd18ca5293d1d426258e23c66c14ef23f52c33827f3567ee7dd0ec83d2e891d",
+        "bytes": 37408
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/reaffirmation.json",
+        "sha256": "c51260d78254af27894c09b93c925de21715166f60339ad5ffac485e9e6c0920",
+        "bytes": 9014
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/reaffirmation.md",
+        "sha256": "6d93de0bef52693f67275f778d39df139fe560c5a3880ba9353b131042f1d895",
+        "bytes": 4571
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/a18-source-claim-delta/source-rebinding.json",
+        "sha256": "90541ad7428b73b297adc377667908e71a37ab68ad616c8a03a645cc5916d7e9",
+        "bytes": 33118
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/native-a23-review-v2/review.md",
+        "sha256": "62b43705b53db054882c86ace03a9ca12f976ce9263f6bf7d97b4abb12fb5173",
+        "bytes": 10160
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim-fixed.json",
+        "sha256": "1c33b646f1c5ee06320df8ecaaf7e2603e8561a882d2129294befa1cd29018e0",
+        "bytes": 2001
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim-fixed.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim-fixed.stdout",
+        "sha256": "dcd18ca5293d1d426258e23c66c14ef23f52c33827f3567ee7dd0ec83d2e891d",
+        "bytes": 37408
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim.json",
+        "sha256": "13f73a623e34483cbcaf213d7fe92580a0a7727977887d826be58d0285881fcc",
+        "bytes": 1985
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-browser-claim.stdout",
+        "sha256": "0ef779c0e301b1fa02a48122d85e6794532ca250324147233472eccef5096064",
+        "bytes": 50722
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr225-current-main-20261029/source-claim-correction.json",
+        "sha256": "43b3d741aa249795d1c4d8669381b160a0117665e60c3be90e9eb7690da9719e",
+        "bytes": 596
+      },
+      {
+        "path": "git:98d086c83aa4d37d819d4121570b7526c8cb9c06:app/lesson/california-middle-school-textbook/review/page.tsx",
+        "sha256": "ea8de0885786fff360b3c6bf88a4fab3185da1c48f74681db71c27f8c29f45af",
+        "bytes": 618
+      },
+      {
+        "path": "git:98d086c83aa4d37d819d4121570b7526c8cb9c06:coordination/session-logs/2026-10-29-A05-pr225-current-main-01a1824f.md",
+        "sha256": "dff1e93632251282bff33424a1d08233b43faab69030ea9d4fc92f7413466971",
+        "bytes": 8166
+      },
+      {
+        "path": "git:98d086c83aa4d37d819d4121570b7526c8cb9c06:data/generated-content/ccss-textbook-claude-v1/README.md",
+        "sha256": "1ce0cd616929167f68849141e56f7b9a1e5f4daac26db14ee07981bc2bc2efb1",
+        "bytes": 2203
+      },
+      {
+        "path": "git:98d086c83aa4d37d819d4121570b7526c8cb9c06:tests/e2e/california-middle-school-textbook-english-only.spec.ts",
+        "sha256": "ceda910736a9521ebef66df2afc19549d77deaf8fb781b4fc85611f67a5fe9bc",
+        "bytes": 5700
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a23-v3/node-tests.tap",
+        "sha256": "100cc62247530837e9e7e2ffc910e5d8babda5f89c14dc2b8537aa487366629c",
+        "bytes": 57399
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/bootstrap-budget-probes.mjs",
+        "sha256": "b4e040d28f55ef789502f0b35b2ff4f41f36878335d26a9532c3842f0ed2aad0",
+        "bytes": 4357
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/bootstrap-budget-results.json",
+        "sha256": "3dea25c373b31b6a67e9cb172845fed8ba5ddccb3c7739e685212a4fa0503ad4",
+        "bytes": 10744
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/probes.stderr",
+        "sha256": "97f57f36f3d2863a091a1f1602980ccd743ebfca4f4adfa2547c41e73abb1340",
+        "bytes": 1244
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/probes.stdout",
+        "sha256": "bae26cad6654bfb844e75663b509cfc5d789ce5b5ac5b845516a34053a17d452",
+        "bytes": 140
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/prospective-bundle.json",
+        "sha256": "907a72ad591acd86506b092c99015a9c92ec690b10e220b044bb6f0fa2cfbb3c",
+        "bytes": 8945
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/review-result.json",
+        "sha256": "39d04cd9fd1157450b9ccc5a5fb212ee7af25cf8da6d8f8a25e81f941aaf4650",
+        "bytes": 448
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/review.md",
+        "sha256": "2ed3ee1455d2a0fa5c04aad2239811d48a3432dc840d8c9a3de204e0c5e942fa",
+        "bytes": 2921
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/targeted-tests.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "/Users/dongpinhu/.codex/worktrees/p286/MAIS-MVP/.local/pr304-continuation-20261029-01a1868c/native-a11-v3/operation-budget-review/targeted-tests.tap",
+        "sha256": "f945196a3c93afda8dc549ff7aa3fd576a15773a8c93f117f70d4c5ef57ad024",
+        "bytes": 735
+      }
+    ]
+  },
+  "priorSourceEvidence": {
+    "reportSha256": "bba536e6aa9fc5293f6a58301a0387c0cef5b915b98ba0d81f16e5903d562268",
+    "recordSha256": "9c916ffbc8ab3940376cfb6e48aca5e7a83edebe2313aafde96f81e8d8443dc2"
+  }
+}

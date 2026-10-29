@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: every referenced lesson is actually ported
+ok 1 - every referenced lesson is actually ported
+  ---
+  duration_ms: 0.460834
+  type: 'test'
+  ...
+# Subtest: every assignment targets a real K–G5 textbook topic or G6–G12 chapter topic
+ok 2 - every assignment targets a real K–G5 textbook topic or G6–G12 chapter topic
+  ---
+  duration_ms: 0.087542
+  type: 'test'
+  ...
+# Subtest: every assigned K–G5 lesson shares at least one CCSS standard with its topic
+ok 3 - every assigned K–G5 lesson shares at least one CCSS standard with its topic
+  ---
+  duration_ms: 1.614
+  type: 'test'
+  ...
+# Subtest: every ported lesson is reachable from some topic
+ok 4 - every ported lesson is reachable from some topic
+  ---
+  duration_ms: 0.150583
+  type: 'test'
+  ...
+# Subtest: primary is never also listed as related, and related has no duplicates
+ok 5 - primary is never also listed as related, and related has no duplicates
+  ---
+  duration_ms: 0.104542
+  type: 'test'
+  ...
+# Subtest: every assignment carries a curation rationale
+ok 6 - every assignment carries a curation rationale
+  ---
+  duration_ms: 0.061667
+  type: 'test'
+  ...
+# Subtest: every ported lesson has a non-empty read-aloud narration and metadata
+ok 7 - every ported lesson has a non-empty read-aloud narration and metadata
+  ---
+  duration_ms: 0.162584
+  type: 'test'
+  ...
+# Subtest: every K–2 lesson has a hand-authored narration, not the summary fallback
+ok 8 - every K–2 lesson has a hand-authored narration, not the summary fallback
+  ---
+  duration_ms: 0.111209
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 212.804583

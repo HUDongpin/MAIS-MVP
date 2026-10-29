@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "ca-textbook-evidence.v1",
+  "role": "A05",
+  "reviewer": {
+    "sessionId": "/root",
+    "independence": "coordinator-execution"
+  },
+  "reviewedAt": "2026-10-29T09:41:23.329Z",
+  "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+  "checkerReleaseCommit": "0adfef5b8fcb10a5718967e23d7476d9d7049d2b",
+  "candidateDigest": "d8cb04471d8390b2936b17314b3f0d47615ace7c6ead44823152d1c9ec0ae9e6",
+  "report": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/evidence/roles/a05.md",
+    "sha256": "44fd9f1c4e9338e0f59a6116544ca9c574ed339ea76be7839e75da7cae74da99"
+  },
+  "details": {
+    "mappingsDigest": "636a7684bbc9ae04e16e4e6103c0f87f398bfa5de5884ef078c7f27a3d70f15e",
+    "routeFiles": [
+      "app/lesson/california-middle-school-textbook/page.tsx",
+      "app/lesson/california-middle-school-textbook/review/page.tsx",
+      "app/student/lessons/california-middle-school-textbook/page.tsx",
+      "components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx",
+      "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+      "components/lesson/ccss/CcssInteractiveTextbook.tsx",
+      "components/lesson/ccss/californiaInteractiveTextbookData.ts",
+      "components/lesson/ccss/interactiveTextbookTypes.ts",
+      "components/lesson/ccss/registry.ts",
+      "data/ccssLessonAssignments.ts",
+      "data/ccssTextbookRegistry.ts",
+      "data/usCaliforniaLessons.ts",
+      "components/lesson/ccss/CcssLessonAdapter.tsx"
+    ],
+    "runtime": "35-primary-openers",
+    "noHiddenReviewOnlyClaim": true
+  },
+  "liveAllowed": false
+}
