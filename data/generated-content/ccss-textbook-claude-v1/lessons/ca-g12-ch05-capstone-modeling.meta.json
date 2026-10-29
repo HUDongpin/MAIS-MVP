@@ -1,0 +1,48 @@
+{
+  "slug": "ca-g12-ch05-capstone-modeling",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s6-chapter-05",
+  "title": "Capstone Modeling",
+  "standardIds": [
+    "N-VM.12",
+    "N-VM.11",
+    "G-MG.2",
+    "G-MG.1",
+    "G-MG.3",
+    "N-VM.1",
+    "N-VM.2",
+    "N-VM.4",
+    "N-VM.5",
+    "N-VM.3"
+  ],
+  "summary": "Reshape a glass canopy with a 2x2 matrix and watch the determinant set its new area, its weight, and whether the frame holds.",
+  "emoji": "📐",
+  "narration": "A glass canopy over a courtyard starts life as two arrows on a site plan, one along each edge of the panel. Put those two arrows in the columns of a small square of numbers and its determinant is the panel's own area; then a second matrix, the move the designer makes to the whole plan, has its own determinant, and that number is the factor every area on the plan gets multiplied by. Follow the chain and the area gives you the weight of the glass, and the weight tells the builder whether the frame can hold it. Slant the panel, double it, turn it, or mirror it, and watch every number in the chain answer.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A surveyor records a parallelogram plot of land using two edge vectors from one corner: u = (7, 3) and v = (2, 9), measured in meters. What is the area of the plot, in square meters?",
+      "answer": 57,
+      "explanation": "Put the two vectors in the columns of a matrix and take the size of the determinant: |7 x 9 - 2 x 3| = |63 - 6| = 57 square meters. (Multiplying the lengths instead would be wrong, because the edges are not perpendicular.)"
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A concrete ramp pad is the parallelogram spanned by u = (6, 2) and v = (1, 5) meters, and it is poured 0.2 m deep. How many cubic meters of concrete does the pour take?",
+      "answer": 5.6,
+      "tolerance": 0.01,
+      "explanation": "The pad's area is the size of the determinant: |6 x 5 - 1 x 2| = |30 - 2| = 28 square meters. A 0.2 m depth turns that area into a volume: 28 x 0.2 = 5.6 cubic meters. (At 2400 kg per cubic meter that pour would weigh 5.6 x 2400 = 13440 kg.)"
+    },
+    {
+      "kind": "mc",
+      "prompt": "A logo painted on a site plan covers 15 square meters. The whole plan is then redrawn with the matrix whose columns are (2, 0) and (0, -3). What happens to the logo?",
+      "choices": [
+        "It covers 90 square meters, and the negative determinant means the plan was flipped over",
+        "It covers -90 square meters, because an area becomes negative once a plan is reflected",
+        "It covers 15 square meters, because a reflection never changes an area",
+        "It covers 90 square meters, and the negative determinant means the plan was turned a quarter turn"
+      ],
+      "answer": 0,
+      "explanation": "The determinant is 2 x (-3) - 0 x 0 = -6. Areas are multiplied by its absolute value, so 15 x |-6| = 15 x 6 = 90 square meters. An area is never negative; the minus sign records that the transformation reversed the plan's orientation, which is a reflection, not a rotation. The reflection is only part of the move here, since the plan is also stretched, so the area does change."
+    }
+  ]
+}

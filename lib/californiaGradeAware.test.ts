@@ -105,10 +105,15 @@ test("California high school preview remains review-only and stores pathway meta
   });
 });
 
-test("California middle school replacement page presents domain overviews, not a complete course claim", () => {
+test("California middle school textbook page presents interactive chapters, not a complete course claim", () => {
   const middleSchoolPage = readFileSync("components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx", "utf8");
 
-  assert.match(middleSchoolPage, /Domain overview beta/);
-  assert.match(middleSchoolPage, /cluster coverage/i);
+  // Rebuilt on the interactive CCSS library (2026-09-02): chapter openers +
+  // ported lessons per G6-G8 chapter topic. The S23 conditional-release claim
+  // limits still apply: no "complete California curriculum" language.
+  assert.match(middleSchoolPage, /Interactive Grade 6-8 Textbook/);
+  assert.match(middleSchoolPage, /buildCaliforniaInteractiveTextbookGroups\(\["P6", "S1", "S2"\]\)/);
+  assert.match(middleSchoolPage, /does not claim to be a complete course/i);
   assert.doesNotMatch(middleSchoolPage, /complete California/i);
+  assert.doesNotMatch(middleSchoolPage, /live-lessons\.json/);
 });

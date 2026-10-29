@@ -1,0 +1,1572 @@
+{
+  "schemaVersion": "ca-textbook-candidate.v1",
+  "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+  "slugs": [
+    "ca-g10-ch01-congruence-proof",
+    "ca-g10-ch02-similarity-right-triangle-reasoning",
+    "ca-g10-ch03-circle-geometry",
+    "ca-g10-ch04-quadratic-structure",
+    "ca-g10-ch05-conditional-probability",
+    "ca-g11-ch01-function-transformations-inverses",
+    "ca-g11-ch02-exponential-logarithmic-models",
+    "ca-g11-ch03-trigonometric-functions-graphs",
+    "ca-g11-ch04-data-modeling-residuals",
+    "ca-g11-ch05-statistical-inference-claims",
+    "ca-g12-ch01-quantities-units-precision",
+    "ca-g12-ch02-polynomial-structure-behavior",
+    "ca-g12-ch03-decision-statistics",
+    "ca-g12-ch04-function-analysis-rates",
+    "ca-g12-ch05-capstone-modeling",
+    "ca-g6-ch01-ratios-rates-percent-reasoning",
+    "ca-g6-ch02-rational-numbers-number-line",
+    "ca-g6-ch03-expressions-equations-variables",
+    "ca-g6-ch04-geometry-area-surface-area",
+    "ca-g6-ch05-statistics-data-distributions",
+    "ca-g7-ch01-proportional-relationships",
+    "ca-g7-ch02-operations-rational-numbers",
+    "ca-g7-ch03-linear-expressions-equations",
+    "ca-g7-ch04-scale-geometry-measurement",
+    "ca-g7-ch05-sampling-probability-inference",
+    "ca-g8-ch01-linear-equations-systems-readiness",
+    "ca-g8-ch02-functions-rate-change",
+    "ca-g8-ch03-transformations-similarity",
+    "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+    "ca-g8-ch05-bivariate-data-claims",
+    "ca-g9-ch01-equations-context",
+    "ca-g9-ch02-function-notation-interpretation",
+    "ca-g9-ch03-linear-quadratic-models",
+    "ca-g9-ch04-coordinate-geometry-methods",
+    "ca-g9-ch05-modeling-evidence"
+  ],
+  "checksDigest": "94423ea3e288f4b734096eb9f0cec65f0f2ede8a6d0a597513cc7e4eb8f8518a",
+  "files": [
+    {
+      "path": "app/lesson/california-middle-school-textbook/page.tsx",
+      "mode": "100644",
+      "objectId": "1381a9645cfbcedb22eb0623dedd9f4df552d0af",
+      "sha256": "0a9fdfb8195986c73fe2901f9ce4621547736d8e377cfc6df7f4bbd7b63afb73"
+    },
+    {
+      "path": "app/lesson/california-middle-school-textbook/review/page.tsx",
+      "mode": "100644",
+      "objectId": "9108874cfeedc91205d826ed898e132b90b36b2a",
+      "sha256": "ea8de0885786fff360b3c6bf88a4fab3185da1c48f74681db71c27f8c29f45af"
+    },
+    {
+      "path": "app/student/lessons/california-middle-school-textbook/page.tsx",
+      "mode": "100644",
+      "objectId": "26a8c562bf9916e91004d7f2b545d2712bba9f84",
+      "sha256": "18e010a1449f0118f9122ca44127bce64b2b68ade55167cdff286eb65524b096"
+    },
+    {
+      "path": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+      "mode": "100644",
+      "objectId": "831d7944b727d815c79f77a9253cfef9ef3cb23b",
+      "sha256": "e9c41e70f5ebd7af462dfa6b3a1c8893f32f71c3288e02882545efb59f0c5160"
+    },
+    {
+      "path": "components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx",
+      "mode": "100644",
+      "objectId": "9f3f625ae5b959185ea6ec2e1207564ad22d2ead",
+      "sha256": "786941e31d39a191d0ed6e574d1332481ccdf6495edb0c4417bb4b6fd4ffc030"
+    },
+    {
+      "path": "components/lesson/ccss/CcssInteractiveTextbook.tsx",
+      "mode": "100644",
+      "objectId": "4fddb2f2a0b422bbec1127d8ae56d6b5c1b743ad",
+      "sha256": "f9556fd262b52f8ee1a40884a5ff119e7701f3fe45acaacf3c2b421b11cec5a1"
+    },
+    {
+      "path": "components/lesson/ccss/CcssLessonAdapter.tsx",
+      "mode": "100644",
+      "objectId": "ab308fff5a2115ca7ee82c5467112f6a68996509",
+      "sha256": "927b4bdd15dd38232d162536f9e2d005a73f84fb3cff33e3b6e0ef82b530c83e"
+    },
+    {
+      "path": "components/lesson/ccss/californiaInteractiveTextbookData.ts",
+      "mode": "100644",
+      "objectId": "51e649af7d79774b1b0079d5b0649ace0406755f",
+      "sha256": "5e4b41e34c63bf33fd9f703ee5e7039535c40c1772a1897315e01e5429af72ea"
+    },
+    {
+      "path": "components/lesson/ccss/interactiveTextbookTypes.ts",
+      "mode": "100644",
+      "objectId": "2a1cfce22bf7fb978a3b8ad66a9d4820428901a4",
+      "sha256": "a2091a6f43de49070435ab1c3bb0c96be50517a7911c9c3b607856921482503a"
+    },
+    {
+      "path": "components/lesson/ccss/labelSpacing.ts",
+      "mode": "100644",
+      "objectId": "ef1614d22e78864382cc87a0d460704b926a75ee",
+      "sha256": "4e81db9c617bf945410444a2ff3708b1ed059236abdaee83a8d7b8c6a0d4a600"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch01-congruence-proof.test.ts",
+      "mode": "100644",
+      "objectId": "b128a8b4cc267a3ba49bf9c8715efb8f05d14fbd",
+      "sha256": "3bea3d411149975e524533ff504af46ec9b75ef90b147b592995e7dfee9fed93"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch01-congruence-proof.tsx",
+      "mode": "100644",
+      "objectId": "f0a61de8f4b12216935d4322a76221012e3fe779",
+      "sha256": "92df3bede3ccb3973406f4e8f94f016d190466c585d0d7a45ccec5aa965345a0"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch02-similarity-right-triangle-reasoning.test.ts",
+      "mode": "100644",
+      "objectId": "13c8f2578af310e726d4aae094d5b5dded0bc51c",
+      "sha256": "6533fcf7aa738cf7475f0cce1d660eda5feb019938479a23baaaee0d11e287ae"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch02-similarity-right-triangle-reasoning.tsx",
+      "mode": "100644",
+      "objectId": "7f003ac99b4897d96d1b35696beb12ff8794cc70",
+      "sha256": "7d169f4643d45e5d65fd124ab9d85f5cad4927cbf7c3feac4314a0146c025a58"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch03-circle-geometry.test.ts",
+      "mode": "100644",
+      "objectId": "be429d7e7d859f7f217c90f1187eddff55b18815",
+      "sha256": "5810552f70eb8f6488b200048805e3de93c1945618298494d5ef42c277e526e7"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch03-circle-geometry.tsx",
+      "mode": "100644",
+      "objectId": "eb788eab9597d08416eb8a5b72a44fff821d5190",
+      "sha256": "9c4d1c53a75c161505e83cc4573da232a21015835bc3ae036994ca6eb8c155b2"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch04-quadratic-structure.test.ts",
+      "mode": "100644",
+      "objectId": "60db1e25cf1b6730f21691793abf31f1a996b16f",
+      "sha256": "930c8a7f165d4650e3a21794f7c1a71e4c94d321563b392a9f8625168661b7a6"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch04-quadratic-structure.tsx",
+      "mode": "100644",
+      "objectId": "c6f6c2b4f71dc23c65fd467fac6cd8838122d8b0",
+      "sha256": "fc6d905f8bacf244465a75ee2583979074bdb9f7d308feb0864b84fcaa96ee32"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch05-conditional-probability.test.ts",
+      "mode": "100644",
+      "objectId": "41ea87cf604720d963d968e9c8e7a78bd4b5f9f7",
+      "sha256": "591549f592a2c665ea9a86d691ffed340454b88510e8273a535fc0a985976c44"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g10-ch05-conditional-probability.tsx",
+      "mode": "100644",
+      "objectId": "efdc098c51c7761a9139fbf1dc9fa0748f5b270e",
+      "sha256": "30d7205f496f7163b09af03ed3755a81441c58d91ec2e1d6f3f30a3c62f0aab1"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch01-function-transformations-inverses.test.ts",
+      "mode": "100644",
+      "objectId": "d62bc8fab34c3f994816886ef896bf747465893d",
+      "sha256": "955c13780fe6c2731275d0e4a85cb6d84608c8107d499489ec682f482252c4e1"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch01-function-transformations-inverses.tsx",
+      "mode": "100644",
+      "objectId": "fd81d88489c75b08ac4fd08d351bb7d540b159ee",
+      "sha256": "61afe58ed26ae92e1141b929cdc31b4f620df9ba42442ff950e3cc4585b78901"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch02-exponential-logarithmic-models.test.ts",
+      "mode": "100644",
+      "objectId": "43861a44a37482e84309c65810bc558aa9608ce8",
+      "sha256": "ce9766608e86b86e3f2a23c01ef80518e6a3e1ce58103b37423a14ad03fbaa8c"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch02-exponential-logarithmic-models.tsx",
+      "mode": "100644",
+      "objectId": "80732d665d8176fa6e06d603d7573578d3309834",
+      "sha256": "9c3ccddbfa17bac55b0c07811d54b1846066620301e08e6f4e7324f88a3972f4"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch03-trigonometric-functions-graphs.test.ts",
+      "mode": "100644",
+      "objectId": "d6dbe2d284a656479b4b6baaecb8fa1d9a436442",
+      "sha256": "1d4060434565edad9ece2c701e197cf217286d16fb6afd416ebc10c5871ea916"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch03-trigonometric-functions-graphs.tsx",
+      "mode": "100644",
+      "objectId": "bbc3fac425f35a72109cc1e2f92971ea3e5b1750",
+      "sha256": "ea683ce2f5e57daff1f34e65419e76a184e01e378ff9d4d5daef1d8e03ec4254"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch04-data-modeling-residuals.test.ts",
+      "mode": "100644",
+      "objectId": "4e8deb1456d89b5f2c4c6d08b5fba02e3bd2447b",
+      "sha256": "2ea4bc4a60d386258eda4d54115059d8c5deb6444545a272c013309b1511afae"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch04-data-modeling-residuals.tsx",
+      "mode": "100644",
+      "objectId": "2d6e25887d6269e3cf50041ea06514aacc8e0d79",
+      "sha256": "cc02b5e97b1b4612b5c0c463a1aa2fa3265f6441be3695f4e6674f7e4eb2de81"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch05-statistical-inference-claims.test.ts",
+      "mode": "100644",
+      "objectId": "16ad2d78e4c1b18fb6bafc224ad69f66c452c1ed",
+      "sha256": "540e0b87e44522e8cfd608e8798ab4076a05847038e5e05f98df908a4c515704"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g11-ch05-statistical-inference-claims.tsx",
+      "mode": "100644",
+      "objectId": "a21289a13268775b12ef38cd2bf0fca98106b778",
+      "sha256": "fd6a82f3df26dda82c340833718dbe9021c0084dfe2a8c7c4def6613327461b6"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch01-quantities-units-precision.test.ts",
+      "mode": "100644",
+      "objectId": "2fe768c9128b36a484b7666e655ad2c1012a4322",
+      "sha256": "4dce05741226df29a02f43395ef190f80aff02f8c2a9adab73b54e886058fc7a"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch01-quantities-units-precision.tsx",
+      "mode": "100644",
+      "objectId": "663816c8bb44c6ffe7d35edbb0f6b67b96259eb7",
+      "sha256": "f58b79afe966fc8da72ab697bdd4d20bde0820187e60acd17c72e8200defe997"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch02-polynomial-structure-behavior.test.ts",
+      "mode": "100644",
+      "objectId": "9449fa02463155e32e825b0fbb01fce61da1c45f",
+      "sha256": "f2f7a482698084ed2b7d9d4cf953cda461164a94fbee80216b3b92f4795fd8aa"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch02-polynomial-structure-behavior.tsx",
+      "mode": "100644",
+      "objectId": "a2eccb1f727d5b36b1fa6833609acd084f960130",
+      "sha256": "0dcb2f57a4de7c90b9622a60375f79cf3b31d23e9e7c22645d1cf0a9a4f989a8"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch03-decision-statistics.test.ts",
+      "mode": "100644",
+      "objectId": "56f6887caefff50a7aaf0b6e363246347a476cef",
+      "sha256": "29e5d46aa70c2d8062aaf0612c1179b6e17a0230868d0443794129b351904dd7"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch03-decision-statistics.tsx",
+      "mode": "100644",
+      "objectId": "c237f1e7f3f94644d80510ea86a068c6d9475327",
+      "sha256": "e9623b22f7b36d018af95fd0d35300687296b6d2f74a7432e527b476dd487042"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch04-function-analysis-rates.test.ts",
+      "mode": "100644",
+      "objectId": "45c9c0a3551c3122a4b680a794b2a62ec4698842",
+      "sha256": "f53983b766e5a8d98fcffd95fb6a0393924383a5a94e76c3a51b712268ca6bc7"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch04-function-analysis-rates.tsx",
+      "mode": "100644",
+      "objectId": "ad39ed55534e88611c0925b657c7ce8c4a86a2a0",
+      "sha256": "f662de600a97ac8ec14fac118c9a8e8fc40f47ba046206c394ed236e5123a650"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch05-capstone-modeling.test.ts",
+      "mode": "100644",
+      "objectId": "7510571357ccfced33177f9fdbfcab2c320d9e96",
+      "sha256": "654e816455df2d185c8f4c2cbd6d44dfe09bf9eaefaa4ebf5c4ad50375ef97a0"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g12-ch05-capstone-modeling.tsx",
+      "mode": "100644",
+      "objectId": "857eea6b8dabae31e961ae962ace7498d67d4a27",
+      "sha256": "17fbbc90b82247b48d6b41a45a9644f6f6f1bc2a7471099d13eeb49f040140a8"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch01-ratios-rates-percent-reasoning.test.ts",
+      "mode": "100644",
+      "objectId": "2837dff5b698265405c9e932536aea40813f985f",
+      "sha256": "81a88e83b85e8df56c9fe3716c3a6ce969878c0f4cfbb750a27460a4db08d0e0"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch01-ratios-rates-percent-reasoning.tsx",
+      "mode": "100644",
+      "objectId": "3b9a11dddf3a4db9dd2417bb7f9953052e5b2ceb",
+      "sha256": "05a8d5f04ffdd96a63ff18a0cbff64099f9dce457486a57c5d21afcda6a29393"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch02-rational-numbers-number-line.test.ts",
+      "mode": "100644",
+      "objectId": "ca8d62dfadc979737e3195dd94de8c632d30a028",
+      "sha256": "10c884780d4c1999df74fdcdd8e153f055364da6cfb687cee850e8002d25f545"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch02-rational-numbers-number-line.tsx",
+      "mode": "100644",
+      "objectId": "83914b447cf9e0cc8439a799204bc77166e822fd",
+      "sha256": "b7d6b2eaf213a1e16ca0ad4ba1c3d0f3b09dd120ad72a34af61a11697284cfe7"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch03-expressions-equations-variables.test.ts",
+      "mode": "100644",
+      "objectId": "5a7751fa650193aa1b6342eaf33c8a0911cc484b",
+      "sha256": "44af311df8088cfddd8691fad81f9e703687685b21630a302a42a16d6335f4db"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch03-expressions-equations-variables.tsx",
+      "mode": "100644",
+      "objectId": "c9a2f61bdd609f5e760b94e2944c8daf80b79ee6",
+      "sha256": "cb0a666c7c7351a130f117fe702be7007b3b080ccd09134e33d329f36720d864"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch04-geometry-area-surface-area.test.ts",
+      "mode": "100644",
+      "objectId": "cfe0b650bbcee2fb3690e8781101426c7e697e58",
+      "sha256": "9ce81beb5b8a1f61f5c229fa5a86fc90f2cf0d564e9b58dc17d914b6cd4e6c38"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch04-geometry-area-surface-area.tsx",
+      "mode": "100644",
+      "objectId": "9edeb3372b29b4ab80fe30f3e61e77cb2fab20a3",
+      "sha256": "4cf3e4b511aacd3685cb709715c58f5532a8ac377ad51910928bba634e52cc70"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch05-statistics-data-distributions.test.ts",
+      "mode": "100644",
+      "objectId": "807df6d0bd82d8c785f7fc96fa9df281b3f27e1a",
+      "sha256": "b072b5fb9fa17326ac544acc5184d29140bda14feb6db8853111105e74b39296"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g6-ch05-statistics-data-distributions.tsx",
+      "mode": "100644",
+      "objectId": "6dc503f63093f668afa7ff5454a767629fba70a6",
+      "sha256": "2f9922351a707b584cea1e2c88e36265564e93ee25b07f43b6625087e21a5fbb"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch01-proportional-relationships.test.ts",
+      "mode": "100644",
+      "objectId": "db577a6de8d0c401f7fdb578e74688320a836ecd",
+      "sha256": "4cb51628c310ebd04119d88c68fbeb1ea80d5df345a89d4e8a37fb1f799af0d4"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch01-proportional-relationships.tsx",
+      "mode": "100644",
+      "objectId": "7e81e5afc25afaa2826b3867e87dea28e7feb436",
+      "sha256": "5454fe7fd8fb1bcc1a7c2e5402b38b217ad8a648d05d83d6f8a74cc7a6beb7f1"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch02-operations-rational-numbers.test.ts",
+      "mode": "100644",
+      "objectId": "609c305c099703591ecaebcecebcc5e2432599f2",
+      "sha256": "486caa5289543da2b10265c3ac4461da8820d7f6e5b9db1946e3733c17b93832"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch02-operations-rational-numbers.tsx",
+      "mode": "100644",
+      "objectId": "4cec8a3a88aa8cbe90706ada9abe3f3c0bc3d739",
+      "sha256": "522f84054ff0b62f089e22fe452429f5c367f76379fa1b4f8d853a4c956c453e"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch03-linear-expressions-equations.test.ts",
+      "mode": "100644",
+      "objectId": "a0f3e95d74bbf58ea13a7ee97343d7c93439137e",
+      "sha256": "26a6949502f91e89c92e72cbb6ca8679e43723331267db0a68b9405c681f0b38"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch03-linear-expressions-equations.tsx",
+      "mode": "100644",
+      "objectId": "3d251e8a3ba49f512844f900f92c3f3cc0aa5f2c",
+      "sha256": "67bfd455a761b5c6da92bfabaae306d8d657e4d689817fc33095c4e5aafe8f38"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch04-scale-geometry-measurement.test.ts",
+      "mode": "100644",
+      "objectId": "49bd39067cc89ad1515cef7d39b46c6d61143fbd",
+      "sha256": "25f3c0feee8e02d0af0b6a472e1164ad96119e264576d65e5ebd91c72cde6486"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch04-scale-geometry-measurement.tsx",
+      "mode": "100644",
+      "objectId": "ffb46194ef61e8cab387e41e60569757aaac4818",
+      "sha256": "fd9a68a62bc5120981cfa8a61eebf73af253e6f17e2930ca4bef9e332cc76ccb"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch05-sampling-probability-inference.test.ts",
+      "mode": "100644",
+      "objectId": "699907fe8f850b7d624ca776f36221b246b45034",
+      "sha256": "4f2cd478ad5455aa19daeff5ca6c1b171315e1f1587b9461a72a7c500eba3e8d"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g7-ch05-sampling-probability-inference.tsx",
+      "mode": "100644",
+      "objectId": "42268de9c04e2594e08f40e295cda1d4c2401361",
+      "sha256": "f30f805a3b41bfec1ca0a6e19d9a44b9b0c9811afe5bc8617637e96383327c04"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch01-linear-equations-systems-readiness.test.ts",
+      "mode": "100644",
+      "objectId": "9a80a554db7768ff20b51250a56ff833dd806a20",
+      "sha256": "a38648803262f56e73d727c816cb63230e33ec0bf541075af7dfc77cd5e254ef"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch01-linear-equations-systems-readiness.tsx",
+      "mode": "100644",
+      "objectId": "c1d54a230d93e043039bc6fa5a547fbdb53491da",
+      "sha256": "ebfa6d2a98f7c07d5e163b149551a928aebbf106705addff0054642e3500d020"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch02-functions-rate-change.test.ts",
+      "mode": "100644",
+      "objectId": "e97d39c852bee6893d6b0e8866ded11225b49905",
+      "sha256": "89b141c901ceb1a85b5949db783e7709db9e5083c07ec01579f3c7877183880f"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch02-functions-rate-change.tsx",
+      "mode": "100644",
+      "objectId": "ab2736634f6e74eb7ec71bb56f95f230a5daff3e",
+      "sha256": "c228e9112361f1786486af84ebf580bc9b6a38952c8ca4c98757999c317b02b4"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch03-transformations-similarity.test.ts",
+      "mode": "100644",
+      "objectId": "675b1bffcdbaf6753c302597fe52d821b55461ae",
+      "sha256": "626f4025ffa9788ded98c6758ebcbfd34ab7cbc2b4cff797a373ecfc76266cc8"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch03-transformations-similarity.tsx",
+      "mode": "100644",
+      "objectId": "c03546d8913db8f94e040f595521073041f03ef1",
+      "sha256": "1b0d6ed796ebba91ab3b7708d37ab631cf4e8fccf2ef5391be3d33f9f50b4e67"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch04-pythagorean-reasoning-coordinate-geometry.test.ts",
+      "mode": "100644",
+      "objectId": "e96bb3de9bbec92d805e0a3cfc10f56ae84943c5",
+      "sha256": "f5d804725946951982555efa4466ad9a26c4baa06c0edf84641259dce1fc2ac2"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch04-pythagorean-reasoning-coordinate-geometry.tsx",
+      "mode": "100644",
+      "objectId": "fb521fb9e587b229cbafa4de3696cdc233adba86",
+      "sha256": "daf7f723ae8430dc7ccf178dc59c8ab94c9dbfd680489a63a4773e35e893dfb4"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch05-bivariate-data-claims.test.ts",
+      "mode": "100644",
+      "objectId": "c9afd93d709ee8846f3d7da08f556456446e4248",
+      "sha256": "bf01943e8afb4e72f9578d719e2d9b2c516a270c2ab629842319344a8c881f22"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g8-ch05-bivariate-data-claims.tsx",
+      "mode": "100644",
+      "objectId": "dfc3863f84289aabb465370fda4d6be3494daf35",
+      "sha256": "ce598515736b31c710b8aedc58e05fd9bff06a16712076fccbcd36f7649563c4"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch01-equations-context.test.ts",
+      "mode": "100644",
+      "objectId": "b31c2e88bfcc182e860341561ba67b2572113b5d",
+      "sha256": "bb859ace6b7b59b4b8b1946d6fb69f3e9fecbb1ca4bfa94a391e4f1ae09ef3bc"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch01-equations-context.tsx",
+      "mode": "100644",
+      "objectId": "2003cac98c1efdea711ed5e5efbc6785e43d5dde",
+      "sha256": "2cea4805299f0362af1647eefd79d930333461e69ea1b5aa66461fe74ebaeddf"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch02-function-notation-interpretation.test.ts",
+      "mode": "100644",
+      "objectId": "e9a65e9e2b0a31d5c248c1efb108230852706144",
+      "sha256": "19fc4da80e383d80b3e35e4caace6034540a5254bec8fb03611961c31baf6c32"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch02-function-notation-interpretation.tsx",
+      "mode": "100644",
+      "objectId": "a1f4509a1c97fd078289979b48313ae58abcdf36",
+      "sha256": "cf67a826697dbe8cf76ff64c440b7a1a97aacd39983d219000409d73df4ba9c9"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch03-linear-quadratic-models.test.ts",
+      "mode": "100644",
+      "objectId": "220ad9b8eb96d376ddee23d7e30237975e7dec46",
+      "sha256": "d0939d4346e48bd10b2d9f4c9ed991826c3cda47f7489425511be293975c97f1"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch03-linear-quadratic-models.tsx",
+      "mode": "100644",
+      "objectId": "1caf381d5819bce7b7e10fae14b6ffed11f50ec8",
+      "sha256": "bcf6dc9e4511ec66b888f4c8d475b548087b064c762bf725293d8454348a7ef1"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch04-coordinate-geometry-methods.test.ts",
+      "mode": "100644",
+      "objectId": "b8740fee92c5e3af911923e66ddf8b6dbd068ff0",
+      "sha256": "36ad6522358958f16b32e3a43715720d7930d9d8be031a0a9f54462c411bbd84"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch04-coordinate-geometry-methods.tsx",
+      "mode": "100644",
+      "objectId": "423c752eb7d8bd4c1c3fe2eea61a57213c80a353",
+      "sha256": "b244fcb3823455ad5f21e4b4eff947216fe19fba8b48c964473c62b8c46d4349"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch05-modeling-evidence.test.ts",
+      "mode": "100644",
+      "objectId": "75634e8b403896dcd5b88e7f01f3c478f9e05d6c",
+      "sha256": "d575c41344d082437fadf95c2b1e87e759deb7cab8409859d1ac037a689fd9b8"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/ca-g9-ch05-modeling-evidence.tsx",
+      "mode": "100644",
+      "objectId": "8a2f37c05ee2be6969c2e40ebcab3536a453b65f",
+      "sha256": "73dc054c4fa25cee3ea5907141619a0ce9a892d75576993a49bc123622561b0c"
+    },
+    {
+      "path": "components/lesson/ccss/registry.ts",
+      "mode": "100644",
+      "objectId": "e3db06d49ab7545e3f0a06e27f790858d611ce7b",
+      "sha256": "8510de63b4e190efe0344c60fab16ca31de9dff8a2cbf070b282bf08948068ab"
+    },
+    {
+      "path": "coordination/release-intake/owner-pathspecs.json",
+      "mode": "100644",
+      "objectId": "4cb4edaf2fc26d55feb73da0dfbaff68d9846a64",
+      "sha256": "f60f8447abc07ac63837c25f268782108ee34132f4abc0acf9e14b7baebea608"
+    },
+    {
+      "path": "data/ccssLessonAssignments.ts",
+      "mode": "100644",
+      "objectId": "831666d971505b9cae4b56a53bfef3be0e27ea43",
+      "sha256": "32d8f760e11c4773d5011ed424d9d1e26580828af1e794439afd0982f508c5f9"
+    },
+    {
+      "path": "data/ccssTextbookRegistry.ts",
+      "mode": "100644",
+      "objectId": "e2fc12e4dad967ddbb996be44ecb80a1a66f2d36",
+      "sha256": "c4936b6ea99bc607f1f8736f2d6d70a984a473c268f8eb5e250b493ef2a077ec"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/README.md",
+      "mode": "100644",
+      "objectId": "0a18fa4bff32f3f46a6965b1f380a9b5e8c2aab6",
+      "sha256": "1ce0cd616929167f68849141e56f7b9a1e5f4daac26db14ee07981bc2bc2efb1"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g10-ch01-congruence-proof.meta.json",
+      "mode": "100644",
+      "objectId": "588fb9be275ce05d72be7886245820ef11d260e3",
+      "sha256": "b0879a2e564c9a298b3ad787400b7f9f593d8729b180bf5d2cef7d813d9421f7"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g10-ch02-similarity-right-triangle-reasoning.meta.json",
+      "mode": "100644",
+      "objectId": "809467d894032832e33fc05d1b6b490f18e7558c",
+      "sha256": "e823a2ec8eed9f59c35a1992c9ce32c982b302ed8cfaa43b454d6d6086d2eea1"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g10-ch03-circle-geometry.meta.json",
+      "mode": "100644",
+      "objectId": "f92f13510d75bf39e6e7ecf354a92515689453d6",
+      "sha256": "12b844050c5ce4e92ed7dfcc740a61365e6244d79482e9144606359396a58157"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g10-ch04-quadratic-structure.meta.json",
+      "mode": "100644",
+      "objectId": "446acfbe0a80a18c7f46301f3d6236800ee6c209",
+      "sha256": "0cb25bdcacc945066497ca4625e05b955cc34453f532ca3447c42dbe9e7e4990"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g10-ch05-conditional-probability.meta.json",
+      "mode": "100644",
+      "objectId": "76e1ba5b04c3b8184a9827373763cb540cc7f88e",
+      "sha256": "f7bc5d59684c2135c46584c1e16a532e30066ad9ee8e6f53af421945b2cf70cb"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g11-ch01-function-transformations-inverses.meta.json",
+      "mode": "100644",
+      "objectId": "01eee548323150166f3b262fadff95e4805dcb02",
+      "sha256": "2c792a06751320319dfe77ccf18e22d9a01ca49f017b717a3180d72767e86f11"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g11-ch02-exponential-logarithmic-models.meta.json",
+      "mode": "100644",
+      "objectId": "005af38bd28c411539d351ceaa47f12814c4cdb5",
+      "sha256": "8b7d78ef15a3ae20c7812570e3b542cf87d88ba3e5476b4f0b27f23a6a09876f"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g11-ch03-trigonometric-functions-graphs.meta.json",
+      "mode": "100644",
+      "objectId": "e963693d9ee7d3b213d5c4fcaa0e81483a6c19c4",
+      "sha256": "c5912004c01a08a686bd5e9742b0ad5f117c0a8bdd82e16b5cf76565ffa3e8d0"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g11-ch04-data-modeling-residuals.meta.json",
+      "mode": "100644",
+      "objectId": "684ecbdc01dd40802507009d09a51f4672ec9d20",
+      "sha256": "fb36a15ad0f72bd89953b9e319795a614e201a5fa6751b8bb53f3932e6b25dc5"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g11-ch05-statistical-inference-claims.meta.json",
+      "mode": "100644",
+      "objectId": "0423ebd60667b2afdc73b6196b7a5f59bfe9802d",
+      "sha256": "0abcdbd2b138b62d068bcd8020d18700c35c26fe8bbfec397364b23881079d0c"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch01-quantities-units-precision.meta.json",
+      "mode": "100644",
+      "objectId": "270161da7dcea89277330e3ff113d71b60f684dc",
+      "sha256": "f8e4cb68c3416295e6fe9dcfb4f968a6ac64e6a06dc0a5013229c66771bea03f"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch02-polynomial-structure-behavior.meta.json",
+      "mode": "100644",
+      "objectId": "f882bf11a95c10d12d55b7c091f325694d246820",
+      "sha256": "f720318524044f0d39ad30ea24fb91e7e14c0dddef6d4720a89fd28f728fdbf8"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch03-decision-statistics.meta.json",
+      "mode": "100644",
+      "objectId": "499b46fcc43ff6b856de8562538554b761a2bf2c",
+      "sha256": "6913b904a6d7ffcf88d3b917fddf7fc62610d60a220e7fbfa1def327d4734a2b"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch04-function-analysis-rates.meta.json",
+      "mode": "100644",
+      "objectId": "6bc1012e064990df8bd3b3a830d9db0ec2f4099b",
+      "sha256": "436c67c76aa6c552af8dcc9f20ec3069dbbb56e2c754ba7322646249c481da54"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch05-capstone-modeling.meta.json",
+      "mode": "100644",
+      "objectId": "194882276bb066b46a260c8c56ca8d5ef99c3e03",
+      "sha256": "54a626ad5cfb999184a947d342d394326dfb4b302f2494a1d97ad13d4397de4f"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g6-ch01-ratios-rates-percent-reasoning.meta.json",
+      "mode": "100644",
+      "objectId": "11a305343b610bfbf7cbd3d6b57b7893572e9154",
+      "sha256": "09895731146c5eed59ea95c3fb9a0e29b88bfa668f07709b31671854f1ad8eef"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g6-ch02-rational-numbers-number-line.meta.json",
+      "mode": "100644",
+      "objectId": "88e197b673827c156ea2f15f654b95e0b52f8c9c",
+      "sha256": "0d85f2bff62517bb35744f33f201c3df4b67fc28a921e23c049fb05af87a0b3b"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g6-ch03-expressions-equations-variables.meta.json",
+      "mode": "100644",
+      "objectId": "0249d7c7fa954daf909d5c866468f5dcf09733f5",
+      "sha256": "8e15b6b035834fe7ab7d67482bd2c49019ae1b66d4ba14e71de9d99c747d998a"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g6-ch04-geometry-area-surface-area.meta.json",
+      "mode": "100644",
+      "objectId": "35853e994ddcf193bf4d2377d41ac31bef524304",
+      "sha256": "93294ff72f6aefb0f87a0d92baf72643db94f4f1744e646a67c1a17ba1625775"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g6-ch05-statistics-data-distributions.meta.json",
+      "mode": "100644",
+      "objectId": "61f46d4aaf5a14268f4870285cedc44541bc3a6f",
+      "sha256": "267ddb462b8977f5c88e100a8b59715a23c532e69e4599c648fcdb717077a886"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g7-ch01-proportional-relationships.meta.json",
+      "mode": "100644",
+      "objectId": "fa20edbad339ff3c3076b4e4e63ea7a2bb67ff74",
+      "sha256": "47d2e240ff13280e87abd47b2105a726cf87d5b8832240432d3c34731bc2ce8e"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g7-ch02-operations-rational-numbers.meta.json",
+      "mode": "100644",
+      "objectId": "9883808652d58c5b0c0becad75e1cd422ed3eb8b",
+      "sha256": "21565c14064e979c2f8d2635e8c3242782b908f3918c85e6e7bb97eba0723253"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g7-ch03-linear-expressions-equations.meta.json",
+      "mode": "100644",
+      "objectId": "9d9254291eb7d13e8cad80e34241e5d79cacfcc9",
+      "sha256": "aa32a6142f65bc09ff076d31450b83744acb11ed143d1b1f369dcfd4ff74da53"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g7-ch04-scale-geometry-measurement.meta.json",
+      "mode": "100644",
+      "objectId": "1f6ccb199877fb8a44076aa9b1c56ed509567d92",
+      "sha256": "96fc2580edf56078478572894a02bc33b3b64a2f366d6b8afc53ed362311305b"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g7-ch05-sampling-probability-inference.meta.json",
+      "mode": "100644",
+      "objectId": "84e2bc66f68eb56a2204c967849c8be8d40a97c2",
+      "sha256": "02ec2524da11dcb225890e75c83256cc83a76cde72d19e642e375b637992a345"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g8-ch01-linear-equations-systems-readiness.meta.json",
+      "mode": "100644",
+      "objectId": "d91585c0009555e43ae2273af2e18ae7158256ac",
+      "sha256": "5399293c70c9ebc0020aee7f8e5573576a42ab20fdbea5d6ad332021eed6a691"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g8-ch02-functions-rate-change.meta.json",
+      "mode": "100644",
+      "objectId": "b79b510c3a1f71253bf48d479609cb80558bbd34",
+      "sha256": "cc69e4ca96b0b0768bab9cfa4f4accaf1054cad9dcbc7d2e480c16bc9d51f3b4"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g8-ch03-transformations-similarity.meta.json",
+      "mode": "100644",
+      "objectId": "4c5ca6baec48060342f28dbecfabb758c1d975dc",
+      "sha256": "95fbd36875f1b0fd0003af5bd3353fb0a3fd92dfd26c69f789fbf2832226404e"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g8-ch04-pythagorean-reasoning-coordinate-geometry.meta.json",
+      "mode": "100644",
+      "objectId": "31edf9359a0618521d392cfc2e4cc3ca84b9d60b",
+      "sha256": "0ec9a80ff16a8790e9ffcf41c446058a8c73f0748e484b8a26b3ada0e68fe4f9"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g8-ch05-bivariate-data-claims.meta.json",
+      "mode": "100644",
+      "objectId": "dd83375f15c028470bf661a51598975a56863abf",
+      "sha256": "66c88fd02a3b69d2bcc6592f9f7671961c0b5b58ac5bcfbf5d6963765c56b626"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g9-ch01-equations-context.meta.json",
+      "mode": "100644",
+      "objectId": "702fd496ee5f6d98aa93ad6ccb27d8c19816efaa",
+      "sha256": "279b132db854c516b1816433d16596e0e285ba141f10c0357fa18ec83dbecb85"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g9-ch02-function-notation-interpretation.meta.json",
+      "mode": "100644",
+      "objectId": "e548fe4a614d6334969fc49db5e42f96308219dc",
+      "sha256": "ee7dcb08b07b062cb3c09a75058e2b5d68546f31c57fcbd39d1e9819e5c108de"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g9-ch03-linear-quadratic-models.meta.json",
+      "mode": "100644",
+      "objectId": "b82449fae3778f462c5414c712e8991da338d7b8",
+      "sha256": "4c8516eb43fff3c29705c01187d5470a14d7c7791dde44634cdd7dcafe6359c8"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g9-ch04-coordinate-geometry-methods.meta.json",
+      "mode": "100644",
+      "objectId": "bb22a2136df228d613efde210f1acdf7772dc548",
+      "sha256": "bd95f9d5a4e462baf23bd8fa4936e7ab804ae4cbcc3adf6b2855d9d18138fd98"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/lessons/ca-g9-ch05-modeling-evidence.meta.json",
+      "mode": "100644",
+      "objectId": "16aeab689b324781e37155dca75c582611646dbc",
+      "sha256": "cf04394df12a9ccca3e7e8a207f3decd9dae01a85bfefdaf64ba3a34a89c3986"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-claude-v1/source.json",
+      "mode": "100644",
+      "objectId": "9233b78d5e66b20135ad71dd4a11654810ba3dfb",
+      "sha256": "4e894bb69e5b5b7748d83886cb4ec5b8f1038d06702647d27301ecb15d3d9616"
+    },
+    {
+      "path": "data/generated-content/ccss-textbook-source-v1/assignments.json",
+      "mode": "100644",
+      "objectId": "cb2da8e24accadad1883dcdc95067f6d02af7015",
+      "sha256": "c3d24bd9846d6d20eb325e5b99ae6619491c4d365ba12622ec3b5a702fa65998"
+    },
+    {
+      "path": "data/usCaliforniaLessons.ts",
+      "mode": "100644",
+      "objectId": "8f2ed737b80d82ec61ba6914933adf563a68463b",
+      "sha256": "6788269ade8de95cb47816065f5b9fea6c1568eb6689336216cfad45c89c3de2"
+    },
+    {
+      "path": "lib/californiaGradeAware.test.ts",
+      "mode": "100644",
+      "objectId": "4ccf2d6ff2a3ef0f70ac607f62fa2f5bd21a2b5b",
+      "sha256": "146349ae6fd1d8e1b19a39da8f9b27adafb8370598e283d68b7cfe963f681968"
+    },
+    {
+      "path": "scripts/audit-math-diagram-inventory.ts",
+      "mode": "100644",
+      "objectId": "137608157cc3c3a487410d578143819233c3ba61",
+      "sha256": "fe488efd49f5827d4b5a6fc534394476c64a7f2b0682236be803b331ce3f84bd"
+    },
+    {
+      "path": "scripts/audit-us-ca-lesson-text-collision-adversarial.test.mjs",
+      "mode": "100644",
+      "objectId": "640da525ebd9fb62b580e5bd818804caa86ac68f",
+      "sha256": "89eb2f39eee0416c89ee0ba2673f0f7399d96541baf85fd5bd9f99d9f7c0895d"
+    },
+    {
+      "path": "scripts/audit-us-ca-lesson-text-collision.mjs",
+      "mode": "100644",
+      "objectId": "0267ed2c4cb8e04cd06ddfd4edc10fdda202edb4",
+      "sha256": "23894833f58aadf7ea0c5fc2a1f0ac192876ed250fdbb83515f1b1c557e75d4c"
+    },
+    {
+      "path": "scripts/audit-us-ca-lesson-text-collision.test.mjs",
+      "mode": "100644",
+      "objectId": "c1f7a991487804af2595c9d7f714b1e91e173585",
+      "sha256": "64cc32ee52266cde57018c4fa100efa4faf7144af7fa776395ad26264ca61df0"
+    },
+    {
+      "path": "scripts/build-ccss-claude-snapshot.mjs",
+      "mode": "100644",
+      "objectId": "69331c8d3e5cfa1ab22977196ce90a5b3a304114",
+      "sha256": "379a2db761f6968b4105cf05f548d1c0d71973874675cee81aa9af50262aef94"
+    },
+    {
+      "path": "scripts/build-ccss-lesson-assignments.mjs",
+      "mode": "100644",
+      "objectId": "ccb63ecb85d3db237c0dbced1d49f451dd0c14e2",
+      "sha256": "7e7df1c8d9691be110883d38e1343540e1bb08306b8bf251b4cb444988f27955"
+    },
+    {
+      "path": "scripts/build-ccss-practice-pack.mjs",
+      "mode": "100644",
+      "objectId": "ad43496a4b1eb300d28453e9796e522acecb4333",
+      "sha256": "9926dee55fd977b6d8da1421a09a560411ceddcd3721d388e0255e806ee87b52"
+    },
+    {
+      "path": "scripts/generate-ccss-registry.mjs",
+      "mode": "100644",
+      "objectId": "2bd96c7a5bcb3100f233bd59ac84967fdef1f999",
+      "sha256": "4617393132ea6aa280204c4fba02eecf3ae229ad343f5b951e4d4364a34bcd0d"
+    },
+    {
+      "path": "tests/e2e/california-high-school-textbook-review.spec.ts",
+      "mode": "100644",
+      "objectId": "d125805bbeccaf5c45ab0cd5ebb20263624f0839",
+      "sha256": "cb2b8794b86aa94e6ba72574f35a40861928714de0450cbf87263f8611edf1d2"
+    },
+    {
+      "path": "tests/e2e/california-high-school-textbook-student-release.spec.ts",
+      "mode": "100644",
+      "objectId": "f3cbc3cb57df411a73fcced24917260abbc370c6",
+      "sha256": "cb185b5bc95fdf8bab9bae318e543aac00fda40ca2ad91775257424701668f07"
+    },
+    {
+      "path": "tests/e2e/california-middle-school-textbook-english-only.spec.ts",
+      "mode": "100644",
+      "objectId": "726b9c799e942a676c8ef89883906efc127fabbc",
+      "sha256": "ceda910736a9521ebef66df2afc19549d77deaf8fb781b4fc85611f67a5fe9bc"
+    },
+    {
+      "path": "tests/e2e/math-diagram-boundary.spec.ts",
+      "mode": "100644",
+      "objectId": "78e0ef4a21dfe0e3b1cab4a8d47724ebf5772861",
+      "sha256": "ad98337469fe80431a8c0c670e17d0443fe7e7e27d3387ca24fda27a0316d90e"
+    },
+    {
+      "path": "tests/e2e/math-diagram-source-geometry.test.ts",
+      "mode": "100644",
+      "objectId": "bcc07d00ef2c2577abcc725f1b6e2a71517f0a7a",
+      "sha256": "ecc422447ecd867345293fb2deaaf465f8c62672adf674cb7c8c6732c1e4e0d7"
+    }
+  ],
+  "removals": [
+    "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+    "components/lesson/CaliforniaMiddleSchoolTextbookPage.tsx"
+  ],
+  "mappings": [
+    {
+      "slug": "ca-g10-ch01-congruence-proof",
+      "topicId": "us-ca-math-s4-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g10-ch02-similarity-right-triangle-reasoning",
+      "topicId": "us-ca-math-s4-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g10-ch03-circle-geometry",
+      "topicId": "us-ca-math-s4-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g10-ch04-quadratic-structure",
+      "topicId": "us-ca-math-s4-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g10-ch05-conditional-probability",
+      "topicId": "us-ca-math-s4-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g11-ch01-function-transformations-inverses",
+      "topicId": "us-ca-math-s5-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g11-ch02-exponential-logarithmic-models",
+      "topicId": "us-ca-math-s5-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g11-ch03-trigonometric-functions-graphs",
+      "topicId": "us-ca-math-s5-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g11-ch04-data-modeling-residuals",
+      "topicId": "us-ca-math-s5-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g11-ch05-statistical-inference-claims",
+      "topicId": "us-ca-math-s5-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g12-ch01-quantities-units-precision",
+      "topicId": "us-ca-math-s6-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g12-ch02-polynomial-structure-behavior",
+      "topicId": "us-ca-math-s6-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g12-ch03-decision-statistics",
+      "topicId": "us-ca-math-s6-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g12-ch04-function-analysis-rates",
+      "topicId": "us-ca-math-s6-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g12-ch05-capstone-modeling",
+      "topicId": "us-ca-math-s6-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g6-ch01-ratios-rates-percent-reasoning",
+      "topicId": "us-ca-math-p6-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g6-ch02-rational-numbers-number-line",
+      "topicId": "us-ca-math-p6-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g6-ch03-expressions-equations-variables",
+      "topicId": "us-ca-math-p6-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g6-ch04-geometry-area-surface-area",
+      "topicId": "us-ca-math-p6-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g6-ch05-statistics-data-distributions",
+      "topicId": "us-ca-math-p6-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g7-ch01-proportional-relationships",
+      "topicId": "us-ca-math-s1-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g7-ch02-operations-rational-numbers",
+      "topicId": "us-ca-math-s1-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g7-ch03-linear-expressions-equations",
+      "topicId": "us-ca-math-s1-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g7-ch04-scale-geometry-measurement",
+      "topicId": "us-ca-math-s1-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g7-ch05-sampling-probability-inference",
+      "topicId": "us-ca-math-s1-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g8-ch01-linear-equations-systems-readiness",
+      "topicId": "us-ca-math-s2-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g8-ch02-functions-rate-change",
+      "topicId": "us-ca-math-s2-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g8-ch03-transformations-similarity",
+      "topicId": "us-ca-math-s2-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+      "topicId": "us-ca-math-s2-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g8-ch05-bivariate-data-claims",
+      "topicId": "us-ca-math-s2-chapter-05",
+      "primary": true
+    },
+    {
+      "slug": "ca-g9-ch01-equations-context",
+      "topicId": "us-ca-math-s3-chapter-01",
+      "primary": true
+    },
+    {
+      "slug": "ca-g9-ch02-function-notation-interpretation",
+      "topicId": "us-ca-math-s3-chapter-02",
+      "primary": true
+    },
+    {
+      "slug": "ca-g9-ch03-linear-quadratic-models",
+      "topicId": "us-ca-math-s3-chapter-03",
+      "primary": true
+    },
+    {
+      "slug": "ca-g9-ch04-coordinate-geometry-methods",
+      "topicId": "us-ca-math-s3-chapter-04",
+      "primary": true
+    },
+    {
+      "slug": "ca-g9-ch05-modeling-evidence",
+      "topicId": "us-ca-math-s3-chapter-05",
+      "primary": true
+    }
+  ],
+  "assets": [
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-p6-6-rp-ratios",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/p6-chapter-01-concept.png",
+        "mode": "100644",
+        "objectId": "d6e27d93a1d110ba161d050e03684403727c1789",
+        "sha256": "310bd1066b315ec508fba679f6bbfcadf697a51fb7e077b1619609c51b3baa0d"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g6-ch01-ratios-rates-percent-reasoning",
+          "topicId": "us-ca-math-p6-chapter-01",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g6-ch01-ratios-rates-percent-reasoning.tsx",
+            "mode": "100644",
+            "objectId": "3b9a11dddf3a4db9dd2417bb7f9953052e5b2ceb",
+            "sha256": "05a8d5f04ffdd96a63ff18a0cbff64099f9dce457486a57c5d21afcda6a29393"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-01.md",
+        "sha256": "7c20107c5b1d1ef354a20d0f125641c0545bb1b81099bbf4a169864e8801031a"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-p6-6-ns-rational-numbers",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/p6-chapter-02-concept.png",
+        "mode": "100644",
+        "objectId": "f27429335d81144d168fccb85f5be7dc42cbac3e",
+        "sha256": "51c3cb1907cb948171999e5582dfa78e7112e332c79df3dc52db8dc08b0bdb36"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g6-ch02-rational-numbers-number-line",
+          "topicId": "us-ca-math-p6-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g6-ch02-rational-numbers-number-line.tsx",
+            "mode": "100644",
+            "objectId": "83914b447cf9e0cc8439a799204bc77166e822fd",
+            "sha256": "b7d6b2eaf213a1e16ca0ad4ba1c3d0f3b09dd120ad72a34af61a11697284cfe7"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "divide-fractions",
+          "topicId": "us-ca-math-p6-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/divide-fractions.tsx",
+            "mode": "100644",
+            "objectId": "7a6270df716240f017c97b29445e8bb5458b52b1",
+            "sha256": "0798143dd5cc9835f3837e0a39ec6f4486a86531376b95e3ed2de380a9c79ab6"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "decimal-arithmetic",
+          "topicId": "us-ca-math-p6-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/decimal-arithmetic.tsx",
+            "mode": "100644",
+            "objectId": "15a0617c79fab59bbd6a752b8f2389e6abea3e04",
+            "sha256": "febb8dae342e59ec00a6264eb5a7e4414e0095cbbb750dc55e4402ed628cb683"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-02.md",
+        "sha256": "c7e2ad23e8ea42aec38fddc7a8afdfef2cd6127f1748ea2bfb4befe082d65ef4"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-p6-6-ee-expressions-equations",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/p6-chapter-03-concept.png",
+        "mode": "100644",
+        "objectId": "0a8fabc1261d895697ee0629f5224f6c4f2f9989",
+        "sha256": "f344147a8d1c5245d654d23f7fe81d52cd733029690e0ebe56dd8ff12720af35"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g6-ch03-expressions-equations-variables",
+          "topicId": "us-ca-math-p6-chapter-03",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g6-ch03-expressions-equations-variables.tsx",
+            "mode": "100644",
+            "objectId": "c9a2f61bdd609f5e760b94e2944c8daf80b79ee6",
+            "sha256": "cb0a666c7c7351a130f117fe702be7007b3b080ccd09134e33d329f36720d864"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-03.md",
+        "sha256": "9111d926709b6024f2cc9a5c80bf15247f2ab7a128ba5b34f0fa970068150512"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-p6-6-g-area-volume",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/p6-chapter-04-concept.png",
+        "mode": "100644",
+        "objectId": "a715178114fe09d01af29a3399d28986b21c592f",
+        "sha256": "d18a799523bedb4687c527bcc90b06556f1917b0eec8a168eccd47d9d15cecc5"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g6-ch04-geometry-area-surface-area",
+          "topicId": "us-ca-math-p6-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g6-ch04-geometry-area-surface-area.tsx",
+            "mode": "100644",
+            "objectId": "9edeb3372b29b4ab80fe30f3e61e77cb2fab20a3",
+            "sha256": "4cf3e4b511aacd3685cb709715c58f5532a8ac377ad51910928bba634e52cc70"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-04.md",
+        "sha256": "c410745cde488fd446b741142a9f49e9d6c4d7d79408e2d063e3d8759217b98f"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-p6-6-sp-distributions",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/p6-chapter-05-concept.png",
+        "mode": "100644",
+        "objectId": "1e1f0987ca925a78b45dbbbc9522e1230b62da7c",
+        "sha256": "212e43a5673d8973962d6f9f00b5c52a0ee6b473c130c1dd4b42a08a669ee10d"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g6-ch05-statistics-data-distributions",
+          "topicId": "us-ca-math-p6-chapter-05",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g6-ch05-statistics-data-distributions.tsx",
+            "mode": "100644",
+            "objectId": "6dc503f63093f668afa7ff5454a767629fba70a6",
+            "sha256": "2f9922351a707b584cea1e2c88e36265564e93ee25b07f43b6625087e21a5fbb"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "data-displays",
+          "topicId": "us-ca-math-p6-chapter-05",
+          "source": {
+            "path": "components/lesson/ccss/lessons/data-displays.tsx",
+            "mode": "100644",
+            "objectId": "fb06ac22a2b98163db6ddedd626ff4705009e9ac",
+            "sha256": "bb298f55247f140ff1b959af2fbf1a5c2498669dead0c2dbacf706f7e0cf0ea9"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-05.md",
+        "sha256": "1cffc88acbf54e851e6ca6c19bef66d7ad8604f8fcbd742a2135a3c0bb7f2840"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s1-7-rp-proportions",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s1-chapter-01-concept.png",
+        "mode": "100644",
+        "objectId": "7b0e981d9e354da537d3d7986d18d94be37b529c",
+        "sha256": "90260d3a190a7a9e062dffd70cf63e232f662fa589b4fe36ffe5c23c0f27271e"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g7-ch01-proportional-relationships",
+          "topicId": "us-ca-math-s1-chapter-01",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g7-ch01-proportional-relationships.tsx",
+            "mode": "100644",
+            "objectId": "7e81e5afc25afaa2826b3867e87dea28e7feb436",
+            "sha256": "5454fe7fd8fb1bcc1a7c2e5402b38b217ad8a648d05d83d6f8a74cc7a6beb7f1"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-06.md",
+        "sha256": "019a00563d847378e947b9196120efe5731fd670a3f7bb7b5294f1f015922cdb"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s1-7-ns-rational-operations",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s1-chapter-02-concept.png",
+        "mode": "100644",
+        "objectId": "b9cb8a34cdcfe347eeedf1acdb546c920e368e86",
+        "sha256": "12817cb0bafbb792fc6ce6603b586fc676c3f30bba03d07a8bebe3d88feafefe"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g7-ch02-operations-rational-numbers",
+          "topicId": "us-ca-math-s1-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g7-ch02-operations-rational-numbers.tsx",
+            "mode": "100644",
+            "objectId": "4cec8a3a88aa8cbe90706ada9abe3f3c0bc3d739",
+            "sha256": "522f84054ff0b62f089e22fe452429f5c367f76379fa1b4f8d853a4c956c453e"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-07.md",
+        "sha256": "57176538c4b8bd93e1297607f047ce5a066d3f36446990cf4085700d1ea056dd"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s1-7-ee-linear-expressions",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s1-chapter-03-concept.png",
+        "mode": "100644",
+        "objectId": "3dbf175d7d0fba4f11770170c08df5c0ca740e9e",
+        "sha256": "ad21453b7df83c0651c1b4106ea4b11be4e53171f3f81d778c3d6ea03cff8d18"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g7-ch03-linear-expressions-equations",
+          "topicId": "us-ca-math-s1-chapter-03",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g7-ch03-linear-expressions-equations.tsx",
+            "mode": "100644",
+            "objectId": "3d251e8a3ba49f512844f900f92c3f3cc0aa5f2c",
+            "sha256": "67bfd455a761b5c6da92bfabaae306d8d657e4d689817fc33095c4e5aafe8f38"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-08.md",
+        "sha256": "e18719513d0f313b8c6e52a5d41fa067950612c0ea3501e06609a3f9a084dfa0"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s1-7-g-scale-circles-angles",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s1-chapter-04-concept.png",
+        "mode": "100644",
+        "objectId": "f2ed4fba51a9a8353cd1f83b32556d0f753692b4",
+        "sha256": "e84dc0269b417114f9b78c569ddbd52ffc472497c1c4cdd762d0ea1a9072d6a4"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g7-ch04-scale-geometry-measurement",
+          "topicId": "us-ca-math-s1-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g7-ch04-scale-geometry-measurement.tsx",
+            "mode": "100644",
+            "objectId": "ffb46194ef61e8cab387e41e60569757aaac4818",
+            "sha256": "fd9a68a62bc5120981cfa8a61eebf73af253e6f17e2930ca4bef9e332cc76ccb"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "construct-triangles",
+          "topicId": "us-ca-math-s1-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/construct-triangles.tsx",
+            "mode": "100644",
+            "objectId": "032da84bde2cfb5befb4b957355d2dc57dc119b8",
+            "sha256": "417701dd96cf42cbc63d36c0d9ac96ae6630442025f7d17c3e52e288f803a6f1"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-09.md",
+        "sha256": "98e800b549b273b8a906d2458b4e39b21b07a2d78c8b6a4a69c3d64e85119de2"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s1-7-sp-inference-probability",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s1-chapter-05-concept.png",
+        "mode": "100644",
+        "objectId": "fe21a6c5d785e38f49062a7580b53086f132516c",
+        "sha256": "39124d2a913026af28845fd1fb5674b35a41ef22b46a4a6513a99e2abf255047"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g7-ch05-sampling-probability-inference",
+          "topicId": "us-ca-math-s1-chapter-05",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g7-ch05-sampling-probability-inference.tsx",
+            "mode": "100644",
+            "objectId": "42268de9c04e2594e08f40e295cda1d4c2401361",
+            "sha256": "f30f805a3b41bfec1ca0a6e19d9a44b9b0c9811afe5bc8617637e96383327c04"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-10.md",
+        "sha256": "2289409c12166e938165c1c9c6d1038b983fc70a2424378342cb7513319796bf"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s2-8-ns-real-numbers",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s2-chapter-01-concept.png",
+        "mode": "100644",
+        "objectId": "52840478a83d83849fefa3b730fd4cc278c6c422",
+        "sha256": "423e92606647127d2639888d8928883cbb8a9a5a77663f0440322f215a2db475"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch01-linear-equations-systems-readiness",
+          "topicId": "us-ca-math-s2-chapter-01",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch01-linear-equations-systems-readiness.tsx",
+            "mode": "100644",
+            "objectId": "c1d54a230d93e043039bc6fa5a547fbdb53491da",
+            "sha256": "ebfa6d2a98f7c07d5e163b149551a928aebbf106705addff0054642e3500d020"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-11.md",
+        "sha256": "523d8c9f453173d96eb43b15be8209eae55e004364279ce9ad56e3f60ab59636"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s2-8-ee-exponents-linear-systems",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s2-chapter-02-concept.png",
+        "mode": "100644",
+        "objectId": "3251e38c140b67b0bf04e426cbbe8bcc4e674485",
+        "sha256": "2b8a45cbc8ef1bb5ecd6c0519691666bc65d07037aaaeebbc934d5b509635b29"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch01-linear-equations-systems-readiness",
+          "topicId": "us-ca-math-s2-chapter-01",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch01-linear-equations-systems-readiness.tsx",
+            "mode": "100644",
+            "objectId": "c1d54a230d93e043039bc6fa5a547fbdb53491da",
+            "sha256": "ebfa6d2a98f7c07d5e163b149551a928aebbf106705addff0054642e3500d020"
+          }
+        },
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch02-functions-rate-change",
+          "topicId": "us-ca-math-s2-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch02-functions-rate-change.tsx",
+            "mode": "100644",
+            "objectId": "ab2736634f6e74eb7ec71bb56f95f230a5daff3e",
+            "sha256": "c228e9112361f1786486af84ebf580bc9b6a38952c8ca4c98757999c317b02b4"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "integer-exponents",
+          "topicId": "us-ca-math-s2-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/integer-exponents.tsx",
+            "mode": "100644",
+            "objectId": "da425140360eb89770f5b14208b37e87d8818776",
+            "sha256": "13d57d770fd0e60aa95b8a241c33bbd328ee1427f2abbc45cff1982cf720fa7d"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "roots",
+          "topicId": "us-ca-math-s2-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/roots.tsx",
+            "mode": "100644",
+            "objectId": "439e391d205c7430915b2359bfe3bece693d5ba2",
+            "sha256": "07f9cd51a23087a638a5524dd63959bf97d0da253d9a362d14511f020a090e1b"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "scientific-notation",
+          "topicId": "us-ca-math-s2-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/scientific-notation.tsx",
+            "mode": "100644",
+            "objectId": "0b967c1f86a06485d35f7925b2c97da716e1c605",
+            "sha256": "866e25bf829659f096d9f28cc0da527f875e6c008ddde5a11347745a68c28885"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-12.md",
+        "sha256": "504b18914510e89e1bdef60770fd744ba8c2598c46f6563ce6a822305dba5802"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s2-8-f-function-relationships",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s2-chapter-03-concept.png",
+        "mode": "100644",
+        "objectId": "d1da444490c1845f6ba6b93df5657baaaf152ea0",
+        "sha256": "1ecebf1ac087b5c2e744b28cb5995e38e0744135fe636e3f74b947d2e88e8149"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch02-functions-rate-change",
+          "topicId": "us-ca-math-s2-chapter-02",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch02-functions-rate-change.tsx",
+            "mode": "100644",
+            "objectId": "ab2736634f6e74eb7ec71bb56f95f230a5daff3e",
+            "sha256": "c228e9112361f1786486af84ebf580bc9b6a38952c8ca4c98757999c317b02b4"
+          }
+        },
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch03-transformations-similarity",
+          "topicId": "us-ca-math-s2-chapter-03",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch03-transformations-similarity.tsx",
+            "mode": "100644",
+            "objectId": "c03546d8913db8f94e040f595521073041f03ef1",
+            "sha256": "1b0d6ed796ebba91ab3b7708d37ab631cf4e8fccf2ef5391be3d33f9f50b4e67"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-13.md",
+        "sha256": "2e392af0ed16e8dbf8274030905c97596cee0bf4cfcdb61c227ece8a4e5aeb62"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s2-8-g-transformations-pythagorean-volume",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s2-chapter-04-concept.png",
+        "mode": "100644",
+        "objectId": "409448006fb4d2aefcc0dd8ab64c2e158a87bcfc",
+        "sha256": "6593608a5f4f524e56dfee057dc0be2439bdedee7275f83d19040f1aec949259"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch03-transformations-similarity",
+          "topicId": "us-ca-math-s2-chapter-03",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch03-transformations-similarity.tsx",
+            "mode": "100644",
+            "objectId": "c03546d8913db8f94e040f595521073041f03ef1",
+            "sha256": "1b0d6ed796ebba91ab3b7708d37ab631cf4e8fccf2ef5391be3d33f9f50b4e67"
+          }
+        },
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+          "topicId": "us-ca-math-s2-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch04-pythagorean-reasoning-coordinate-geometry.tsx",
+            "mode": "100644",
+            "objectId": "fb521fb9e587b229cbafa4de3696cdc233adba86",
+            "sha256": "daf7f723ae8430dc7ccf178dc59c8ab94c9dbfd680489a63a4773e35e893dfb4"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "triangle-angles",
+          "topicId": "us-ca-math-s2-chapter-03",
+          "source": {
+            "path": "components/lesson/ccss/lessons/triangle-angles.tsx",
+            "mode": "100644",
+            "objectId": "4e94174742d18ba32a7969c8daf937a74fb506fa",
+            "sha256": "8d3cbf7254d5e1beaeb5722f459b92f1dde0d89c8e82ce72736a07bca51b4d3f"
+          }
+        },
+        {
+          "kind": "retained-related",
+          "lessonId": "volume-3d",
+          "topicId": "us-ca-math-s2-chapter-04",
+          "source": {
+            "path": "components/lesson/ccss/lessons/volume-3d.tsx",
+            "mode": "100644",
+            "objectId": "d597bb2a144739161a76065f10b00b100527f314",
+            "sha256": "782aa4f4062065b2afd877929b771ebd27c613ff16b28eddb0bc858abc03da5d"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-14.md",
+        "sha256": "be24be70b31e804cb6e9525fb1909086665602dc60e4494762941848547d7bf7"
+      }
+    },
+    {
+      "oldId": "us-ca-math-middle-school-textbooks-v2-s2-8-sp-bivariate-data",
+      "retained": {
+        "path": "public/lesson-illustrations/us-ca-middle-school/candidates/s2-chapter-05-concept.png",
+        "mode": "100644",
+        "objectId": "0857978dea4180096012060373d198631c3c58be",
+        "sha256": "f34c76d1c378bfb8e72bb4a903a0565b0b27d1c8ef87f226ecbf4de28f93bc13"
+      },
+      "witnesses": [
+        {
+          "kind": "new-opener",
+          "lessonId": "ca-g8-ch05-bivariate-data-claims",
+          "topicId": "us-ca-math-s2-chapter-05",
+          "source": {
+            "path": "components/lesson/ccss/lessons/ca-g8-ch05-bivariate-data-claims.tsx",
+            "mode": "100644",
+            "objectId": "dfc3863f84289aabb465370fda4d6be3494daf35",
+            "sha256": "ce598515736b31c710b8aedc58e05fd9bff06a16712076fccbcd36f7649563c4"
+          }
+        }
+      ],
+      "coverageReport": {
+        "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/assets/old-15.md",
+        "sha256": "3b3bddf854e890f7674c81670174d85d6fd44e7a6a08878a4dc3a738af3936bf"
+      }
+    }
+  ]
+}

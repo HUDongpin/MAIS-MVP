@@ -1,0 +1,1544 @@
+{
+  "packageId": "ccss-textbook-claude-v1",
+  "generatedAt": "2026-09-02",
+  "generator": "Claude Fable 5.1 authoring workflow, session 2026-09-02 (one author per chapter + three adversarial verifiers per lesson + repair loop); assembled by scripts/build-ccss-claude-snapshot.mjs from lessons/*.meta.json",
+  "scope": {
+    "grades": [
+      "6",
+      "7",
+      "8",
+      "HS"
+    ],
+    "lessonCount": 35
+  },
+  "lessons": [
+    {
+      "slug": "ca-g10-ch01-congruence-proof",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s4-chapter-01",
+      "title": "Congruence and Proof",
+      "standardIds": [
+        "G-CO.6",
+        "G-CO.7",
+        "G-CO.8",
+        "G-CO.2",
+        "G-CO.4",
+        "G-CO.5"
+      ],
+      "summary": "Pick a slide, turn, or flip and watch one coordinate rule carry all three vertices of a triangle onto a congruent image.",
+      "emoji": "🪞",
+      "narration": "A machinist checking a stamped bracket does not reach for a ruler first. She picks the bracket up, turns it, maybe flips it over, and sets it down on the drawing to see whether it lands exactly on the outline. This chapter turns that test into mathematics: congruent means some slide, turn, or flip carries one figure exactly onto the other. Pick a motion, watch a single coordinate rule move all three vertices at once, and see why the side lengths and the right angle come out unchanged."
+    },
+    {
+      "slug": "ca-g10-ch02-similarity-right-triangle-reasoning",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s4-chapter-02",
+      "title": "Similarity and Right-Triangle Reasoning",
+      "standardIds": [
+        "G-SRT.1",
+        "G-SRT.6",
+        "G-SRT.3",
+        "G-SRT.5",
+        "G-SRT.8",
+        "G-SRT.7",
+        "G-SRT.2",
+        "G-SRT.9"
+      ],
+      "summary": "Dilate a right triangle and watch its lengths grow while the angle, its sine, cosine, and tangent refuse to change.",
+      "emoji": "🔺",
+      "narration": "Blow a photograph up to poster size and every length multiplies by the same number, while not one angle changes. That is the whole idea behind this chapter. Because two right triangles that share an acute angle are just the same shape at different sizes, the ratio of any two matching sides depends on the angle and nothing else, and those ratios are what we call sine, cosine, and tangent. Pick a triangle, slide the scale factor, and see the side lengths move while the angle and its ratios stay exactly where they were."
+    },
+    {
+      "slug": "ca-g10-ch03-circle-geometry",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s4-chapter-03",
+      "title": "Circle Geometry",
+      "standardIds": [
+        "G-C.5",
+        "G-C.1",
+        "G-GMD.1",
+        "G-GMD.3",
+        "G-GMD.4"
+      ],
+      "summary": "Cut a wedge from a paper circle and roll it into a cone: arc, sector area, base radius, height and volume all move together.",
+      "emoji": "🍦",
+      "narration": "A party hat, a paper cup and a traffic cone all start out as a flat piece of a circle. Cut a wedge out of a paper disc, curl the two straight edges together, and the curved edge closes into a ring, because paper does not stretch. That single fact turns the arc length of the flat wedge into the base circle of the finished cone, and from there you can find its radius, its height and the volume it holds. Change the paper radius and the cut angle, and watch every one of those numbers respond at once."
+    },
+    {
+      "slug": "ca-g10-ch04-quadratic-structure",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s4-chapter-04",
+      "title": "Quadratic Structure",
+      "standardIds": [
+        "A-SSE.1",
+        "A-SSE.2",
+        "A-SSE.3"
+      ],
+      "summary": "Move a parabola's two roots and watch factored, standard and vertex form rewrite themselves into the same curve.",
+      "emoji": "🧩",
+      "narration": "Picture a drama club deciding how big a discount to put on its tickets. Cutting the price brings more people, so the money taken in is one changing amount times another, and that product is a quadratic. The same quadratic can be dressed three ways: factored form shows where it hits zero, standard form shows its coefficients, and vertex form shows the one value the curve turns around at — for the club's takings, the most money it can bring in. Move the two roots in the figure and watch all three forms rewrite themselves into the very same curve; that one opens upward, so its vertex is the lowest point it reaches."
+    },
+    {
+      "slug": "ca-g10-ch05-conditional-probability",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s4-chapter-05",
+      "title": "Conditional Probability",
+      "standardIds": [
+        "S-CP.3",
+        "S-CP.6",
+        "S-CP.4",
+        "S-CP.7",
+        "S-CP.8",
+        "S-CP.1",
+        "S-CP.2",
+        "S-CP.5",
+        "S-CP.9"
+      ],
+      "summary": "Move two survey counts and watch conditioning shrink the sample space to one column, changing every probability in the table.",
+      "emoji": "🎺",
+      "narration": "Picture a survey of two hundred students that records two things about each one: whether they march in the band, and whether they read sheet music. Being told that a student is in the band changes the odds that the student reads music, because you throw away every student the news rules out and take the fraction of what is left. Flip the condition and the answer flips with it, since the band is the smaller group. Move the two counts and watch the outlined column, and every probability beside it, change, until one setting makes the two events exactly independent."
+    },
+    {
+      "slug": "ca-g11-ch01-function-transformations-inverses",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s5-chapter-01",
+      "title": "Function Transformations and Inverses",
+      "standardIds": [
+        "F-BF.3",
+        "F-BF.4",
+        "F-BF.5",
+        "F-IF.7",
+        "F-IF.8",
+        "F-BF.1"
+      ],
+      "summary": "Slide, stretch and flip a parent function, then watch its inverse undo every step as a mirror image across y = x.",
+      "emoji": "🔁",
+      "narration": "Almost every function you meet this year is a plain parent function that has been slid sideways, stretched, flipped and lifted. Running one backwards means undoing those moves in the opposite order, which on a graph is a single mirror flip across the line y equals x. Pick a parent, move the stretch and the two shifts, and watch the inverse rebuild itself step by step. Then use a cooling cup of cocoa to read a time back out of a temperature."
+    },
+    {
+      "slug": "ca-g11-ch02-exponential-logarithmic-models",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s5-chapter-02",
+      "title": "Exponential and Logarithmic Models",
+      "standardIds": [
+        "F-LE.1",
+        "F-LE.2",
+        "F-LE.3",
+        "F-LE.4",
+        "F-LE.5"
+      ],
+      "summary": "Race a pond whose weed adds the same area each week against one that grows by a percent, then use a log to find when each is covered.",
+      "emoji": "📈",
+      "narration": "Two ponds, one weed, two very different stories. In the first pond the patch grows by the same number of square meters every week; in the second it grows by the same percentage, so the amount it adds keeps getting bigger. Slide the controls and hunt for the week the curve takes over: with some settings it happens in the very first week, and with others it waits until long after the pond is full. Then ask the question a caretaker really asks: when is the pond covered? For the adding pond that is one division, and for the multiplying pond the unknown is stuck up in the exponent, which is exactly the job a logarithm was invented for."
+    },
+    {
+      "slug": "ca-g11-ch03-trigonometric-functions-graphs",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s5-chapter-03",
+      "title": "Trigonometric Functions and Graphs",
+      "standardIds": [
+        "F-TF.2",
+        "F-TF.1",
+        "F-TF.3",
+        "F-TF.4",
+        "F-TF.5",
+        "F-TF.6",
+        "F-TF.7",
+        "F-TF.8",
+        "F-TF.9"
+      ],
+      "summary": "Step a turning wheel around and watch the rider's height trace the sine wave beside it, point for point.",
+      "emoji": "🎡",
+      "narration": "Picture yourself on a wheel that turns at a steady rate. Your height is not a straight line, it is a wave that repeats every single turn. In this opener you step the wheel around and watch the rider on the left and the dot on the graph move together, with the exact values of cosine and sine printed as you go. Everything else in the chapter is one piece of that picture, looked at closely."
+    },
+    {
+      "slug": "ca-g11-ch04-data-modeling-residuals",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s5-chapter-04",
+      "title": "Data Modeling and Residuals",
+      "standardIds": [
+        "S-ID.6",
+        "S-ID.1",
+        "S-ID.2",
+        "S-ID.3",
+        "S-ID.7"
+      ],
+      "summary": "Tilt and shift a line over eight delivery routes and watch the residual plot decide whether a straight line is the right model.",
+      "emoji": "📈",
+      "narration": "Every model misses. In this chapter you fit straight lines to real data, then look hard at what each line got wrong. Slide the line over a courier's eight delivery routes, watch the leftover gaps shrink, and read the pattern they make. A small total is not enough, because the shape of the residuals is what tells you whether a straight line was ever the right idea."
+    },
+    {
+      "slug": "ca-g11-ch05-statistical-inference-claims",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s5-chapter-05",
+      "title": "Statistical Inference and Claims",
+      "standardIds": [
+        "S-IC.1",
+        "S-IC.4",
+        "S-IC.2",
+        "S-IC.3",
+        "S-IC.5",
+        "S-IC.6"
+      ],
+      "summary": "Set a survey’s size and result, then see which band each design earns — and whether it rules a marked claim out.",
+      "emoji": "📊",
+      "narration": "A student paper says 60 percent of students would ride a late bus, but nobody asked all twelve thousand of them. Move the sample size and the sample percent, and the bar shows every population value this survey leaves standing. Slide the marker to a claim and see whether the data rule it out. Then switch how the data were gathered: a sign-up sheet earns no band at all, and a randomized experiment is judged against the wider swing in the gap between its two groups."
+    },
+    {
+      "slug": "ca-g12-ch01-quantities-units-precision",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s6-chapter-01",
+      "title": "Quantities, Units, and Precision",
+      "standardIds": [
+        "N-Q.1",
+        "N-Q.2",
+        "N-Q.3"
+      ],
+      "summary": "Set a plot's sides and the tool that read them, and see the doubt band decide how many significant figures the answer keeps.",
+      "emoji": "📐",
+      "narration": "A crew writes two numbers on a clipboard, and a plot becomes turf to buy and edging to cut. Those numbers cannot do the job alone: each one carries a unit, and each one came off a tool that can only see so fine. In this chapter a quantity is three things at once, a number, a unit, and a level of precision, and all three travel through the arithmetic with it. Change the plot, switch tools, and watch the width of the doubt band decide how many significant figures your measurement actually paid for."
+    },
+    {
+      "slug": "ca-g12-ch02-polynomial-structure-behavior",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s6-chapter-02",
+      "title": "Polynomial Structure and Behavior",
+      "standardIds": [
+        "A-APR.3",
+        "A-APR.2",
+        "A-APR.1",
+        "N-CN.9",
+        "N-CN.7",
+        "N-CN.8",
+        "N-CN.3",
+        "N-CN.4",
+        "N-CN.1"
+      ],
+      "summary": "Move a cubic's real zero and its complex pair, and watch the graph, the two written forms and the complex plane update together.",
+      "emoji": "🔗",
+      "narration": "A graph can only draw the zeros that happen to be real numbers, so a cubic that crosses the axis just once looks like it is hiding two of its three answers. Move the three dials and watch the missing pair appear on the complex plane beside the graph, as mirror images above and below the real axis — until you drop the imaginary part to zero and they settle onto the axis together. That mirroring is what keeps the multiplied-out coefficients real. And once complex numbers are allowed, every polynomial has exactly as many zeros as its degree — that is the Fundamental Theorem of Algebra."
+    },
+    {
+      "slug": "ca-g12-ch03-decision-statistics",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s6-chapter-03",
+      "title": "Decision Statistics",
+      "standardIds": [
+        "S-MD.2",
+        "S-MD.1",
+        "S-MD.3",
+        "S-MD.4",
+        "S-MD.5",
+        "S-MD.6",
+        "S-MD.7"
+      ],
+      "summary": "Change a prize wheel's payouts and ticket price, and watch the distribution, its expected value and the fair price move together.",
+      "emoji": "🎪",
+      "narration": "Picture a booth at the school fair with a spinning wheel: one big gold prize, a few small ones, and a lot of blanks. Instead of asking whether you can win, this lesson asks what a single spin does to your money on average. Change the prizes and the ticket price, and watch three things move together: the graph of every possible result, the weighted average that balances it, and the price that would make the game fair. That average is the tool the rest of the chapter uses to make decisions."
+    },
+    {
+      "slug": "ca-g12-ch04-function-analysis-rates",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s6-chapter-04",
+      "title": "Function Analysis and Rates",
+      "standardIds": [
+        "F-IF.6",
+        "F-IF.4",
+        "F-IF.9",
+        "F-IF.1",
+        "F-IF.2",
+        "F-IF.3",
+        "F-IF.5",
+        "F-IF.7",
+        "F-IF.8"
+      ],
+      "summary": "Pick a club, move the two week markers, and read the rise, run and exact average rate of change off one graph.",
+      "emoji": "⏱️",
+      "narration": "Three school clubs grow in three different ways: one adds the same number of members every week, one fills up and then shrinks back to where it started, and one doubles. Move the two week markers and the figure draws the line between those two counts, then tells you its slope, which is the average rate of change. Watch the strip of weekly changes underneath, because that strip is the fingerprint that says linear, quadratic or exponential, and it works even for the club that comes with no rule at all, only a table. Then work through the ball example, where the average over four seconds is zero even though the ball never stops moving."
+    },
+    {
+      "slug": "ca-g12-ch05-capstone-modeling",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s6-chapter-05",
+      "title": "Capstone Modeling",
+      "standardIds": [
+        "N-VM.12",
+        "N-VM.11",
+        "G-MG.2",
+        "G-MG.1",
+        "G-MG.3",
+        "N-VM.1",
+        "N-VM.2",
+        "N-VM.4",
+        "N-VM.5",
+        "N-VM.3"
+      ],
+      "summary": "Reshape a glass canopy with a 2x2 matrix and watch the determinant set its new area, its weight, and whether the frame holds.",
+      "emoji": "📐",
+      "narration": "A glass canopy over a courtyard starts life as two arrows on a site plan, one along each edge of the panel. Put those two arrows in the columns of a small square of numbers and its determinant is the panel's own area; then a second matrix, the move the designer makes to the whole plan, has its own determinant, and that number is the factor every area on the plan gets multiplied by. Follow the chain and the area gives you the weight of the glass, and the weight tells the builder whether the frame can hold it. Slant the panel, double it, turn it, or mirror it, and watch every number in the chain answer."
+    },
+    {
+      "slug": "ca-g6-ch01-ratios-rates-percent-reasoning",
+      "gradeId": "6",
+      "topicId": "us-ca-math-p6-chapter-01",
+      "title": "Ratios, Rates, and Percent Reasoning",
+      "standardIds": [
+        "6.RP.A.1",
+        "6.RP.A.3",
+        "6.RP.A.2"
+      ],
+      "summary": "Mix juice and water, then watch one recipe show up as a table, a double number line, a unit rate, and a percent of the batch.",
+      "emoji": "🥤",
+      "narration": "This chapter is about ratios, the 'for every' in a recipe. In the figure you mix cups of juice and cups of sparkling water, then watch the same mix show up as a table of batches, a double number line, a unit rate, and a percent of the whole batch. Change the recipe or the number of batches and notice which numbers move together and which stay exactly the same."
+    },
+    {
+      "slug": "ca-g6-ch02-rational-numbers-number-line",
+      "gradeId": "6",
+      "topicId": "us-ca-math-p6-chapter-02",
+      "title": "Rational Numbers and the Number Line",
+      "standardIds": [
+        "6.NS.C.6",
+        "6.NS.C.7",
+        "6.NS.C.5",
+        "6.NS.C.8",
+        "6.NS.B.4",
+        "6.NS.A.1"
+      ],
+      "summary": "Step two rational numbers along one number line to see their names, opposites, distances from 0, order, and grid point.",
+      "emoji": "📍",
+      "narration": "Picture an elevator panel: two floors up is positive two, and the loading bay below the lobby is negative one point five. Every rational number works that way, sitting at exactly one spot on the number line. Move points A and B a quarter at a time and watch their names, their opposites, and their distances from zero change together. Then see the pair land on a single point where a second number line crosses the first."
+    },
+    {
+      "slug": "ca-g6-ch03-expressions-equations-variables",
+      "gradeId": "6",
+      "topicId": "us-ca-math-p6-chapter-03",
+      "title": "Expressions, Equations, and Variables",
+      "standardIds": [
+        "6.EE.A.1",
+        "6.EE.A.2",
+        "6.EE.A.3",
+        "6.EE.A.4",
+        "6.EE.B.5",
+        "6.EE.B.6",
+        "6.EE.B.7",
+        "6.EE.B.8",
+        "6.EE.C.9"
+      ],
+      "summary": "Build a tile mural from square panels and watch one rule act as an expression, two equal forms, an equation, and a limit.",
+      "emoji": "🧱",
+      "narration": "An art club is building a mural out of identical square panels, but nobody has decided how big a panel should be yet. So the plan uses letters: a square of side s takes s squared blue tiles, one panel takes s squared plus g, and n panels take n times that. Move the sliders and watch the same rule counted two ways, filled into a table, and pressed against the hundred tiles in the box."
+    },
+    {
+      "slug": "ca-g6-ch04-geometry-area-surface-area",
+      "gradeId": "6",
+      "topicId": "us-ca-math-p6-chapter-04",
+      "title": "Geometry: Area, Surface Area, and Volume",
+      "standardIds": [
+        "6.G.A.1",
+        "6.G.A.4",
+        "6.G.A.2",
+        "6.G.A.3"
+      ],
+      "summary": "Resize a box in half-units and watch its unfolded net, its six face areas and the half-unit cubes that pack it move together.",
+      "emoji": "📦",
+      "narration": "Picture a cereal box on the kitchen counter. The counter space it takes, the cardboard it is made from and the cereal inside are three different measurements, and this chapter finds all three the same way: break the shape into pieces you can count. Unfold the box and its six faces become six rectangles to add up. Pack it with cubes half a unit on each side, count them, and remember that eight of those cubes make one cubic unit."
+    },
+    {
+      "slug": "ca-g6-ch05-statistics-data-distributions",
+      "gradeId": "6",
+      "topicId": "us-ca-math-p6-chapter-05",
+      "title": "Statistics and Data Distributions",
+      "standardIds": [
+        "6.SP.A.2",
+        "6.SP.A.1",
+        "6.SP.A.3",
+        "6.SP.B.5",
+        "6.SP.B.4"
+      ],
+      "summary": "Shift a class's answers, widen the spacing between them, and reshape them; the dot plot, median, mean, and range update together.",
+      "emoji": "🎯",
+      "narration": "Ask a whole class how many minutes it takes them to get to school and you will not get one answer, you will get a spread of them. In this chapter you learn to see that spread as a distribution with a center, a spread, and a shape. Slide the typical answer, stretch the spacing between answers, and give the data a tail, then watch the median, the mean, and the range respond on the dot plot."
+    },
+    {
+      "slug": "ca-g7-ch01-proportional-relationships",
+      "gradeId": "7",
+      "topicId": "us-ca-math-s1-chapter-01",
+      "title": "Proportional Relationships",
+      "standardIds": [
+        "7.RP.A.2",
+        "7.RP.A.1",
+        "7.RP.A.3"
+      ],
+      "summary": "Change a price tag, even one selling 3/4 of a pound, and watch the unit rate, table, graph slope, and coupon total move together.",
+      "emoji": "🍒",
+      "narration": "Every price tag hides a rule. If the sign says six dollars for three quarters of a pound, then one whole pound costs eight dollars, and any amount you buy follows that same rule. In this lesson you change the sign and watch the unit rate, the table, the graph, and even a coupon move together. The dollar axis never moves, so a bigger price per pound draws a steeper line, and that steepness is the constant k."
+    },
+    {
+      "slug": "ca-g7-ch02-operations-rational-numbers",
+      "gradeId": "7",
+      "topicId": "us-ca-math-s1-chapter-02",
+      "title": "Operations with Rational Numbers",
+      "standardIds": [
+        "7.NS.A.1",
+        "7.NS.A.2",
+        "7.NS.A.3"
+      ],
+      "summary": "Pick add, subtract, multiply or divide and watch two rational numbers become one move on the number line, sign and all.",
+      "emoji": "🧮",
+      "narration": "This chapter opens with one number line and four buttons. Choose add, subtract, multiply or divide, then change either number and watch what the arrows do: adding slides you along the line, subtracting slides you the other way, and multiplying rescales the arrow, shrinking it when the factor is between 0 and 1 and flipping it across zero when the factor is negative. Dividing asks the opposite question, which is why it follows the same sign rule and why dividing by zero has no answer at all. Every result stays a rational number, and the sign always has a reason behind it."
+    },
+    {
+      "slug": "ca-g7-ch03-linear-expressions-equations",
+      "gradeId": "7",
+      "topicId": "us-ca-math-s1-chapter-03",
+      "title": "Linear Expressions and Equations",
+      "standardIds": [
+        "7.EE.A.1",
+        "7.EE.A.2",
+        "7.EE.B.4",
+        "7.EE.B.3"
+      ],
+      "summary": "Build a field-trip bill as two equal bars, then rewrite it as px + q, solve it back, and test it against a budget.",
+      "emoji": "🧾",
+      "narration": "A club is going to the museum, and one bill has to cover everyone. The top bar shows the money the way the group pays it: a ticket block and a guide block for every member, then one parking block; the bottom bar shows the same money regrouped into the part that grows with the ticket price and the part that stays fixed. Both bars are drawn on one dollar ruler, so sliding the ticket price makes them grow together while the fixed block keeps exactly its size, and a dashed line marks where the budget runs out. Then look only at the total and let two undo moves bring the ticket price back."
+    },
+    {
+      "slug": "ca-g7-ch04-scale-geometry-measurement",
+      "gradeId": "7",
+      "topicId": "us-ca-math-s1-chapter-04",
+      "title": "Scale, Geometry, and Measurement",
+      "standardIds": [
+        "7.G.A.1",
+        "7.G.B.4",
+        "7.G.B.6"
+      ],
+      "summary": "Resize a park plan, its fountain, and the pool's depth, then read off real lengths, areas, circumference, and the pool's volume.",
+      "emoji": "🗺️",
+      "narration": "Imagine holding the plan for a new park on a single sheet of paper. Every line on it stands for real meters on the ground, so once you know the scale you can find the length of the fence, the size of the fountain, and how much water the pool holds. Depth is the one measurement a flat plan cannot draw, which is why a cross-section, the flat shape you expose by cutting straight across the pool, is drawn beside it. Change the plan and watch every measurement update."
+    },
+    {
+      "slug": "ca-g7-ch05-sampling-probability-inference",
+      "gradeId": "7",
+      "topicId": "us-ca-math-s1-chapter-05",
+      "title": "Sampling, Probability, and Inference",
+      "standardIds": [
+        "7.SP.A.1",
+        "7.SP.A.2",
+        "7.SP.B.3",
+        "7.SP.B.4",
+        "7.SP.C.5",
+        "7.SP.C.6",
+        "7.SP.C.7",
+        "7.SP.C.8"
+      ],
+      "summary": "Set the sample size, yes count, and school size, and watch one fraction act as an estimate, a probability, and a tree of two picks.",
+      "emoji": "🔍",
+      "narration": "Your school wants to know if anyone would use the library on a Saturday, and there is no time to ask everyone. So you ask a small group picked at random, and one fraction does three jobs at once. It estimates the whole school, it marks a spot on the 0-to-1 probability scale, and multiplied by itself it gives the chance that two picks both say yes. Slide the controls and watch all three readings move together."
+    },
+    {
+      "slug": "ca-g8-ch01-linear-equations-systems-readiness",
+      "gradeId": "8",
+      "topicId": "us-ca-math-s2-chapter-01",
+      "title": "Linear Equations and Systems Readiness",
+      "standardIds": [
+        "8.EE.C.7",
+        "8.EE.C.8",
+        "8.NS.A.1",
+        "8.NS.A.2"
+      ],
+      "summary": "Steer two bike-rental price plans until their lines cross, then place the break-even time and the square root of 2 on a number line.",
+      "emoji": "🚲",
+      "narration": "Two bike shops, two price lists, and one moment when they charge exactly the same. Change the deposits and the hourly rates, and watch the two lines slide until they cross, or run parallel, or land right on top of each other. Whenever they do cross, that point is the answer to the equation, and it arrives as one whole number divided by another. That is why its decimal has to stop or repeat, unlike the square root of 2 sitting beside it on the number line."
+    },
+    {
+      "slug": "ca-g8-ch02-functions-rate-change",
+      "gradeId": "8",
+      "topicId": "us-ca-math-s2-chapter-02",
+      "title": "Functions and Rate of Change",
+      "standardIds": [
+        "8.F.B.4",
+        "8.F.A.3",
+        "8.EE.B.5",
+        "8.EE.B.6",
+        "8.F.A.1",
+        "8.F.A.2"
+      ],
+      "summary": "Set a barrel's rate, start and step width, then watch one function appear as a rule, a table and a straight-line graph.",
+      "emoji": "🪣",
+      "narration": "A rain barrel already holds some water when the rain starts, and the downpipe adds the same amount every minute. That is a rule: name a minute, and it gives back exactly one reading. Set the rate and the starting amount here, and watch the same function show up three ways at once, as a rule, as a table, and as a straight line. Widen the step drawn on the graph and compare it with the small one beside it: both give the same rise divided by run, and that steady climb is the rate of change the whole chapter is built on."
+    },
+    {
+      "slug": "ca-g8-ch03-transformations-similarity",
+      "gradeId": "8",
+      "topicId": "us-ca-math-s2-chapter-03",
+      "title": "Transformations and Similarity",
+      "standardIds": [
+        "8.G.A.1",
+        "8.G.A.4",
+        "8.G.A.3",
+        "8.G.A.2",
+        "8.G.A.5"
+      ],
+      "summary": "Compose a dilation, a flip or turn, and a slide on one triangle and see which measurements change and which never do.",
+      "emoji": "🪞",
+      "narration": "Slide a sticker across a locker, flip it, spin it a quarter turn, and it is still the same sticker. Pinch a photo bigger and it keeps its shape while changing its size. Here you build a sequence of those moves on one triangle and watch the numbers: the three angles never budge, and every side length changes by the same factor. When that factor is one the triangles are congruent; when it is not, they are similar."
+    },
+    {
+      "slug": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+      "gradeId": "8",
+      "topicId": "us-ca-math-s2-chapter-04",
+      "title": "Pythagorean Reasoning and Coordinate Geometry",
+      "standardIds": [
+        "8.G.B.8",
+        "8.G.B.7",
+        "8.EE.A.2"
+      ],
+      "summary": "Move two grid points and watch the right triangle, its legs, and the square root that lands the distance on a number line.",
+      "emoji": "📐",
+      "narration": "Two places on a map are usually farther apart along the streets than in a straight line. Going across and then up traces the two legs of a right triangle, and the straight line you actually want is its longest side. Square the legs, add the results, then take the square root, and the number line under the figure shows exactly where that distance lands. Slide the points around and watch a whole number turn into a root that sits between two of them."
+    },
+    {
+      "slug": "ca-g8-ch05-bivariate-data-claims",
+      "gradeId": "8",
+      "topicId": "us-ca-math-s2-chapter-05",
+      "title": "Bivariate Data and Claims",
+      "standardIds": [
+        "8.SP.A.1",
+        "8.SP.A.2",
+        "8.SP.A.3",
+        "8.SP.A.4"
+      ],
+      "summary": "Set the hidden slope and scatter behind eight players' seasons; the scatter plot, best-fit line, prediction, and two-way table all follow.",
+      "emoji": "🏀",
+      "narration": "A coach claims that players who practice more make more free throws. One player cannot prove it, but a whole team's pairs of numbers can. In this chapter you plot those pairs, fit a line, read its slope as a rate, and use it to predict. Then you sort the same players into a two-way table and compare percentages, because with categories it is the percentages, not the raw counts, that reveal an association."
+    },
+    {
+      "slug": "ca-g9-ch01-equations-context",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s3-chapter-01",
+      "title": "Equations from Context",
+      "standardIds": [
+        "A-CED.1",
+        "A-CED.2",
+        "A-CED.3",
+        "A-CED.4"
+      ],
+      "summary": "Set a setup fee, a price per shirt, and a budget; the cost line, the equation, the inequality, and the rearranged formula update together.",
+      "emoji": "👕",
+      "narration": "Picture your club ordering custom T-shirts: the print shop charges a setup fee, then a price for every shirt. This chapter shows how one equation written from that story can be solved for a shirt count, graphed as a line, turned into an inequality when there is a budget, and rearranged to give the count from any total. Try changing the fee, the price, and the budget, and watch every part of the figure move together."
+    },
+    {
+      "slug": "ca-g9-ch02-function-notation-interpretation",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s3-chapter-02",
+      "title": "Function Notation and Interpretation",
+      "standardIds": [
+        "F-IF.2",
+        "F-IF.1",
+        "F-IF.3",
+        "F-IF.4",
+        "F-IF.5",
+        "F-IF.6"
+      ],
+      "summary": "Read one ticket-sale rule both ways: put a day into T(d) for a count, or start from a count and solve back to the day.",
+      "emoji": "🎟️",
+      "narration": "A school concert goes on sale, and the box office count depends on one thing: how many days the sale has been running. One day in, one count out, which is exactly what makes it a function. Try both directions here: evaluate T of a day to get a ticket count, then start from a ticket count and solve back to find the day. Watch the presale total, the daily rate, and the moment the hall fills, and practice saying in ordinary words what each number means."
+    },
+    {
+      "slug": "ca-g9-ch03-linear-quadratic-models",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s3-chapter-03",
+      "title": "Linear and Quadratic Models",
+      "standardIds": [
+        "A-REI.11",
+        "A-REI.7",
+        "A-REI.4",
+        "A-REI.10",
+        "A-SSE.3",
+        "A-SSE.1",
+        "A-REI.1",
+        "A-REI.3",
+        "A-SSE.2"
+      ],
+      "summary": "Throw a ball beside a rising drone; see the quadratic's vertex, the linear model, and the times when the two heights match.",
+      "emoji": "🚁",
+      "narration": "Picture a ball thrown straight up while a drone rises beside it at a steady speed. The drone's height is a linear model, and the ball's height, pulled down by gravity, is a quadratic model. In this chapter you will set models equal to find when things happen, rewrite a quadratic to reveal its peak, and see that where two graphs cross, their equations agree. Try changing the throw and the drone, and watch every readout update."
+    },
+    {
+      "slug": "ca-g9-ch04-coordinate-geometry-methods",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s3-chapter-04",
+      "title": "Coordinate Geometry Methods",
+      "standardIds": [
+        "G-GPE.1",
+        "G-GPE.7",
+        "G-GPE.5",
+        "G-GPE.6",
+        "G-GPE.4"
+      ],
+      "summary": "Move point B and one short segment reports its slope, its length, a point that splits it, and the circle through B.",
+      "emoji": "📐",
+      "narration": "Two points on a grid are only four numbers, but they hold a surprising amount of geometry. Move point B and watch the slope, the length, a point part way along the segment, and a circle through B all change together. Every one of those answers comes from subtracting coordinates and squaring, with no ruler anywhere. This chapter turns that handful of formulas into proofs, conic equations, partitions, and areas."
+    },
+    {
+      "slug": "ca-g9-ch05-modeling-evidence",
+      "gradeId": "HS",
+      "topicId": "us-ca-math-s3-chapter-05",
+      "title": "Modeling with Evidence",
+      "standardIds": [
+        "S-ID.6",
+        "S-ID.7",
+        "S-ID.8",
+        "S-ID.1",
+        "S-ID.3",
+        "S-ID.9"
+      ],
+      "summary": "Steer nine students' scores and watch one data set answer two questions: summarize it alone, then explain it with practice hours.",
+      "emoji": "🔬",
+      "narration": "Someone claims the new practice sessions are working. A claim is not evidence, so nine students each bring two numbers: hours of practice and a unit-test score. In this chapter you organize those numbers twice, first describing the scores on their own with a dot plot, a mean, a median and a range, then explaining them with a fitted line whose slope, residuals and correlation you can read. Move the controls and watch both stories change together."
+    }
+  ],
+  "practiceBySlug": {
+    "ca-g10-ch01-congruence-proof": [
+      {
+        "kind": "numeric",
+        "prompt": "A rigid motion maps triangle ABC onto triangle DEF, sending A to D, B to E, and C to F. In triangle ABC, AB = 9 cm, BC = 12 cm, and CA = 15 cm. How long is EF, in centimeters?",
+        "answer": 12,
+        "explanation": "A rigid motion never changes a distance, so each side equals the side it is sent to. E is the image of B and F is the image of C, so EF = BC = 12 cm. (For reference, DE = AB = 9 and FD = CA = 15, and 9^2 + 12^2 = 81 + 144 = 225 = 15^2, so both triangles have a right angle at B and at E.)"
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A translation maps A(-3, 4) onto A'(2, -1). The same translation maps B(6, 5) onto B'. What is the x-coordinate of B'?",
+        "answer": 11,
+        "explanation": "Subtract to find the translation rule: 2 - (-3) = 5 across and -1 - 4 = -5 up, so the rule is (x, y) -> (x + 5, y - 5). Applying it to B(6, 5) gives B'(6 + 5, 5 - 5) = (11, 0), so the x-coordinate is 11."
+      },
+      {
+        "kind": "mc",
+        "prompt": "In triangles ABC and DEF, AB = DE = 7 cm, AC = DF = 9 cm, and angle A = angle D = 40 degrees. Which congruence criterion proves that the two triangles are congruent?",
+        "choices": [
+          "SSS",
+          "SAS",
+          "ASA",
+          "AAS"
+        ],
+        "answer": 1,
+        "explanation": "Two pairs of sides are given (7 with 7 and 9 with 9) and one pair of angles (40 degrees with 40 degrees). Angle A lies between sides AB and AC, and angle D lies between DE and DF, so the matched angle is the included angle: that is side-angle-side, SAS. SSS would need a third pair of sides (BC and EF are not given); ASA and AAS both need two pairs of angles, and only one pair is given."
+      }
+    ],
+    "ca-g10-ch02-similarity-right-triangle-reasoning": [
+      {
+        "kind": "numeric",
+        "prompt": "Right triangle ABC has its right angle at C, with AC = 24, BC = 7, and AB = 25. Triangle DEF is similar to triangle ABC under the correspondence A to D, B to E, C to F, and DF = 72. How long is EF?",
+        "answer": 21,
+        "explanation": "ABC really is a right triangle: 7^2 + 24^2 = 49 + 576 = 625 = 25^2. DF corresponds to AC, so the scale factor is k = 72 / 24 = 3. Similarity multiplies every length by k, and EF corresponds to BC, so EF = 7 * 3 = 21."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "In right triangle JKL the right angle is at L, JL = 8, and KL = 6. What is the value of cos J, written as a decimal?",
+        "answer": 0.8,
+        "tolerance": 0.01,
+        "explanation": "The hypotenuse is JK = sqrt(8^2 + 6^2) = sqrt(64 + 36) = sqrt(100) = 10. The leg adjacent to angle J is JL = 8, so cos J = adjacent / hypotenuse = 8 / 10 = 0.8. Any triangle similar to JKL gives the same 0.8, because scaling multiplies 8 and 10 by the same factor."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A photograph 4 in by 6 in is enlarged by a dilation with scale factor 3. Which statement about the enlargement is true?",
+        "choices": [
+          "Its diagonal is 3 times as long and its area is 9 times as large.",
+          "Its diagonal is 9 times as long and its area is 3 times as large.",
+          "Both its diagonal and its area are 3 times as large.",
+          "Its diagonal is 3 times as long and its angles are 3 times as large."
+        ],
+        "answer": 0,
+        "explanation": "A dilation multiplies every length by 3, so the 4 by 6 photo becomes 12 by 18 and the diagonal goes from sqrt(4^2 + 6^2) = sqrt(52) to sqrt(12^2 + 18^2) = sqrt(144 + 324) = sqrt(468) = 3 * sqrt(52), which is 3 times as long. Area is a product of two lengths, so it multiplies by 3 * 3 = 9: 4 * 6 = 24 square inches becomes 12 * 18 = 216 square inches, and 216 / 24 = 9. Angles are never changed by a dilation, so they stay exactly as they were."
+      }
+    ],
+    "ca-g10-ch03-circle-geometry": [
+      {
+        "kind": "numeric",
+        "prompt": "A sector of a circle of radius 10 cm has an arc length of 6π cm. What is the central angle of the sector, in degrees?",
+        "answer": 108,
+        "explanation": "Arc length is the same fraction of the circumference as the angle is of 360 degrees: arc = 2πr × (θ/360). Here 2π(10) = 20π, so 6π = 20π × (θ/360). Dividing both sides by 20π gives θ/360 = 6/20 = 0.3, so θ = 0.3 × 360 = 108 degrees."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A 100° sector is cut from a paper circle of radius 9 cm and rolled into a cone with no overlap. What is the radius of the cone's base, in centimeters?",
+        "answer": 2.5,
+        "tolerance": 0.01,
+        "explanation": "The arc of the wedge becomes the whole rim of the cone. Arc = 2π(9) × (100/360) = 18π × (5/18) = 5π cm. The rim is a circle of circumference 2πr, so 2πr = 5π and r = 5/2 = 2.5 cm. (Equivalently r = 9 × 100/360 = 900/360 = 2.5 cm.)"
+      },
+      {
+        "kind": "mc",
+        "prompt": "A cone and a cylinder stand on the same circular base of radius 5 cm and both are 9 cm tall. How much does the cone hold?",
+        "choices": [
+          "225π cm³",
+          "112.5π cm³",
+          "75π cm³",
+          "675π cm³"
+        ],
+        "answer": 2,
+        "explanation": "The cylinder holds πr²h = π(5²)(9) = π(25)(9) = 225π cm³. A cone is exactly one third of the cylinder on the same base with the same height, so the cone holds 225π ÷ 3 = 75π cm³."
+      }
+    ],
+    "ca-g10-ch04-quadratic-structure": [
+      {
+        "kind": "numeric",
+        "prompt": "Rewrite f(x) = x^2 - 10x + 18 by completing the square. What is the smallest value f(x) can ever take?",
+        "answer": -7,
+        "explanation": "Half of -10 is -5, and (-5)^2 = 25, so x^2 - 10x = (x - 5)^2 - 25. Then f(x) = (x - 5)^2 - 25 + 18 = (x - 5)^2 - 7. A square is never negative, so the smallest value is -7, reached when x = 5. Check: f(5) = 25 - 50 + 18 = -7."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A club sells tutoring sessions for $20 and expects 30 sign-ups. Each $1 taken off the price brings 3 more sign-ups, so revenue is R(d) = (20 - d)(30 + 3d) dollars for a discount of d dollars. What discount d brings in the most money?",
+        "answer": 5,
+        "tolerance": 0.01,
+        "explanation": "The factored form is zero when 20 - d = 0, so d = 20, and when 30 + 3d = 0, so d = -10. A parabola is symmetric about the midpoint of its zeros: (20 + (-10))/2 = 10/2 = 5. Completing the square agrees: (20 - d)(30 + 3d) = -3d^2 + 30d + 600 = -3(d^2 - 10d) + 600 = -3((d - 5)^2 - 25) + 600 = -3(d - 5)^2 + 675. Revenue peaks at d = 5, where 15 x 45 = 675 dollars."
+      },
+      {
+        "kind": "mc",
+        "prompt": "For any r other than 1, the finite geometric series formula says a + ar + ... + ar^(n-1) = a(r^n - 1)/(r - 1). Use it to evaluate 1 + 4 + 16 + 64.",
+        "choices": [
+          "81",
+          "85",
+          "255",
+          "341"
+        ],
+        "answer": 1,
+        "explanation": "Here a = 1, r = 4 and n = 4. Since r is not 1 the formula applies, so the sum is (4^4 - 1)/(4 - 1) = (256 - 1)/3 = 255/3 = 85. Adding directly confirms it: 1 + 4 = 5, 5 + 16 = 21, 21 + 64 = 85. (255 is 4^4 - 1, the numerator before dividing; 341 is the sum of five terms, 1 + 4 + 16 + 64 + 256.)"
+      }
+    ],
+    "ca-g10-ch05-conditional-probability": [
+      {
+        "kind": "numeric",
+        "prompt": "A survey of 200 students found that 45 sing in the choir, 90 take music theory, and 36 students do both. One of the surveyed students is chosen at random. What is P(in the choir | takes music theory)? Give your answer as a decimal.",
+        "answer": 0.4,
+        "tolerance": 0.01,
+        "explanation": "Conditioning on music theory keeps only those 90 students, so 90 is the denominator. Of them, 36 are also in the choir: 36 / 90 = 0.4. (Reversing the condition gives a different number, P(takes theory | in the choir) = 36 / 45 = 0.8.)"
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A box holds 16 markers, 6 of them brand new. Two markers are taken out at random, one after the other, without putting the first one back. What is the probability that both markers are brand new? Give your answer as a decimal.",
+        "answer": 0.125,
+        "tolerance": 0.01,
+        "explanation": "P(first new) = 6/16. After a new marker is removed, 5 of the remaining 15 are new, so P(second new | first new) = 5/15. The multiplication rule gives (6/16) x (5/15) = 30/240 = 1/8 = 0.125."
+      },
+      {
+        "kind": "mc",
+        "prompt": "In a survey of 100 students, 40 own a bike, 50 ride the bus, and 20 do both. Are owning a bike and riding the bus independent events?",
+        "choices": [
+          "Yes: P(bike and bus) = 0.2 and P(bike) x P(bus) = 0.4 x 0.5 = 0.2",
+          "No: the 20 students who do both make the two events overlap",
+          "No: P(bike or bus) = 0.7, which is not P(bike) x P(bus)",
+          "Yes: 40 + 50 - 20 = 70 is less than 100"
+        ],
+        "answer": 0,
+        "explanation": "Independence is the test P(A and B) = P(A) x P(B). Here P(bike) = 40/100 = 0.4, P(bus) = 50/100 = 0.5, and P(bike and bus) = 20/100 = 0.2, while 0.4 x 0.5 = 0.2. The two agree, so the events are independent; equivalently P(bike | bus) = 20/50 = 0.4 is the same as P(bike) = 0.4. Overlapping is not the same as being dependent, and the addition rule says nothing about independence."
+      }
+    ],
+    "ca-g11-ch01-function-transformations-inverses": [
+      {
+        "kind": "numeric",
+        "prompt": "The function g(x) = 4(x - 3)^3 + 7 is built from the parent f(x) = x^3. What is g inverse of 39?",
+        "answer": 5,
+        "explanation": "Undo g's steps in reverse order. g adds 7 last, so subtract it: 39 - 7 = 32. g multiplied by 4, so divide: 32 / 4 = 8. g cubed, so take the cube root: the cube root of 8 is 2. g subtracted 3 first, so add it back: 2 + 3 = 5. Check forwards: g(5) = 4(5 - 3)^3 + 7 = 4 x 8 + 7 = 32 + 7 = 39."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "For the linear function f(x) = 4x - 7, find f inverse of 0 - that is, the input f sends to 0.",
+        "answer": 1.75,
+        "tolerance": 0.01,
+        "explanation": "Swap and solve: y = 4x - 7 gives x = (y + 7) / 4, so f inverse of y is (y + 7) / 4. At y = 0 that is (0 + 7) / 4 = 7 / 4 = 1.75. Check forwards: f(1.75) = 4 x 1.75 - 7 = 7 - 7 = 0."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A function g is built from the parent f(x) = 2^x by shifting right 4, multiplying the output by 3, and then adding 1, so g(x) = 3 * 2^(x - 4) + 1. Which expression is g inverse of x?",
+        "choices": [
+          "log₂((x − 1)/3) − 4",
+          "3·2^(x − 1) + 4",
+          "log₂((x − 1)/3) + 4",
+          "(log₂ x − 1)/3 + 4"
+        ],
+        "answer": 2,
+        "explanation": "Reverse the order and reverse each step: subtract 1, divide by 3, take log base 2, then add 4, giving log₂((x - 1)/3) + 4. Test it at x = 4, since g(4) = 3 x 2^0 + 1 = 3 + 1 = 4: log₂((4 - 1)/3) + 4 = log₂(1) + 4 = 0 + 4 = 4, the input it came from. The other choices fail that test: log₂((4-1)/3) - 4 = -4, 3 x 2^(4-1) + 4 = 28, and (log₂ 4 - 1)/3 + 4 = (2 - 1)/3 + 4 = 4.33."
+      }
+    ],
+    "ca-g11-ch02-exponential-logarithmic-models": [
+      {
+        "kind": "numeric",
+        "prompt": "A bacteria population is modeled by P(t) = 400 * 2^t, where t is measured in hours. After how many hours does the population reach 12800?",
+        "answer": 5,
+        "explanation": "Divide both sides by 400: 12800 / 400 = 32, so 2^t = 32. A logarithm asks 'what exponent?' and 2^5 = 32, so t = log base 2 of 32 = 5 hours. Check: 400 * 2^5 = 400 * 32 = 12800."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Plan A is modeled by A(t) = 5 + 12t and Plan B by B(t) = 5 * 2^t. What is the smallest whole number t at which B(t) is greater than A(t)?",
+        "answer": 4,
+        "tolerance": 0.01,
+        "explanation": "Compare year by year. t = 0: A = 5, B = 5 (equal). t = 1: A = 17, B = 10. t = 2: A = 29, B = 20. t = 3: A = 41, B = 40, so B is still behind. t = 4: A = 5 + 48 = 53 and B = 5 * 16 = 80, so B is finally ahead. The answer is t = 4, and because B multiplies by 2 every step it stays ahead from then on."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A car is worth $18,000 today and loses 15% of its value every year. Which model gives its value after t years?",
+        "choices": [
+          "18000(0.85)^t",
+          "18000(1.15)^t",
+          "18000 - 0.15t",
+          "18000(0.15)^t"
+        ],
+        "answer": 0,
+        "explanation": "Losing 15% each year means keeping 100% - 15% = 85%, so the growth factor is b = 1 - 0.15 = 0.85 and the model is 18000(0.85)^t. Check one year: 18000 * 0.85 = 15300, which is 18000 - 2700, and 15% of 18000 is 2700. The factor 1.15 would be 15% growth, 18000 - 0.15t subtracts only 15 cents a year, and 18000(0.15)^t would throw away 85% each year."
+      }
+    ],
+    "ca-g11-ch03-trigonometric-functions-graphs": [
+      {
+        "kind": "numeric",
+        "prompt": "A wheel has radius 8 m and its hub is 10 m above the ground. The turn angle is measured from the hub's level on the right-hand side, so the rider's height is h = 10 + 8 sin(angle). How high is the rider, in meters, at a turn angle of 30 degrees?",
+        "answer": 14,
+        "explanation": "sin 30 degrees = 1/2 exactly, from the 30-60-90 triangle. So h = 10 + 8(1/2) = 10 + 4 = 14 meters, which is 4 m above the hub and well inside the band from 10 - 8 = 2 m to 10 + 8 = 18 m."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A rider boards at the bottom of a wheel, and their height in meters after t seconds is h(t) = 15 - 12 cos(pi t / 5). The rider passes a height of 9 m twice on the way round. At what time t, in seconds, does the SECOND pass happen? Round to two decimal places.",
+        "answer": 8.33,
+        "tolerance": 0.01,
+        "explanation": "Set 15 - 12 cos(pi t / 5) = 9, so -12 cos(pi t / 5) = -6 and cos(pi t / 5) = 1/2. On the restricted domain 0 to pi, where cosine is one-to-one, arccos(1/2) = pi/3, giving pi t / 5 = pi/3 and the first pass at t = 5/3 s. The second pass is the mirror angle: cosine is even, so pi t / 5 = 2pi - pi/3 = 5pi/3, and t = (5pi/3)(5/pi) = 25/3 = 8.33 s. Equivalently, one turn takes 2pi / (pi/5) = 10 s, and the second pass is 10 - 5/3 = 25/3 s. Check: cos(pi(25/3)/5) = cos(5pi/3) = 1/2, so h = 15 - 12(1/2) = 9."
+      },
+      {
+        "kind": "mc",
+        "prompt": "An angle in standard position has sin(theta) = 3/5, and its terminal ray lies in the second quadrant. What is cos(theta)?",
+        "choices": [
+          "4/5",
+          "-4/5",
+          "-3/5",
+          "3/4"
+        ],
+        "answer": 1,
+        "explanation": "The Pythagorean identity gives cos^2(theta) = 1 - (3/5)^2 = 1 - 9/25 = 16/25, so cos(theta) = 4/5 or -4/5. In the second quadrant the x-coordinate on the unit circle is negative, so cos(theta) = -4/5."
+      }
+    ],
+    "ca-g11-ch04-data-modeling-residuals": [
+      {
+        "kind": "numeric",
+        "prompt": "The line y = 3x + 7 is used to model three delivery routes, given as (packages, minutes): (2, 14), (4, 20), and (6, 24). What is the sum of the squared residuals?",
+        "answer": 3,
+        "explanation": "Predictions: 3(2) + 7 = 13, 3(4) + 7 = 19, 3(6) + 7 = 25. Residuals are observed minus predicted: 14 - 13 = 1, 20 - 19 = 1, 24 - 25 = -1. Squaring and adding gives 1 + 1 + 1 = 3."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A least-squares model for a seedling's height in centimeters after x weeks is y = 2.4x + 6. At week 7 the seedling measures 21.6 cm. What is the residual, in centimeters?",
+        "answer": -1.2,
+        "tolerance": 0.01,
+        "explanation": "The model predicts 2.4(7) + 6 = 16.8 + 6 = 22.8 cm. Residual = observed - predicted = 21.6 - 22.8 = -1.2 cm, so the seedling is 1.2 cm shorter than predicted."
+      },
+      {
+        "kind": "mc",
+        "prompt": "An ordinary least-squares line with a fitted intercept is fitted to 12 data points. Its sum of squared residuals is 40, and its residual plot rises at both ends and dips in the middle. What is the best next step suggested by that residual pattern?",
+        "choices": [
+          "Some other straight line would give a smaller squared total.",
+          "The pattern suggests that the straight-line model misses curvature; investigate a suitable curved model.",
+          "The data contain exactly one outlier.",
+          "Nothing; only the size of the squared total matters."
+        ],
+        "answer": 1,
+        "explanation": "The fitted ordinary least-squares line already minimizes the sum of squared residuals among straight lines with an intercept, so choosing another straight line cannot reduce that in-sample total. A U-shaped residual pattern suggests structure that the straight line may miss and gives a reason to investigate a suitable curved model. It does not prove the population relationship is nonlinear or guarantee better prediction on new data. A smooth pattern across the residuals is also different from evidence of exactly one outlier; the squared total alone does not describe the pattern."
+      }
+    ],
+    "ca-g11-ch05-statistical-inference-claims": [
+      {
+        "kind": "numeric",
+        "prompt": "A random sample of 1600 shoppers is asked whether they would use a new pickup lane, and 320 of them say yes. Using margin of error = 2 x sqrt(p(1 - p)/n), what is the margin of error in percentage points?",
+        "answer": 2,
+        "explanation": "The sample proportion is p = 320/1600 = 0.2. Then p(1 - p) = 0.2 x 0.8 = 0.16, and 0.16/1600 = 0.0001, whose square root is 0.01. The margin of error is 2 x 0.01 = 0.02, which is 2 percentage points."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A random sample of voters gives 46% support for a measure, with a margin of error of 3.5 percentage points. What is the lower endpoint, in percent, of the interval of plausible population percents?",
+        "answer": 42.5,
+        "tolerance": 0.01,
+        "explanation": "The interval runs from the estimate minus the margin to the estimate plus the margin: 46 - 3.5 = 42.5 and 46 + 3.5 = 49.5. The lower endpoint is 42.5 percent."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A random sample of students reports that 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percentage lies outside the interval formed by the estimate plus or minus that margin of error?",
+        "choices": [
+          "48%",
+          "52%",
+          "58%",
+          "60%"
+        ],
+        "answer": 0,
+        "explanation": "The stated interval is 55 - 6 = 49% to 55 + 6 = 61%. The value 48% lies outside this interval, while 52%, 58%, and 60% lie inside it. Being outside a sample-based interval is not an absolute exclusion of a true school-wide percentage: sampling uncertainty remains, and a confidence interval is not a guarantee about one particular sample."
+      }
+    ],
+    "ca-g12-ch01-quantities-units-precision": [
+      {
+        "kind": "numeric",
+        "prompt": "A rectangular plot is measured with a tape that reads to the nearest 0.1 m: the length reads 4.2 m and the width reads 2.8 m. What is the upper bound for the perimeter, in meters, using half a division of uncertainty for each reading?",
+        "answer": 14.2,
+        "tolerance": 0.01,
+        "explanation": "Half a division is 0.05 m, so the length has upper bound 4.2 + 0.05 = 4.25 m and the width has upper bound 2.8 + 0.05 = 2.85 m. The perimeter upper bound is 2 x (4.25 + 2.85) = 2 x 7.10 = 14.2 m. An upper bound need not be attained by a length that rounds to the recorded reading."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A machine stamps 12 parts each minute, and every part uses 250 grams of steel. How many kilograms of steel does the machine use during one 8-hour shift?",
+        "answer": 1440,
+        "explanation": "Chain the unit factors so the unwanted units cancel: 12 parts/min x 60 min/hr x 8 hr = 5760 parts. Then 5760 parts x 250 g/part = 1 440 000 g, and 1 440 000 g divided by 1000 g/kg = 1440 kg."
+      },
+      {
+        "kind": "mc",
+        "prompt": "The two sides of a rectangle are measured to the nearest centimeter as 8 cm and 5 cm, and multiplying gives 40. Which statement about the area is the honest one?",
+        "choices": [
+          "The area is exactly 40 cm².",
+          "The area is 40.00 cm², matching the multiplication.",
+          "The area is between 33.75 cm² and 46.75 cm².",
+          "The area is between 39.5 cm² and 40.5 cm²."
+        ],
+        "answer": 2,
+        "explanation": "To the nearest centimeter, each side is known only within 0.5 cm: the length is between 7.5 and 8.5 cm and the width between 4.5 and 5.5 cm. The area bounds are 7.5 x 4.5 = 33.75 cm² and 8.5 x 5.5 = 46.75 cm². The nominal area estimate is 8 x 5 = 40 cm², inside that interval. Its midpoint is (33.75 + 46.75) / 2 = 40.25 cm²: multiplying uncertain lengths makes an interval that is not symmetric about their nominal product. Writing 40.00 cm² claims precision the ruler never had."
+      }
+    ],
+    "ca-g12-ch02-polynomial-structure-behavior": [
+      {
+        "kind": "numeric",
+        "prompt": "The cubic p(x) = (x - 4)(x^2 - 6x + 34) has one real zero and one pair of non-real zeros. What is the imaginary part of the non-real zero that sits above the real axis?",
+        "answer": 5,
+        "explanation": "Set the quadratic factor to zero: x^2 - 6x + 34 = 0. Its discriminant is (-6)^2 - 4(1)(34) = 36 - 136 = -100, which is negative, so the zeros are not real. Since -100 = 100i^2, the square root is 10i, and the quadratic formula gives x = (6 +/- 10i)/2 = 3 + 5i and 3 - 5i. The one above the real axis is 3 + 5i, so its imaginary part is 5. Check: (3 + 5i)^2 - 6(3 + 5i) + 34 = (9 + 30i - 25) - 18 - 30i + 34 = 0."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "The equation 2x^2 - 5x + 9 = 0 has two non-real solutions. Both share the same real part. What is it?",
+        "answer": 1.25,
+        "tolerance": 0.01,
+        "explanation": "The discriminant is (-5)^2 - 4(2)(9) = 25 - 72 = -47, so there is no real solution. The quadratic formula gives x = (5 +/- sqrt(-47))/(2 x 2) = 5/4 +/- (sqrt(47)/4)i. Only the square-root part carries the i, so both solutions have real part 5/4 = 1.25. (That is also -b/(2a) = 5/4, the axis of symmetry of the parabola.)"
+      },
+      {
+        "kind": "mc",
+        "prompt": "The cubic p(x) = x^3 - 3x^2 + 4x - 12 has x = 3 as a zero. What are its other two zeros?",
+        "choices": [
+          "2 and -2",
+          "2i and -2i",
+          "4i and -4i",
+          "2 + 2i and 2 - 2i"
+        ],
+        "answer": 1,
+        "explanation": "First confirm the given zero with the Remainder Theorem: p(3) = 27 - 27 + 12 - 12 = 0, so (x - 3) is a factor. Synthetic division by x = 3 on the coefficients 1, -3, 4, -12 gives: bring down 1; 3(1) - 3 = 0; 3(0) + 4 = 4; 3(4) - 12 = 0. The quotient is x^2 + 4 with remainder 0, so p(x) = (x - 3)(x^2 + 4). Solving x^2 + 4 = 0 gives x^2 = -4, so x = 2i and x = -2i. (2 and -2 solve x^2 - 4 = 0, not x^2 + 4 = 0; (4i)^2 + 4 = -12; and (2 + 2i)^2 + 4 = 4 + 8i.)"
+      }
+    ],
+    "ca-g12-ch03-decision-statistics": [
+      {
+        "kind": "numeric",
+        "prompt": "A carnival game pays $10 with probability 0.2, pays $2 with probability 0.5, and pays nothing the rest of the time. What ticket price, in dollars, would make the game fair?",
+        "answer": 3,
+        "explanation": "The probabilities of a distribution total 1, so P(nothing) = 1 - 0.2 - 0.5 = 0.3. The expected payout is 0.2(10) + 0.5(2) + 0.3(0) = 2 + 1 + 0 = 3 dollars per play. A price is fair exactly when the player's expected net result is zero, and net = payout - price, so the fair price is the expected payout: $3. Check: at $3 the expected net is 3 - 3 = 0, and at any higher price it would be negative."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A club sells 250 raffle tickets at $5 each. One ticket wins a $300 prize and two more win $75 each. What is the expected value of one ticket to the person who buys it, in dollars?",
+        "answer": -3.2,
+        "tolerance": 0.01,
+        "explanation": "The prizes total 300 + 2(75) = 300 + 150 = 450 dollars, shared over 250 tickets, so one ticket returns 450/250 = 1.80 dollars on average. Subtracting the 5 dollars paid gives 1.80 - 5 = -3.20 dollars. Adding the three net outcomes directly agrees: (1/250)(300 - 5) + (2/250)(75 - 5) + (247/250)(-5) = (295 + 140 - 1235)/250 = -800/250 = -3.20."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Route A takes 20 minutes with probability 0.8 and 45 minutes with probability 0.2. Route B always takes 26 minutes. Which route is faster on average, and what is that average?",
+        "choices": [
+          "Route A, 32.5 minutes",
+          "Route B, 26 minutes",
+          "Route A, 25 minutes",
+          "Route B, 25 minutes"
+        ],
+        "answer": 2,
+        "explanation": "Weight each time by its probability: E(A) = 0.8(20) + 0.2(45) = 16 + 9 = 25 minutes. Route B takes one value with certainty, so E(B) = 26 minutes. Since 25 < 26, Route A is faster on average, by 1 minute a trip. The 32.5 option is the plain average of 20 and 45, which wrongly treats the rare 45-minute trip as being as common as the 20-minute one."
+      }
+    ],
+    "ca-g12-ch04-function-analysis-rates": [
+      {
+        "kind": "numeric",
+        "prompt": "A ski club's membership in week w is S(w) = 64 - 4(w - 3)^2. What is the average rate of change of S, in members per week, from week 1 to week 4?",
+        "answer": 4,
+        "explanation": "S(1) = 64 - 4(1 - 3)^2 = 64 - 4 x 4 = 48 and S(4) = 64 - 4(4 - 3)^2 = 64 - 4 x 1 = 60. The average rate of change is (60 - 48) / (4 - 1) = 12 / 3 = 4 members per week."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A video's reposts double every day, so after d days there are G(d) = 2^d thousand of them. What is the average rate of change, in thousands of reposts per day, from day 0 to day 4?",
+        "answer": 3.75,
+        "tolerance": 0.01,
+        "explanation": "G(0) = 2^0 = 1 and G(4) = 2^4 = 16, so the average rate of change is (16 - 1) / (4 - 0) = 15 / 4 = 3.75 thousand reposts per day. Note this is far below the day-3-to-day-4 change of 16 - 8 = 8, because an exponential's rate keeps growing."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Function f is given by the formula f(x) = 6x + 10. Function g is given by a table, which records g(2) = 12 and g(6) = 44. Which function has the greater average rate of change on the interval from x = 2 to x = 6?",
+        "choices": [
+          "f, at 6 per unit",
+          "g, at 8 per unit",
+          "They tie, both at 7 per unit",
+          "g, at 32 per unit"
+        ],
+        "answer": 1,
+        "explanation": "For f: f(2) = 6 x 2 + 10 = 22 and f(6) = 6 x 6 + 10 = 46, so (46 - 22) / (6 - 2) = 24 / 4 = 6. For g: (44 - 12) / (6 - 2) = 32 / 4 = 8. Since 8 > 6, g changes faster on average. The 32 is the rise, not the rate, and 7 is just the middle of 6 and 8."
+      }
+    ],
+    "ca-g12-ch05-capstone-modeling": [
+      {
+        "kind": "numeric",
+        "prompt": "A surveyor records a parallelogram plot of land using two edge vectors from one corner: u = (7, 3) and v = (2, 9), measured in meters. What is the area of the plot, in square meters?",
+        "answer": 57,
+        "explanation": "Put the two vectors in the columns of a matrix and take the size of the determinant: |7 x 9 - 2 x 3| = |63 - 6| = 57 square meters. (Multiplying the lengths instead would be wrong, because the edges are not perpendicular.)"
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A concrete ramp pad is the parallelogram spanned by u = (6, 2) and v = (1, 5) meters, and it is poured 0.2 m deep. How many cubic meters of concrete does the pour take?",
+        "answer": 5.6,
+        "tolerance": 0.01,
+        "explanation": "The pad's area is the size of the determinant: |6 x 5 - 1 x 2| = |30 - 2| = 28 square meters. A 0.2 m depth turns that area into a volume: 28 x 0.2 = 5.6 cubic meters. (At 2400 kg per cubic meter that pour would weigh 5.6 x 2400 = 13440 kg.)"
+      },
+      {
+        "kind": "mc",
+        "prompt": "A logo painted on a site plan covers 15 square meters. The whole plan is then redrawn with the matrix whose columns are (2, 0) and (0, -3). What happens to the logo?",
+        "choices": [
+          "It covers 90 square meters, and the negative determinant means the plan was flipped over",
+          "It covers -90 square meters, because an area becomes negative once a plan is reflected",
+          "It covers 15 square meters, because a reflection never changes an area",
+          "It covers 90 square meters, and the negative determinant means the plan was turned a quarter turn"
+        ],
+        "answer": 0,
+        "explanation": "The determinant is 2 x (-3) - 0 x 0 = -6. Areas are multiplied by its absolute value, so 15 x |-6| = 15 x 6 = 90 square meters. An area is never negative; the minus sign records that the transformation reversed the plan's orientation, which is a reflection, not a rotation. The reflection is only part of the move here, since the plan is also stretched, so the area does change."
+      }
+    ],
+    "ca-g6-ch01-ratios-rates-percent-reasoning": [
+      {
+        "kind": "numeric",
+        "prompt": "A punch recipe uses 3 cups of juice for every 5 cups of sparkling water. How many cups of water are needed for 12 cups of juice?",
+        "answer": 20,
+        "explanation": "12 ÷ 3 = 4, so this is 4 batches of the recipe. 5 × 4 = 20 cups of water. Check: 12 : 20 simplifies to 3 : 5."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A different punch uses 4 cups of juice for every 6 cups of water. How many cups of water is that for each 1 cup of juice?",
+        "answer": 1.5,
+        "tolerance": 0.01,
+        "explanation": "Every ratio has two unit rates; the one this question asks for is water per juice, 6 ÷ 4 = 1.5 cups of water for each cup of juice. Check: 1.5 × 4 = 6."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A punch is mixed with 2 cups of juice for every 6 cups of water. What percent of the punch is juice?",
+        "choices": [
+          "25%",
+          "33 1/3%",
+          "75%",
+          "12.5%"
+        ],
+        "answer": 0,
+        "explanation": "One batch is 2 + 6 = 8 cups of punch, and 2/8 = 25/100, so the punch is 25% juice. (33 1/3% compares the juice to the water, 2/6, instead of to the whole punch; 75% is the water's share, 6/8; 12.5% is 1/8, one cup of juice counted instead of two.)"
+      }
+    ],
+    "ca-g6-ch02-rational-numbers-number-line": [
+      {
+        "kind": "numeric",
+        "prompt": "A submarine starts at the surface, which its gauge calls 0, and descends to -6 m in equal stages of 3/4 m. How many stages is that?",
+        "answer": 8,
+        "explanation": "The trip covers |-6| = 6 m. Ask how many 3/4 fit in 6: divide by multiplying by the reciprocal, 6 / (3/4) = 6 x 4/3 = 24/3 = 8 stages. Check: 8 stages of 0.75 m is 8 x 0.75 = 6 m, landing on -6."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "What is the absolute value of -13/4, written as a decimal?",
+        "answer": 3.25,
+        "tolerance": 0.01,
+        "explanation": "Absolute value is distance from 0, which is never negative, so |-13/4| = 13/4. Divide to rename it as a decimal: 13 / 4 = 3.25."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Which list is in order from least to greatest?",
+        "choices": [
+          "-9/4, -1.5, -1/2, 0.75",
+          "-1/2, -1.5, -9/4, 0.75",
+          "0.75, -1/2, -1.5, -9/4",
+          "-1.5, -9/4, -1/2, 0.75"
+        ],
+        "answer": 0,
+        "explanation": "Rename the fractions first: -9/4 = -2.25 and -1/2 = -0.5. On the number line, farther left means less, so -2.25 < -1.5 < -0.5 < 0.75. That is the first list."
+      }
+    ],
+    "ca-g6-ch03-expressions-equations-variables": [
+      {
+        "kind": "numeric",
+        "prompt": "Evaluate the expression 3s² + 4 when s = 5.",
+        "answer": 79,
+        "explanation": "Do the exponent first: 5² = 5 × 5 = 25. Then multiply: 3 × 25 = 75. Then add: 75 + 4 = 79."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Each mural panel takes 12 tiles. Solve 12n = 156 to find how many panels 156 tiles make.",
+        "answer": 13,
+        "explanation": "n was multiplied by 12, so divide both sides by 12: n = 156 ÷ 12 = 13. Check: 12 × 13 = 120 + 36 = 156."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Which expression is equivalent to 6(x + 4) for every value of x?",
+        "choices": [
+          "6x + 4",
+          "6x + 24",
+          "x + 24",
+          "10x"
+        ],
+        "answer": 1,
+        "explanation": "The distributive property multiplies both terms inside: 6(x + 4) = 6 × x + 6 × 4 = 6x + 24. Check at x = 3: 6(3 + 4) = 42 and 6 × 3 + 24 = 18 + 24 = 42."
+      }
+    ],
+    "ca-g6-ch04-geometry-area-surface-area": [
+      {
+        "kind": "numeric",
+        "prompt": "A closed box is 6 cm long, 4 cm wide and 3 cm tall. How many square centimeters of cardboard does its outside surface take?",
+        "answer": 108,
+        "explanation": "Six faces in three pairs: 2 x (6 x 4) + 2 x (6 x 3) + 2 x (4 x 3) = 48 + 36 + 24 = 108 square centimeters."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A right rectangular prism is 3 1/2 units long, 2 units wide and 1 1/2 units tall. What is its volume in cubic units?",
+        "answer": 10.5,
+        "tolerance": 0.01,
+        "explanation": "3.5 x 2 = 7, and 7 x 1.5 = 10.5 cubic units. Packing it with half-unit cubes agrees: 7 x 4 x 3 = 84 cubes, and 84 / 8 = 10.5 because eight half-unit cubes fill one cubic unit."
+      },
+      {
+        "kind": "mc",
+        "prompt": "An L-shaped patch on a coordinate grid has corners at (1, 2), (9, 2), (9, 5), (4, 5), (4, 8) and (1, 8). What is its area in square units?",
+        "choices": [
+          "24",
+          "33",
+          "39",
+          "48"
+        ],
+        "answer": 1,
+        "explanation": "Cut across at y = 5. The lower rectangle is (9 - 1) by (5 - 2) = 8 x 3 = 24 and the upper one is (4 - 1) by (8 - 5) = 3 x 3 = 9, so the area is 24 + 9 = 33. Checking the other way, the full rectangle is 8 x 6 = 48 and the missing corner is 5 x 3 = 15, and 48 - 15 = 33."
+      }
+    ],
+    "ca-g6-ch05-statistics-data-distributions": [
+      {
+        "kind": "numeric",
+        "prompt": "Nine students were asked how many minutes it takes them to get to school. Their answers were 8, 9, 9, 10, 10, 10, 11, 12, and 20. What is the range of the data?",
+        "answer": 12,
+        "explanation": "Range = largest answer minus smallest answer = 20 − 8 = 12 minutes."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Five students were asked how many books they finished in June. Their answers were 6, 7, 7, 9, and 12. What is the mean number of books?",
+        "answer": 8.2,
+        "tolerance": 0.01,
+        "explanation": "Add the answers: 6 + 7 + 7 + 9 + 12 = 41. Divide by the 5 students: 41 ÷ 5 = 8.2 books."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A class collects answers to a statistical question. Which of these numbers describes how spread out the answers are, rather than where their center is?",
+        "choices": [
+          "Mean",
+          "Median",
+          "Range",
+          "Mode"
+        ],
+        "answer": 2,
+        "explanation": "The mean, median, and mode each describe a typical value, so they are measures of center. The range is largest minus smallest, a measure of variability: for 8, 9, 9, 10, 10, 10, 11, 12, 20 the range is 20 − 8 = 12 while the median is 10."
+      }
+    ],
+    "ca-g7-ch01-proportional-relationships": [
+      {
+        "kind": "numeric",
+        "prompt": "Maya jogs 3/4 of a mile in 1/4 of an hour. At that pace, how many miles per hour is she running?",
+        "answer": 3,
+        "explanation": "Speed = distance ÷ time = (3/4) ÷ (1/4) = (3/4) × (4/1) = 12/4 = 3 miles per hour."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Trail mix is sold at a constant price per pound. 4 pounds cost $9. How many dollars do 10 pounds cost?",
+        "answer": 22.5,
+        "tolerance": 0.01,
+        "explanation": "Unit rate: 9 ÷ 4 = 2.25 dollars per pound. Then 2.25 × 10 = 22.50, so 10 pounds cost $22.50."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A $40 jacket is on sale for 25% off, and then 8% sales tax is added to the sale price. What is the final price?",
+        "choices": [
+          "$32.40",
+          "$33.20",
+          "$30.00",
+          "$34.40"
+        ],
+        "answer": 0,
+        "explanation": "25% of 40 = 0.25 × 40 = 10, so the sale price is 40 − 10 = 30. Tax: 8% of 30 = 0.08 × 30 = 2.40. Final price: 30 + 2.40 = 32.40."
+      }
+    ],
+    "ca-g7-ch02-operations-rational-numbers": [
+      {
+        "kind": "numeric",
+        "prompt": "At 7 a.m. the temperature is −4.5 degrees. It rises 1.25 degrees every hour. What is the temperature, in degrees, at 11 a.m.?",
+        "answer": 0.5,
+        "tolerance": 0.01,
+        "explanation": "From 7 a.m. to 11 a.m. is 4 hours, so the total change is 4 × 1.25 = 5 degrees. Adding that to the start: −4.5 + 5 = 0.5 degrees."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A club account is overdrawn, with a balance of −37.50 dollars. The 5 members share the shortfall equally. Written as a signed number of dollars, what is each member's share?",
+        "answer": -7.5,
+        "tolerance": 0.01,
+        "explanation": "Sharing equally means dividing: −37.50 ÷ 5 = −7.50. A negative divided by a positive is negative, and the check works: 5 × (−7.50) = −37.50."
+      },
+      {
+        "kind": "mc",
+        "prompt": "The day's low was −6.5 degrees and the day's high was 2.5 degrees. Which expression gives how many degrees apart the low and the high are?",
+        "choices": [
+          "2.5 + (−6.5)",
+          "2.5 − (−6.5)",
+          "(−6.5) − 2.5",
+          "(−6.5) × 2.5"
+        ],
+        "answer": 1,
+        "explanation": "The distance between two numbers is the size of their difference, and subtracting a negative is adding its opposite: 2.5 − (−6.5) = 2.5 + 6.5 = 9 degrees. The others give 2.5 + (−6.5) = −4, (−6.5) − 2.5 = −9, and (−6.5) × 2.5 = −16.25, none of which is the 9-degree gap."
+      }
+    ],
+    "ca-g7-ch03-linear-expressions-equations": [
+      {
+        "kind": "numeric",
+        "prompt": "A club pays a $25 van fee plus $18 for each member's ticket, so the trip costs 18m + 25 dollars for m members. The whole trip came to $151. How many members went?",
+        "answer": 7,
+        "explanation": "Solve 18m + 25 = 151. Undo the addition: 151 - 25 = 126, so 18m = 126. Undo the multiplication: 126 / 18 = 7. Check: 18 x 7 + 25 = 126 + 25 = 151."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A taxi charges a $4 flat fee plus $6 for every mile, so a ride of d miles costs 6d + 4 dollars. The ride cost $19. How many miles was it?",
+        "answer": 2.5,
+        "tolerance": 0.01,
+        "explanation": "Solve 6d + 4 = 19. Undo the addition: 19 - 4 = 15, so 6d = 15. Undo the multiplication: 15 / 6 = 2.5. Check: 6 x 2.5 + 4 = 15 + 4 = 19."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Which expression is equivalent to 3(2x + 5) - 4x?",
+        "choices": [
+          "6x + 15",
+          "2x + 15",
+          "2x + 5",
+          "10x + 15"
+        ],
+        "answer": 1,
+        "explanation": "Distribute first: 3(2x + 5) = 6x + 15, because the 3 multiplies both 2x and 5. Then combine the like terms: 6x - 4x = 2x, leaving 2x + 15. Test it at x = 1: 3(2 + 5) - 4 = 21 - 4 = 17, and 2(1) + 15 = 17."
+      }
+    ],
+    "ca-g7-ch04-scale-geometry-measurement": [
+      {
+        "kind": "numeric",
+        "prompt": "A map uses the scale 1 cm = 25 m. A rectangular field measures 6.4 cm by 4 cm on the map. What is the real area of the field, in square meters?",
+        "answer": 16000,
+        "explanation": "Scale each length first: real length = map length x the scale, so 6.4 x 25 = 160 m and 4 x 25 = 100 m. Real area = 160 x 100 = 16000 m^2. Checking the other way: 1 cm^2 of map stands for 25 x 25 = 625 m^2 of ground, and the map area 6.4 x 4 = 25.6 cm^2 gives 25.6 x 625 = 16000 m^2."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "On a plan with the scale 1 unit = 3.5 m, a circular pond is drawn with a radius of 2 units. What is the real circumference of the pond, in meters, rounded to two decimal places?",
+        "answer": 43.98,
+        "tolerance": 0.01,
+        "explanation": "Real radius = 2 x 3.5 = 7 m. Circumference C = 2 x pi x r = 2 x pi x 7 = 14 pi = 43.98 m (to two decimal places)."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A park's rectangular pool is 12 m long, 5 m wide, and 2 m deep. How much water does it hold when it is full?",
+        "choices": [
+          "60 m³",
+          "120 m³",
+          "128 m³",
+          "240 m³"
+        ],
+        "answer": 1,
+        "explanation": "The pool is a right prism, so volume = base area x depth. Its floor is 12 x 5 = 60 m^2, and stacking that floor through a depth of 2 m gives 60 x 2 = 120 m^3. (60 m^2 is the floor alone, and 128 m^2 is the floor plus four walls: 60 + 2 x 12 x 2 + 2 x 5 x 2 = 60 + 48 + 20.)"
+      }
+    ],
+    "ca-g7-ch05-sampling-probability-inference": [
+      {
+        "kind": "numeric",
+        "prompt": "A random sample of 40 students at a school of 720 finds that 18 of them walk to school. Based on this sample, about how many of the 720 students walk to school?",
+        "answer": 324,
+        "explanation": "The sample proportion is 18/40 = 9/20 = 0.45. Treat that as the school-wide fraction: 0.45 x 720 = 324. (Check by scaling: 720 / 40 = 18 groups of 40, and 18 x 18 = 324.)"
+      },
+      {
+        "kind": "numeric",
+        "prompt": "In a random sample, 3 out of every 5 students said yes. Using that sample as your probability model, you pick a student at random, put the name back, and pick again. What is the probability that both picks say yes? Give a decimal.",
+        "answer": 0.36,
+        "tolerance": 0.01,
+        "explanation": "P(yes) = 3/5 = 0.6 for each pick, and the two picks are independent, so P(both yes) = 3/5 x 3/5 = 9/25 = 0.36."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Two random samples of 10 students each record their daily reading minutes. Sample A has a mean of 25 minutes and a mean absolute deviation of 5 minutes; sample B has a mean of 40 minutes and the same MAD of 5 minutes. How many MADs apart are the two centers?",
+        "choices": [
+          "1.5",
+          "3",
+          "5",
+          "15"
+        ],
+        "answer": 1,
+        "explanation": "The gap between the centers is 40 - 25 = 15 minutes. Express it in units of the typical spread: 15 / 5 = 3, so the centers are 3 MADs apart. (15 is the raw gap in minutes, 5 is the MAD itself, and 1.5 divides the gap by the sample size instead of by the MAD.)"
+      }
+    ],
+    "ca-g8-ch01-linear-equations-systems-readiness": [
+      {
+        "kind": "numeric",
+        "prompt": "Shop A charges a $4 deposit plus $7 per hour. Shop B charges a $10 deposit plus $5 per hour. After how many hours do the two shops charge the same total?",
+        "answer": 3,
+        "explanation": "Set the totals equal: 7h + 4 = 5h + 10. Subtract 5h from both sides: 2h + 4 = 10. Subtract 4 from both sides: 2h = 6. Divide by 2: h = 3. Check: 7(3) + 4 = 21 + 4 = 25 and 5(3) + 10 = 15 + 10 = 25, so both shops charge $25 after 3 hours."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "The square root of 30 lies between two consecutive whole numbers. What is the smaller of those two whole numbers?",
+        "answer": 5,
+        "explanation": "Square the neighbours: 5 x 5 = 25 and 6 x 6 = 36. Since 25 < 30 < 36, the square root of 30 lies between 5 and 6, so the smaller whole number is 5. Because 30 is not a perfect square, that root is irrational: 5.477... never stops and never repeats."
+      },
+      {
+        "kind": "mc",
+        "prompt": "How many solutions does 3x + 5 = 3x + 9 have?",
+        "choices": [
+          "No solution",
+          "Exactly one solution",
+          "Exactly two solutions",
+          "Infinitely many solutions"
+        ],
+        "answer": 0,
+        "explanation": "Subtract 3x from both sides: the left becomes 3x + 5 - 3x = 5 and the right becomes 3x + 9 - 3x = 9, so the equation reduces to 5 = 9. That is false for every x, so no value of x works. On a graph, y = 3x + 5 and y = 3x + 9 both have slope 3, so they are parallel lines that never cross."
+      }
+    ],
+    "ca-g8-ch02-functions-rate-change": [
+      {
+        "kind": "numeric",
+        "prompt": "A rain barrel already holds 8 liters when a steady rain begins adding 5 liters each minute. How many liters are in the barrel 6 minutes later?",
+        "answer": 38,
+        "explanation": "The rule is liters = 5 x minutes + 8. In 6 minutes the rain adds 5 x 6 = 30 liters, and 30 + 8 = 38 liters."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A straight line passes through the points (1, 4) and (5, 13). What is its rate of change (its slope)?",
+        "answer": 2.25,
+        "tolerance": 0.01,
+        "explanation": "Rise = 13 - 4 = 9 and run = 5 - 1 = 4, so the slope is rise divided by run: 9 / 4 = 2.25."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Function A is given by the equation y = 6x + 2. Function B is given by this table: x = 0, 3, 6 with y = 5, 17, 29. Which statement is true?",
+        "choices": [
+          "A changes faster: 6 per unit of x against B's 4 per unit of x",
+          "B changes faster, because its outputs jump by 12 at a time",
+          "A and B change at the same rate",
+          "B is not a function, because its x-values skip numbers"
+        ],
+        "answer": 0,
+        "explanation": "B's table rises 17 - 5 = 12 while x rises 3 - 0 = 3, so B's rate is 12 / 3 = 4 per unit of x (the next pair agrees: 29 - 17 = 12 over 3 gives 4 again). A's rate is the coefficient of x, which is 6. Since 6 > 4, A changes faster; the jump of 12 is spread over 3 steps, and skipping x-values does not stop B from being a function."
+      }
+    ],
+    "ca-g8-ch03-transformations-similarity": [
+      {
+        "kind": "numeric",
+        "prompt": "Two angles of triangle ABC measure 52 degrees and 61 degrees. Triangle A'B'C' is the image of ABC after a dilation and some rigid motions. What is the measure, in degrees, of the third angle of A'B'C'?",
+        "answer": 67,
+        "explanation": "The three angles of a triangle sum to 180 degrees, so the third angle of ABC is 180 - 52 - 61 = 67 degrees. Dilations and rigid motions leave every angle measure alone, so the matching angle of A'B'C' is also 67 degrees."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A triangle is dilated about the origin. A side that measured 9 cm measures 6 cm in the image. What is the scale factor? Round to two decimal places.",
+        "answer": 0.67,
+        "tolerance": 0.01,
+        "explanation": "The scale factor is image length divided by original length: 6 / 9 = 2/3 = 0.6666..., which rounds to 0.67. Because it is less than 1 the image is smaller, and every other length is 2/3 of its original, so a 12 cm side would become 12 x 2/3 = 8 cm."
+      },
+      {
+        "kind": "mc",
+        "prompt": "The point (-4, 6) is rotated 90 degrees counterclockwise about the origin. Where does it land?",
+        "choices": [
+          "(-6, -4)",
+          "(6, -4)",
+          "(4, -6)",
+          "(-6, 4)"
+        ],
+        "answer": 0,
+        "explanation": "A 90 degree counterclockwise turn about the origin follows the rule (x, y) goes to (-y, x). With x = -4 and y = 6 that gives (-6, -4). Check: the point started in the second quadrant, and a quarter turn counterclockwise carries the second quadrant into the third, where both coordinates are negative. The distance from the origin is unchanged, since (-4)^2 + 6^2 = 52 and (-6)^2 + (-4)^2 = 52."
+      }
+    ],
+    "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry": [
+      {
+        "kind": "numeric",
+        "prompt": "A right triangle has legs of 20 cm and 21 cm. How long is its hypotenuse, in centimeters?",
+        "answer": 29,
+        "explanation": "20² + 21² = 400 + 441 = 841, and 841 is a perfect square because 29 × 29 = 841. So c = √841 = 29 cm."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "On a city map the school is at (-4, 1) and the pool is at (2, 6), and each grid unit is one kilometer. How far apart are they in a straight line, to the nearest hundredth of a kilometer?",
+        "answer": 7.81,
+        "tolerance": 0.01,
+        "explanation": "Run = 2 - (-4) = 6 and rise = 6 - 1 = 5, so the legs are 6 and 5. 6² + 5² = 36 + 25 = 61. 61 is not a perfect square: 7² = 49 and 8² = 64, so the distance is between 7 and 8. √61 = 7.8102..., which rounds to 7.81 km."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A 13 ft ramp runs from level ground up to a loading dock 5 ft high. How far is the bottom of the ramp from the base of the dock?",
+        "choices": [
+          "18 ft",
+          "8 ft",
+          "12 ft",
+          "about 13.93 ft"
+        ],
+        "answer": 2,
+        "explanation": "The ramp is the hypotenuse, so d² + 5² = 13². That gives d² = 169 - 25 = 144, and d = √144 = 12 ft, since 12 × 12 = 144. The distractors come from the usual wrong turns: 13 + 5 = 18 and 13 - 5 = 8 never square anything, and √(169 + 25) = √194 ≈ 13.93 adds the squares when finding a leg calls for subtracting them."
+      }
+    ],
+    "ca-g8-ch05-bivariate-data-claims": [
+      {
+        "kind": "numeric",
+        "prompt": "A team's line of best fit is y = 3x + 11, where x is hours of practice per week and y is free throws made out of 50. How many free throws does the line predict for a player who practices 6 hours a week?",
+        "answer": 29,
+        "explanation": "Substitute x = 6: y = 3 × 6 + 11 = 18 + 11 = 29 free throws."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A line of best fit passes through the points (2, 20) and (6, 30), where x is hours of practice and y is free throws made. What is the slope of the line, in free throws per hour?",
+        "answer": 2.5,
+        "tolerance": 0.01,
+        "explanation": "Slope = change in y ÷ change in x = (30 − 20) ÷ (6 − 2) = 10 ÷ 4 = 2.5 free throws per hour of practice."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A school surveyed students about sleep. Of the 40 students who play a school sport, 22 slept at least 8 hours last night; of the 25 students who do not play a sport, 15 did. Which comparison correctly tests the claim that playing a sport goes with getting at least 8 hours of sleep?",
+        "choices": [
+          "22 is greater than 15, so players slept at least 8 hours more often",
+          "55% of players versus 60% of non-players, so players slept at least 8 hours less often",
+          "40 is greater than 25, so players slept at least 8 hours more often",
+          "22 + 15 = 37, so about a third of the students slept at least 8 hours"
+        ],
+        "answer": 1,
+        "explanation": "Compare the relative frequency within each row, not the raw counts. Players: 22 / 40 = 0.55 = 55%. Non-players: 15 / 25 = 0.60 = 60%. Since 55% < 60%, players slept at least 8 hours LESS often, even though 22 is the larger count; the rows have different sizes (40 and 25), so 22 vs 15 and 40 vs 25 compare nothing useful. Adding 22 + 15 = 37 out of 40 + 25 = 65 students is 37 / 65 = 56.9%, not a third, and it ignores the two groups entirely."
+      }
+    ],
+    "ca-g9-ch01-equations-context": [
+      {
+        "kind": "numeric",
+        "prompt": "A print shop charges a $25 setup fee plus $8 per poster. A club pays $145. Write and solve an equation to find how many posters it ordered.",
+        "answer": 15,
+        "explanation": "Let p be the number of posters: 25 + 8p = 145. Subtract 25 from both sides: 8p = 120. Divide by 8: p = 15. Check: 25 + 8 × 15 = 25 + 120 = 145."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Jonah has $47. A museum membership card costs $14, and each special exhibit costs $9 with the card. What is the greatest number of special exhibits he can afford?",
+        "answer": 3,
+        "explanation": "The constraint is 14 + 9e ≤ 47. Subtract 14: 9e ≤ 33. Divide by 9: e ≤ 33 ÷ 9 ≈ 3.67. He needs a whole number, so 3 exhibits: 14 + 9 × 3 = 41 ≤ 47, but 14 + 9 × 4 = 50 > 47."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A gym's cost formula is C = 20 + 6v, where v is the number of visits. Which formula gives v in terms of C?",
+        "choices": [
+          "v = C/6 − 20",
+          "v = (C + 20)/6",
+          "v = (C − 20)/6",
+          "v = 6(C − 20)"
+        ],
+        "answer": 2,
+        "explanation": "Subtract 20 from both sides: C − 20 = 6v. Divide both sides by 6: v = (C − 20)/6. Check with C = 50: v = (50 − 20)/6 = 30/6 = 5, and 20 + 6 × 5 = 50."
+      }
+    ],
+    "ca-g9-ch02-function-notation-interpretation": [
+      {
+        "kind": "numeric",
+        "prompt": "A hiker starts 84 km from the trail end and covers 6 km each hour, so the distance still ahead after x hours is g(x) = 84 - 6x kilometers. After how many hours is g(x) = 30?",
+        "answer": 9,
+        "explanation": "Solve 84 - 6x = 30. Subtract 84 from both sides: -6x = -54, so x = 54 / 6 = 9 hours. Check by evaluating: g(9) = 84 - 6 x 9 = 84 - 54 = 30."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A ball's height in feet t seconds after it is thrown is h(t) = 48t - 16t^2. What is the average rate of change of h from t = 1 to t = 2.5, in feet per second?",
+        "answer": -8,
+        "tolerance": 0.01,
+        "explanation": "h(1) = 48 x 1 - 16 x 1 = 32 and h(2.5) = 48 x 2.5 - 16 x 6.25 = 120 - 100 = 20. Average rate of change = (20 - 32) / (2.5 - 1) = -12 / 1.5 = -8 feet per second, so the ball is falling on average 8 feet each second over that interval."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A full 500-liter tank drains at 25 liters per minute, so the water left after m minutes is W(m) = 500 - 25m. Which set of inputs is the domain of W in this situation?",
+        "choices": [
+          "all real numbers",
+          "0 ≤ m ≤ 20",
+          "0 ≤ m ≤ 500",
+          "m ≥ 20"
+        ],
+        "answer": 1,
+        "explanation": "The tank empties when W(m) = 0: 500 - 25m = 0, so 25m = 500 and m = 20 minutes. Before m = 0 the draining has not started, and for m > 20 the formula returns negative water, for example W(25) = 500 - 625 = -125, which no tank can hold. So only 0 ≤ m ≤ 20 describes the real situation."
+      }
+    ],
+    "ca-g9-ch03-linear-quadratic-models": [
+      {
+        "kind": "numeric",
+        "prompt": "A drone rises at a steady 6 ft/s from a 14 ft platform, so its height after t seconds is d(t) = 6t + 14. After how many seconds is the drone 50 ft high?",
+        "answer": 6,
+        "explanation": "Set the model equal to the target: 6t + 14 = 50. Subtract 14 from both sides: 6t = 36. Divide both sides by 6: t = 6. Check: 6 × 6 + 14 = 36 + 14 = 50."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A ball is thrown straight up from 3 ft at 56 ft/s, so h(t) = −16t² + 56t + 3. What is the greatest height it reaches, in feet?",
+        "answer": 52,
+        "explanation": "The vertex is at t = 56/32 = 1.75 s. Then h(1.75) = −16(1.75)² + 56(1.75) + 3 = −16(3.0625) + 98 + 3 = −49 + 101 = 52. Completing the square gives the same: h(t) = −16(t − 1.75)² + 3 + 56²/64 = −16(t − 1.75)² + 3 + 49, so the peak is 52 ft."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A ball's height is h(t) = −16t² + 32t + 6, and a drone hovers at a constant 22 ft. How many times after the throw (t ≥ 0) is the ball at exactly the drone's height?",
+        "choices": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": 1,
+        "explanation": "Set h(t) = 22: −16t² + 32t + 6 = 22, so −16t² + 32t − 16 = 0. Divide by −16: t² − 2t + 1 = 0. The discriminant is (−2)² − 4(1)(1) = 4 − 4 = 0, so there is exactly one solution, t = 1. That is the vertex: 6 + 32²/64 = 6 + 16 = 22 ft, so the ball just touches the drone's height once, at its peak."
+      }
+    ],
+    "ca-g9-ch04-coordinate-geometry-methods": [
+      {
+        "kind": "numeric",
+        "prompt": "A circle is centered at C(−3, 4) and passes through D(2, 16). Its equation is (x + 3)² + (y − 4)² = r². What is r²?",
+        "answer": 169,
+        "explanation": "r² is the squared distance CD. Run: 2 − (−3) = 5. Rise: 16 − 4 = 12. So r² = 5² + 12² = 25 + 144 = 169 (and r = 13, since 13² = 169). Check that D fits the equation: (2 + 3)² + (16 − 4)² = 25 + 144 = 169."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "P is (1, 2) and Q is (13, 10). Point M lies three quarters of the way from P to Q, so PM : MQ = 3 : 1. What is the y-coordinate of M?",
+        "answer": 8,
+        "explanation": "M = P + (3/4)(Q − P). The change from P to Q is (13 − 1, 10 − 2) = (12, 8). Three quarters of the rise is (3/4) × 8 = 6, so the y-coordinate is 2 + 6 = 8. (The x-coordinate is 1 + (3/4) × 12 = 1 + 9 = 10, so M is (10, 8).) Check the ratio: PM = (9, 6) and MQ = (3, 2), and (9, 6) is exactly 3 times (3, 2)."
+      },
+      {
+        "kind": "mc",
+        "prompt": "Segment AB runs from A(−1, 5) to B(3, −3). Which number is the slope of a line perpendicular to AB?",
+        "choices": [
+          "−2",
+          "2",
+          "1/2",
+          "−1/2"
+        ],
+        "answer": 2,
+        "explanation": "Slope of AB = rise ÷ run = (−3 − 5) ÷ (3 − (−1)) = −8 ÷ 4 = −2. Perpendicular slopes multiply to −1, so the perpendicular slope m satisfies −2 × m = −1, giving m = 1/2. Check: −2 × 1/2 = −1. The choice −2 repeats AB's own slope (that would be parallel), 2 only flips the sign, and −1/2 flips the fraction without fixing the sign."
+      }
+    ],
+    "ca-g9-ch05-modeling-evidence": [
+      {
+        "kind": "numeric",
+        "prompt": "A school models its fundraiser with donations = 12p + 45 dollars, where p is the number of posters put up. One week the school put up 8 posters and collected 156 dollars. What is that week's residual, in dollars?",
+        "answer": 15,
+        "explanation": "Predicted = 12 x 8 + 45 = 96 + 45 = 141 dollars. Residual = actual - predicted = 156 - 141 = 15 dollars, so the model under-predicted that week by 15 dollars."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A trainer records x = weeks of training and y = push-ups completed for several athletes. For that data, the sum of (x - xbar)(y - ybar) is 84 and the sum of (x - xbar)^2 is 24. What is the slope of the least-squares line, in push-ups per week?",
+        "answer": 3.5,
+        "tolerance": 0.01,
+        "explanation": "The least-squares slope is the sum of (x - xbar)(y - ybar) divided by the sum of (x - xbar)^2: 84 / 24 = 3.5 push-ups per week."
+      },
+      {
+        "kind": "mc",
+        "prompt": "A least-squares line is fitted to five data points. Four of its residuals are 2, -3, 1, and -1, and the fifth residual is missing. What is the missing residual?",
+        "choices": [
+          "1",
+          "0",
+          "-1",
+          "3"
+        ],
+        "answer": 0,
+        "explanation": "The residuals of a least-squares line always add to 0. The four known residuals give 2 + (-3) + 1 + (-1) = -1, so the missing residual r satisfies -1 + r = 0, which means r = 1."
+      }
+    ]
+  }
+}

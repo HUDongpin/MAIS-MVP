@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "ca-storage-loader-profile.v1",
+  "baseCommit": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17",
+  "canonicalLibrarySha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+  "parserVersion": "5.8.3",
+  "source": {
+    "path": "lib/server/mediaOwnerErasure.ts",
+    "mode": "100644",
+    "objectId": "27327534fac01df17d0e35a2d83e9f81bf5fcb49",
+    "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+  },
+  "operations": [
+    {
+      "kind": "fs-open",
+      "callee": "node:fs/promises.open",
+      "position": 2423,
+      "normalizedExpressionDigest": "61a4de83c6c1137f61d93cbefc3d109a9e9dc9043cd2de35ef290c24205a055f",
+      "functionName": "syncDirectory",
+      "functionSourceSha256": "6eac8f4594db0515ae5fb9190137ff9f8afa65bfe7bb63231cb19c69eba1c7b0",
+      "classification": "runtime-storage-directory-durability-sync",
+      "reason": "FileHandle is used only for sync() and close(); no read or escape."
+    },
+    {
+      "kind": "fs-open",
+      "callee": "node:fs/promises.open",
+      "position": 2755,
+      "normalizedExpressionDigest": "8026b494489a4f36c0a47de9abdf6970381c01a88af5b88fd74fdc1be960bffd",
+      "functionName": "durableJson",
+      "functionSourceSha256": "1640775dbb4a7d4e310b49d4e04bbfc53026c590af864ebf88aef43dfcf8b8dd",
+      "classification": "runtime-storage-exclusive-json-write",
+      "reason": "Exclusive create wx; JSON.stringify -> writeFile -> sync -> close; no read or code evaluation."
+    },
+    {
+      "kind": "open-directory",
+      "callee": "node:fs/promises.opendir",
+      "position": 12921,
+      "normalizedExpressionDigest": "05c2fa679692f818fb9f166faa5d2d40d9ea7231afddc49616ebb749289ba80e",
+      "functionName": "activeLeaseCount",
+      "functionSourceSha256": "999e430e3301a7144aa48c96c8a1ff8f0a27cdd00d3933b26871385c71b35f7a",
+      "classification": "runtime-storage-owner-lease-presence-scan",
+      "reason": "Directory entries are tested for .json to preserve uploads-active status; names do not select executable modules."
+    },
+    {
+      "kind": "open-directory",
+      "callee": "node:fs/promises.opendir",
+      "position": 13363,
+      "normalizedExpressionDigest": "05c2fa679692f818fb9f166faa5d2d40d9ea7231afddc49616ebb749289ba80e",
+      "functionName": "entries",
+      "functionSourceSha256": "d6f60d89db48f2350785d585481abf7911bbf6b1456295c53166a4496f6cef1c",
+      "classification": "runtime-storage-media-metadata-traversal",
+      "reason": "Guarded canonical capability/year/month/owner-prefix directory traversal feeds metadata proof and deletion, not module loading."
+    }
+  ],
+  "scope": "exact-whole-file-non-module-storage-write-sync-enumeration",
+  "approval": "requires-independent-checker-freeze-review",
+  "liveAllowed": false
+}

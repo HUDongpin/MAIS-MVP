@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "ca-textbook-manifest.v1",
+  "version": "ca-textbook-successor.v3",
+  "attemptId": "ca-textbook-003",
+  "baseCommit": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17",
+  "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+  "sourceAuthors": [
+    "/root",
+    "original-pr225-authors"
+  ],
+  "sourceInventoryDigest": "ff2bdd1a53161ec7c05be2961e5d1ce1525fb22240b4fc282075caa567b5a85f",
+  "candidate": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/inputs/candidate.json",
+    "sha256": "85f84fc74a2b598913b72403c207c76a5b55410bc6f5b9ad1391636eea877f7d"
+  },
+  "registry": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/inputs/registry.json",
+    "sha256": "d6e28b5d4cb42cef32a24e4b41c76d2dc820316b9c6ca347300bba5fc163221d"
+  },
+  "disposition": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/inputs/disposition.json",
+    "sha256": "dbb36db9ccc2c7dc504df1e04f9a496fc8046296ea721944acb61bfb21a6cb3f"
+  },
+  "evidenceIndex": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/inputs/evidence-index.json",
+    "sha256": "0eaae3c7514eb1221ae5b4486de5524b06878d248a03087fb5ac24bffa9f450d"
+  },
+  "checkerLedger": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/checker-release.json",
+    "sha256": "18638f93abc473fb67f853faa7720d08deb60dbca0bf2979e38da3da4d5b13a3"
+  },
+  "checkerReleaseCommit": "34dbf1345edf8ac1a604bcbc19ea15a2efbcc97d",
+  "checkerBundleDigest": "8aebe7c91c3e7d314eebb56be2ca5b2baa0951693b85d34ab2c3af44afdacdd6",
+  "descriptorPath": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/successor.json",
+  "canonicalReceiptPath": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/canonical-receipt.json",
+  "runtime": {
+    "compatibility": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json",
+      "sha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc"
+    },
+    "policyDigest": "f72d87117d3844366b64ea5a37668d633470e48bd7d2764eaf2949ca09f576f2",
+    "auditDigest": "b20edcfbfd4ea4a09243e467128a4c54ecb8c363faa93fc022fa571904120df4"
+  },
+  "lifecycleState": "shadow_ready",
+  "liveAllowed": false,
+  "checkerAuthors": [
+    "/root/pr300_a23",
+    "/root"
+  ],
+  "pullRequestNumber": 304,
+  "evidenceCommit": "663a11ef20a35ee82265acd1f0fbaff0571b58d9"
+}

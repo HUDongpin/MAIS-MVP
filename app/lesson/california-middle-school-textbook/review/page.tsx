@@ -4,8 +4,8 @@ import { CaliforniaMiddleSchoolReplacementTextbookPage } from "@/components/less
 export const runtime = "nodejs";
 
 export const metadata: Metadata = {
-  title: "California Middle School Mathematics Approved Review",
-  description: "Noindex review route for the exact approved California Grade 6-8 replacement lesson package.",
+  title: "California Middle School Interactive Textbook Review",
+  description: "Noindex review of the California Grade 6-8 English introductory chapter openers and related interactive lessons.",
   robots: {
     index: false,
     follow: false

@@ -64,17 +64,31 @@ for (const question of bankPack.questions) {
 }
 
 // Home topic per lesson slug: primary home wins, else first topic listing it.
+//
+// The assignment table now leads each G6-G12 chapter with a MAIS-authored
+// chapter opener (ccss-textbook-claude-v1, 2026-09-02). Those openers carry no
+// upstream practice and are not part of this pack, so homes are computed over
+// the UPSTREAM view of each assignment: the first upstream lesson in render
+// order is the anchoring primary, exactly as it was before the openers landed.
+// This keeps the pack byte-identical to its hand-checked, A18-audited state.
+const upstreamSlugs = new Set(snapshot.lessons.map((lesson) => lesson.slug));
+const upstreamAssignments = assignments
+  .map(({ topicId, primary, related }) => {
+    const ordered = [primary, ...related].filter((slug) => upstreamSlugs.has(slug));
+    return ordered.length ? { topicId, primary: ordered[0], related: ordered.slice(1) } : null;
+  })
+  .filter(Boolean);
 const homeBySlug = new Map();
-for (const { topicId, primary, related } of assignments) {
+for (const { topicId, primary, related } of upstreamAssignments) {
   if (!homeBySlug.has(primary)) homeBySlug.set(primary, topicId);
   for (const slug of related) if (!homeBySlug.has(slug)) homeBySlug.set(slug, topicId);
 }
-for (const { topicId, primary } of assignments) homeBySlug.set(primary, homeBySlug.get(primary) ?? topicId);
-for (const { topicId, primary } of assignments) {
+for (const { topicId, primary } of upstreamAssignments) homeBySlug.set(primary, homeBySlug.get(primary) ?? topicId);
+for (const { topicId, primary } of upstreamAssignments) {
   // A lesson that is primary somewhere should live with the topic it anchors.
   if (homeBySlug.get(primary) !== topicId) {
     const currentHome = homeBySlug.get(primary);
-    const anchors = assignments.some((a) => a.topicId === currentHome && a.primary === primary);
+    const anchors = upstreamAssignments.some((a) => a.topicId === currentHome && a.primary === primary);
     if (!anchors) homeBySlug.set(primary, topicId);
   }
 }

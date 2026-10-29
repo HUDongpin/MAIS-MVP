@@ -1,16 +1,23 @@
 import { expect, test } from "@playwright/test";
-import { collectPageErrors, expectNoPageErrors } from "./helpers";
+import { authenticateAsDemoStudent, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 function isExpectedAnonymous401Console(text: string) {
   return /Failed to load resource: the server responded with a status of 401(?:\s+\((?:Unauthorized)?\))?/i.test(text);
 }
 
 test.describe("California high school textbook review route", () => {
-  test("renders noindex review page with 20 chapters, 40 examples, and loaded images", async ({ page }) => {
+  test("keeps anonymous review readers behind the lesson login gate", async ({ page }) => {
+    const route = "/lesson/california-high-school-textbook/review";
+    await page.goto(route);
+    await expect(page).toHaveURL((url) => url.pathname === "/login" && url.searchParams.get("next") === route);
+    await expect(page.getByTestId("california-high-school-textbook-review-page")).toHaveCount(0);
+  });
+
+  test("renders the noindex review page with 20 interactive chapters and a hydrated opener per chapter", async ({ page }) => {
+    await authenticateAsDemoStudent(page);
     const pageErrors = collectPageErrors(page);
     const consoleErrors: string[] = [];
     const httpErrors: string[] = [];
-    const requestFailures: string[] = [];
     page.on("console", (message) => {
       if (message.type() === "error" && !isExpectedAnonymous401Console(message.text())) {
         consoleErrors.push(message.text());
@@ -21,13 +28,8 @@ test.describe("California high school textbook review route", () => {
       const status = response.status();
       if (status < 400) return;
       if (status === 401 && url.pathname === "/api/me") return;
-      if (url.pathname.includes("/lesson-illustrations/us-ca-high-school/") || url.pathname === "/_next/image" || status >= 500) {
+      if (url.pathname.startsWith("/_next/") || status >= 500) {
         httpErrors.push(`${status} ${response.url()}`);
-      }
-    });
-    page.on("requestfailed", (request) => {
-      if (request.url().includes("/lesson-illustrations/us-ca-high-school/")) {
-        requestFailures.push(`${request.url()} ${request.failure()?.errorText ?? ""}`);
       }
     });
 
@@ -38,30 +40,29 @@ test.describe("California high school textbook review route", () => {
     await expect(reviewPage).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
     await expect(page.getByTestId("california-high-school-textbook-chapter")).toHaveCount(20);
-    await expect(page.getByTestId("california-high-school-worked-example")).toHaveCount(40);
 
-    const images = reviewPage.locator("img");
-    await expect(images).toHaveCount(60);
-    const imageCount = await images.count();
-    for (let index = 0; index < imageCount; index += 1) {
-      const image = images.nth(index);
-      await image.scrollIntoViewIfNeeded();
-      await expect.poll(async () => await image.evaluate((node) => {
-        const img = node as HTMLImageElement;
-        return img.complete && img.naturalWidth > 0 && img.naturalHeight > 0;
-      }), { timeout: 10000 }).toBe(true);
+    // Every chapter opens with its MAIS-authored interactive lesson; the ported
+    // lessons sit behind disclosures and the chapter check is interactive.
+    const openers = reviewPage.locator('[data-testid="california-high-school-textbook-lesson"][data-lesson-role="opener"] [data-ccss-lesson]');
+    await expect(openers).toHaveCount(20);
+    for (let index = 0; index < 20; index += 1) {
+      await openers.nth(index).scrollIntoViewIfNeeded();
+      await expect(openers.nth(index)).toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
     }
-    const failedImages = await images.evaluateAll((nodes) =>
-      nodes
-        .map((node) => node as HTMLImageElement)
-        .filter((img) => !img.complete || img.naturalWidth === 0 || img.naturalHeight === 0)
-        .map((img) => img.currentSrc || img.src || img.alt)
-    );
-    expect(failedImages).toEqual([]);
+    await expect(reviewPage.locator('[data-testid="california-high-school-textbook-lesson"][data-lesson-role="lesson"] button[aria-expanded="false"]').first()).toBeVisible();
+    await expect(reviewPage.getByTestId("california-high-school-textbook-check").first()).toBeVisible();
+
+    // The Codex worked-example package and its bitmaps are gone from the route.
+    await expect(reviewPage.locator("img")).toHaveCount(0);
+    await expect(reviewPage.getByTestId("california-high-school-worked-example")).toHaveCount(0);
+
+    const bodyText = await reviewPage.innerText();
+    expect(bodyText).toMatch(/Review only/i);
+    expect(bodyText).toMatch(/not-approved-for-production-integration/i);
+    expect(bodyText).toMatch(/Pathway|Algebra I|Geometry|Algebra II/i);
 
     const overflow = await reviewPage.evaluate((main) => main.scrollWidth > main.clientWidth + 2);
     expect(overflow).toBe(false);
-    expect(requestFailures).toEqual([]);
     expect(httpErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
     expectNoPageErrors(pageErrors);
