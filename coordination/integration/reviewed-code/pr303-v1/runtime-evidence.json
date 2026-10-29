@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "pr303-runtime-evidence.v1",
+  "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+  "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+  "recordedAt": "2026-10-29T00:31:11.307Z",
+  "environment": "local-clean-production-build-with-offline-fixtures",
+  "nodeMajor": 24,
+  "build": {
+    "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+    "buildId": "jDmkCyPmSP6Dzpbp_BGQg",
+    "distDir": ".tmp/china-lesson-e2e-runtime/outputs/pr275-source-012ba0ee-v1/next-dist",
+    "sourceTreeClean": true,
+    "sourceTreeStable": true,
+    "buildStartedAt": "2026-10-28T23:47:47.367Z",
+    "completedAt": "2026-10-28T23:48:59.115Z",
+    "attestationPath": ".tmp/china-lesson-e2e-runtime/outputs/pr275-source-012ba0ee-v1/next-dist/mais-build-attestation.json",
+    "attestationRawSha256": "bc05dc1721a9921926c6ec19ed9ff716c848cffd8720bda9a1994fd36dfc5be1",
+    "artifactDigests": {
+      "BUILD_ID": "6c6393e97feae0df485ee1f96622693c3ff4c4acc4d8fd3201ea8242b45cdce3",
+      "required-server-files.json": "402994aea24e07b27c9f3ad48c560b82033393dd8639718169c2f95ac8e521a7",
+      "server/app-paths-manifest.json": "aac5b9438e0e92000bdf6b369d58f776944774fbfdb07ee95b9861f74c6da381"
+    },
+    "artifactTree": {
+      "algorithm": "sha256",
+      "exclusions": [
+        "mais-build-attestation.json",
+        "cache/**",
+        "diagnostics/**",
+        "trace",
+        "trace-build"
+      ],
+      "fileCount": 2560,
+      "totalBytes": 112187636,
+      "root": "95fd4e6111bbb55bfc0519dc722e482ed985cd795063509d469981b3918a6346"
+    },
+    "artifactDigestsVerifiedAfterRuntime": true
+  },
+  "browser": {
+    "args": [
+      "node_modules/@playwright/test/cli.js",
+      "test",
+      "tests/e2e/hk-coordinate-transform-user-points.spec.ts",
+      "--project=desktop-chrome",
+      "--workers=1",
+      "--retries=0",
+      "--reporter=json"
+    ],
+    "reportPath": ".local/pr275-current-main-20261029/browser-v1.stdout",
+    "reportSha256": "6eaa8164b2575256e4e220ea63e48ffaad86f71fe7c520a3554d548f22635cc8",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "executionPath": ".local/pr275-current-main-20261029/browser-execution-v1.json",
+    "executionRawSha256": "9cfa73846dee8387551eb1f5d25168d58c36c4c05d2f0d7936af8e54836dea73",
+    "playwrightVersion": "1.59.1",
+    "startedAt": "2026-10-28T23:47:46.976Z",
+    "durationMs": 82922.373,
+    "configuration": {
+      "testFile": "tests/e2e/hk-coordinate-transform-user-points.spec.ts",
+      "project": "desktop-chrome",
+      "workers": 1,
+      "retries": 0,
+      "browserChannel": "",
+      "nodeEnvironment": "production",
+      "providerProfile": "offline-fixture",
+      "port": 3397,
+      "runId": "pr275-source-012ba0ee-v1"
+    },
+    "summary": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "retries": 0
+    },
+    "tests": [
+      {
+        "title": "student-entered points obey Translate and share the triangle's invariant",
+        "project": "desktop-chrome",
+        "status": "passed",
+        "retry": 0,
+        "startedAt": "2026-10-28T23:49:01.899Z",
+        "durationMs": 2892
+      },
+      {
+        "title": "student-entered points obey Reflect and share the triangle's invariant",
+        "project": "desktop-chrome",
+        "status": "passed",
+        "retry": 0,
+        "startedAt": "2026-10-28T23:49:04.906Z",
+        "durationMs": 2443
+      },
+      {
+        "title": "student-entered points obey Dilate and share the triangle's invariant",
+        "project": "desktop-chrome",
+        "status": "passed",
+        "retry": 0,
+        "startedAt": "2026-10-28T23:49:07.353Z",
+        "durationMs": 2490
+      }
+    ]
+  },
+  "runtimeRoots": [
+    {
+      "path": "app",
+      "tree": "7fa2d5cda45ab1454479c9e625ee731833416e3c"
+    },
+    {
+      "path": "components",
+      "tree": "8f3a97dce52b1df03b750a7ff90cec6c2cca77d6"
+    },
+    {
+      "path": "data",
+      "tree": "ad0541819435962777d15ec42e402f0669d72e7f"
+    },
+    {
+      "path": "lib",
+      "tree": "2563779315e4d3265c6e35280f0fe2a6fd07fcf1"
+    },
+    {
+      "path": "public",
+      "tree": "3a6d7e0dfc9ac58c731746eca622b4fb75791361"
+    },
+    {
+      "path": "tests",
+      "tree": "933fcc8c9b18a8c36022929640df004347c89de1"
+    },
+    {
+      "path": "types",
+      "tree": "6b13b1323c334db862ef825a1e1553002a1f068b"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "middleware.ts",
+      "sha256": "58c728f3696109f49d9c406a99b6e83d6319d9a90ca26ca17c7d4ba844e5b689"
+    },
+    {
+      "path": "next-env.d.ts",
+      "sha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6"
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "7c7f4eaa48ec3c9200410dbf69e8efa1db7c49ebe4e872890467660fd9376cdc"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767"
+    },
+    {
+      "path": "package.json",
+      "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "d12a066778dffd25abc027203fa38795bdc2c73ab16665664753917cb2eaee2f"
+    },
+    {
+      "path": "scripts/check-stray-generated-types.mjs",
+      "sha256": "05ea295b22e470e562b80b5d6dcc0bd2be6a86ad734c99a05af5cc76cda04c76"
+    },
+    {
+      "path": "scripts/cleanup-generated-artifacts.mjs",
+      "sha256": "1adf99e24d8188bcb779dfc6bd75d619109bbde010db50127bad5210b83149b8"
+    },
+    {
+      "path": "scripts/next-clean-build.mjs",
+      "sha256": "0fef158c03b111a227201a0068bd8bb2c31bd2f4a4579c3fa192e8219f3f73ec"
+    },
+    {
+      "path": "scripts/with-next-env-restore.mjs",
+      "sha256": "bf53f3100f2e99433f18d7a618a2a7bd655bad3ba89f81b73544ea37c6177369"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+    },
+    {
+      "path": "tsconfig.next.json",
+      "sha256": "1f39ca3df18b90924fdf68bea41304033b29cf0de5311dccb15b23cd2dee1970"
+    }
+  ],
+  "baseline": {
+    "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+    "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+    "baselineHead": "2f8ba3f05cbff0d76357d72adaba2ca57f650759",
+    "baselineTree": "72bb0e0ebb9faaebf893677027ec98f1cf474610",
+    "verificationPath": ".local/pr275-current-main-20261029/clean-source-baseline/verification.json",
+    "verificationRawSha256": "8b73f9be26955ed83a7715ac14e0d8894bf874b0c1ff3a28540488384a4fb86f",
+    "comparisonPath": ".local/pr275-current-main-20261029/clean-source-baseline/comparison.json",
+    "comparisonRawSha256": "9288a36846ae7e169f495a665a15a7188355ad0d285312f34c68bf9202e00282",
+    "stdoutSha256": "861b455aa46cc2f691cb347aaeb512151532d6b4d31af8a93fa5447bd40b15d5",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actualExitCode": 1,
+    "summary": {
+      "tests": 62,
+      "suites": 0,
+      "pass": 36,
+      "fail": 26,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "failureSignature": "7518c34359707c5f8d2f52d3c4175dfd1c4003b2510de0cbe6ba82c638927945",
+    "fullOutcomeDigest": "0aefde2279f70823234d83bea62215d88fa60671c1896a97ad506edf379881a7",
+    "inputCount": 465,
+    "inputDigest": "90898ed150d2d394776d47e27328f5355c3d589136aa1e0410fed384dd840ec7",
+    "manimFileCount": 411,
+    "all62TitlesAndOutcomesIdentical": true,
+    "newFailures": 0,
+    "disappearedFailures": 0,
+    "changedFailures": 0,
+    "accepted": false,
+    "startedAt": "2026-10-28T23:42:12.501Z",
+    "completedAt": "2026-10-28T23:42:15.949Z"
+  },
+  "limits": {
+    "buildReexecutedInPromotion": false,
+    "browserReexecutedInPromotion": false,
+    "baselineReexecutedInPromotion": false,
+    "syntheticFixturesAreExecutionEvidence": false,
+    "broaderManimAccepted": false,
+    "liveAllowed": false
+  }
+}

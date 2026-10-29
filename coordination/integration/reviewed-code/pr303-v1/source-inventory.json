@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "pr303-source-inventory.v1",
+  "baseCommit": "53563fab0b85c59236ee27f3becaa5412dde856e",
+  "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+  "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+  "inventoryDigest": "910995318171293aeada10cdc7ffdfcababca2673bf32a84a4a7374f9740271a",
+  "entries": [
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2CatalogDecoupledFixtures.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "dd56a1821e4c643119ee32ca8c354a5fa32a77cd",
+        "rawSha256": "f607ce2499f98d4e04ce976abfc27169d3bd698092bed44429eb4e6a2fecd52f"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "b8d51a9e86f2d7fad0f2cf9211ddc43586d32d9f",
+        "rawSha256": "49bd4523fda499ce29aa211496c1c099f78a03488139a8ab446817c40f2c3531"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2CatalogDecoupledFixtures.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "700ae4971acf8be929dee5217531fd82a1034dcb",
+        "rawSha256": "5bc2fdf5a2e60b0ce0e7c6075e8ab963f64367b08480210784e91dbffcdf58d2"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "4531e975ac5edd3a6af7b1cccdcad3b00bf27a29",
+        "rawSha256": "0baebb78a771d7165693824d7a819bd0c2388c65d9ffaea5763ad4cd60a9dd5e"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "1dc12080749d92c9c5be72c9a99a14fca212fed1",
+        "rawSha256": "b4c3060da7b733731cd7bbe744f86645f7300c3efd48505e77228dfe6d9ec0b5"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "d67ec21153563fd8071a648f7260466487162a84",
+        "rawSha256": "a113ca83d6e523e3bce123be4a73bd99d6c5466bd519413a19117c35a72770e6"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2FinalClosureAudit.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "69d2e9190647d7d9c53512ae54743ba688016968",
+        "rawSha256": "1d7a33d12097e777719bffc2cb699dbf2a6e46339a1f44c9b39d13a22add0b61"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "142ae0c69ced528cca48d006c1bf344b9abebed6",
+        "rawSha256": "a20f81979a5db540c6ebddb19ede6515704bdca1fbcd7f3ac34b1f47320f1977"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRequestPacket.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "c7ed1137d1b51835ae4b9e9e3fcc203bbbf222b2",
+        "rawSha256": "0b0acafd04e1d805e8ee8f6fe651fdea384eade21f6cd0cc00db9e2c3905663b"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "2985c5d33a842cf55c75056bd71ebb29e360b40b",
+        "rawSha256": "a546bd45d82b76b4e291a40a76efa337f56e5af6c1ece5e947907158cb2ed060"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2FinalObjectiveVerifiedClosurePipeline.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "35c7f9ae1245308b47734ffec259b3fd652d2556",
+        "rawSha256": "7999f6d3026630ea6e90d18385d2fddecf6c1fffcee2f3528b1de0f3575858ca"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "4724c24c6acc224dd6b50116762d6d7d7616e377",
+        "rawSha256": "ba4a1483ddc431139607fd18b08418d45acf91938b66fe3c7fc545bca5599a6f"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2TranscriptVerifiedClosurePipeline.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "27eb75cef0ec9e59a2de2df9866408ab926a07b2",
+        "rawSha256": "1d3728a8dcaffc3b6f1e27e21def002ebcb26b60b9c9b64b46759a64c74f9c05"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "af4f3f4238cf59966ffde251cb6eee1dc8e3f96c",
+        "rawSha256": "e82641508a8f411b544d8d9e81a4c208e5b2d34e2f2911bebdf1ffa23f846fe4"
+      }
+    },
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2VerifiedClosurePipeline.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "9aa4e3fc54e3670e76859efaa2d3ddc1f0179ead",
+        "rawSha256": "885fccb98136d4f771f29fcc6c746b080e67c62ce57cf4f3f3aa667497651a9e"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "7e4d5bd3cd01f3b45037039243c72f2ccb403c19",
+        "rawSha256": "e6b3f408b95605f457e8cac46366f37399d54436a2aa80cf6ae2fa2312ff6d38"
+      }
+    },
+    {
+      "path": "components/visualizations/visualizationBrowserRegressionEvidence.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "1b4e7bedf2a5497a83b19fad4c95634ffc8eb58b",
+        "rawSha256": "8f90bc7e978960ca323084817b1a8e50aa34416e40659d6b26ab83cf244af0c3"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "51efca453e3e6eec4a9c9e05400762e6bdf3820e",
+        "rawSha256": "d2203e870a0d0905901a01f6999e974d1b9df6c8e069ce3229071593e842f61f"
+      }
+    },
+    {
+      "path": "components/visualizations/visualizationBrowserRegressionEvidence.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "b95aa93d1e43d62cb8a7238f4239f3e744cc91c0",
+        "rawSha256": "127ed04d293e15119de87f3fc8be045e5a19022e17c1d6e093bfd58a7f8116ac"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "bbeed5fee1f52365d8d7f52ee69b1891f98dad3b",
+        "rawSha256": "2c71e1ed3e2a55940444152f88fc67fd72095d77a887c3e2199a67ffa05eba8c"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-10-29-A06-pr275-current-main-01a1824f.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "7d12745e36a3ac3f121bec5605d6596562d33c1c",
+        "rawSha256": "97705ca337f7af85e7ec3fc7133cc32cc8bf451774773634729f6bd99f6b5726"
+      }
+    }
+  ]
+}

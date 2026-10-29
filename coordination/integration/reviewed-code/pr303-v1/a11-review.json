@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr303-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/pr286_source_review",
+  "result": "approved-for-exact-pr303-required-check",
+  "scope": "exact-pr303-browser-evidence-binding-required-check-only",
+  "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+  "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+  "sourceInventoryDigest": "910995318171293aeada10cdc7ffdfcababca2673bf32a84a4a7374f9740271a",
+  "toolingCommit": "8df83d1c71ba134ad3745f23d40106eb8cd30044",
+  "toolingTree": "59851d9830a6abd5ce91ddeffb16513f8155acea",
+  "toolingInventoryDigest": "5f453a420a5796f479131a54d8401dd9fb9c5a54ed4c7f644c0986ecf105ee54",
+  "checksRawSha256": "4fcfa076ef84f7def197fa2439f43f4fde44565e4429e8ccdc1d48ab50fb409b",
+  "runtimeEvidenceRawSha256": "f91f11e308e738f93e93c4e06970fd07c50329fc7182b1e78071c25eb55c70c6",
+  "reportRawSha256": "c6ace87d72268fa95e3ee7cf550162f0f394a66aa14f7e1905e9915f8d913b96",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-29T01:14:52.215Z",
+  "findings": [
+    "No blocking actionable source/tooling finding remains in actual immutable T; preliminary reviews are preserved and not substituted for this decision.",
+    "Verified direct B -> S -> T parents, both trees, exact eleven-source/four-tooling inventories, current committed bytes, assigned identities, and stable clean before/after state.",
+    "Fresh actual-T commands under umask 077 and g.commandEnvironment passed 42 contracts, strict types with empty stdout/stderr, 58 evidence/fixture tests and 35 model tests with zero failures/skips.",
+    "Original committed-S source-check raw hash and all three raw command output pairs reverified with exact summaries and source-to-tooling chronology.",
+    "Consumed clean-S build/browser proof reverified: build jDmkCyPmSP6Dzpbp_BGQg, 2560 artifact files and root95fd4e6111bbb55bfc0519dc722e482ed985cd795063509d469981b3918a6346; exact three-mode browser results with zero retries/skips/errors and all tests after build completion.",
+    "Consumed clean-S baseline raw TAP reparsed: real exit1,36pass26fail, exact failure fields and all62 outcomes match retained proof; all465 input hashes and411 filenames verified. Existing failures are not accepted or waived.",
+    "Runtime seven-subtree/twelve-critical-file binding, fixed raw/canonical evidence hashes, exact composition/event/review boundaries and deterministic no-fallback workflow remain enforced.",
+    "Actual-T full source materialization is blocked locally by ENAMETOOLONG/fullMaterialization=false; unchanged final-E/main Ubuntu before/after guards remain required with no waiver.",
+    "Build/browser/baseline proof was consumed without replay; broaderManimAccepted=false, final E/main/remote acceptance outstanding, all six permissions false and no live/deployment/historical-authority claim."
+  ]
+}
