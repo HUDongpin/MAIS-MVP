@@ -1,0 +1,2294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "mode", "objectId", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "mode": {
+          "enum": ["100644", "100755"]
+        },
+        "objectId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "sourceCommit",
+        "sourceTree",
+        "slugs",
+        "checksDigest",
+        "files",
+        "removals",
+        "mappings",
+        "assets"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-candidate.v1"
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceTree": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "slugs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 35,
+          "maxItems": 35
+        },
+        "checksDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          },
+          "minItems": 117,
+          "maxItems": 2000
+        },
+        "removals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["slug", "topicId", "primary"],
+            "properties": {
+              "slug": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "topicId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "primary": {
+                "const": true
+              }
+            }
+          },
+          "minItems": 35,
+          "maxItems": 35
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["oldId", "retained", "witnesses", "coverageReport"],
+            "properties": {
+              "oldId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "retained": {
+                "$ref": "#/$defs/binding"
+              },
+              "coverageReport": {
+                "$ref": "#/$defs/reference"
+              },
+              "witnesses": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["kind", "lessonId", "topicId", "source"],
+                  "properties": {
+                    "kind": {
+                      "enum": ["new-opener", "retained-related"]
+                    },
+                    "lessonId": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]{1,95}$"
+                    },
+                    "topicId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128
+                    },
+                    "source": {
+                      "$ref": "#/$defs/binding"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "minItems": 15,
+          "maxItems": 15
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "version",
+        "attemptId",
+        "baseCommit",
+        "sourceCommit",
+        "sourceTree",
+        "sourceAuthors",
+        "sourceInventoryDigest",
+        "candidate",
+        "registry",
+        "disposition",
+        "evidenceIndex",
+        "evidenceCommit",
+        "checkerLedger",
+        "checkerReleaseCommit",
+        "checkerBundleDigest",
+        "descriptorPath",
+        "canonicalReceiptPath",
+        "runtime",
+        "lifecycleState",
+        "liveAllowed",
+        "checkerAuthors",
+        "pullRequestNumber"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-manifest.v1"
+        },
+        "version": {
+          "const": "ca-textbook-successor.v1"
+        },
+        "attemptId": {
+          "type": "string",
+          "pattern": "^ca-textbook-[a-z0-9-]{1,48}$"
+        },
+        "baseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceTree": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceAuthors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "sourceInventoryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "candidate": {
+          "$ref": "#/$defs/reference"
+        },
+        "registry": {
+          "$ref": "#/$defs/reference"
+        },
+        "disposition": {
+          "$ref": "#/$defs/reference"
+        },
+        "evidenceIndex": {
+          "$ref": "#/$defs/reference"
+        },
+        "evidenceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerLedger": {
+          "$ref": "#/$defs/reference"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerBundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "descriptorPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "canonicalReceiptPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["compatibility", "policyDigest", "auditDigest"],
+          "properties": {
+            "compatibility": {
+              "$ref": "#/$defs/reference"
+            },
+            "policyDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "auditDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "lifecycleState": {
+          "const": "shadow_ready"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "checkerAuthors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "pullRequestNumber": {
+          "const": 304
+        }
+      }
+    },
+    "descriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "relation",
+        "manifest",
+        "evidenceCommit",
+        "candidateChanged",
+        "checkerChanged",
+        "baselineOnly",
+        "historicalClosureOverwritten",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-successor.v1"
+        },
+        "relation": {
+          "const": "immutable-content-successor"
+        },
+        "manifest": {
+          "$ref": "#/$defs/reference"
+        },
+        "evidenceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "candidateChanged": {
+          "const": true
+        },
+        "checkerChanged": {
+          "const": true
+        },
+        "baselineOnly": {
+          "const": false
+        },
+        "historicalClosureOverwritten": {
+          "const": false
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "resolutionId",
+        "candidateDigest",
+        "mappingDigest",
+        "oldIds",
+        "middleSlugs",
+        "additionalHighSlugs",
+        "contentChanged",
+        "baselineOnly",
+        "predecessorRegistry",
+        "historicalRegistry",
+        "audit",
+        "assetsDigest",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-disposition.v1"
+        },
+        "resolutionId": {
+          "const": "approved-projection-california-middle-lessons-v2"
+        },
+        "candidateDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "mappingDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "oldIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 15,
+          "maxItems": 15
+        },
+        "middleSlugs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 15,
+          "maxItems": 15
+        },
+        "additionalHighSlugs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 20,
+          "maxItems": 20
+        },
+        "contentChanged": {
+          "const": true
+        },
+        "baselineOnly": {
+          "const": false
+        },
+        "predecessorRegistry": {
+          "$ref": "#/$defs/reference"
+        },
+        "historicalRegistry": {
+          "$ref": "#/$defs/reference"
+        },
+        "audit": {
+          "$ref": "#/$defs/reference"
+        },
+        "assetsDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "entries"],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-evidence-index.v1"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["role", "record"],
+            "properties": {
+              "role": {
+                "enum": ["A18", "A05", "A24", "A11", "A23", "A22", "A25"]
+              },
+              "record": {
+                "$ref": "#/$defs/reference"
+              }
+            }
+          },
+          "minItems": 7,
+          "maxItems": 7
+        }
+      }
+    },
+    "release-review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "role",
+        "reviewer",
+        "reviewedAt",
+        "releaseCommit",
+        "bundleDigest",
+        "report",
+        "result"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-checker-review.v1"
+        },
+        "role": {
+          "enum": ["A11", "A23"]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "reviewedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "releaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "bundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "report": {
+          "$ref": "#/$defs/reference"
+        },
+        "result": {
+          "const": "approved-for-checker-freeze"
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "integrity", "fileCount", "treeDigest"],
+      "properties": {
+        "name": {
+          "const": "typescript"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "integrity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "fileCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "treeDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "version",
+        "releaseCommit",
+        "bundleDigest",
+        "files",
+        "dependencies",
+        "reviews"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-checker-ledger.v1"
+        },
+        "version": {
+          "const": "ca-textbook-successor.v1"
+        },
+        "releaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "bundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "A18": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slugs",
+        "checksDigest",
+        "unresolvedFindings",
+        "acceptance",
+        "previous105Review",
+        "limitations",
+        "humanSignoff"
+      ],
+      "properties": {
+        "slugs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 35,
+          "maxItems": 35
+        },
+        "checksDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "unresolvedFindings": {
+          "const": 0
+        },
+        "acceptance": {
+          "const": "bounded-35-lessons-105-checks"
+        },
+        "previous105Review": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/reference"
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 10000
+        },
+        "humanSignoff": {
+          "const": false
+        }
+      }
+    },
+    "A05": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mappingsDigest",
+        "routeFiles",
+        "runtime",
+        "noHiddenReviewOnlyClaim"
+      ],
+      "properties": {
+        "mappingsDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "routeFiles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 10000
+        },
+        "runtime": {
+          "const": "35-primary-openers"
+        },
+        "noHiddenReviewOnlyClaim": {
+          "const": true
+        }
+      }
+    },
+    "A24": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetsDigest",
+        "figureFileDigest",
+        "baselineInventory",
+        "currentInventory",
+        "unresolvedReplacementFindings",
+        "baselineFailuresPreserved"
+      ],
+      "properties": {
+        "assetsDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "figureFileDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "baselineInventory": {
+          "$ref": "#/$defs/reference"
+        },
+        "currentInventory": {
+          "$ref": "#/$defs/reference"
+        },
+        "unresolvedReplacementFindings": {
+          "const": 0
+        },
+        "baselineFailuresPreserved": {
+          "const": true
+        }
+      }
+    },
+    "A11": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["negativeCases", "regressions", "pageErrors", "retries"],
+      "properties": {
+        "negativeCases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 10000
+        },
+        "regressions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["command", "exitCode", "report"],
+            "properties": {
+              "command": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048
+                },
+                "minItems": 1,
+                "maxItems": 10000
+              },
+              "exitCode": {
+                "const": 0
+              },
+              "report": {
+                "$ref": "#/$defs/reference"
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 10000
+        },
+        "pageErrors": {
+          "const": 0
+        },
+        "retries": {
+          "const": 0
+        }
+      }
+    },
+    "A23": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dispositionDigest",
+        "otherResolutionsPreserved",
+        "otherApprovedProjectionsPreserved",
+        "historicalAuthorityTransferred"
+      ],
+      "properties": {
+        "dispositionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "otherResolutionsPreserved": {
+          "const": 17
+        },
+        "otherApprovedProjectionsPreserved": {
+          "const": 2
+        },
+        "historicalAuthorityTransferred": {
+          "const": false
+        }
+      }
+    },
+    "A22": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceTree",
+        "buildId",
+        "attestation",
+        "buildLog",
+        "artifactRoot",
+        "exitCode",
+        "deployed",
+        "clean"
+      ],
+      "properties": {
+        "sourceTree": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "buildId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "attestation": {
+          "$ref": "#/$defs/reference"
+        },
+        "buildLog": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/reference"
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "artifactRoot": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "exitCode": {
+          "const": 0
+        },
+        "deployed": {
+          "const": false
+        },
+        "clean": {
+          "const": true
+        }
+      }
+    },
+    "A25": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceInventoryDigest", "historyDigest", "custody"],
+      "properties": {
+        "sourceInventoryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "historyDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "custody": {
+          "const": "preserved"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "role",
+        "reviewer",
+        "reviewedAt",
+        "sourceCommit",
+        "sourceTree",
+        "checkerReleaseCommit",
+        "candidateDigest",
+        "report",
+        "details",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-evidence.v1"
+        },
+        "role": {
+          "enum": ["A18", "A05", "A24", "A11", "A23", "A22", "A25"]
+        },
+        "reviewer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sessionId", "independence"],
+          "properties": {
+            "sessionId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
+            },
+            "independence": {
+              "enum": ["independent-review", "coordinator-execution"]
+            }
+          }
+        },
+        "reviewedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceTree": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "candidateDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "report": {
+          "$ref": "#/$defs/reference"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/A18"
+            },
+            {
+              "$ref": "#/$defs/A05"
+            },
+            {
+              "$ref": "#/$defs/A24"
+            },
+            {
+              "$ref": "#/$defs/A11"
+            },
+            {
+              "$ref": "#/$defs/A23"
+            },
+            {
+              "$ref": "#/$defs/A22"
+            },
+            {
+              "$ref": "#/$defs/A25"
+            }
+          ]
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["network", "provider", "database", "deploy", "liveWrites"],
+      "properties": {
+        "network": {
+          "const": 0
+        },
+        "provider": {
+          "const": 0
+        },
+        "database": {
+          "const": 0
+        },
+        "deploy": {
+          "const": 0
+        },
+        "liveWrites": {
+          "const": 0
+        }
+      }
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "executionCommit",
+        "sourceCommit",
+        "sourceTree",
+        "baseCommit",
+        "checkerReleaseCommit",
+        "checkerBundleDigest",
+        "candidateDigest",
+        "dispositionDigest",
+        "registryDigest",
+        "evidenceDigest",
+        "runtimeDigest",
+        "sourceInventoryDigest",
+        "historicalCustodyDigest"
+      ],
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/reference"
+        },
+        "executionCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceTree": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "baseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerBundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "candidateDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "dispositionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "evidenceDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "runtimeDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceInventoryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "historicalCustodyDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "mode",
+        "result",
+        "runId",
+        "producedAt",
+        "binding",
+        "effects",
+        "rehearsal",
+        "lifecycleState",
+        "liveAllowed",
+        "semanticDigest",
+        "rawDigest"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-receipt.v1"
+        },
+        "mode": {
+          "const": "shadow"
+        },
+        "result": {
+          "const": "pass"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{3,95}$"
+        },
+        "producedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "binding": {
+          "$ref": "#/$defs/proof"
+        },
+        "effects": {
+          "$ref": "#/$defs/effects"
+        },
+        "rehearsal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["outputDigest", "temporaryOnly", "rollbackComplete"],
+          "properties": {
+            "outputDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "temporaryOnly": {
+              "const": true
+            },
+            "rollbackComplete": {
+              "const": true
+            }
+          }
+        },
+        "lifecycleState": {
+          "const": "shadow_ready"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "semanticDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "rawDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "transport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "storageCommit", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "storageCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "finalization-evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "role",
+        "reviewer",
+        "reviewedAt",
+        "executionCommit",
+        "receiptHashes",
+        "report",
+        "result",
+        "liveAllowed",
+        "releaseCommit",
+        "releaseInventoryDigest"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-finalization-evidence.v1"
+        },
+        "role": {
+          "enum": ["A11", "A23", "A22", "A25"]
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "reviewedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "executionCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "receiptHashes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "report": {
+          "$ref": "#/$defs/reference"
+        },
+        "result": {
+          "const": "approved-nonlive-finalization"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "releaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "releaseInventoryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "finalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "manifestPath",
+        "receipts",
+        "evidence",
+        "prProof",
+        "mainProof",
+        "liveAllowed",
+        "releaseCommit",
+        "releaseInventoryDigest",
+        "releaseFiles"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-finalization.v1"
+        },
+        "manifestPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "receipts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transport"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "prProof": {
+          "$ref": "#/$defs/reference"
+        },
+        "mainProof": {
+          "$ref": "#/$defs/reference"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "releaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "releaseInventoryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "releaseFiles": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/$defs/binding"
+          }
+        }
+      }
+    },
+    "ci-proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "repository",
+        "event",
+        "head",
+        "base",
+        "checks",
+        "liveAllowed",
+        "observedAt",
+        "pullRequestNumber"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-ci-proof.v1"
+        },
+        "repository": {
+          "const": "HUDongpin/MAIS-MVP"
+        },
+        "event": {
+          "enum": ["pull_request", "push"]
+        },
+        "head": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "base": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "conclusion", "head", "runId"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "conclusion": {
+                "const": "success"
+              },
+              "head": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "runId": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 10000
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "observedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "pullRequestNumber": {
+          "enum": [304, null]
+        }
+      }
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "binding",
+        "receipts",
+        "receiptHashes",
+        "finalizationEvidenceDigest",
+        "mainCommit",
+        "sourceCurrent",
+        "lifecycleState",
+        "liveAllowed",
+        "closureDigest",
+        "finalizationCommit"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-closure.v1"
+        },
+        "binding": {
+          "$ref": "#/$defs/proof"
+        },
+        "receipts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transport"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "receiptHashes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "finalizationEvidenceDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "mainCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceCurrent": {
+          "const": true
+        },
+        "lifecycleState": {
+          "const": "shadow_passed"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "closureDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "finalizationCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      }
+    },
+    "lifecycle-event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "state",
+        "commit",
+        "previousEventDigest",
+        "bindingDigest",
+        "closureDigest",
+        "liveAllowed",
+        "eventDigest"
+      ],
+      "properties": {
+        "type": {
+          "enum": ["registered", "finalized"]
+        },
+        "state": {
+          "enum": ["shadow_ready", "shadow_passed"]
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "previousEventDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "bindingDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "closureDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "eventDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "lifecycle-registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "binding",
+        "events",
+        "state",
+        "closureDigest",
+        "liveAllowed",
+        "registryDigest"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-lifecycle-registry.v1"
+        },
+        "binding": {
+          "$ref": "#/$defs/proof"
+        },
+        "events": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/lifecycle-event"
+          }
+        },
+        "state": {
+          "const": "shadow_passed"
+        },
+        "closureDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "registryDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "finalization-result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "result",
+        "closure",
+        "registry",
+        "lifecycleState",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-finalization-result.v1"
+        },
+        "result": {
+          "const": "pass"
+        },
+        "closure": {
+          "$ref": "#/$defs/closure"
+        },
+        "registry": {
+          "$ref": "#/$defs/lifecycle-registry"
+        },
+        "lifecycleState": {
+          "const": "shadow_passed"
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "canonical-audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "candidateLikeCount",
+        "directConflictCount",
+        "correlatedConflictCount",
+        "ambiguousConflictCount",
+        "reachableCandidateLikeCount",
+        "knownConflictCount",
+        "newConflictCount",
+        "opaqueConflictCount",
+        "candidateSetDigest",
+        "directConflictDigest",
+        "correlatedConflictDigest",
+        "ambiguousConflictDigest",
+        "reachableConflictDigest",
+        "newConflictDigest",
+        "opaqueConflictDigest",
+        "auditDigest",
+        "secondaryBlockedCondition"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "promotion-legacy-conflict-union-audit.v1"
+        },
+        "candidateLikeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "directConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlatedConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ambiguousConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reachableCandidateLikeCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "knownConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "newConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "opaqueConflictCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidateSetDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "directConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "correlatedConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "ambiguousConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reachableConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "newConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "opaqueConflictDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "auditDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "secondaryBlockedCondition": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["code", "conflictCount", "conflictDigest"],
+              "properties": {
+                "code": {
+                  "const": "LEGACY_DISCOVERY_INCOMPLETE"
+                },
+                "conflictCount": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "conflictDigest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            },
+            {
+              "const": null
+            }
+          ]
+        }
+      }
+    },
+    "canonical-conflict-row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageIdentityDigest",
+        "packagePathDigest",
+        "sourcePathCount",
+        "sourcePathsDigest",
+        "identitySource",
+        "containerKeys",
+        "correlation",
+        "correlatedRuntimePathDigest",
+        "idCount",
+        "idSetDigest"
+      ],
+      "properties": {
+        "packageIdentityDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "packagePathDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourcePathCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourcePathsDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "identitySource": {
+          "enum": ["package-id", "path-derived"]
+        },
+        "containerKeys": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "correlation": {
+          "enum": [
+            "package-id",
+            "exact-id-set",
+            "manual-projection-drift",
+            "adaptive-runtime-correlation-drift"
+          ]
+        },
+        "correlatedRuntimePathDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "idCount": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "const": null
+            }
+          ]
+        },
+        "idSetDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "const": null
+            }
+          ]
+        }
+      }
+    },
+    "canonical-transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "historicalRegistrySha256",
+        "candidatePaths",
+        "correlatedBefore",
+        "opaquePreserved",
+        "retiredCorrelation",
+        "correlatedAfter",
+        "before",
+        "after"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-textbook-canonical-transition.v1"
+        },
+        "historicalRegistrySha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "candidatePaths": {
+          "type": "array",
+          "minItems": 37,
+          "maxItems": 37,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "correlatedBefore": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/canonical-conflict-row"
+          }
+        },
+        "opaquePreserved": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/canonical-conflict-row"
+          }
+        },
+        "retiredCorrelation": {
+          "$ref": "#/$defs/canonical-conflict-row"
+        },
+        "correlatedAfter": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/canonical-conflict-row"
+          }
+        },
+        "before": {
+          "$ref": "#/$defs/canonical-audit"
+        },
+        "after": {
+          "$ref": "#/$defs/canonical-audit"
+        }
+      }
+    },
+    "json-consumers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "storage-loader-profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "baseCommit",
+        "canonicalLibrarySha256",
+        "parserVersion",
+        "source",
+        "operations",
+        "scope",
+        "approval",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-storage-loader-profile.v1"
+        },
+        "baseCommit": {
+          "const": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17"
+        },
+        "canonicalLibrarySha256": {
+          "const": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+        },
+        "parserVersion": {
+          "const": "5.8.3"
+        },
+        "source": {
+          "const": {
+            "path": "lib/server/mediaOwnerErasure.ts",
+            "mode": "100644",
+            "objectId": "27327534fac01df17d0e35a2d83e9f81bf5fcb49",
+            "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "anyOf": [
+              {
+                "const": {
+                  "kind": "fs-open",
+                  "callee": "node:fs/promises.open",
+                  "position": 2423,
+                  "normalizedExpressionDigest": "61a4de83c6c1137f61d93cbefc3d109a9e9dc9043cd2de35ef290c24205a055f",
+                  "functionName": "syncDirectory",
+                  "functionSourceSha256": "6eac8f4594db0515ae5fb9190137ff9f8afa65bfe7bb63231cb19c69eba1c7b0",
+                  "classification": "runtime-storage-directory-durability-sync",
+                  "reason": "FileHandle is used only for sync() and close(); no read or escape."
+                }
+              },
+              {
+                "const": {
+                  "kind": "fs-open",
+                  "callee": "node:fs/promises.open",
+                  "position": 2755,
+                  "normalizedExpressionDigest": "8026b494489a4f36c0a47de9abdf6970381c01a88af5b88fd74fdc1be960bffd",
+                  "functionName": "durableJson",
+                  "functionSourceSha256": "1640775dbb4a7d4e310b49d4e04bbfc53026c590af864ebf88aef43dfcf8b8dd",
+                  "classification": "runtime-storage-exclusive-json-write",
+                  "reason": "Exclusive create wx; JSON.stringify -> writeFile -> sync -> close; no read or code evaluation."
+                }
+              },
+              {
+                "const": {
+                  "kind": "open-directory",
+                  "callee": "node:fs/promises.opendir",
+                  "position": 12921,
+                  "normalizedExpressionDigest": "05c2fa679692f818fb9f166faa5d2d40d9ea7231afddc49616ebb749289ba80e",
+                  "functionName": "activeLeaseCount",
+                  "functionSourceSha256": "999e430e3301a7144aa48c96c8a1ff8f0a27cdd00d3933b26871385c71b35f7a",
+                  "classification": "runtime-storage-owner-lease-presence-scan",
+                  "reason": "Directory entries are tested for .json to preserve uploads-active status; names do not select executable modules."
+                }
+              },
+              {
+                "const": {
+                  "kind": "open-directory",
+                  "callee": "node:fs/promises.opendir",
+                  "position": 13363,
+                  "normalizedExpressionDigest": "05c2fa679692f818fb9f166faa5d2d40d9ea7231afddc49616ebb749289ba80e",
+                  "functionName": "entries",
+                  "functionSourceSha256": "d6f60d89db48f2350785d585481abf7911bbf6b1456295c53166a4496f6cef1c",
+                  "classification": "runtime-storage-media-metadata-traversal",
+                  "reason": "Guarded canonical capability/year/month/owner-prefix directory traversal feeds metadata proof and deletion, not module loading."
+                }
+              }
+            ]
+          }
+        },
+        "scope": {
+          "const": "exact-whole-file-non-module-storage-write-sync-enumeration"
+        },
+        "approval": {
+          "const": "requires-independent-checker-freeze-review"
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "raw-loader-operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourcePath",
+        "sourceRawSha256",
+        "kind",
+        "callee",
+        "position",
+        "normalizedExpressionDigest"
+      ],
+      "properties": {
+        "sourcePath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "sourceRawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "callee": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "normalizedExpressionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "reviewed-storage-operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "call",
+        "classification",
+        "functionName",
+        "functionSourceSha256",
+        "reason"
+      ],
+      "properties": {
+        "call": {
+          "$ref": "#/$defs/raw-loader-operation"
+        },
+        "classification": {
+          "enum": [
+            "runtime-storage-directory-durability-sync",
+            "runtime-storage-exclusive-json-write",
+            "runtime-storage-owner-lease-presence-scan",
+            "runtime-storage-media-metadata-traversal"
+          ]
+        },
+        "functionName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "functionSourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      }
+    },
+    "storage-loader-observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "profileRawSha256",
+        "sourceBinding",
+        "parserVersion",
+        "rawDetectedCount",
+        "reviewedStorageCount",
+        "unclassifiedCount",
+        "rawOperations",
+        "reviewedStorageOperations",
+        "unclassifiedOperations",
+        "applicationPurpose",
+        "partitionDigest"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-reviewed-storage-loader-observation.v1"
+        },
+        "profileRawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceBinding": {
+          "const": {
+            "path": "lib/server/mediaOwnerErasure.ts",
+            "mode": "100644",
+            "objectId": "27327534fac01df17d0e35a2d83e9f81bf5fcb49",
+            "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+          }
+        },
+        "parserVersion": {
+          "const": "5.8.3"
+        },
+        "rawDetectedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reviewedStorageCount": {
+          "const": 4
+        },
+        "unclassifiedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rawOperations": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/raw-loader-operation"
+          }
+        },
+        "reviewedStorageOperations": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/reviewed-storage-operation"
+          }
+        },
+        "unclassifiedOperations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/raw-loader-operation"
+          }
+        },
+        "applicationPurpose": {
+          "const": "non-module-storage-write-sync-enumeration"
+        },
+        "partitionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "adapter-provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "baseCommit",
+        "original",
+        "derived",
+        "diff",
+        "storageProfile",
+        "derivation",
+        "runtimeSourceRewriting",
+        "applicationSourceExecuted",
+        "liveAllowed"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-canonical-observer-provenance.v1"
+        },
+        "baseCommit": {
+          "const": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17"
+        },
+        "original": {
+          "$ref": "#/$defs/binding"
+        },
+        "derived": {
+          "$ref": "#/$defs/binding"
+        },
+        "diff": {
+          "$ref": "#/$defs/reference"
+        },
+        "storageProfile": {
+          "$ref": "#/$defs/binding"
+        },
+        "derivation": {
+          "const": "checked-in-minimal-observation-and-same-graph-audit-diff"
+        },
+        "runtimeSourceRewriting": {
+          "const": false
+        },
+        "applicationSourceExecuted": {
+          "const": false
+        },
+        "liveAllowed": {
+          "const": false
+        }
+      }
+    },
+    "dependency-file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "mode", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "mode": {
+          "enum": ["100644", "100755"]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "code-capsule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "snapshotRoot",
+        "executionCommit",
+        "checkerReleaseCommit",
+        "checkerBundleDigest",
+        "files",
+        "dependency",
+        "dependencyFiles",
+        "input"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-code-capsule.v1"
+        },
+        "snapshotRoot": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "executionCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerBundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/binding"
+          }
+        },
+        "dependency": {
+          "$ref": "#/$defs/dependency"
+        },
+        "dependencyFiles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/dependency-file"
+          }
+        },
+        "input": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    },
+    "dependency-resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "strategy",
+        "entryRelativePath",
+        "entrySha256",
+        "dependencyTreeDigest",
+        "version",
+        "checkerReleaseCommit",
+        "checkerBundleDigest",
+        "entryExecuted",
+        "sourceSnapshotExecuted",
+        "codeAndDataSeparated"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ca-dependency-resolution.v1"
+        },
+        "strategy": {
+          "const": "explicit-captured-file-url"
+        },
+        "entryRelativePath": {
+          "const": "node_modules/typescript/lib/typescript.js"
+        },
+        "entrySha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "dependencyTreeDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "version": {
+          "const": "5.8.3"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "checkerBundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "entryExecuted": {
+          "const": true
+        },
+        "sourceSnapshotExecuted": {
+          "const": false
+        },
+        "codeAndDataSeparated": {
+          "const": true
+        }
+      }
+    }
+  }
+}

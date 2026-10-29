@@ -1,0 +1,112 @@
+diff --git a/coordination/integration/promotion-gate-lib.mjs b/coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.mjs
+index e51d5ade8f9dd41283c992489f0bcb23858f4d7c..8cc5a10e2404da966c46a536c8730f0334d0966b 100644
+--- a/coordination/integration/promotion-gate-lib.mjs
++++ b/coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.mjs
+@@ -5,7 +5,36 @@ import { constants as fsConstants } from "node:fs";
+ import { lstat, mkdtemp, open as openFile, readdir, realpath, rm, rmdir, writeFile } from "node:fs/promises";
+ import { tmpdir } from "node:os";
+ import path from "node:path";
+-import ts from "typescript";
++import ts from "../../../node_modules/typescript/lib/typescript.js";
++import { classifyReviewedStorageOperations } from "./storage-loader-policy-v1.mjs";
++
++// This separately versioned derivative seals one real observation for its audit.
++const ISSUED_CA_OBSERVATIONS = new WeakMap();
++function caObservationDigest(observation) {
++  const { issuedObservationDigest, ...body } = observation;
++  return fingerprint({ ...body, graph: { ...body.graph, reachablePaths: [...body.graph.reachablePaths].sort() } });
++}
++function freezeCaObservation(value) {
++  if (value instanceof Set) {
++    for (const item of value) freezeCaObservation(item);
++    for (const operation of ["add", "delete", "clear"]) Object.defineProperty(value, operation, { value() { throw new TypeError("CA_OBSERVATION_IMMUTABLE"); } });
++  } else if (value && typeof value === "object") {
++    for (const child of Object.values(value)) freezeCaObservation(child);
++  }
++  if (value && typeof value === "object") Object.freeze(value);
++  return value;
++}
++async function assertIssuedCaObservation(repoRoot, manifest, observation) {
++  const issued = observation && ISSUED_CA_OBSERVATIONS.get(observation);
++  if (!issued || issued.root !== await realpath(repoRoot) || issued.manifestDigest !== fingerprint(manifest) || issued.digest !== observation.issuedObservationDigest || issued.digest !== caObservationDigest(observation)) {
++    throw new PromotionGateError("CA_OBSERVATION_IDENTITY", "Audit requires the same unmodified issued successor observation.");
++  }
++  const fresh = await snapshotRepoPaths(repoRoot, CANONICAL_RUNTIME_ROOTS);
++  if (fresh.digest !== observation.snapshot.digest) throw new PromotionGateError("CA_OBSERVATION_SOURCE_DRIFT", "Runtime source changed after observation.");
++  for (const anchor of observation.sensitiveAnchors) {
++    if ((await readAuthoritativeFile(repoRoot, anchor.path)).rawSha256 !== anchor.rawSha256) throw new PromotionGateError("CA_OBSERVATION_SOURCE_DRIFT", "Runtime anchor changed after observation.");
++  }
++}
+ 
+ export class PromotionGateError extends Error {
+   constructor(code, message, details = undefined, outcome = "fail") {
+@@ -7317,12 +7346,16 @@ export async function observeCanonicalRuntimePolicy(repoRoot, manifest) {
+     classificationByPath,
+     new Set(manifest.candidateArtifacts.map(({ path: artifactPath }) => artifactPath))
+   );
+-  if (graph.loaderInventory.zeroBaselineCalls.length > 0) {
++  const storageLoaderProof = classifyReviewedStorageOperations(repoRoot, graph.loaderInventory.zeroBaselineCalls, TYPESCRIPT_PARSER_VERSION);
++  if (storageLoaderProof.unclassifiedCount > 0) {
+     throw new PromotionGateError(
+       "UNREGISTERED_RUNTIME_LOADER",
+       "A zero-baseline runtime loader capability is reachable from the trusted entrypoint graph.",
+       {
+-        calls: graph.loaderInventory.zeroBaselineCalls.map(({ sourcePath, kind, position }) => ({
++        rawDetectedCount: storageLoaderProof.rawDetectedCount,
++        reviewedStorageCount: storageLoaderProof.reviewedStorageCount,
++        unclassifiedCount: storageLoaderProof.unclassifiedCount,
++        calls: storageLoaderProof.unclassifiedOperations.map(({ sourcePath, kind, position }) => ({
+           sourcePathDigest: fingerprint(sourcePath),
+           kind,
+           position
+@@ -7341,8 +7374,9 @@ export async function observeCanonicalRuntimePolicy(repoRoot, manifest) {
+     const loaded = await readAuthoritativeFile(repoRoot, anchorPath);
+     sensitiveAnchors.push({ path: anchorPath, rawSha256: loaded.rawSha256 });
+   }
+-  return {
++  const observation = {
+     snapshot,
++    storageLoaderProof,
+     actualFiles,
+     classifications,
+     resolverPolicy,
+@@ -7362,6 +7396,9 @@ export async function observeCanonicalRuntimePolicy(repoRoot, manifest) {
+       classificationDigest: fingerprint(classifications)
+     }
+   };
++  observation.issuedObservationDigest = caObservationDigest(observation);
++  ISSUED_CA_OBSERVATIONS.set(observation, { root: await realpath(repoRoot), manifestDigest: fingerprint(manifest), digest: observation.issuedObservationDigest });
++  return freezeCaObservation(observation);
+ }
+ 
+ export async function scanLiveReachability(repoRoot, manifest) {
+@@ -8724,9 +8761,9 @@ async function discoverReachableLegacyConflicts(
+   };
+ }
+ 
+-export async function auditCanonicalLegacyConflictUnion(repoRoot, manifest) {
++export async function auditCanonicalLegacyConflictUnion(repoRoot, manifest, runtimePolicy) {
+   validatePromotionManifest(manifest);
+-  const runtimePolicy = await observeCanonicalRuntimePolicy(repoRoot, manifest);
++  await assertIssuedCaObservation(repoRoot, manifest, runtimePolicy);
+   const runtimeReachability = {
+     scannedPaths: [
+       ...runtimePolicy.actualFiles,
+@@ -8735,7 +8772,7 @@ export async function auditCanonicalLegacyConflictUnion(repoRoot, manifest) {
+     runtimeGraphPaths: [...runtimePolicy.graph.reachablePaths].sort(codePointCompare),
+     rawObservation: runtimePolicy.rawObservation
+   };
+-  return discoverReachableLegacyConflicts(
++  const audit = await discoverReachableLegacyConflicts(
+     repoRoot,
+     manifest,
+     {
+@@ -8747,6 +8784,8 @@ export async function auditCanonicalLegacyConflictUnion(repoRoot, manifest) {
+     runtimeReachability,
+     { auditOnly: true }
+   );
++  await assertIssuedCaObservation(repoRoot, manifest, runtimePolicy);
++  return audit;
+ }
+ 
+ export async function observeLegacyRatchetEntries(repoRoot, manifest, ratchet, { runtimeReachability = null } = {}) {

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "ca-canonical-observer-provenance.v1",
+  "baseCommit": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17",
+  "original": {
+    "path": "coordination/integration/promotion-gate-lib.mjs",
+    "mode": "100644",
+    "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c",
+    "sha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+  },
+  "derived": {
+    "path": "coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.mjs",
+    "mode": "100644",
+    "objectId": "8cc5a10e2404da966c46a536c8730f0334d0966b",
+    "sha256": "b9d468b7dce3d15929b4fcc651a5ad5d8934c9946380c303e0e63d2763ede48f"
+  },
+  "diff": {
+    "path": "coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.patch",
+    "sha256": "b5d4ab981997ad0c8863f41f69f0cdd4d5640ada86bb455d770204010689bb5c"
+  },
+  "storageProfile": {
+    "path": "coordination/integration/ca-textbook-successor/storage-loader-profile.v1.json",
+    "mode": "100644",
+    "objectId": "b084a485f88768317da02a756ac99f8e5d146bd1",
+    "sha256": "9333217d89023efe47a5f872b9b0c34dabc6ed52eb46185f9594434643c4e7aa"
+  },
+  "derivation": "checked-in-minimal-observation-and-same-graph-audit-diff",
+  "runtimeSourceRewriting": false,
+  "applicationSourceExecuted": false,
+  "liveAllowed": false
+}
