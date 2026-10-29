@@ -1,0 +1,38 @@
+{
+  "slug": "ca-g10-ch05-conditional-probability",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s4-chapter-05",
+  "title": "Conditional Probability",
+  "standardIds": ["S-CP.3", "S-CP.6", "S-CP.4", "S-CP.7", "S-CP.8", "S-CP.1", "S-CP.2", "S-CP.5", "S-CP.9"],
+  "summary": "Move two survey counts and watch conditioning shrink the sample space to one column, changing every probability in the table.",
+  "emoji": "🎺",
+  "narration": "Picture a survey of two hundred students that records two things about each one: whether they march in the band, and whether they read sheet music. Being told that a student is in the band changes the odds that the student reads music, because you throw away every student the news rules out and take the fraction of what is left. Flip the condition and the answer flips with it, since the band is the smaller group. Move the two counts and watch the outlined column, and every probability beside it, change, until one setting makes the two events exactly independent.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A survey of 200 students found that 45 sing in the choir, 90 take music theory, and 36 students do both. One of the surveyed students is chosen at random. What is P(in the choir | takes music theory)? Give your answer as a decimal.",
+      "answer": 0.4,
+      "tolerance": 0.01,
+      "explanation": "Conditioning on music theory keeps only those 90 students, so 90 is the denominator. Of them, 36 are also in the choir: 36 / 90 = 0.4. (Reversing the condition gives a different number, P(takes theory | in the choir) = 36 / 45 = 0.8.)"
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A box holds 16 markers, 6 of them brand new. Two markers are taken out at random, one after the other, without putting the first one back. What is the probability that both markers are brand new? Give your answer as a decimal.",
+      "answer": 0.125,
+      "tolerance": 0.01,
+      "explanation": "P(first new) = 6/16. After a new marker is removed, 5 of the remaining 15 are new, so P(second new | first new) = 5/15. The multiplication rule gives (6/16) x (5/15) = 30/240 = 1/8 = 0.125."
+    },
+    {
+      "kind": "mc",
+      "prompt": "In a survey of 100 students, 40 own a bike, 50 ride the bus, and 20 do both. Are owning a bike and riding the bus independent events?",
+      "choices": [
+        "Yes: P(bike and bus) = 0.2 and P(bike) x P(bus) = 0.4 x 0.5 = 0.2",
+        "No: the 20 students who do both make the two events overlap",
+        "No: P(bike or bus) = 0.7, which is not P(bike) x P(bus)",
+        "Yes: 40 + 50 - 20 = 70 is less than 100"
+      ],
+      "answer": 0,
+      "explanation": "Independence is the test P(A and B) = P(A) x P(B). Here P(bike) = 40/100 = 0.4, P(bus) = 50/100 = 0.5, and P(bike and bus) = 20/100 = 0.2, while 0.4 x 0.5 = 0.2. The two agree, so the events are independent; equivalently P(bike | bus) = 20/50 = 0.4 is the same as P(bike) = 0.4. Overlapping is not the same as being dependent, and the addition rule says nothing about independence."
+    }
+  ]
+}

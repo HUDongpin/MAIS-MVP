@@ -345,6 +345,8 @@
         "app/student/lessons/**",
         "components/lesson/**",
         "data/lessons.ts",
+        "data/ccssLessonAssignments.ts",
+        "data/ccssTextbookRegistry.ts",
         "data/*Lessons.ts",
         "data/*LessonIllustrations.ts",
         "data/usCaliforniaLessons.test.ts",
@@ -523,6 +525,8 @@
     }
   ],
   "resolutionChecks": [
+    { "path": "data/ccssLessonAssignments.ts", "expectedOwner": "A05" },
+    { "path": "data/ccssTextbookRegistry.ts", "expectedOwner": "A05" },
     { "path": "lib/curriculumCourses.ts", "expectedOwner": "A08" },
     { "path": "lib/curriculumCourses.test.ts", "expectedOwner": "A08" },
     { "path": "lib/session.ts", "expectedOwner": "A12" },

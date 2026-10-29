@@ -1,0 +1,31 @@
+{
+  "slug": "ca-g9-ch01-equations-context",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s3-chapter-01",
+  "title": "Equations from Context",
+  "standardIds": ["A-CED.1", "A-CED.2", "A-CED.3", "A-CED.4"],
+  "summary": "Set a setup fee, a price per shirt, and a budget; the cost line, the equation, the inequality, and the rearranged formula update together.",
+  "emoji": "👕",
+  "narration": "Picture your club ordering custom T-shirts: the print shop charges a setup fee, then a price for every shirt. This chapter shows how one equation written from that story can be solved for a shirt count, graphed as a line, turned into an inequality when there is a budget, and rearranged to give the count from any total. Try changing the fee, the price, and the budget, and watch every part of the figure move together.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A print shop charges a $25 setup fee plus $8 per poster. A club pays $145. Write and solve an equation to find how many posters it ordered.",
+      "answer": 15,
+      "explanation": "Let p be the number of posters: 25 + 8p = 145. Subtract 25 from both sides: 8p = 120. Divide by 8: p = 15. Check: 25 + 8 × 15 = 25 + 120 = 145."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Jonah has $47. A museum membership card costs $14, and each special exhibit costs $9 with the card. What is the greatest number of special exhibits he can afford?",
+      "answer": 3,
+      "explanation": "The constraint is 14 + 9e ≤ 47. Subtract 14: 9e ≤ 33. Divide by 9: e ≤ 33 ÷ 9 ≈ 3.67. He needs a whole number, so 3 exhibits: 14 + 9 × 3 = 41 ≤ 47, but 14 + 9 × 4 = 50 > 47."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A gym's cost formula is C = 20 + 6v, where v is the number of visits. Which formula gives v in terms of C?",
+      "choices": ["v = C/6 − 20", "v = (C + 20)/6", "v = (C − 20)/6", "v = 6(C − 20)"],
+      "answer": 2,
+      "explanation": "Subtract 20 from both sides: C − 20 = 6v. Divide both sides by 6: v = (C − 20)/6. Check with C = 50: v = (50 − 20)/6 = 30/6 = 5, and 20 + 6 × 5 = 50."
+    }
+  ]
+}
