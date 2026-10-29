@@ -51,7 +51,10 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr303-v1/admission.json || -L coordination/integration/reviewed-code/pr303-v1/admission.json ]]; then
+          if [[ -e coordination/integration/ca-textbook-successor/activation/ca-textbook-002/admission.json || -L coordination/integration/ca-textbook-successor/activation/ca-textbook-002/admission.json ]]; then
+            mode=$(env -u NODE_OPTIONS -u NODE_PATH node scripts/promotion-required-check-ca-textbook-successor.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          elif [[ -e coordination/integration/reviewed-code/pr303-v1/admission.json || -L coordination/integration/reviewed-code/pr303-v1/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr303.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           elif [[ -e coordination/integration/reviewed-code/pr302-v1/admission.json || -L coordination/integration/reviewed-code/pr302-v1/admission.json ]]; then
@@ -124,11 +127,50 @@ jobs:
             mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           fi
-          if [[ "$mode" != "reviewed-code-pr303" && "$mode" != "reviewed-code-pr302" && "$mode" != "reviewed-code-pr301" && "$mode" != "reviewed-code-pr300-v2" && "$mode" != "reviewed-code-pr300" && "$mode" != "reviewed-code-pr299" && "$mode" != "reviewed-code-pr298" && "$mode" != "reviewed-code-pr297" && "$mode" != "reviewed-code-pr295-e2" && "$mode" != "reviewed-code-pr295" && "$mode" != "reviewed-docs-pr293" && "$mode" != "reviewed-code-pr285-v2" && "$mode" != "reviewed-code-pr283-merge-assertion" && "$mode" != "reviewed-code-pr287-v1" && "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
+          if [[ "$mode" != "ca-textbook-002" && "$mode" != "reviewed-code-pr303" && "$mode" != "reviewed-code-pr302" && "$mode" != "reviewed-code-pr301" && "$mode" != "reviewed-code-pr300-v2" && "$mode" != "reviewed-code-pr300" && "$mode" != "reviewed-code-pr299" && "$mode" != "reviewed-code-pr298" && "$mode" != "reviewed-code-pr297" && "$mode" != "reviewed-code-pr295-e2" && "$mode" != "reviewed-code-pr295" && "$mode" != "reviewed-docs-pr293" && "$mode" != "reviewed-code-pr285-v2" && "$mode" != "reviewed-code-pr283-merge-assertion" && "$mode" != "reviewed-code-pr287-v1" && "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
             echo "Unknown Promotion contract mode" >&2
             exit 1
           fi
           printf 'mode=%s\n' "$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Test exact California textbook activation
+        if: ${{ steps.contract.outputs.mode == 'ca-textbook-002' }}
+        run: |
+          set -euo pipefail
+          env -u NODE_OPTIONS -u NODE_PATH node --test --test-reporter=tap \
+            coordination/integration/ca-textbook-successor/activation/ca-textbook-002/activation.test.mjs
+
+      - name: Materialize immutable California execution
+        if: ${{ steps.contract.outputs.mode == 'ca-textbook-002' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca-textbook-002-execution"
+          test ! -e "$execution" && test ! -L "$execution"
+          git -c gc.auto=0 -c maintenance.auto=false clone --quiet --no-hardlinks --no-checkout "$GITHUB_WORKSPACE" "$execution"
+          git -C "$execution" checkout --quiet --detach bdb33bfa3734bc12725c46c7818056e0bce2378b
+          mkdir -p "$execution/node_modules"
+          cp -R "$GITHUB_WORKSPACE/node_modules/typescript" "$execution/node_modules/typescript"
+
+      - name: Verify exact California textbook native admission
+        if: ${{ steps.contract.outputs.mode == 'ca-textbook-002' }}
+        timeout-minutes: 25
+        run: |
+          set -euo pipefail
+          umask 077
+          env -u NODE_OPTIONS -u NODE_PATH node scripts/promotion-required-check-ca-textbook-successor.mjs check \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --execution "$RUNNER_TEMP/ca-textbook-002-execution" \
+            --artifact-root "$RUNNER_TEMP/promotion-ca-textbook-002"
+
+      - name: Upload California textbook native admission proof
+        if: ${{ always() && steps.contract.outputs.mode == 'ca-textbook-002' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: promotion-ca-textbook-002
+          path: ${{ runner.temp }}/promotion-ca-textbook-002
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Verify exact PR303 browser evidence admission
         if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr303' }}
