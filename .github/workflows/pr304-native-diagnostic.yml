@@ -1,0 +1,80 @@
+name: PR304 execution clone diagnostic
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  measure-execution-clone:
+    if: ${{ github.repository == 'HUDongpin/MAIS-MVP' && github.event.pull_request.number == 304 }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GIT_CONFIG_COUNT: "4"
+      GIT_CONFIG_KEY_0: gc.auto
+      GIT_CONFIG_VALUE_0: "0"
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: "false"
+      GIT_CONFIG_KEY_2: maintenance.auto
+      GIT_CONFIG_VALUE_2: "false"
+      GIT_CONFIG_KEY_3: maintenance.autoDetach
+      GIT_CONFIG_VALUE_3: "false"
+    steps:
+      - name: Check out the sealed release being diagnosed
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 070944e08fb6f6078fa7401311452ac369335085
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked verification dependencies
+        run: npm ci --ignore-scripts
+      - name: Recreate the actual execution clone
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca-textbook-002-diagnostic-execution"
+          test ! -e "$execution" && test ! -L "$execution"
+          git -c gc.auto=0 -c maintenance.auto=false clone --quiet --no-hardlinks --no-checkout "$GITHUB_WORKSPACE" "$execution"
+          git -C "$execution" checkout --quiet --detach bdb33bfa3734bc12725c46c7818056e0bce2378b
+          mkdir -p "$execution/node_modules"
+          cp -R "$GITHUB_WORKSPACE/node_modules/typescript" "$execution/node_modules/typescript"
+          printf 'CA_DIAGNOSTIC_EXECUTION=%s\n' "$execution" >> "$GITHUB_ENV"
+      - name: Measure full validation without granting public native acceptance
+        timeout-minutes: 5
+        run: |
+          set -euo pipefail
+          umask 077
+          artifacts="$RUNNER_TEMP/pr304-execution-clone-diagnostic"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          test "$(git -C "$CA_DIAGNOSTIC_EXECUTION" rev-parse HEAD)" = bdb33bfa3734bc12725c46c7818056e0bce2378b
+          git --version > "$artifacts/git-version.txt"
+          node --version > "$artifacts/node-version.txt"
+          env -u NODE_OPTIONS -u NODE_PATH node --input-type=module - "$CA_DIAGNOSTIC_EXECUTION" "$artifacts" \
+            > "$artifacts/diagnostic.stdout" 2> "$artifacts/diagnostic.stderr" <<'JS'
+          import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';import {performance} from 'node:perf_hooks';
+          const [root,output]=process.argv.slice(2),native=path.join(root,'coordination/integration/ca-textbook-successor');
+          const {Repository}=await import(pathToFileURL(path.join(native,'repository.mjs')));
+          const {validateAttempt}=await import(pathToFileURL(path.join(native,'contract.mjs')));
+          const counts={},context={diagnosticOnly:true,publicBootstrapAccepted:false,executionCommit:'bdb33bfa3734bc12725c46c7818056e0bce2378b',releaseCommit:'070944e08fb6f6078fa7401311452ac369335085',startedAt:new Date().toISOString(),node:process.version};
+          fs.writeFileSync(path.join(output,'start.json'),JSON.stringify(context)+'\n',{flag:'wx'});
+          for(const name of ['git','clean','read','working']){const original=Repository.prototype[name];Repository.prototype[name]=function(...args){const start=performance.now();try{return original.apply(this,args);}finally{const row=counts[name]??{calls:0,milliseconds:0};row.calls++;row.milliseconds+=performance.now()-start;counts[name]=row;}};}
+          const started=performance.now();let result;
+          try{const value=await validateAttempt(root,'coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/manifest.json');result={...context,diagnosticValidation:value};}
+          catch(error){result={...context,result:'blocked-diagnostic',code:/^CA_[A-Z_]+$/.test(error.code??'')?error.code:'DIAGNOSTIC_FAILED'};process.exitCode=2;}
+          result.elapsedMs=performance.now()-started;result.methodTimings=counts;
+          fs.writeFileSync(path.join(output,'result.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+          console.log(JSON.stringify({diagnosticOnly:true,publicBootstrapAccepted:false,elapsedMs:result.elapsedMs,code:result.code,methodTimings:counts}));
+          JS
+      - name: Preserve measurement and failure evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pr304-execution-clone-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/pr304-execution-clone-diagnostic
+          if-no-files-found: warn
+          retention-days: 14
