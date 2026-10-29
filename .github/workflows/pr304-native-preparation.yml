@@ -39,6 +39,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Execute the complete frozen native chain
+        id: native_chain
         shell: bash
         run: |
           set -euo pipefail
@@ -105,6 +106,46 @@ jobs:
           test "$comparison_status" -eq 0
           test "$(git rev-parse HEAD)" = c658ab248e5869e0250a26158214da55cbf40993
           test -z "$(git status --porcelain --untracked-files=all)"
+
+      - name: Measure the failed validation without granting native acceptance
+        if: ${{ failure() && steps.native_chain.outcome == 'failure' }}
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifacts="$RUNNER_TEMP/pr304-native-preparation"
+          test -d "$artifacts" && test ! -L "$artifacts"
+          test "$(git rev-parse HEAD)" = c658ab248e5869e0250a26158214da55cbf40993
+          env -u NODE_OPTIONS -u NODE_PATH node --input-type=module - "$artifacts" \
+            > "$artifacts/validation-diagnostic.stdout" 2> "$artifacts/validation-diagnostic.stderr" <<'JS'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import {performance} from 'node:perf_hooks';
+          import {Repository} from './coordination/integration/ca-textbook-successor/repository.mjs';
+          import {validateAttempt} from './coordination/integration/ca-textbook-successor/contract.mjs';
+          const output=process.argv[2],root=process.cwd(),counts={};
+          const context={diagnosticOnly:true,publicBootstrapAccepted:false,executionCommit:'c658ab248e5869e0250a26158214da55cbf40993',startedAt:new Date().toISOString(),node:process.version};
+          fs.writeFileSync(path.join(output,'validation-diagnostic-start.json'),JSON.stringify(context)+'\n',{flag:'wx'});
+          for(const name of ['git','clean','read','working']){
+            const original=Repository.prototype[name];
+            Repository.prototype[name]=function(...args){
+              const start=performance.now();
+              try{return original.apply(this,args);}finally{
+                const row=counts[name]??{calls:0,milliseconds:0};row.calls++;row.milliseconds+=performance.now()-start;counts[name]=row;
+              }
+            };
+          }
+          const started=performance.now();let result;
+          try{
+            const value=await validateAttempt(root,'coordination/integration/ca-textbook-successor/attempts/ca-textbook-001/manifest.json');
+            result={...context,diagnosticValidation:value};
+          }catch(error){
+            result={...context,result:'blocked-diagnostic',code:/^CA_[A-Z_]+$/.test(error.code??'')?error.code:'DIAGNOSTIC_FAILED'};
+          }
+          result.elapsedMs=performance.now()-started;result.methodTimings=counts;
+          fs.writeFileSync(path.join(output,'validation-diagnostic.json'),JSON.stringify(result)+'\n',{flag:'wx'});
+          console.log(JSON.stringify({diagnosticOnly:true,publicBootstrapAccepted:false,elapsedMs:result.elapsedMs,code:result.code,methodTimings:counts}));
+          JS
 
       - name: Preserve native outputs including failures
         if: ${{ always() }}
