@@ -208,7 +208,7 @@
           "const": "ca-textbook-manifest.v1"
         },
         "version": {
-          "const": "ca-textbook-successor.v2"
+          "const": "ca-textbook-successor.v3"
         },
         "attemptId": {
           "type": "string",
@@ -332,7 +332,7 @@
       ],
       "properties": {
         "schemaVersion": {
-          "const": "ca-textbook-successor.v2"
+          "const": "ca-textbook-successor.v3"
         },
         "relation": {
           "const": "immutable-content-successor"
@@ -568,7 +568,7 @@
           "const": "ca-textbook-checker-ledger.v1"
         },
         "version": {
-          "const": "ca-textbook-successor.v2"
+          "const": "ca-textbook-successor.v3"
         },
         "releaseCommit": {
           "type": "string",

@@ -17,14 +17,15 @@ const ROOT = "coordination/integration/ca-textbook-successor";
 const ANCHOR = "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17";
 const PARSER_SHA =
   "b7b919123df63442012446f704bd454f0721b2dcbed4f8aa824d4d5180ce88e5";
-// Each complete validation retains its 60-second observer/snapshot bounds.
-// Compound operations perform 2, 3 and 10 validations respectively; the total
-// deadline accounts for every required replay and has no caller override.
+// Inner Git, snapshot and observer operations retain their 60-second bounds.
+// A complete validation also performs authenticated Git/input/materialization
+// work around its observer. Reserve a closed 120-second total for each of the
+// 1, 2, 3 or 10 required validations; there is no caller override.
 const OPERATION_TIMEOUTS = Object.freeze({
-  validate: 60000,
-  shadow: 120000,
-  "verify-receipt": 180000,
-  finalize: 600000,
+  validate: 120000,
+  shadow: 240000,
+  "verify-receipt": 360000,
+  finalize: 1200000,
 });
 const EXPECTED = [
   "coordination/integration/ca-textbook-successor/adapter-provenance.v1.json",
@@ -218,7 +219,7 @@ try {
   const ledger = parse(ledgerBytes);
   need(
     ledger.schemaVersion === "ca-textbook-checker-ledger.v1" &&
-      ledger.version === "ca-textbook-successor.v2" &&
+      ledger.version === "ca-textbook-successor.v3" &&
       ledger.releaseCommit === m.checkerReleaseCommit &&
       /^[a-f0-9]{40}$/.test(ledger.releaseCommit),
     "CA_RELEASE",

@@ -178,8 +178,8 @@ test("real Git fixture enforces evidence then first-added execution manifest/des
     assert.equal(validatePhase(repo, m, manifestPath), execution);
   }));
 
-test("v2 ledger belongs to exactly the selected attempt", () => registeredFixture((f) => {
-  assert.equal(VERSION, "ca-textbook-successor.v2");
+test("versioned ledger belongs to exactly the selected attempt", () => registeredFixture((f) => {
+  assert.equal(VERSION, "ca-textbook-successor.v3");
   assert.equal(f.m.checkerLedger.path, path.posix.dirname(f.manifestPath) + "/checker-release.json");
   validatePhase(f.repo, f.m, f.manifestPath);
   for (const ledgerPath of [ROOT + "/checker-releases.json", ROOT + "/attempts/ca-textbook-other/checker-release.json"]) {
@@ -445,6 +445,18 @@ test("CLI requires explicit execute and does not emit raw supplied values", () =
     assert.equal(parse(Buffer.from(r.stdout)).liveAllowed, false);
   }
 });
+test("public worker budgets cover complete validation overhead without caller overrides", () => registeredFixture((f) => {
+  const observed={};
+  for(const operation of ["validate","shadow","verify-receipt","finalize"]){
+    const entry=path.join(f.root,ROOT,"promotion.mjs"),args=[operation,"--repo",f.root,"--manifest",f.manifestPath];
+    if(operation==="shadow")args.push("--run-id","synthetic-budget","--execute");
+    if(operation==="verify-receipt"||operation==="finalize")args.push("--path","synthetic-only.json","--storage-commit",f.source,"--sha256",H,"--execute");
+    const probe=`const cp=require('node:child_process'),{syncBuiltinESMExports}=require('node:module'),{pathToFileURL}=require('node:url');const original=cp.execFileSync;cp.execFileSync=function(command,argv,options){if(command===process.execPath&&argv?.[0]?.endsWith('/operation.mjs'))return Buffer.from(JSON.stringify({result:'pass',liveAllowed:false,syntheticOnly:true,observedTimeout:options.timeout}));return original.apply(this,arguments);};syncBuiltinESMExports();process.argv=[process.execPath,${JSON.stringify(entry)},...${JSON.stringify(args)}];import(pathToFileURL(${JSON.stringify(entry)}).href);`;
+    const result=spawnSync(process.execPath,["-e",probe],{env:GIT_ENV,encoding:"utf8",maxBuffer:32*1024*1024});
+    assert.equal(result.status,0,result.stderr);const value=parse(Buffer.from(result.stdout));assert.equal(value.syntheticOnly,true);observed[operation]=value.observedTimeout;
+  }
+  assert.deepEqual(observed,{validate:120000,shadow:240000,"verify-receipt":360000,finalize:1200000});
+}));
 test("release bundle is exactly scoped and no actual candidate approval is stored in source", () => {
   assert.ok(BUNDLE_PATHS.includes(ROOT + "/operation.mjs"));
   assert.ok(BUNDLE_PATHS.includes(ROOT + "/repository.test.mjs"));
