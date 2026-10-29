@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "pr303-independent-review.v1",
+  "role": "A23",
+  "reviewerIdentity": "/root/pr300_a23",
+  "result": "approved-for-exact-pr303-required-check",
+  "scope": "exact-pr303-browser-evidence-binding-required-check-only",
+  "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+  "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+  "sourceInventoryDigest": "910995318171293aeada10cdc7ffdfcababca2673bf32a84a4a7374f9740271a",
+  "toolingCommit": "8df83d1c71ba134ad3745f23d40106eb8cd30044",
+  "toolingTree": "59851d9830a6abd5ce91ddeffb16513f8155acea",
+  "toolingInventoryDigest": "5f453a420a5796f479131a54d8401dd9fb9c5a54ed4c7f644c0986ecf105ee54",
+  "checksRawSha256": "4fcfa076ef84f7def197fa2439f43f4fde44565e4429e8ccdc1d48ab50fb409b",
+  "runtimeEvidenceRawSha256": "f91f11e308e738f93e93c4e06970fd07c50329fc7182b1e78071c25eb55c70c6",
+  "reportRawSha256": "ec172b6366037dc250bfd79bd8e11d0ff35d885730c3e2eaefc669ddffb637e5",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-29T01:15:35.923Z",
+  "findings": [
+    "No actionable issue found in actual immutable T; this is a distinct formal review, not reused preliminary or historical approval.",
+    "Actual clean HEAD/tree, direct B-S-T parents, eleven-source/four-tooling inventories, modes/blob bytes, time bindings, assigned identities and absence of future E evidence were independently verified.",
+    "Fresh restricted-environment umask0077 executions passed42contracts, strict types with empty output,58evidence/fixture cases and35models; zero failures/skips/cancellations/TODOs and exact summaries.",
+    "Current runtime/raw evidence hashes match prior direct independent raw verification. Full2560-file build artifact tree was recomputed; three exact browser cases/settings/results and chronology were revalidated without browser/build reruns.",
+    "Seven runtime subtrees,twelve critical files,465baseline input hashes and411-name inventory match. Exact input/outcome digest definitions recompute; unchanged raw baseline logs retain36pass/26fail with exit1 and no broad acceptance.",
+    "Historical native contract and ledger remain immutable; the new route preserves current scoped browser verification without claiming historical revalidation or transferring authority.",
+    "T-bound local materialization remains blocked-local ENAMETOOLONG/fullMaterializationfalse. Unchanged full before/after Ubuntu final-E PR/main guards are mandatory; no waiver.",
+    "All six permissions and all no-replay limits remain false; broaderManimAcceptedfalse and retained26failures are explicit. Actual E,final remote/main acceptance,deployment and live claims remain unestablished."
+  ]
+}

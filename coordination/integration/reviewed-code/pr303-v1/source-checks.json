@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "pr303-source-checks.v1",
+  "sourceCommit": "012ba0ee454e30a0705e2c206d6b15c6895dc585",
+  "sourceTree": "da5db2e4c74bb12fb0e827be00b507b27cb0f0f4",
+  "executedAt": "2026-10-28T23:42:11.394Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "evidence-fixtures",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "components/visualizations/visualizationBrowserRegressionEvidence.test.ts",
+        "components/visualizations/visualizationBrowserRegressionPackages.test.ts",
+        "components/visualizations/visualizationReleaseReadinessEvidence.test.ts",
+        "components/visualizations/three/manim/mathSceneV2CatalogDecoupledFixtures.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "6a0b5b0a5c0f6d10a438df8582fc27e3fbbee53ccb1c73003cb0f4e67bdc7c7c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 58,
+        "suites": 0,
+        "pass": 58,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "1c8b191a92f016b9ada9ee0e5840df59a53aa3ab886ed3558d5cf5f348096edd"
+      }
+    },
+    {
+      "name": "models",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "components/visualizations/configuredVisualizationLabModel.test.ts",
+        "components/visualizations/configuredVisualizationLabRegressions.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "3363e5a30356f36a0cad6117665eecf4ffd8ad59b8ba9bc5ef8255a6dc868100",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 35,
+        "suites": 0,
+        "pass": 35,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "458fc5a793be04f96d6bebcc6648c1df266e4b29b42aeeffa2b7f619de29702a"
+      }
+    }
+  ]
+}

@@ -1,4 +1,9 @@
 import type { ThreeDFamilyId } from "../threeDSceneTypes";
+import type {
+  VisualizationBrowserRegressionExpectedExecution,
+  VisualizationBrowserRegressionRecordedRun
+} from "@/components/visualizations/visualizationBrowserRegressionEvidence";
+import type { VisualizationBrowserRegressionPlan } from "@/components/visualizations/visualizationBrowserRegressionPackages";
 import { buildMathSceneTeachingInspectionTargetQueue } from "./mathSceneTeachingInspectionTargets";
 
 export const MATH_SCENE_V2_CATALOG_DECOUPLED_FIXTURE_SOURCE_CONTRACT =
@@ -60,6 +65,45 @@ export const browserRegressionLabs = [
     threeD: { enabled: true, familyId: "three-projection-views", premiumLaunch: true }
   }
 ] satisfies readonly CatalogDecoupledFixtureLab[];
+
+// Fabricated positive unit-test inputs only, never captured browser evidence.
+// Do not write these bindings to the historical ledger or any acceptance record.
+export function createSyntheticClosureBrowserBindingInputs(plan: VisualizationBrowserRegressionPlan): {
+  expectedExecution: VisualizationBrowserRegressionExpectedExecution;
+  recordedRuns: VisualizationBrowserRegressionRecordedRun[];
+} {
+  const expectedExecution: VisualizationBrowserRegressionExpectedExecution = {
+    sourceCommit: "1".repeat(40),
+    runConfiguration: {
+      testFile: "tests/e2e/visualization-values.spec.ts",
+      project: "desktop-chrome",
+      grep: "opens selected catalog labs",
+      timeoutMs: 180_000,
+      retries: 0,
+      workers: 1,
+      browserChannel: "chrome",
+      sweepMode: "extremes"
+    }
+  };
+  const recordedRuns: VisualizationBrowserRegressionRecordedRun[] = plan.hkDemoSafePackages.map(
+    (regressionPackage, index) => ({
+      duration: "synthetic unit fixture",
+      packageId: regressionPackage.id,
+      port: 3400 + index,
+      runId: `synthetic-closure-browser-${index}`,
+      status: "passed",
+      binding: {
+        sourceCommit: expectedExecution.sourceCommit,
+        sourceDirty: false,
+        labIds: [...regressionPackage.labIds],
+        commandEnv: { ...regressionPackage.commandEnv },
+        runConfiguration: { ...expectedExecution.runConfiguration }
+      }
+    })
+  );
+
+  return { expectedExecution, recordedRuns };
+}
 
 export type MathSceneV2CatalogDecoupledFixtureManifest = {
   browserFamilyIds: string[];

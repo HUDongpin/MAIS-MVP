@@ -76,7 +76,8 @@ function hkGradePackageEvidenceFixture(): VisualizationBrowserRegressionEvidence
     packageId: `hk-demo-${grade}-part-1`,
     port: 3170 + index,
     runId: `manim-v2-a11-fixture-${grade.toLowerCase()}`,
-    status: "passed"
+    status: "passed",
+    validationStatus: "matched"
   }));
 }
 

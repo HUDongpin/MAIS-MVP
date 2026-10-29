@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import {
+  buildVisualizationBrowserRegressionEvidenceMatrix,
+  recordedHkGradePackageBrowserEvidence
+} from "@/components/visualizations/visualizationBrowserRegressionEvidence";
 import { buildVisualizationBrowserRegressionPlan } from "../../visualizationBrowserRegressionPackages";
 import { buildMathSceneTeachingInspectionTargetQueue } from "./mathSceneTeachingInspectionTargets";
 import { classifyManimReviewPackage } from "./mathSceneReviewPackages";
@@ -7,11 +11,58 @@ import {
   browserRegressionLabs,
   buildMathSceneV2CatalogDecoupledFixtureHandoffManifest,
   buildMathSceneV2CatalogDecoupledFixtureManifest,
+  createSyntheticClosureBrowserBindingInputs,
   mathSceneV2CatalogDecoupledFixtureHandoffDataAttributes,
   mathSceneV2CatalogDecoupledFixtureDataAttributes,
   MATH_SCENE_V2_CATALOG_DECOUPLED_FIXTURE_SOURCE_CONTRACT,
   renderedReviewLabs
 } from "./mathSceneV2CatalogDecoupledFixtures";
+
+test("synthetic closure bindings exercise the real matcher without altering historical evidence", () => {
+  const plan = buildVisualizationBrowserRegressionPlan(browserRegressionLabs as never, { maxLabsPerPackage: 8 });
+  const originalPlan = JSON.stringify(plan);
+  const historical = JSON.stringify(recordedHkGradePackageBrowserEvidence);
+  const { expectedExecution, recordedRuns } = createSyntheticClosureBrowserBindingInputs(plan);
+  const matrix = buildVisualizationBrowserRegressionEvidenceMatrix(plan, recordedRuns, expectedExecution);
+
+  assert.equal(matrix.hkGradeSplitStatus, "passed");
+  assert.ok(matrix.hkGradePackageEvidence.every((entry) => entry.validationStatus === "matched"));
+  assert.ok(recordedRuns.every((run) => run.runId.startsWith("synthetic-closure-browser-")));
+  assert.equal(buildVisualizationBrowserRegressionEvidenceMatrix(plan, recordedRuns).hkGradeSplitStatus, "incomplete");
+  assert.equal(
+    buildVisualizationBrowserRegressionEvidenceMatrix(plan, recordedHkGradePackageBrowserEvidence, expectedExecution).hkGradeSplitStatus,
+    "incomplete"
+  );
+  assert.equal(JSON.stringify(plan), originalPlan);
+  assert.equal(JSON.stringify(recordedHkGradePackageBrowserEvidence), historical);
+
+  const binding = recordedRuns[0].binding;
+  assert.ok(binding);
+  binding.sourceCommit = "2".repeat(40);
+  const rejected = buildVisualizationBrowserRegressionEvidenceMatrix(plan, recordedRuns, expectedExecution);
+  assert.equal(rejected.hkGradeSplitStatus, "incomplete");
+  assert.equal(rejected.hkGradePackageEvidence[0].validationStatus, "source-mismatch");
+});
+
+test("synthetic closure inputs keep plan and configuration snapshots independent", () => {
+  const plan = buildVisualizationBrowserRegressionPlan(browserRegressionLabs as never, { maxLabsPerPackage: 8 });
+  const originalPlan = JSON.stringify(plan);
+  const first = createSyntheticClosureBrowserBindingInputs(plan);
+  const second = createSyntheticClosureBrowserBindingInputs(plan);
+  const originalSecond = JSON.stringify(second);
+  const binding = first.recordedRuns[0].binding;
+  assert.ok(binding);
+
+  binding.labIds[0] = "changed-fixture-lab";
+  binding.commandEnv.VISUALIZATION_SWEEP_LABS = "changed-fixture-lab";
+  binding.runConfiguration.project = "mobile-chrome";
+  first.expectedExecution.sourceCommit = "2".repeat(40);
+
+  assert.equal(first.expectedExecution.runConfiguration.project, "desktop-chrome");
+  assert.equal(binding.sourceCommit, "1".repeat(40));
+  assert.equal(JSON.stringify(second), originalSecond);
+  assert.equal(JSON.stringify(plan), originalPlan);
+});
 
 test("MAIS Manim v2 catalog-decoupled fixtures cover every rendered teaching target", () => {
   const targetFamilyIds = buildMathSceneTeachingInspectionTargetQueue().targets.map((target) => target.familyId);

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { createSyntheticClosureBrowserBindingInputs } from "@/components/visualizations/three/manim/mathSceneV2CatalogDecoupledFixtures";
 import { buildVisualizationBrowserRegressionEvidenceMatrix } from "../../visualizationBrowserRegressionEvidence";
 import { buildVisualizationBrowserRegressionPlan } from "../../visualizationBrowserRegressionPackages";
 import { buildVisualizationReleaseReadinessEvidence } from "../../visualizationReleaseReadinessEvidence";
@@ -113,7 +114,10 @@ function acceptedRecordsForEveryRequiredEvidence(
 
 function verifiedClosureFixture() {
   const browserPlan = buildVisualizationBrowserRegressionPlan(browserRegressionLabs as never, { maxLabsPerPackage: 8 });
-  const browserEvidence = buildVisualizationBrowserRegressionEvidenceMatrix(browserPlan);
+  const { expectedExecution, recordedRuns } = createSyntheticClosureBrowserBindingInputs(browserPlan);
+  const browserEvidence = buildVisualizationBrowserRegressionEvidenceMatrix(
+    browserPlan, recordedRuns, expectedExecution
+  );
   const teachingSignoff = buildMathSceneTeachingSignoffMatrix();
   const releaseReadiness = buildVisualizationReleaseReadinessEvidence({
     browserEvidence,
