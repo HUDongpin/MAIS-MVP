@@ -17,6 +17,15 @@ const ROOT = "coordination/integration/ca-textbook-successor";
 const ANCHOR = "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17";
 const PARSER_SHA =
   "b7b919123df63442012446f704bd454f0721b2dcbed4f8aa824d4d5180ce88e5";
+// Each complete validation retains its 60-second observer/snapshot bounds.
+// Compound operations perform 2, 3 and 10 validations respectively; the total
+// deadline accounts for every required replay and has no caller override.
+const OPERATION_TIMEOUTS = Object.freeze({
+  validate: 60000,
+  shadow: 120000,
+  "verify-receipt": 180000,
+  finalize: 600000,
+});
 const EXPECTED = [
   "coordination/integration/ca-textbook-successor/adapter-provenance.v1.json",
   "coordination/integration/ca-textbook-successor/adapter.test.mjs",
@@ -289,7 +298,7 @@ try {
     }),
     { flag: "wx", mode: 0o600 },
   );
-  const timeout = 60000;
+  const timeout = OPERATION_TIMEOUTS[operation];
   const result = execFileSync(
     process.execPath,
     [path.join(owned, ROOT, "operation.mjs"), root, request],

@@ -340,6 +340,12 @@ test("CLI requires explicit execute and does not emit raw supplied values", () =
     ],
     ["verify-receipt", "--unknown", "secret-sentinel"],
     ["finalize"],
+    ...["validate", "shadow", "verify-receipt", "finalize"].flatMap(
+      (operation) => [
+        [operation, "--timeout", "secret-sentinel"],
+        [operation, "--operation-timeout", "secret-sentinel"],
+      ],
+    ),
   ]) {
     const r = spawnSync(
       process.execPath,

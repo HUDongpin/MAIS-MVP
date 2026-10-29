@@ -37,8 +37,7 @@ const sorted = (rows) =>
         ? 1
         : 0,
   );
-function auditFor(correlated) {
-  const opaque = transition.opaquePreserved;
+function auditFor(correlated, opaque = transition.opaquePreserved) {
   const body = {
     schemaVersion: "promotion-legacy-conflict-union-audit.v1",
     candidateLikeCount: transition.candidatePaths.length,
@@ -103,9 +102,22 @@ same(
   auditFor(transition.correlatedBefore),
   "CA_AUDIT_HISTORY",
 );
+const opaqueAfter = sorted([
+  ...transition.opaquePreserved,
+  {
+    ...transition.retiredCorrelation,
+    correlation: "runtime-identity-marker-only",
+    correlatedRuntimePathDigest: null,
+  },
+]);
+unique(
+  [...transition.correlatedAfter, ...opaqueAfter].map(
+    (row) => row.packagePathDigest,
+  ),
+);
 same(
   transition.after,
-  auditFor(transition.correlatedAfter),
+  auditFor(transition.correlatedAfter, opaqueAfter),
   "CA_AUDIT_HISTORY",
 );
 export function canonicalAuditExpectation(phase = "after") {

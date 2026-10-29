@@ -1065,3 +1065,45 @@ test("finalization cannot use a different PR with the same head or a PR number o
     );
   }
 });
+
+// Regression fixture from the authenticated R1 observer on real source 98d086c8.
+const actualSourceRetirementAudit = {
+  "schemaVersion": "promotion-legacy-conflict-union-audit.v1",
+  "candidateLikeCount": 37,
+  "candidateSetDigest": "6e8cbaea92a7fa4f50d7efbe95849171381624ab553a1eacdea53dd55490f84f",
+  "directConflictCount": 0,
+  "directConflictDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "correlatedConflictCount": 2,
+  "correlatedConflictDigest": "53083f06ab5692aa0e4c1e56722ac67b499069436866c334f6f63c2799cfa48f",
+  "ambiguousConflictCount": 3,
+  "ambiguousConflictDigest": "2b2247bf2672d0d5d4580d5d529843e682024f0a1fa716c5382298322cc0d2d3",
+  "reachableCandidateLikeCount": 5,
+  "knownConflictCount": 0,
+  "newConflictCount": 2,
+  "opaqueConflictCount": 3,
+  "reachableConflictDigest": "1dccdfb7852a43ed7c793b9dc5c7b2a14e0a66b15f02009f6eeb1f54da0c39ef",
+  "newConflictDigest": "53083f06ab5692aa0e4c1e56722ac67b499069436866c334f6f63c2799cfa48f",
+  "opaqueConflictDigest": "2b2247bf2672d0d5d4580d5d529843e682024f0a1fa716c5382298322cc0d2d3",
+  "secondaryBlockedCondition": {
+    "code": "LEGACY_DISCOVERY_INCOMPLETE",
+    "conflictCount": 3,
+    "conflictDigest": "2b2247bf2672d0d5d4580d5d529843e682024f0a1fa716c5382298322cc0d2d3"
+  },
+  "auditDigest": "b20edcfbfd4ea4a09243e467128a4c54ecb8c363faa93fc022fa571904120df4"
+};
+test("actual Linux source retirement retains the exact legacy comment marker", () => {
+  assert.doesNotThrow(() => validateCanonicalAudit(actualSourceRetirementAudit));
+  assert.equal(canonicalAuditExpectation("before").auditDigest, "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91");
+});
+test("actual Linux source retirement cannot suppress the marker or change opaque identity", () => {
+  for (const field of ["opaqueConflictDigest", "ambiguousConflictDigest", "reachableConflictDigest"]) {
+    const drift = structuredClone(actualSourceRetirementAudit);
+    drift[field] = "f".repeat(64);
+    delete drift.auditDigest; drift.auditDigest = digest(drift);
+    assert.throws(() => validateCanonicalAudit(drift), /CA_AUDIT_TRANSITION/);
+  }
+  const suppressed = structuredClone(actualSourceRetirementAudit);
+  suppressed.opaqueConflictCount = 2; suppressed.ambiguousConflictCount = 2;
+  delete suppressed.auditDigest; suppressed.auditDigest = digest(suppressed);
+  assert.throws(() => validateCanonicalAudit(suppressed), /CA_AUDIT_TRANSITION/);
+});
