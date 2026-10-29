@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "ca-textbook-activation.v1",
+  "baseCommit": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17",
+  "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "checkerReleaseCommit": "9e6c971b4f80a2729a8b5892f33c133338a83809",
+  "executionCommit": "bdb33bfa3734bc12725c46c7818056e0bce2378b",
+  "candidateDigest": "2c24f1895be6ad16b6877b77def687d5d8959fa7eeaff360085a9ee4d5853402",
+  "manifestSha256": "a3a5c3d41a73797875eedf8956c8c6e2beba17329b1728ef19d9cab0043759a3",
+  "storageCommit": "9ccd3e9e66258334351af3221c01a6f988dc4392",
+  "receipts": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/canonical-receipt.json",
+      "storageCommit": "9ccd3e9e66258334351af3221c01a6f988dc4392",
+      "sha256": "aaf2402c96a752227880927f9715c7eed189d94861005a74708d609d03f463aa"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/receipts/fresh.json",
+      "storageCommit": "9ccd3e9e66258334351af3221c01a6f988dc4392",
+      "sha256": "f9c4429f318bebc0c915edd98bfbc868a547e6c602f29cdfdc25b7107d211c9d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/receipts/replay.json",
+      "storageCommit": "9ccd3e9e66258334351af3221c01a6f988dc4392",
+      "sha256": "97763730bf13fe7420a10c38d50fa27f5d9f5a6d4076f02964c72290e27c47dd"
+    }
+  ],
+  "codeCommit": "01d061db607f00f1726805144c0b2691fe920eb2",
+  "codeFiles": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "mode": "100644",
+      "objectId": "500e7b44dfe348e72bf9a94ff18c9554dc1e45bb",
+      "sha256": "860710b6ade41136db46455e2ae21a6db94a051844437b34f3da27de4e3ca64e"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-002/activation.test.mjs",
+      "mode": "100644",
+      "objectId": "15d0cbc5040423d4599bcba90f586b7e8750fc86",
+      "sha256": "4d3cb1222bf162213e43ea298bfbd547530f3f9d8d07b0de3d8835f9f428a757"
+    },
+    {
+      "path": "scripts/promotion-required-check-ca-textbook-successor.mjs",
+      "mode": "100644",
+      "objectId": "df80fc7370a44076c76af57da3571db7d0706ab9",
+      "sha256": "7fee8cfc60cd9ecffca6c2e7f9352ce3d73c2f91ff4ed177d34dea41cc68eb1e"
+    }
+  ],
+  "codeDigest": "a67222b574767b401a1596ce29cf7bbb0cf38e25f3294a1dbeb64d50ca9b0550",
+  "reviews": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-002/a11.json",
+      "sha256": "2a62f1208215b6db3c251f2c7387be69a0d5e5b00740fb9a9af6cc41b4cdf7b0"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-002/a23.json",
+      "sha256": "498532c3f9175180d140f54ef85866daa6274491a0df6f568093cc57017fa8d8"
+    }
+  ],
+  "permissions": {
+    "liveAllowed": false,
+    "deployAllowed": false,
+    "historicalAuthorityTransferred": false,
+    "finalizationProven": false
+  }
+}
