@@ -33,7 +33,8 @@ test("California middle-school review identifies the interactive content without
   await expect(page).toHaveURL((url) => url.pathname === route);
   await expect(page).toHaveTitle(/Interactive Textbook Review/);
   await expect(page).not.toHaveTitle(/Approved/i);
-  await expect(page.locator('meta[name="description"]')).not.toHaveAttribute("content", /approved/i);
+  await expect(page.locator('meta[name="description"][content*="English introductory chapter openers"]')).toHaveCount(1);
+  await expect(page.locator('meta[name="description"][content*="approved" i]')).toHaveCount(0);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
   await expect(page.getByTestId("california-textbook-chapter")).toHaveCount(15);
 });
