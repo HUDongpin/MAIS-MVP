@@ -1,0 +1,2238 @@
+TAP version 13
+# Subtest: adapter retains raw4 and reports reviewedStorage4/unclassified0
+ok 1 - adapter retains raw4 and reports reviewedStorage4/unclassified0
+  ---
+  duration_ms: 95.146583
+  type: 'test'
+  ...
+# Subtest: adapter audit consumes the same issued observation
+ok 2 - adapter audit consumes the same issued observation
+  ---
+  duration_ms: 70.974209
+  type: 'test'
+  ...
+# Subtest: adapter refuses a cloned or missing graph instead of rescanning
+ok 3 - adapter refuses a cloned or missing graph instead of rescanning
+  ---
+  duration_ms: 36.924458
+  type: 'test'
+  ...
+# Subtest: adapter graph mutation invalidates its issued seal
+ok 4 - adapter graph mutation invalidates its issued seal
+  ---
+  duration_ms: 35.548916
+  type: 'test'
+  ...
+# Subtest: adapter rejects source drift between its observation and audit
+ok 5 - adapter rejects source drift between its observation and audit
+  ---
+  duration_ms: 62.86125
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module changed r flag
+ok 6 - adapter rejects whole-module changed r flag
+  ---
+  duration_ms: 37.860083
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module changed wx flag
+ok 7 - adapter rejects whole-module changed wx flag
+  ---
+  duration_ms: 37.973
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module new handle read
+ok 8 - adapter rejects whole-module new handle read
+  ---
+  duration_ms: 30.542666
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module weakened safeRoot
+ok 9 - adapter rejects whole-module weakened safeRoot
+  ---
+  duration_ms: 32.202
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module extra opendir
+ok 10 - adapter rejects whole-module extra opendir
+  ---
+  duration_ms: 30.696083
+  type: 'test'
+  ...
+# Subtest: adapter rejects whole-module byte-only drift
+ok 11 - adapter rejects whole-module byte-only drift
+  ---
+  duration_ms: 27.278916
+  type: 'test'
+  ...
+# Subtest: adapter rejects changed tracked executable mode
+ok 12 - adapter rejects changed tracked executable mode
+  ---
+  duration_ms: 30.199292
+  type: 'test'
+  ...
+# Subtest: adapter preserves unclassified foreign operations in the raw partition
+ok 13 - adapter preserves unclassified foreign operations in the raw partition
+  ---
+  duration_ms: 30.231667
+  type: 'test'
+  ...
+# Subtest: adapter retains malformed syntax rejection
+ok 14 - adapter retains malformed syntax rejection
+  ---
+  duration_ms: 20.392958
+  type: 'test'
+  ...
+# Subtest: adapter preserves nonliteral import findings for the native zero-unresolved gate
+ok 15 - adapter preserves nonliteral import findings for the native zero-unresolved gate
+  ---
+  duration_ms: 31.814833
+  type: 'test'
+  ...
+# Subtest: closed storage profile rejects missing detected records
+ok 16 - closed storage profile rejects missing detected records
+  ---
+  duration_ms: 9.409875
+  type: 'test'
+  ...
+# Subtest: closed storage profile rejects duplicate detected records
+ok 17 - closed storage profile rejects duplicate detected records
+  ---
+  duration_ms: 8.256417
+  type: 'test'
+  ...
+# Subtest: closed storage profile rejects moved detected records
+ok 18 - closed storage profile rejects moved detected records
+  ---
+  duration_ms: 8.059
+  type: 'test'
+  ...
+# Subtest: closed storage profile rejects aliased detected records
+ok 19 - closed storage profile rejects aliased detected records
+  ---
+  duration_ms: 8.125833
+  type: 'test'
+  ...
+# Subtest: checked-in adapter provenance and full-index diff match exact bytes
+ok 20 - checked-in adapter provenance and full-index diff match exact bytes
+  ---
+  duration_ms: 11.308792
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: registered synthetic phase and release baseline remain valid
+ok 21 - registered synthetic phase and release baseline remain valid
+  ---
+  duration_ms: 18483.637125
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 phase rejects tracked nested evidence payload
+ok 22 - A11-CA-V2-01 phase rejects tracked nested evidence payload
+  ---
+  duration_ms: 5275.345334
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 release authentication rejects tracked nested evidence payload
+ok 23 - A11-CA-V2-01 release authentication rejects tracked nested evidence payload
+  ---
+  duration_ms: 5187.70125
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 actual phase/auth/observer chain never executes nested marker
+ok 24 - A11-CA-V2-01 actual phase/auth/observer chain never executes nested marker
+  ---
+  duration_ms: 6056.092416
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 phase rejects tracked self-reference evidence payload
+ok 25 - A11-CA-V2-01 phase rejects tracked self-reference evidence payload
+  ---
+  duration_ms: 5562.136792
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 release authentication rejects tracked self-reference evidence payload
+ok 26 - A11-CA-V2-01 release authentication rejects tracked self-reference evidence payload
+  ---
+  duration_ms: 4795.020791
+  type: 'test'
+  ...
+# Subtest: A11-CA-V2-01 actual phase/auth/observer chain never executes self-reference marker
+ok 27 - A11-CA-V2-01 actual phase/auth/observer chain never executes self-reference marker
+  ---
+  duration_ms: 5225.529542
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: captured observer measures exact dependency despite no ignored local metadata
+ok 28 - captured observer measures exact dependency despite no ignored local metadata
+  ---
+  duration_ms: 19712.113792
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: captured observer measures exact dependency despite nested ignored local metadata
+ok 29 - captured observer measures exact dependency despite nested ignored local metadata
+  ---
+  duration_ms: 19534.91325
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: captured observer measures exact dependency despite self-reference ignored local metadata
+ok 30 - captured observer measures exact dependency despite self-reference ignored local metadata
+  ---
+  duration_ms: 19241.477417
+  type: 'test'
+  ...
+# Subtest: exact phase inventory rejects sourcePayload even when namespace/reference looks local
+ok 31 - exact phase inventory rejects sourcePayload even when namespace/reference looks local
+  ---
+  duration_ms: 1865.749
+  type: 'test'
+  ...
+# Subtest: exact phase inventory rejects releasePayload even when namespace/reference looks local
+ok 32 - exact phase inventory rejects releasePayload even when namespace/reference looks local
+  ---
+  duration_ms: 1893.692584
+  type: 'test'
+  ...
+# Subtest: exact phase inventory rejects declaredPayload even when namespace/reference looks local
+ok 33 - exact phase inventory rejects declaredPayload even when namespace/reference looks local
+  ---
+  duration_ms: 5540.546625
+  type: 'test'
+  ...
+# Subtest: registered execution never accepts a stored-head bypass flag
+ok 34 - registered execution never accepts a stored-head bypass flag
+  ---
+  duration_ms: 1934.553541
+  type: 'test'
+  ...
+# Subtest: both parser consumers use the captured file specifier, never package-name resolution
+ok 35 - both parser consumers use the captured file specifier, never package-name resolution
+  ---
+  duration_ms: 1.076875
+  type: 'test'
+  ...
+# Subtest: capsule entry rejects unexpected nested metadata before any parser import
+ok 36 - capsule entry rejects unexpected nested metadata before any parser import
+  ---
+  duration_ms: 17801.448667
+  type: 'test'
+  ...
+# Subtest: capsule entry rejects unexpected self-reference metadata before any parser import
+ok 37 - capsule entry rejects unexpected self-reference metadata before any parser import
+  ---
+  duration_ms: 17621.423042
+  type: 'test'
+  ...
+# Subtest: explicit slug adapter binds exactly35 lessons and105 check objects
+ok 38 - explicit slug adapter binds exactly35 lessons and105 check objects
+  ---
+  duration_ms: 1.541084
+  type: 'test'
+  ...
+# Subtest: candidate cannot substitute, omit or duplicate a fixed lesson
+ok 39 - candidate cannot substitute, omit or duplicate a fixed lesson
+  ---
+  duration_ms: 0.383042
+  type: 'test'
+  ...
+# Subtest: closed candidate inventory includes actual snapshot, all metadata, bodies/tests and routes
+ok 40 - closed candidate inventory includes actual snapshot, all metadata, bodies/tests and routes
+  ---
+  duration_ms: 3.012042
+  type: 'test'
+  ...
+# Subtest: candidate rejects omitted body
+ok 41 - candidate rejects omitted body
+  ---
+  duration_ms: 1.745875
+  type: 'test'
+  ...
+# Subtest: candidate rejects duplicate inventory
+ok 42 - candidate rejects duplicate inventory
+  ---
+  duration_ms: 1.284125
+  type: 'test'
+  ...
+# Subtest: candidate rejects wrong mapping
+ok 43 - candidate rejects wrong mapping
+  ---
+  duration_ms: 1.461333
+  type: 'test'
+  ...
+# Subtest: candidate rejects missing retained asset
+ok 44 - candidate rejects missing retained asset
+  ---
+  duration_ms: 0.97975
+  type: 'test'
+  ...
+# Subtest: candidate rejects duplicate witness
+ok 45 - candidate rejects duplicate witness
+  ---
+  duration_ms: 1.815125
+  type: 'test'
+  ...
+# Subtest: candidate rejects missing coverage witness
+ok 46 - candidate rejects missing coverage witness
+  ---
+  duration_ms: 0.8925
+  type: 'test'
+  ...
+# Subtest: candidate rejects check digest changed
+ok 47 - candidate rejects check digest changed
+  ---
+  duration_ms: 1.398584
+  type: 'test'
+  ...
+# Subtest: metadata parity does not trust aggregate snapshot alone
+ok 48 - metadata parity does not trust aggregate snapshot alone
+  ---
+  duration_ms: 0.667292
+  type: 'test'
+  ...
+# Subtest: closed schema rejects unknown fields, duplicate JSON and unsafe paths
+ok 49 - closed schema rejects unknown fields, duplicate JSON and unsafe paths
+  ---
+  duration_ms: 0.388375
+  type: 'test'
+  ...
+# Subtest: only California approved projection is retired; predecessor raw binding retained
+ok 50 - only California approved projection is retired; predecessor raw binding retained
+  ---
+  duration_ms: 3.383667
+  type: 'test'
+  ...
+# Subtest: registry rejects AR regression
+ok 51 - registry rejects AR regression
+  ---
+  duration_ms: 1.636291
+  type: 'test'
+  ...
+# Subtest: registry rejects second projection removal
+ok 52 - registry rejects second projection removal
+  ---
+  duration_ms: 1.744041
+  type: 'test'
+  ...
+# Subtest: registry rejects ratchet reopened
+ok 53 - registry rejects ratchet reopened
+  ---
+  duration_ms: 1.7025
+  type: 'test'
+  ...
+# Subtest: registry rejects extra resolution
+ok 54 - registry rejects extra resolution
+  ---
+  duration_ms: 1.867458
+  type: 'test'
+  ...
+# Subtest: exact A18 scope is all35 lesson identities and105 objects, not a pass-only flag
+ok 55 - exact A18 scope is all35 lesson identities and105 objects, not a pass-only flag
+  ---
+  duration_ms: 1.305875
+  type: 'test'
+  ...
+# Subtest: QA rejects stale source
+ok 56 - QA rejects stale source
+  ---
+  duration_ms: 0.623333
+  type: 'test'
+  ...
+# Subtest: QA rejects author reviewing own work
+ok 57 - QA rejects author reviewing own work
+  ---
+  duration_ms: 0.602042
+  type: 'test'
+  ...
+# Subtest: QA rejects only 105 prior review
+ok 58 - QA rejects only 105 prior review
+  ---
+  duration_ms: 0.455292
+  type: 'test'
+  ...
+# Subtest: QA rejects unresolved QA
+ok 59 - QA rejects unresolved QA
+  ---
+  duration_ms: 0.711875
+  type: 'test'
+  ...
+# Subtest: QA rejects future review
+ok 60 - QA rejects future review
+  ---
+  duration_ms: 0.6465
+  type: 'test'
+  ...
+# Subtest: QA rejects unknown role
+ok 61 - QA rejects unknown role
+  ---
+  duration_ms: 0.594958
+  type: 'test'
+  ...
+# Subtest: QA rejects made-up approval
+ok 62 - QA rejects made-up approval
+  ---
+  duration_ms: 0.400583
+  type: 'test'
+  ...
+# Subtest: global inventory preserves eight baseline failures and exact fifteen retired references
+ok 63 - global inventory preserves eight baseline failures and exact fifteen retired references
+  ---
+  duration_ms: 1.187666
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed hidden baseline failure
+ok 64 - inventory rejects rehashed hidden baseline failure
+  ---
+  duration_ms: 0.595209
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed forged count
+ok 65 - inventory rejects rehashed forged count
+  ---
+  duration_ms: 0.586959
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed other asset replaced
+ok 66 - inventory rejects rehashed other asset replaced
+  ---
+  duration_ms: 0.570875
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed other lesson changed
+ok 67 - inventory rejects rehashed other lesson changed
+  ---
+  duration_ms: 0.91425
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed new figure omitted
+ok 68 - inventory rejects rehashed new figure omitted
+  ---
+  duration_ms: 1.219542
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed route missing new opener
+ok 69 - inventory rejects rehashed route missing new opener
+  ---
+  duration_ms: 1.036458
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed other surface changed
+ok 70 - inventory rejects rehashed other surface changed
+  ---
+  duration_ms: 0.871541
+  type: 'test'
+  ...
+# Subtest: inventory rejects rehashed replacement lesson missing
+ok 71 - inventory rejects rehashed replacement lesson missing
+  ---
+  duration_ms: 0.889125
+  type: 'test'
+  ...
+# Subtest: three distinct non-live receipts compare with stable semantics
+ok 72 - three distinct non-live receipts compare with stable semantics
+  ---
+  duration_ms: 0.55975
+  type: 'test'
+  ...
+# Subtest: receipt rejects rehashed network side effect
+ok 73 - receipt rejects rehashed network side effect
+  ---
+  duration_ms: 0.142209
+  type: 'test'
+  ...
+# Subtest: receipt rejects rehashed live permission
+ok 74 - receipt rejects rehashed live permission
+  ---
+  duration_ms: 0.111625
+  type: 'test'
+  ...
+# Subtest: receipt rejects rehashed wrong source
+ok 75 - receipt rejects rehashed wrong source
+  ---
+  duration_ms: 0.12675
+  type: 'test'
+  ...
+# Subtest: receipt rejects rehashed incomplete rollback
+ok 76 - receipt rejects rehashed incomplete rollback
+  ---
+  duration_ms: 0.10475
+  type: 'test'
+  ...
+# Subtest: receipt rejects rehashed future time
+ok 77 - receipt rejects rehashed future time
+  ---
+  duration_ms: 0.267875
+  type: 'test'
+  ...
+# Subtest: missing or duplicated execution is not a replay
+ok 78 - missing or duplicated execution is not a replay
+  ---
+  duration_ms: 0.277583
+  type: 'test'
+  ...
+# Subtest: a digest alone cannot authenticate a closure
+ok 79 - a digest alone cannot authenticate a closure
+  ---
+  duration_ms: 0.211125
+  type: 'test'
+  ...
+# Subtest: runtime rejects missing retirement, missing replacement or blindspots
+ok 80 - runtime rejects missing retirement, missing replacement or blindspots
+  ---
+  duration_ms: 4.724417
+  type: 'test'
+  ...
+# Subtest: lifecycle output recomputes closure and two immutable registry events
+ok 81 - lifecycle output recomputes closure and two immutable registry events
+  ---
+  duration_ms: 0.665583
+  type: 'test'
+  ...
+# Subtest: finalization validates complete records against exact release and main composition
+ok 82 - finalization validates complete records against exact release and main composition
+  ---
+  duration_ms: 1.82825
+  type: 'test'
+  ...
+# Subtest: finalization rejects missing activation
+ok 83 - finalization rejects missing activation
+  ---
+  duration_ms: 0.329
+  type: 'test'
+  ...
+# Subtest: finalization rejects extra runtime activation
+ok 84 - finalization rejects extra runtime activation
+  ---
+  duration_ms: 0.31225
+  type: 'test'
+  ...
+# Subtest: finalization rejects wrong main parent
+ok 85 - finalization rejects wrong main parent
+  ---
+  duration_ms: 0.485875
+  type: 'test'
+  ...
+# Subtest: finalization rejects wrong main tree
+ok 86 - finalization rejects wrong main tree
+  ---
+  duration_ms: 0.414125
+  type: 'test'
+  ...
+# Subtest: finalization rejects missing CI check
+ok 87 - finalization rejects missing CI check
+  ---
+  duration_ms: 0.433333
+  type: 'test'
+  ...
+# Subtest: finalization rejects CI wrong head
+ok 88 - finalization rejects CI wrong head
+  ---
+  duration_ms: 0.350541
+  type: 'test'
+  ...
+# Subtest: finalization rejects wrong CI repository
+ok 89 - finalization rejects wrong CI repository
+  ---
+  duration_ms: 0.766584
+  type: 'test'
+  ...
+# Subtest: finalization rejects future CI record
+ok 90 - finalization rejects future CI record
+  ---
+  duration_ms: 0.506625
+  type: 'test'
+  ...
+# Subtest: finalization rejects missing finalization role
+ok 91 - finalization rejects missing finalization role
+  ---
+  duration_ms: 0.242166
+  type: 'test'
+  ...
+# Subtest: finalization rejects duplicated independent reviewer
+ok 92 - finalization rejects duplicated independent reviewer
+  ---
+  duration_ms: 0.325083
+  type: 'test'
+  ...
+# Subtest: finalization rejects author as reviewer
+ok 93 - finalization rejects author as reviewer
+  ---
+  duration_ms: 0.310084
+  type: 'test'
+  ...
+# Subtest: finalization rejects checker author as reviewer
+ok 94 - finalization rejects checker author as reviewer
+  ---
+  duration_ms: 0.282
+  type: 'test'
+  ...
+# Subtest: finalization rejects report outside own attempt
+ok 95 - finalization rejects report outside own attempt
+  ---
+  duration_ms: 0.249959
+  type: 'test'
+  ...
+# Subtest: finalization rejects extra finalization source change
+ok 96 - finalization rejects extra finalization source change
+  ---
+  duration_ms: 0.986
+  type: 'test'
+  ...
+# Subtest: finalization rejects checker drift at storage
+ok 97 - finalization rejects checker drift at storage
+  ---
+  duration_ms: 0.784125
+  type: 'test'
+  ...
+# Subtest: retirement coverage supports multiple retained related lessons without a positional bijection
+ok 98 - retirement coverage supports multiple retained related lessons without a positional bijection
+  ---
+  duration_ms: 1.32075
+  type: 'test'
+  ...
+# Subtest: a related witness cannot masquerade as a new opener or point to a different body
+ok 99 - a related witness cannot masquerade as a new opener or point to a different body
+  ---
+  duration_ms: 2.149208
+  type: 'test'
+  ...
+# Subtest: ownership correction is restricted to the two A05 mappings and resolution checks
+ok 100 - ownership correction is restricted to the two A05 mappings and resolution checks
+  ---
+  duration_ms: 0.129417
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects extra direct conflict
+ok 101 - A23-R3 rejects extra direct conflict
+  ---
+  duration_ms: 1.442875
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects extra correlated conflict
+ok 102 - A23-R3 rejects extra correlated conflict
+  ---
+  duration_ms: 1.520291
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects extra opaque conflict
+ok 103 - A23-R3 rejects extra opaque conflict
+  ---
+  duration_ms: 1.258916
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects copied digest with falsified count
+ok 104 - A23-R3 rejects copied digest with falsified count
+  ---
+  duration_ms: 1.2845
+  type: 'test'
+  ...
+# Subtest: A23-R4 review cannot predate release
+ok 105 - A23-R4 review cannot predate release
+  ---
+  duration_ms: 0.443333
+  type: 'test'
+  ...
+# Subtest: A23-R4 review cannot predate main
+ok 106 - A23-R4 review cannot predate main
+  ---
+  duration_ms: 0.336875
+  type: 'test'
+  ...
+# Subtest: A23-R4 review cannot predate pr-ci
+ok 107 - A23-R4 review cannot predate pr-ci
+  ---
+  duration_ms: 0.330917
+  type: 'test'
+  ...
+# Subtest: A23-R4 review cannot predate main-ci
+ok 108 - A23-R4 review cannot predate main-ci
+  ---
+  duration_ms: 0.309958
+  type: 'test'
+  ...
+# Subtest: CI records identify PR304 and use null for the main push
+ok 109 - CI records identify PR304 and use null for the main push
+  ---
+  duration_ms: 0.20975
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects same-scope identity/ambiguity drift in correlatedConflictDigest
+ok 110 - A23-R3 rejects same-scope identity/ambiguity drift in correlatedConflictDigest
+  ---
+  duration_ms: 0.076625
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects same-scope identity/ambiguity drift in opaqueConflictDigest
+ok 111 - A23-R3 rejects same-scope identity/ambiguity drift in opaqueConflictDigest
+  ---
+  duration_ms: 0.056667
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects same-scope identity/ambiguity drift in candidateSetDigest
+ok 112 - A23-R3 rejects same-scope identity/ambiguity drift in candidateSetDigest
+  ---
+  duration_ms: 0.051792
+  type: 'test'
+  ...
+# Subtest: A23-R3 rejects same-scope identity/ambiguity drift in opaqueConflictCount
+ok 113 - A23-R3 rejects same-scope identity/ambiguity drift in opaqueConflictCount
+  ---
+  duration_ms: 0.049041
+  type: 'test'
+  ...
+# Subtest: finalization cannot use a different PR with the same head or a PR number on main
+ok 114 - finalization cannot use a different PR with the same head or a PR number on main
+  ---
+  duration_ms: 0.933375
+  type: 'test'
+  ...
+# Subtest: actual Linux source retirement retains the exact legacy comment marker
+ok 115 - actual Linux source retirement retains the exact legacy comment marker
+  ---
+  duration_ms: 0.099792
+  type: 'test'
+  ...
+# Subtest: actual Linux source retirement cannot suppress the marker or change opaque identity
+ok 116 - actual Linux source retirement cannot suppress the marker or change opaque identity
+  ---
+  duration_ms: 0.208917
+  type: 'test'
+  ...
+# Subtest: marker correlation reads each eligible file once without changing per-candidate counts
+ok 117 - marker correlation reads each eligible file once without changing per-candidate counts
+  ---
+  duration_ms: 26.091417
+  type: 'test'
+  ...
+# Subtest: marker correlation propagates authoritative file failures
+ok 118 - marker correlation propagates authoritative file failures
+  ---
+  duration_ms: 0.139917
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: real Git fixture enforces evidence then first-added execution manifest/descriptor
+ok 119 - real Git fixture enforces evidence then first-added execution manifest/descriptor
+  ---
+  duration_ms: 8981.970875
+  type: 'test'
+  ...
+# Subtest: versioned ledger belongs to exactly the selected attempt
+ok 120 - versioned ledger belongs to exactly the selected attempt
+  ---
+  duration_ms: 9289.681833
+  type: 'test'
+  ...
+# Subtest: v2 public bootstrap rejects different manifest prefix before loading its ledger
+ok 121 - v2 public bootstrap rejects different manifest prefix before loading its ledger
+  ---
+  duration_ms: 1998.963209
+  type: 'test'
+  ...
+# Subtest: v2 public bootstrap rejects invalid attempt identity before loading its ledger
+ok 122 - v2 public bootstrap rejects invalid attempt identity before loading its ledger
+  ---
+  duration_ms: 1945.926875
+  type: 'test'
+  ...
+# Subtest: v2 public bootstrap rejects legacy global ledger before loading its ledger
+ok 123 - v2 public bootstrap rejects legacy global ledger before loading its ledger
+  ---
+  duration_ms: 1884.989875
+  type: 'test'
+  ...
+# Subtest: v2 public bootstrap rejects other attempt ledger before loading its ledger
+ok 124 - v2 public bootstrap rejects other attempt ledger before loading its ledger
+  ---
+  duration_ms: 1715.655666
+  type: 'test'
+  ...
+# Subtest: v2 descendant attempt preserves an actual v1 R E X history without reusing first-add paths
+ok 125 - v2 descendant attempt preserves an actual v1 R E X history without reusing first-add paths
+  ---
+  duration_ms: 37739.34275
+  type: 'test'
+  ...
+# Subtest: intermediate execution parent is rejected
+ok 126 - intermediate execution parent is rejected
+  ---
+  duration_ms: 2036.545625
+  type: 'test'
+  ...
+# Subtest: future canonical receipt at registered execution is rejected
+ok 127 - future canonical receipt at registered execution is rejected
+  ---
+  duration_ms: 2119.925209
+  type: 'test'
+  ...
+# Subtest: a declared wrong source tree cannot be used
+ok 128 - a declared wrong source tree cannot be used
+  ---
+  duration_ms: 1918.54275
+  type: 'test'
+  ...
+# Subtest: source bytes and executable modes are measured independently of clean flags
+ok 129 - source bytes and executable modes are measured independently of clean flags
+  ---
+  duration_ms: 337.244709
+  type: 'test'
+  ...
+# Subtest: assume-unchanged and sparse flags fail the full clean materialization guard
+ok 130 - assume-unchanged and sparse flags fail the full clean materialization guard
+  ---
+  duration_ms: 265.128708
+  type: 'test'
+  ...
+# Subtest: untracked writer content is not ignored by clean checks
+ok 131 - untracked writer content is not ignored by clean checks
+  ---
+  duration_ms: 248.311959
+  type: 'test'
+  ...
+# Subtest: hardlinks symlinks traversal and wrong raw hashes are rejected
+ok 132 - hardlinks symlinks traversal and wrong raw hashes are rejected
+  ---
+  duration_ms: 261.789334
+  type: 'test'
+  ...
+# Subtest: grafts replacement refs and shallow repositories are rejected
+ok 133 - grafts replacement refs and shallow repositories are rejected
+  ---
+  duration_ms: 625.052708
+  type: 'test'
+  ...
+# Subtest: storage transport must be a distinct descendant and cannot smuggle source changes
+ok 134 - storage transport must be a distinct descendant and cannot smuggle source changes
+  ---
+  duration_ms: 560.500375
+  type: 'test'
+  ...
+# Subtest: CLI requires explicit execute and does not emit raw supplied values
+ok 135 - CLI requires explicit execute and does not emit raw supplied values
+  ---
+  duration_ms: 279.669542
+  type: 'test'
+  ...
+# Subtest: public worker budgets cover complete validation overhead without caller overrides
+ok 136 - public worker budgets cover complete validation overhead without caller overrides
+  ---
+  duration_ms: 5263.564625
+  type: 'test'
+  ...
+# Subtest: release bundle is exactly scoped and no actual candidate approval is stored in source
+ok 137 - release bundle is exactly scoped and no actual candidate approval is stored in source
+  ---
+  duration_ms: 0.1275
+  type: 'test'
+  ...
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# hint: Support for <GIT_DIR>/info/grafts is deprecated
+# hint: and will be removed in a future Git version.
+# hint:
+# hint: Please use "git replace --convert-graft-file"
+# hint: to convert the grafts into replace refs.
+# hint:
+# hint: Turn this message off by running
+# hint: "git config set advice.graftFileDeprecated false"
+# Subtest: snapshot materializes committed source and verifies bytes after the callback
+ok 138 - snapshot materializes committed source and verifies bytes after the callback
+  ---
+  duration_ms: 300.7785
+  type: 'test'
+  ...
+# Subtest: CLI rejects inherited loader hooks before parsing any authority
+ok 139 - CLI rejects inherited loader hooks before parsing any authority
+  ---
+  duration_ms: 27.550333
+  type: 'test'
+  ...
+# Subtest: release authentication binds exact immutable files, ledger first addition, dependencies and two review identities
+ok 140 - release authentication binds exact immutable files, ledger first addition, dependencies and two review identities
+  ---
+  duration_ms: 19344.206917
+  type: 'test'
+  ...
+# Subtest: bootstrap literal bundle and parser anchor match the reviewed contract
+ok 141 - bootstrap literal bundle and parser anchor match the reviewed contract
+  ---
+  duration_ms: 0.380417
+  type: 'test'
+  ...
+# Subtest: A23-R1 changing dependency bytes and later ledger cannot reuse freeze reviews
+ok 142 - A23-R1 changing dependency bytes and later ledger cannot reuse freeze reviews
+  ---
+  duration_ms: 25074.62475
+  type: 'test'
+  ...
+# Subtest: A23-R2 real Git fixture with unchanged receipts is eligible for finalization proof
+ok 143 - A23-R2 real Git fixture with unchanged receipts is eligible for finalization proof
+  ---
+  duration_ms: 8819.464125
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects deleted receipt continuity in real Git history
+ok 144 - A23-R2 rejects deleted receipt continuity in real Git history
+  ---
+  duration_ms: 6163.364041
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects changed receipt continuity in real Git history
+ok 145 - A23-R2 rejects changed receipt continuity in real Git history
+  ---
+  duration_ms: 6496.948042
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects mode receipt continuity in real Git history
+ok 146 - A23-R2 rejects mode receipt continuity in real Git history
+  ---
+  duration_ms: 6499.156042
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects extra receipt continuity in real Git history
+ok 147 - A23-R2 rejects extra receipt continuity in real Git history
+  ---
+  duration_ms: 536.34575
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects unrelated-storage receipt continuity in real Git history
+ok 148 - A23-R2 rejects unrelated-storage receipt continuity in real Git history
+  ---
+  duration_ms: 6361.266292
+  type: 'test'
+  ...
+# Subtest: A23-R2 rejects storage-extra receipt continuity in real Git history
+ok 149 - A23-R2 rejects storage-extra receipt continuity in real Git history
+  ---
+  duration_ms: 5982.385125
+  type: 'test'
+  ...
+# Subtest: A23-R5 actual worker rejects duplicate-key canonical JSON before legacy consumer parsing
+ok 150 - A23-R5 actual worker rejects duplicate-key canonical JSON before legacy consumer parsing
+  ---
+  duration_ms: 46.095375
+  type: 'test'
+  ...
+# Subtest: A23-R5 actual worker rejects invalid-utf8 canonical JSON before legacy consumer parsing
+ok 151 - A23-R5 actual worker rejects invalid-utf8 canonical JSON before legacy consumer parsing
+  ---
+  duration_ms: 47.330541
+  type: 'test'
+  ...
+# Subtest: successor Manifest explicitly binds draft PR304 while preserving source provenance separately
+ok 152 - successor Manifest explicitly binds draft PR304 while preserving source provenance separately
+  ---
+  duration_ms: 174.611417
+  type: 'test'
+  ...
+# Subtest: A23-R5 actual worker rejects duplicate-key public JSON at the complete consumer boundary
+ok 153 - A23-R5 actual worker rejects duplicate-key public JSON at the complete consumer boundary
+  ---
+  duration_ms: 44.076792
+  type: 'test'
+  ...
+# Subtest: A23-R5 actual worker rejects duplicate-key reachable JSON at the complete consumer boundary
+ok 154 - A23-R5 actual worker rejects duplicate-key reachable JSON at the complete consumer boundary
+  ---
+  duration_ms: 48.78725
+  type: 'test'
+  ...
+1..154
+# tests 154
+# suites 0
+# pass 154
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 163498.958208

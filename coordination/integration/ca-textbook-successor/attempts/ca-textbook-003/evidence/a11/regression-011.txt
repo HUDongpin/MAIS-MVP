@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "source-a11-attempt003-post-r4-consumption.v1",
+  "description": "Actual post-R4 source/evidence migration and regression-consumption review; no new content/browser/native run.",
+  "verification": {
+    "reviewedAt": "2026-10-29T15:55:38.567Z",
+    "reviewer": "/root/pr304_native_a23",
+    "role": "source-A11",
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+    "checkerReleaseCommit": "34dbf1345edf8ac1a604bcbc19ea15a2efbcc97d",
+    "attemptId": "ca-textbook-003",
+    "version": "ca-textbook-successor.v3",
+    "candidateDigest": "4c1d8bd68e527889feb7732be58706bdadd89913938f006cbc39d1ca1455a260",
+    "dispositionDigest": "c85df846b879597893c810467fa5b3d874b559af697c0f84689b137ec5cc3eaf",
+    "assetsDigest": "b74fdb7101a989a050a7da1e4dc5969b8b14048d48d29bea695ecaf76fb30ee1",
+    "productCandidateFiles": 137,
+    "explicitRemovals": 2,
+    "onlyCandidateChange": "15 coverage report paths move from attempt002 to attempt003",
+    "all137CommittedBindingsVerified": true,
+    "allAssetReportBytesUnchanged": true,
+    "mappingChecksBodiesMetadataUnchanged": true,
+    "auditBytesUnchanged": true,
+    "registryOnlyTargetCandidateDigestChanged": true,
+    "sourceInventoryDigest": "ff2bdd1a53161ec7c05be2961e5d1ce1525fb22240b4fc282075caa567b5a85f",
+    "rootFullTests": {
+      "producer": "/root",
+      "pass": 154,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "2fd2c5e345204965d47d6b2a1b15da20596127cadcea12397770ac991561402c",
+      "inputDigest": "876af33cfe89cc01061bd2bb822e273d6602f46e6599b0e7f60992817882b30c",
+      "runBeforeR4": true,
+      "executedByThisReviewer": false
+    },
+    "negativeCategories": {
+      "candidate-id-drift": "candidate cannot substitute, omit or duplicate a fixed lesson",
+      "candidate-bytes": "source bytes and executable modes are measured independently of clean flags",
+      "other-registry-drift": "registry rejects AR regression",
+      "stale-qa": "QA rejects stale source",
+      "wrong-parent": "intermediate execution parent is rejected",
+      "future-receipt": "future canonical receipt at registered execution is rejected",
+      "unsafe-side-effects": "receipt rejects rehashed network side effect",
+      "forged-finalization": "a digest alone cannot authenticate a closure"
+    },
+    "ownTargetedTests": 4,
+    "ownActualV2ToV3HistoryCases": 2,
+    "ownVersionBoundaryPairs": 3,
+    "newContentTestsExecuted": false,
+    "globalInventoryPassed": false,
+    "nativeAttemptExecuted": false,
+    "oldAttempt002LocalPassAndCiFailureSeparate": true,
+    "liveAllowed": false
+  },
+  "adapter": {
+    "at": "2026-10-29T15:55:58.604Z",
+    "candidateDigest": "4c1d8bd68e527889feb7732be58706bdadd89913938f006cbc39d1ca1455a260",
+    "allProductPathsAdmitted": true,
+    "closedSchemaAndMetadataParityPassed": true,
+    "nativeAttemptExecuted": false
+  },
+  "checkerCommit": {
+    "reviewer": "/root/pr304_native_a23",
+    "verifiedAt": "2026-10-29T15:53:43.923Z",
+    "releaseCommit": "34dbf1345edf8ac1a604bcbc19ea15a2efbcc97d",
+    "releaseCommitEpoch": 1793289112,
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+    "sourceToReleasePaths": 30,
+    "inputDigest": "876af33cfe89cc01061bd2bb822e273d6602f46e6599b0e7f60992817882b30c",
+    "bundleDigest": "8aebe7c91c3e7d314eebb56be2ca5b2baa0951693b85d34ab2c3af44afdacdd6",
+    "all33ModeBlobAndByteBindingsVerified": true,
+    "oldREXFALAncestryPreserved": true,
+    "sharedWorkflowExactlySourceBaseline": true,
+    "oldPayloadActivationAndNewAttemptAbsentAtR4": true,
+    "nativeAttemptExecuted": false
+  },
+  "priorSourceEvidence": {
+    "recordSha256": "ea1e6a41731584a69fb293749154cf37c106b59c30261763cf17e6ba059e7fdf",
+    "reportSha256": "09c34a76e147a596343a1b297fb5711fa28af09307c3feddf87c2eace6a9d65b"
+  },
+  "rawRegressions": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-001.txt",
+      "sha256": "f827686c0b8dfc88f443d733792455237cfc79fc79fe22e7f6b20a34d78e033c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-002.txt",
+      "sha256": "9d341652bf99264be3636936c8cd991c7b5553274ff04a4e2e88d4c4a02621ca"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-003.txt",
+      "sha256": "c01fc684172f64397a8396e7f2302fcf8def864d1eea9660aa14cc55c1f12ccc"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-004.txt",
+      "sha256": "ac21d2eac7c3028b1d7d0a9b4b3995fc6ca235e23d4e7a66f3870c44e3b8e24d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-005.txt",
+      "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-006.txt",
+      "sha256": "dcd18ca5293d1d426258e23c66c14ef23f52c33827f3567ee7dd0ec83d2e891d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-007.txt",
+      "sha256": "2fd2c5e345204965d47d6b2a1b15da20596127cadcea12397770ac991561402c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-008.txt",
+      "sha256": "a2944000286bd822b1725dfefb4df78b3c330413f1ad4ab27c2baef9f30a53a5"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-009.txt",
+      "sha256": "fd2fe41d1ded736fab492e8aefde464e3d30dd1b4ef730d14ae1503d31755919"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/evidence/a11/regression-010.txt",
+      "sha256": "7693dc01daf939b083dc44ebba4625e86763af793dabe266724184f0898cb5f3"
+    }
+  ]
+}
