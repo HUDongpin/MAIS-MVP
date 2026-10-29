@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "source-a11-attempt002-post-r3-consumption.v1",
+  "description": "Actual post-R3 static source/evidence migration verification; no content/browser/native run invented.",
+  "verification": {
+    "reviewedAt": "2026-10-29T11:30:38.288Z",
+    "reviewer": "/root/pr304_native_a23",
+    "role": "source-A11",
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+    "checkerReleaseCommit": "9e6c971b4f80a2729a8b5892f33c133338a83809",
+    "attemptId": "ca-textbook-002",
+    "version": "ca-textbook-successor.v2",
+    "candidateDigest": "2c24f1895be6ad16b6877b77def687d5d8959fa7eeaff360085a9ee4d5853402",
+    "dispositionDigest": "3164b3f6fc0e623413629a798459aad7214869b70585b7414771d74f2689dfaf",
+    "assetsDigest": "4ce6ad7ebc648f4e80182fa587c1f007be9b0cefe7a7daf430e1519df9be33c9",
+    "productCandidateFiles": 137,
+    "explicitRemovals": 2,
+    "onlyCandidateChange": "15 coverage report paths move from attempt001 to attempt002",
+    "all137CommittedBindingsVerified": true,
+    "allAssetReportBytesUnchanged": true,
+    "mappingChecksBodiesMetadataUnchanged": true,
+    "auditByteUnchanged": true,
+    "registryOnlyTargetCandidateDigestChanged": true,
+    "sourceInventoryDigest": "ff2bdd1a53161ec7c05be2961e5d1ce1525fb22240b4fc282075caa567b5a85f",
+    "rootFullTests": {
+      "producer": "/root",
+      "pass": 153,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "2e7c6a9f7e0d1a78e7ae891f39bcda22da8d080ad3c0965ee29a468e7fd48d12",
+      "inputDigest": "e34ae08a0fc424a51d07dbd465e3583286cfa71c9602d35af19b8d8f6040963f",
+      "runBeforeR3": true,
+      "executedByThisReviewer": false
+    },
+    "negativeCategories": {
+      "candidate-id-drift": "candidate cannot substitute, omit or duplicate a fixed lesson",
+      "candidate-bytes": "source bytes and executable modes are measured independently of clean flags",
+      "other-registry-drift": "registry rejects AR regression",
+      "stale-qa": "QA rejects stale source",
+      "wrong-parent": "intermediate execution parent is rejected",
+      "future-receipt": "future canonical receipt at registered execution is rejected",
+      "unsafe-side-effects": "receipt rejects rehashed network side effect",
+      "forged-finalization": "a digest alone cannot authenticate a closure"
+    },
+    "ownTargetedTests": 10,
+    "ownMarkerEquivalenceCases": 128,
+    "newContentTestsExecuted": false,
+    "globalInventoryPassed": false,
+    "nativeAttemptExecuted": false,
+    "liveAllowed": false
+  },
+  "adapter": {
+    "at": "2026-10-29T11:31:19.022Z",
+    "candidateDigest": "2c24f1895be6ad16b6877b77def687d5d8959fa7eeaff360085a9ee4d5853402",
+    "allProductPathsAdmitted": true,
+    "closedSchemaAndMetadataParityPassed": true,
+    "nativeAttemptExecuted": false
+  },
+  "checkerCommit": {
+    "at": "2026-10-29T11:27:59.724Z",
+    "reviewer": "/root/pr304_native_a23",
+    "releaseCommit": "9e6c971b4f80a2729a8b5892f33c133338a83809",
+    "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+    "sourceToReleasePaths": 30,
+    "inputDigest": "e34ae08a0fc424a51d07dbd465e3583286cfa71c9602d35af19b8d8f6040963f",
+    "bundleDigest": "a96c8b6f95ef95508c35720e54f3b771e9b12194d735c41a4358d8cae1a77659",
+    "bundleFiles": 33,
+    "allModesBlobsAndHashesVerified": true,
+    "oldFailedREXAncestorsPreserved": true,
+    "oldPayloadAndTemporaryWorkflowAbsentAtR3": true,
+    "newLedgerAndAttemptAbsentAtR3": true,
+    "realNativeAttemptExecuted": false
+  },
+  "priorSourceEvidence": {
+    "recordSha256": "6a676aa4e1649f2ee7e6aa65b2c01809554ab0b7de61a371083eba6a1c5882e0",
+    "reportSha256": "8517fe38c38e508f51ad4a015ab8573d20163eb50194ce8f6dcb5cc36d16071d"
+  },
+  "rawRegressions": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-001.txt",
+      "sha256": "f827686c0b8dfc88f443d733792455237cfc79fc79fe22e7f6b20a34d78e033c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-002.txt",
+      "sha256": "9d341652bf99264be3636936c8cd991c7b5553274ff04a4e2e88d4c4a02621ca"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-003.txt",
+      "sha256": "c01fc684172f64397a8396e7f2302fcf8def864d1eea9660aa14cc55c1f12ccc"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-004.txt",
+      "sha256": "ac21d2eac7c3028b1d7d0a9b4b3995fc6ca235e23d4e7a66f3870c44e3b8e24d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-005.txt",
+      "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-006.txt",
+      "sha256": "dcd18ca5293d1d426258e23c66c14ef23f52c33827f3567ee7dd0ec83d2e891d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-007.txt",
+      "sha256": "2e7c6a9f7e0d1a78e7ae891f39bcda22da8d080ad3c0965ee29a468e7fd48d12"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-008.txt",
+      "sha256": "5477e1392bd0c66114097c4f597e860150fa3caf185ea0c3f9d9bba17a4f87ae"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a11/regression-009.txt",
+      "sha256": "c60a04d2d81158dfeffe2c2eb09556cd780c4d0c30d057d74c4e8f28f8595bda"
+    }
+  ]
+}

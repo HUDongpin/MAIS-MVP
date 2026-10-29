@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 3,
+  "candidateSha": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "buildId": "HbU0MJd-0kP7iOKha49jw",
+  "distDir": ".tmp/china-lesson-e2e-runtime/outputs/pr225-source-98d086c8-claim-fixed/next-dist",
+  "sourceTreeClean": true,
+  "sourceTreeStable": true,
+  "buildStartedAt": "2026-10-29T06:50:42.528Z",
+  "completedAt": "2026-10-29T06:52:14.986Z",
+  "artifactDigests": {
+    "BUILD_ID": "d60c391796489a13de5f9dda00632b6e01849ff1727af427af4d66ad2f39f766",
+    "required-server-files.json": "766953e5cea0cd6041b0fc846f07723af25c375d58489d15df4e15bd2b6a215e",
+    "server/app-paths-manifest.json": "b41b18b6b813c5779775bfdba2a5886d6a6f2f22251a575d33d7cbb2c16aed1f"
+  },
+  "artifactTree": {
+    "algorithm": "sha256",
+    "exclusions": [
+      "mais-build-attestation.json",
+      "cache/**",
+      "diagnostics/**",
+      "trace",
+      "trace-build"
+    ],
+    "fileCount": 2627,
+    "totalBytes": 138749928,
+    "root": "f46ae94acfdf2741a085c63fd3ee0a22a9847ad8f4e053e9690e8d92da313782"
+  }
+}

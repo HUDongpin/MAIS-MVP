@@ -1,0 +1,225 @@
+{
+  "schemaVersion": "ca-textbook-checker-ledger.v1",
+  "version": "ca-textbook-successor.v2",
+  "releaseCommit": "9e6c971b4f80a2729a8b5892f33c133338a83809",
+  "bundleDigest": "a96c8b6f95ef95508c35720e54f3b771e9b12194d735c41a4358d8cae1a77659",
+  "files": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/adapter-provenance.v1.json",
+      "mode": "100644",
+      "objectId": "035bd0a17d71b77d7bfefda555aa284bfc631b2e",
+      "sha256": "35bd5940fd09757d1be8af15376f51642fdcbcb8d47e8070ecf7a9e5ed1fcca1"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/adapter.test.mjs",
+      "mode": "100644",
+      "objectId": "15cf79d40cb53c67523fa1b5ebf3d536fa317d75",
+      "sha256": "3cbae9d9d4ed55233947cc44de65f9c5db0ab47d1d24acce2fe95062a3b4d684"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/audit.mjs",
+      "mode": "100644",
+      "objectId": "8089c99cda7b995a65c04b8075f1ef4c530355fe",
+      "sha256": "525b170e13015c49ad7f9ed3f962e13156295ee5d4a9d0da56dc2173ff36d555"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/candidate.mjs",
+      "mode": "100644",
+      "objectId": "a8783a352eb1a308212dc816bc87cc53b1447462",
+      "sha256": "022115e4bbd22acda3a6e35c339b1178f92f3d70014b9ca475aac1782ea8a24b"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.mjs",
+      "mode": "100644",
+      "objectId": "8cc5a10e2404da966c46a536c8730f0334d0966b",
+      "sha256": "b9d468b7dce3d15929b4fcc651a5ad5d8934c9946380c303e0e63d2763ede48f"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/canonical-observer-ca-v1.patch",
+      "mode": "100644",
+      "objectId": "db22e665a48f26daaee4b7e8d147eca4c6679863",
+      "sha256": "b5d4ab981997ad0c8863f41f69f0cdd4d5640ada86bb455d770204010689bb5c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/canonical-transition.json",
+      "mode": "100644",
+      "objectId": "d334345027ae18b8283fca1d82a83906e0f0459d",
+      "sha256": "460baec00943a7eae45c42211d553ed697e1cf584c78527924309281e34e7802"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/capsule-entry.mjs",
+      "mode": "100644",
+      "objectId": "538d940ab90fced946c10e4a400e8acef3b59564",
+      "sha256": "51ccb1132cfc946b9625468a5734c2b9c0160f7c7e768c9d91997e9d9a256af9"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/capsule.mjs",
+      "mode": "100644",
+      "objectId": "fdd80bd36da813c56ed7cbdc28b553f42002f4f0",
+      "sha256": "938178caadb671ec3d92c00837d04f280b3ca6d9a4f7088e62d2ec6dd4368e49"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/capsule.test.mjs",
+      "mode": "100644",
+      "objectId": "f17a3c3a671d67c65145d1ef1814ee817aa31da2",
+      "sha256": "cafbeed53727d68b14a6e379e845d5fbc1763973816ac32dc674ce1c198a683f"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/common.mjs",
+      "mode": "100644",
+      "objectId": "54b59ce20e574292a9a01be584621182c3219a74",
+      "sha256": "ecc53e44ea4ea4fe9cf092da39d6786fc17f3fac0812d670230797f36489f9fe"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/constants.mjs",
+      "mode": "100644",
+      "objectId": "89a3f534af8aa796b480e2890db81a1f51e4c766",
+      "sha256": "da4acbe3c7cd230186caa6d44fb227c51fb6fd4849d7dc6d31316c2cc79c08a7"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/contract.mjs",
+      "mode": "100644",
+      "objectId": "db4bbd9256b990033509af4b357c5d5bc83e8754",
+      "sha256": "46ca7971b258cc36a03271f6b6b3fed5b8c1cfd9d839ba8e523847051a13926d"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/contract.test.mjs",
+      "mode": "100644",
+      "objectId": "17a4cef8c340c463052f81c5c0fb402c6515279b",
+      "sha256": "7ad4d28329517a666b8e29e671cd8d5957bbc9007428cdb1fede2cdd1cadcbda"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/evidence.mjs",
+      "mode": "100644",
+      "objectId": "4072bc0c1a1f55211fdb32ab46d756a973cdccf3",
+      "sha256": "1e352acad00f698da1f17d672359918a7bb2af9ff3c033866d0ef8694aa2530c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/observer.mjs",
+      "mode": "100644",
+      "objectId": "65dcce404563250cc9d97836024a3e9d8577c315",
+      "sha256": "0ab7531efe709f6446a0c99a02e2ff06cc782131c005f397c9f190ec624770c7"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/operation.mjs",
+      "mode": "100644",
+      "objectId": "09f7659cf48fda5e2dc6fa8d97f91055a37608d5",
+      "sha256": "f3220c20eef0321729f51697a97d1179551f05998dabd033740a152fc4145b31"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/phase.mjs",
+      "mode": "100644",
+      "objectId": "61ead3f2572297cb45379429536d65086a42bc65",
+      "sha256": "dc5b50ab981ed64f9a30d0a6a389a684efd4b43ae5071c58032f2a098c5ad2c7"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/promotion.mjs",
+      "mode": "100644",
+      "objectId": "cca3380e2b9e6e65d89196c74c550504ed987e2d",
+      "sha256": "85b8d458f1595b33bbdbf9d546e02194d008ec28a74438020b07c2d1e8351fb1"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/receipts.mjs",
+      "mode": "100644",
+      "objectId": "4e5e7038edc2f30226bfb40675a6845f8b9cd2b2",
+      "sha256": "f60350898a7d80e3c172c770d408c399264e9f1134473766e677af4daced4f0c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/repository.mjs",
+      "mode": "100644",
+      "objectId": "cc629b9dd285b5e8e29d6ffb132405d35e4f1f48",
+      "sha256": "ae850854a2b7a2222061531dbba82b77b0a8e59db68dbe792cbcd00d8a280e0e"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/repository.test.mjs",
+      "mode": "100644",
+      "objectId": "b149e498b55a7a53f028a4ea7b94ac8af63f55db",
+      "sha256": "2e5405eb974b82e28733487bcf2a55b67e6a776b566e0f6d794547cedb4497d0"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/runtime.mjs",
+      "mode": "100644",
+      "objectId": "9a8b320014f14502638eaf122e4cb0a08c22fe93",
+      "sha256": "db181f1ca204977641ef06657904a49fe89a22927a4e61d9563062f3e9a9d574"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/schema.mjs",
+      "mode": "100644",
+      "objectId": "a90aca1dfa434042076dfcf5f6653d14cecf13ee",
+      "sha256": "efc125a82e4a4861299316b686976f67e2a213481771be663c50ef6723a7af9b"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/schemas.json",
+      "mode": "100644",
+      "objectId": "8d9a3feb4b0a97eaf63f1a3c57e8f8deb1ed1716",
+      "sha256": "caaf1deea437ccac4f1d8b936674910c06df1d1db3de1dc3dbdb58a133966817"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/storage-loader-policy-v1.mjs",
+      "mode": "100644",
+      "objectId": "b143a6bc25b34dbd348ee67c67d7633138379813",
+      "sha256": "a84d38c4ac06eea500a4d937d6a3b1f32612da696f1ebbdf28e6b6078701eb3a"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/storage-loader-profile.v1.json",
+      "mode": "100644",
+      "objectId": "b084a485f88768317da02a756ac99f8e5d146bd1",
+      "sha256": "9333217d89023efe47a5f872b9b0c34dabc6ed52eb46185f9594434643c4e7aa"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/test-fixtures.mjs",
+      "mode": "100644",
+      "objectId": "036e8cd9d2b7363e5d7b4042789ba5ac25b877f7",
+      "sha256": "9b65115cc934d2c2787ad109ccbbd32fe5e0476ba1013edd400a4c4c53c114cb"
+    },
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "mode": "100644",
+      "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c",
+      "sha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+    },
+    {
+      "path": "lib/server/mediaOwnerErasure.ts",
+      "mode": "100644",
+      "objectId": "27327534fac01df17d0e35a2d83e9f81bf5fcb49",
+      "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+    },
+    {
+      "path": "package-lock.json",
+      "mode": "100644",
+      "objectId": "554f5666078a3953988ec0d995389ceea5880c30",
+      "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "objectId": "95f10f0d7b615bc65d4bf36330e0351e78d5eaaa",
+      "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f"
+    },
+    {
+      "path": "scripts/promotion-workflow-json-guard.mjs",
+      "mode": "100644",
+      "objectId": "1f57118d2f9d7beabf613e0c8a7a06dadcb4659c",
+      "sha256": "b7b919123df63442012446f704bd454f0721b2dcbed4f8aa824d4d5180ce88e5"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "typescript",
+      "version": "5.8.3",
+      "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+      "fileCount": 130,
+      "treeDigest": "5d20297c46dda5c56c1634b953e2fd33972c9dab2e6426fd0d1d8ccc119610dd"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/checker/a11.json",
+      "sha256": "ea4bc56bec960d6a33c451afc7386ebb9d99e769209c89ad47bf758d29a573c7"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/checker/a23.json",
+      "sha256": "395882158f71d7f77216d2016f05aa81a02f71a788b09a5a26035d45ab139b41"
+    }
+  ]
+}

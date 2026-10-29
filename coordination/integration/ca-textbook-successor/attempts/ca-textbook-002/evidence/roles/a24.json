@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "ca-textbook-evidence.v1",
+  "role": "A24",
+  "reviewer": {
+    "sessionId": "/root",
+    "independence": "coordinator-execution"
+  },
+  "reviewedAt": "2026-10-29T11:30:35.109Z",
+  "sourceCommit": "98d086c83aa4d37d819d4121570b7526c8cb9c06",
+  "sourceTree": "a8a59f09dd610d533d6d99df39e6242eed185835",
+  "checkerReleaseCommit": "9e6c971b4f80a2729a8b5892f33c133338a83809",
+  "candidateDigest": "2c24f1895be6ad16b6877b77def687d5d8959fa7eeaff360085a9ee4d5853402",
+  "report": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/roles/a24.md",
+    "sha256": "94482db3b29a3efca51a2d965fdd23d53a8237bf6b2a8d0c80fa1da666ea88c8"
+  },
+  "details": {
+    "assetsDigest": "4ce6ad7ebc648f4e80182fa587c1f007be9b0cefe7a7daf430e1519df9be33c9",
+    "figureFileDigest": "97631bce6b439475b23a4d6acb28aedde93466614d54f3c48775e1c69c866374",
+    "baselineInventory": {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a24/baseline-inventory.json",
+      "sha256": "a7b6dfe9c4c13544a196c6887b9054339886ed3a5b992652765156486d430134"
+    },
+    "currentInventory": {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-002/evidence/a24/current-inventory.json",
+      "sha256": "8f0c302833589c4faa6f5a0551745e7f9d35632b57ed0c6fab7c1cda0436c805"
+    },
+    "unresolvedReplacementFindings": 0,
+    "baselineFailuresPreserved": true
+  },
+  "liveAllowed": false
+}

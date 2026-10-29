@@ -1,0 +1,1582 @@
+TAP version 13
+# Subtest: every advertised rule is the map the lesson actually applies, and every one of them is rigid
+ok 1 - every advertised rule is the map the lesson actually applies, and every one of them is rigid
+  ---
+  duration_ms: 3.084125
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps both triangles congruent, inside the grid and inside the viewBox
+ok 2 - every reachable state keeps both triangles congruent, inside the grid and inside the viewBox
+  ---
+  duration_ms: 4.729208
+  type: 'test'
+  ...
+# Subtest: the worked example is a half turn about the origin, checked vertex by vertex
+ok 3 - the worked example is a half turn about the origin, checked vertex by vertex
+  ---
+  duration_ms: 0.185334
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the only rule that carries all three vertices
+ok 4 - the Try it answer is the only rule that carries all three vertices
+  ---
+  duration_ms: 0.194084
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 5 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.497042
+  type: 'test'
+  ...
+# Subtest: exported helper types stay usable by name
+ok 6 - exported helper types stay usable by name
+  ---
+  duration_ms: 0.048917
+  type: 'test'
+  ...
+# Subtest: the six vertex names stay off each other at every motion and leg pair
+ok 7 - the six vertex names stay off each other at every motion and leg pair
+  ---
+  duration_ms: 1.079166
+  type: 'test'
+  ...
+# Subtest: formatting helpers are exact
+ok 8 - formatting helpers are exact
+  ---
+  duration_ms: 0.472542
+  type: 'test'
+  ...
+# Subtest: the three offered triangles really are right triangles with the tabulated angles
+ok 9 - the three offered triangles really are right triangles with the tabulated angles
+  ---
+  duration_ms: 0.396875
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps the figure's claims true and its drawing inside the viewBox
+ok 10 - every reachable state keeps the figure's claims true and its drawing inside the viewBox
+  ---
+  duration_ms: 0.739917
+  type: 'test'
+  ...
+# Subtest: the worked example's numbers are recomputed independently
+ok 11 - the worked example's numbers are recomputed independently
+  ---
+  duration_ms: 0.119791
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the only choice that scales the rise by the scale factor
+ok 12 - the Try it answer is the only choice that scales the rise by the scale factor
+  ---
+  duration_ms: 0.131625
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 13 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.478042
+  type: 'test'
+  ...
+# Subtest: formatting helpers are exact
+ok 14 - formatting helpers are exact
+  ---
+  duration_ms: 0.362458
+  type: 'test'
+  ...
+# Subtest: every reachable (radius, angle) pair keeps the readouts true and the drawings inside the viewBox
+ok 15 - every reachable (radius, angle) pair keeps the readouts true and the drawings inside the viewBox
+  ---
+  duration_ms: 2.534667
+  type: 'test'
+  ...
+# Subtest: the worked example is recomputed independently
+ok 16 - the worked example is recomputed independently
+  ---
+  duration_ms: 0.08725
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the base radius the rolled wedge really has
+ok 17 - the Try it answer is the base radius the rolled wedge really has
+  ---
+  duration_ms: 0.249708
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 18 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.561375
+  type: 'test'
+  ...
+# Subtest: the paper-radius label never lands on the cut-angle label
+ok 19 - the paper-radius label never lands on the cut-angle label
+  ---
+  duration_ms: 0.347209
+  type: 'test'
+  ...
+# Subtest: the scale functions map the declared plot corners exactly
+ok 20 - the scale functions map the declared plot corners exactly
+  ---
+  duration_ms: 0.680125
+  type: 'test'
+  ...
+# Subtest: every reachable root pair keeps all three forms true and the drawing inside the viewBox
+ok 21 - every reachable root pair keeps all three forms true and the drawing inside the viewBox
+  ---
+  duration_ms: 12.894875
+  type: 'test'
+  ...
+# Subtest: the worked example recomputes independently from the three ticket constants
+ok 22 - the worked example recomputes independently from the three ticket constants
+  ---
+  duration_ms: 1.27325
+  type: 'test'
+  ...
+# Subtest: each rendered worked-example step parses back and re-evaluates to the same revenue
+ok 23 - each rendered worked-example step parses back and re-evaluates to the same revenue
+  ---
+  duration_ms: 1.348917
+  type: 'test'
+  ...
+# Subtest: the Try it question is well posed: the zeros fix the axis of symmetry but not the function
+ok 24 - the Try it question is well posed: the zeros fix the axis of symmetry but not the function
+  ---
+  duration_ms: 0.213375
+  type: 'test'
+  ...
+# Subtest: the roadmap's cancellation is a state the figure can actually reach
+ok 25 - the roadmap's cancellation is a state the figure can actually reach
+  ---
+  duration_ms: 1.020416
+  type: 'test'
+  ...
+# Subtest: the geometric-series preview carries its r is not 1 hypothesis
+ok 26 - the geometric-series preview carries its r is not 1 hypothesis
+  ---
+  duration_ms: 0.14125
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 27 - lesson source honors the authoring contract
+  ---
+  duration_ms: 2.639709
+  type: 'test'
+  ...
+# Subtest: ratioText reduces, marks rounding, and keeps the raw counts visible
+ok 28 - ratioText reduces, marks rounding, and keeps the raw counts visible
+  ---
+  duration_ms: 0.441625
+  type: 'test'
+  ...
+# Subtest: every reachable survey keeps the table, the area model, and every rendered sentence true
+ok 29 - every reachable survey keeps the table, the area model, and every rendered sentence true
+  ---
+  duration_ms: 6.42625
+  type: 'test'
+  ...
+# Subtest: the worked example draws two reeds without replacement, checked by hand
+ok 30 - the worked example draws two reeds without replacement, checked by hand
+  ---
+  duration_ms: 0.250792
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the addition rule with the overlap subtracted once
+ok 31 - the Try it answer is the addition rule with the overlap subtracted once
+  ---
+  duration_ms: 0.203959
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 32 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.542583
+  type: 'test'
+  ...
+# Subtest: the two-way table's rows and columns add up in every reachable survey
+ok 33 - the two-way table's rows and columns add up in every reachable survey
+  ---
+  duration_ms: 0.350333
+  type: 'test'
+  ...
+# Subtest: the rendered table is built from tableModel, not re-inlined
+ok 34 - the rendered table is built from tableModel, not re-inlined
+  ---
+  duration_ms: 0.127458
+  type: 'test'
+  ...
+# Subtest: grid constants, scales and number formatting
+ok 35 - grid constants, scales and number formatting
+  ---
+  duration_ms: 0.724833
+  type: 'test'
+  ...
+# Subtest: each parent and its inverse really undo one another
+ok 36 - each parent and its inverse really undo one another
+  ---
+  duration_ms: 0.165458
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure and all four cards true
+ok 37 - every reachable control state keeps the figure and all four cards true
+  ---
+  duration_ms: 235.038708
+  type: 'test'
+  ...
+# Subtest: spot-checked equation and chain text
+ok 38 - spot-checked equation and chain text
+  ---
+  duration_ms: 0.155083
+  type: 'test'
+  ...
+# Subtest: worked example: the cooling model and its inverse
+ok 39 - worked example: the cooling model and its inverse
+  ---
+  duration_ms: 0.239834
+  type: 'test'
+  ...
+# Subtest: Try it: exactly one candidate inverts g(x) = 2(x − 5)³ + 7
+ok 40 - Try it: exactly one candidate inverts g(x) = 2(x − 5)³ + 7
+  ---
+  duration_ms: 0.188625
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 41 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.617083
+  type: 'test'
+  ...
+# Subtest: the multiplied-out spelling is the same rule, checked by hand
+ok 42 - the multiplied-out spelling is the same rule, checked by hand
+  ---
+  duration_ms: 0.077583
+  type: 'test'
+  ...
+# Subtest: the marked-point sentence never claims two dots where there is one
+ok 43 - the marked-point sentence never claims two dots where there is one
+  ---
+  duration_ms: 0.20075
+  type: 'test'
+  ...
+# Subtest: no JSX text is glued to the value or the title that follows it
+ok 44 - no JSX text is glued to the value or the title that follows it
+  ---
+  duration_ms: 13.927708
+  type: 'test'
+  ...
+# Subtest: the lesson renders with the words and the numbers kept apart
+ok 45 - the lesson renders with the words and the numbers kept apart
+  ---
+  duration_ms: 5.519666
+  type: 'test'
+  ...
+# Subtest: graph intersection matches continuous equality before pond capacity
+ok 46 - graph intersection matches continuous equality before pond capacity
+  ---
+  duration_ms: 0.525417
+  type: 'test'
+  ...
+# Subtest: the scale functions map the declared plot corners exactly
+ok 47 - the scale functions map the declared plot corners exactly
+  ---
+  duration_ms: 0.3965
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure true and inside its viewBox
+ok 48 - every reachable control state keeps the figure true and inside its viewBox
+  ---
+  duration_ms: 18.803208
+  type: 'test'
+  ...
+# Subtest: worked example values recompute independently from its five constants
+ok 49 - worked example values recompute independently from its five constants
+  ---
+  duration_ms: 0.441334
+  type: 'test'
+  ...
+# Subtest: the Try it correct option is the true share count after three days of 50% growth
+ok 50 - the Try it correct option is the true share count after three days of 50% growth
+  ---
+  duration_ms: 0.144333
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 51 - lesson source honors the authoring contract
+  ---
+  duration_ms: 3.793334
+  type: 'test'
+  ...
+# Subtest: the two panels share one scale that maps the declared corners exactly
+ok 52 - the two panels share one scale that maps the declared corners exactly
+  ---
+  duration_ms: 0.4225
+  type: 'test'
+  ...
+# Subtest: signedFixed keeps every readout free of ASCII hyphens and negative zero
+ok 53 - signedFixed keeps every readout free of ASCII hyphens and negative zero
+  ---
+  duration_ms: 0.15825
+  type: 'test'
+  ...
+# Subtest: every reachable (angle, radius, hub) keeps the figure's claims true and its ink inside the viewBox
+ok 54 - every reachable (angle, radius, hub) keeps the figure's claims true and its ink inside the viewBox
+  ---
+  duration_ms: 62.631334
+  type: 'test'
+  ...
+# Subtest: the worked example recomputes independently from the four wheel constants
+ok 55 - the worked example recomputes independently from the four wheel constants
+  ---
+  duration_ms: 0.917958
+  type: 'test'
+  ...
+# Subtest: the worked example's bottom-based angle is reconciled with the figure's hub-based angle
+ok 56 - the worked example's bottom-based angle is reconciled with the figure's hub-based angle
+  ---
+  duration_ms: 0.383458
+  type: 'test'
+  ...
+# Subtest: the Math check never hands the live figure a height it cannot reach
+ok 57 - the Math check never hands the live figure a height it cannot reach
+  ---
+  duration_ms: 0.246291
+  type: 'test'
+  ...
+# Subtest: the Try it choices name the true period of a 2.5 sin(pi t / 4) + 6 buoy
+ok 58 - the Try it choices name the true period of a 2.5 sin(pi t / 4) + 6 buoy
+  ---
+  duration_ms: 0.361458
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 59 - lesson source honors the authoring contract
+  ---
+  duration_ms: 3.627666
+  type: 'test'
+  ...
+# Subtest: the opening prose's claim about where the wheel is fast is the one the mathematics makes
+ok 60 - the opening prose's claim about where the wheel is fast is the one the mathematics makes
+  ---
+  duration_ms: 0.224125
+  type: 'test'
+  ...
+# Subtest: the three weeks, the route times and the drawing frame are the audited ones
+ok 61 - the three weeks, the route times and the drawing frame are the audited ones
+  ---
+  duration_ms: 0.85175
+  type: 'test'
+  ...
+# Subtest: every reachable (week, slope, intercept, route) state satisfies the figure's claims
+ok 62 - every reachable (week, slope, intercept, route) state satisfies the figure's claims
+  ---
+  duration_ms: 6.486458
+  type: 'test'
+  ...
+# Subtest: y = 5x + 12 beats every other straight line, not just the ones on the steppers
+ok 63 - y = 5x + 12 beats every other straight line, not just the ones on the steppers
+  ---
+  duration_ms: 1.770333
+  type: 'test'
+  ...
+# Subtest: readouts pluralize at every value
+ok 64 - readouts pluralize at every value
+  ---
+  duration_ms: 0.100791
+  type: 'test'
+  ...
+# Subtest: worked example: both scores are the ones the arithmetic gives
+ok 65 - worked example: both scores are the ones the arithmetic gives
+  ---
+  duration_ms: 0.549125
+  type: 'test'
+  ...
+# Subtest: Try it: the marked choice is the true residual and each distractor is what its feedback says
+ok 66 - Try it: the marked choice is the true residual and each distractor is what its feedback says
+  ---
+  duration_ms: 0.134167
+  type: 'test'
+  ...
+# Subtest: lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+ok 67 - lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+  ---
+  duration_ms: 0.643375
+  type: 'test'
+  ...
+# Subtest: static prose: the Math check makes no data claim the code does not derive
+ok 68 - static prose: the Math check makes no data claim the code does not derive
+  ---
+  duration_ms: 0.144708
+  type: 'test'
+  ...
+# Subtest: static prose: the opening hook quotes a complete model, and shapes are named correctly
+ok 69 - static prose: the opening hook quotes a complete model, and shapes are named correctly
+  ---
+  duration_ms: 0.163625
+  type: 'test'
+  ...
+# Subtest: two-group comparison treats swapped group labels symmetrically
+ok 70 - two-group comparison treats swapped group labels symmetrically
+  ---
+  duration_ms: 0.78925
+  type: 'test'
+  ...
+# Subtest: the control grid is declared as the lesson claims
+ok 71 - the control grid is declared as the lesson claims
+  ---
+  duration_ms: 0.376875
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps the drawing, the verdict, and every printed number true
+ok 72 - every reachable state keeps the drawing, the verdict, and every printed number true
+  ---
+  duration_ms: 10.026375
+  type: 'test'
+  ...
+# Subtest: the worked example is right, recomputed by hand, and its printed steps say so
+ok 73 - the worked example is right, recomputed by hand, and its printed steps say so
+  ---
+  duration_ms: 0.471208
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the interval the report describes
+ok 74 - the Try it answer is the interval the report describes
+  ---
+  duration_ms: 0.18275
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 75 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.440459
+  type: 'test'
+  ...
+# Subtest: drawn uncertainty recovers the allowed side-length interval after scale correction
+ok 76 - drawn uncertainty recovers the allowed side-length interval after scale correction
+  ---
+  duration_ms: 0.412958
+  type: 'test'
+  ...
+# Subtest: chapter-check metadata distinguishes a nominal area from the midpoint of its uncertainty interval
+ok 77 - chapter-check metadata distinguishes a nominal area from the midpoint of its uncertainty interval
+  ---
+  duration_ms: 0.503583
+  type: 'test'
+  ...
+# Subtest: the rounded-length chapter check asks for a perimeter upper bound
+ok 78 - the rounded-length chapter check asks for a perimeter upper bound
+  ---
+  duration_ms: 0.114833
+  type: 'test'
+  ...
+# Subtest: the number formatters place the decimal point and round half up
+ok 79 - the number formatters place the decimal point and round half up
+  ---
+  duration_ms: 0.140333
+  type: 'test'
+  ...
+# Subtest: every reachable plot, tool and quantity keeps the figure true
+ok 80 - every reachable plot, tool and quantity keeps the figure true
+  ---
+  duration_ms: 9.983792
+  type: 'test'
+  ...
+# Subtest: the worked example reports the fuel rate to the digits the instruments paid for
+ok 81 - the worked example reports the fuel rate to the digits the instruments paid for
+  ---
+  duration_ms: 0.212875
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the half-division interval around the reading
+ok 82 - the Try it answer is the half-division interval around the reading
+  ---
+  duration_ms: 0.167959
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 83 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.710458
+  type: 'test'
+  ...
+# Subtest: exactly one Try it option satisfies the stem as written
+ok 84 - exactly one Try it option satisfies the stem as written
+  ---
+  duration_ms: 0.184
+  type: 'test'
+  ...
+# Subtest: cubic samples retain distinct out-of-window heights instead of false flat tails
+ok 85 - cubic samples retain distinct out-of-window heights instead of false flat tails
+  ---
+  duration_ms: 0.431875
+  type: 'test'
+  ...
+# Subtest: panel geometry, control bounds and number formatting
+ok 86 - panel geometry, control bounds and number formatting
+  ---
+  duration_ms: 0.449584
+  type: 'test'
+  ...
+# Subtest: every one of the 140 reachable control states keeps the figure and its readouts true
+ok 87 - every one of the 140 reachable control states keeps the figure and its readouts true
+  ---
+  duration_ms: 20.89575
+  type: 'test'
+  ...
+# Subtest: worked example: q(x) = x³ − 5x² + 17x − 13 splits as (x − 1)(x² − 4x + 13)
+ok 88 - worked example: q(x) = x³ − 5x² + 17x − 13 splits as (x − 1)(x² − 4x + 13)
+  ---
+  duration_ms: 0.246375
+  type: 'test'
+  ...
+# Subtest: Try it: only the conjugate keeps the quartic's coefficients real
+ok 89 - Try it: only the conjugate keeps the quartic's coefficients real
+  ---
+  duration_ms: 0.263958
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 90 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.770083
+  type: 'test'
+  ...
+# Subtest: every zero on the complex plane gets a label of its own
+ok 91 - every zero on the complex plane gets a label of its own
+  ---
+  duration_ms: 2.478917
+  type: 'test'
+  ...
+# Subtest: money renders whole cents exactly and reads back to the same number
+ok 92 - money renders whole cents exactly and reads back to the same number
+  ---
+  duration_ms: 0.48575
+  type: 'test'
+  ...
+# Subtest: every reachable wheel keeps the distribution, the expected value and the drawing true
+ok 93 - every reachable wheel keeps the distribution, the expected value and the drawing true
+  ---
+  duration_ms: 5.531292
+  type: 'test'
+  ...
+# Subtest: the worked example weighs an outdoor show against a certain indoor one
+ok 94 - the worked example weighs an outdoor show against a certain indoor one
+  ---
+  duration_ms: 0.131333
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the average prize minus the price paid
+ok 95 - the Try it answer is the average prize minus the price paid
+  ---
+  duration_ms: 0.143959
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 96 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.4195
+  type: 'test'
+  ...
+# Subtest: two net-result labels never share a row and a place
+ok 97 - two net-result labels never share a row and a place
+  ---
+  duration_ms: 1.030416
+  type: 'test'
+  ...
+# Subtest: grid constants, scales, fractions and number formatting
+ok 98 - grid constants, scales, fractions and number formatting
+  ---
+  duration_ms: 0.815625
+  type: 'test'
+  ...
+# Subtest: every count a card or label can show reads as grammatical English
+ok 99 - every count a card or label can show reads as grammatical English
+  ---
+  duration_ms: 0.429875
+  type: 'test'
+  ...
+# Subtest: two clubs are given by a rule and one is given only by a table
+ok 100 - two clubs are given by a rule and one is given only by a table
+  ---
+  duration_ms: 0.377292
+  type: 'test'
+  ...
+# Subtest: the three models produce the counts and weekly changes claimed
+ok 101 - the three models produce the counts and weekly changes claimed
+  ---
+  duration_ms: 0.290333
+  type: 'test'
+  ...
+# Subtest: each family's rate signature is what the lesson says it is, and the three tests do not overlap
+ok 102 - each family's rate signature is what the lesson says it is, and the three tests do not overlap
+  ---
+  duration_ms: 0.246
+  type: 'test'
+  ...
+# Subtest: every reachable (club, a, b) state keeps the figure and its readouts true
+ok 103 - every reachable (club, a, b) state keeps the figure and its readouts true
+  ---
+  duration_ms: 0.809584
+  type: 'test'
+  ...
+# Subtest: the drawn path matches the club's representation and stays on the canvas
+ok 104 - the drawn path matches the club's representation and stays on the canvas
+  ---
+  duration_ms: 0.530583
+  type: 'test'
+  ...
+# Subtest: worked example: the ball's heights, rates, average speed, vertex form and domain
+ok 105 - worked example: the ball's heights, rates, average speed, vertex form and domain
+  ---
+  duration_ms: 0.2215
+  type: 'test'
+  ...
+# Subtest: Try it: the chess club has the greatest average rate over weeks 2 to 5
+ok 106 - Try it: the chess club has the greatest average rate over weeks 2 to 5
+  ---
+  duration_ms: 0.188166
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 107 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.885209
+  type: 'test'
+  ...
+# Subtest: the run and rise labels stay off each other and off the axis numbers
+ok 108 - the run and rise labels stay off each other and off the axis numbers
+  ---
+  duration_ms: 0.739667
+  type: 'test'
+  ...
+# Subtest: the five moves are the matrices the lesson claims, with the determinants it claims
+ok 109 - the five moves are the matrices the lesson claims, with the determinants it claims
+  ---
+  duration_ms: 0.638375
+  type: 'test'
+  ...
+# Subtest: every reachable plan keeps the area, the weight, and the drawing true
+ok 110 - every reachable plan keeps the area, the weight, and the drawing true
+  ---
+  duration_ms: 2.122375
+  type: 'test'
+  ...
+# Subtest: the summary sentence names the pre-image before it names the image
+ok 111 - the summary sentence names the pre-image before it names the image
+  ---
+  duration_ms: 0.07375
+  type: 'test'
+  ...
+# Subtest: the plot window is wide enough for the widest plan and no wider than declared
+ok 112 - the plot window is wide enough for the widest plan and no wider than declared
+  ---
+  duration_ms: 0.0705
+  type: 'test'
+  ...
+# Subtest: the pad's edge vectors are the components between the surveyed stakes
+ok 113 - the pad's edge vectors are the components between the surveyed stakes
+  ---
+  duration_ms: 0.086333
+  type: 'test'
+  ...
+# Subtest: the concrete pad worked example is right, step by step
+ok 114 - the concrete pad worked example is right, step by step
+  ---
+  duration_ms: 0.133291
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the determinant, and the distractors are the classic slips
+ok 115 - the Try it answer is the determinant, and the distractors are the classic slips
+  ---
+  duration_ms: 0.232833
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 116 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.465042
+  type: 'test'
+  ...
+# Subtest: the two edge names never share a spot
+ok 117 - the two edge names never share a spot
+  ---
+  duration_ms: 1.357125
+  type: 'test'
+  ...
+# Subtest: the figure's rendered numbers and sentences are true in every one of the 180 states
+ok 118 - the figure's rendered numbers and sentences are true in every one of the 180 states
+  ---
+  duration_ms: 10.589084
+  type: 'test'
+  ...
+# Subtest: every marker and tick the figure draws stays inside the viewBox
+ok 119 - every marker and tick the figure draws stays inside the viewBox
+  ---
+  duration_ms: 1.675583
+  type: 'test'
+  ...
+# Subtest: rounded decimals are formatted and flagged correctly across every value the figure can reach
+ok 120 - rounded decimals are formatted and flagged correctly across every value the figure can reach
+  ---
+  duration_ms: 11.364916
+  type: 'test'
+  ...
+# Subtest: worked example steps equal the independently computed values
+ok 121 - worked example steps equal the independently computed values
+  ---
+  duration_ms: 0.263958
+  type: 'test'
+  ...
+# Subtest: Try it: the marked choice is the true percent and every distractor differs from it
+ok 122 - Try it: the marked choice is the true percent and every distractor differs from it
+  ---
+  duration_ms: 0.193625
+  type: 'test'
+  ...
+# Subtest: the selected Try it button keeps a readable label in light and dark
+ok 123 - the selected Try it button keeps a readable label in light and dark
+  ---
+  duration_ms: 0.15025
+  type: 'test'
+  ...
+# Subtest: the lesson renders that model, names the tape diagram, and cites only brief standards
+ok 124 - the lesson renders that model, names the tape diagram, and cites only brief standards
+  ---
+  duration_ms: 0.89075
+  type: 'test'
+  ...
+# Subtest: every (A, B, opposites) state is true and stays inside both viewBoxes
+ok 125 - every (A, B, opposites) state is true and stays inside both viewBoxes
+  ---
+  duration_ms: 25.221375
+  type: 'test'
+  ...
+# Subtest: the worked example's stages, marks and halfway point are recomputed from scratch
+ok 126 - the worked example's stages, marks and halfway point are recomputed from scratch
+  ---
+  duration_ms: 0.28175
+  type: 'test'
+  ...
+# Subtest: every sentence the worked example reveals is the one the arithmetic supports
+ok 127 - every sentence the worked example reveals is the one the arithmetic supports
+  ---
+  duration_ms: 0.246125
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the least of the four numbers
+ok 128 - the Try it answer is the least of the four numbers
+  ---
+  duration_ms: 0.168333
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 129 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.518458
+  type: 'test'
+  ...
+# Subtest: the Math check's plane sentence is true at every one of the 625 (A, B) pairs, including the degenerate ones
+ok 130 - the Math check's plane sentence is true at every one of the 625 (A, B) pairs, including the degenerate ones
+  ---
+  duration_ms: 0.46375
+  type: 'test'
+  ...
+# Subtest: the plane claim stays state-derived — it cannot be re-inlined as fixed prose
+ok 131 - the plane claim stays state-derived — it cannot be re-inlined as fixed prose
+  ---
+  duration_ms: 0.124292
+  type: 'test'
+  ...
+# Subtest: the point's name never lands on the plane's axis numbers
+ok 132 - the point's name never lands on the plane's axis numbers
+  ---
+  duration_ms: 2.175291
+  type: 'test'
+  ...
+# Subtest: every reachable (side, gold, panels) state keeps the figure's arithmetic true
+ok 133 - every reachable (side, gold, panels) state keeps the figure's arithmetic true
+  ---
+  duration_ms: 0.884542
+  type: 'test'
+  ...
+# Subtest: the tile layout the figure draws really is an s by s grid with the gold below it
+ok 134 - the tile layout the figure draws really is an s by s grid with the gold below it
+  ---
+  duration_ms: 0.237083
+  type: 'test'
+  ...
+# Subtest: every drawn tile, label and panel stays inside the viewBox in every state
+ok 135 - every drawn tile, label and panel stays inside the viewBox in every state
+  ---
+  duration_ms: 2.168667
+  type: 'test'
+  ...
+# Subtest: the worked example matches arithmetic done independently
+ok 136 - the worked example matches arithmetic done independently
+  ---
+  duration_ms: 0.400167
+  type: 'test'
+  ...
+# Subtest: Try it: exactly one option equals 5(s² + 3) at every value of s
+ok 137 - Try it: exactly one option equals 5(s² + 3) at every value of s
+  ---
+  duration_ms: 0.159875
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and carries the required attributes
+ok 138 - lesson source cites only brief standards and carries the required attributes
+  ---
+  duration_ms: 0.639417
+  type: 'test'
+  ...
+# Subtest: the Math check names the panel behind every rule it states, so "the rule" never means two things at once
+ok 139 - the Math check names the panel behind every rule it states, so "the rule" never means two things at once
+  ---
+  duration_ms: 0.200292
+  type: 'test'
+  ...
+# Subtest: the fraction writer and its plural agreement
+ok 140 - the fraction writer and its plural agreement
+  ---
+  duration_ms: 0.5635
+  type: 'test'
+  ...
+# Subtest: every reachable box: the readouts are true and the net stays inside its viewBox
+ok 141 - every reachable box: the readouts are true and the net stays inside its viewBox
+  ---
+  duration_ms: 6.331875
+  type: 'test'
+  ...
+# Subtest: worked-plot coordinate labels stay clear of the revealed area numerals
+ok 142 - worked-plot coordinate labels stay clear of the revealed area numerals
+  ---
+  duration_ms: 0.274916
+  type: 'test'
+  ...
+# Subtest: every reveal step: what is drawn stays inside the viewBox and the aria-label says what is drawn
+ok 143 - every reveal step: what is drawn stays inside the viewBox and the aria-label says what is drawn
+  ---
+  duration_ms: 0.742833
+  type: 'test'
+  ...
+# Subtest: worked example: the L-shaped plot is 16 + 9 = 25 and 40 - 15 = 25 square units
+ok 144 - worked example: the L-shaped plot is 16 + 9 = 25 and 40 - 15 = 25 square units
+  ---
+  duration_ms: 0.226708
+  type: 'test'
+  ...
+# Subtest: try it: wrapping a 4 by 3 by 2 box takes 52 square inches of paper
+ok 145 - try it: wrapping a 4 by 3 by 2 box takes 52 square inches of paper
+  ---
+  duration_ms: 0.091083
+  type: 'test'
+  ...
+# Subtest: try it: every pick gets feedback about the number that pick actually shows
+ok 146 - try it: every pick gets feedback about the number that pick actually shows
+  ---
+  duration_ms: 0.1035
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its accessibility contract
+ok 147 - lesson source cites only brief standards and keeps its accessibility contract
+  ---
+  duration_ms: 0.506667
+  type: 'test'
+  ...
+# Subtest: offset patterns are the audited ones: median pinned, span 4, skew sums +/- 6
+ok 148 - offset patterns are the audited ones: median pinned, span 4, skew sums +/- 6
+  ---
+  duration_ms: 0.656667
+  type: 'test'
+  ...
+# Subtest: the axis carries a tick at every whole minute and a number on the even ones
+ok 149 - the axis carries a tick at every whole minute and a number on the even ones
+  ---
+  duration_ms: 0.142875
+  type: 'test'
+  ...
+# Subtest: every reachable (center, spacing, shape) state satisfies the figure's claims
+ok 150 - every reachable (center, spacing, shape) state satisfies the figure's claims
+  ---
+  duration_ms: 2.725125
+  type: 'test'
+  ...
+# Subtest: the Math check's skew sentence is true in all 72 states, spacing 0 included
+ok 151 - the Math check's skew sentence is true in all 72 states, spacing 0 included
+  ---
+  duration_ms: 0.400792
+  type: 'test'
+  ...
+# Subtest: worked example values are the ones the arithmetic gives
+ok 152 - worked example values are the ones the arithmetic gives
+  ---
+  duration_ms: 0.148084
+  type: 'test'
+  ...
+# Subtest: Try it: the marked choice is the true median and the distractors are what the feedback says
+ok 153 - Try it: the marked choice is the true median and the distractors are what the feedback says
+  ---
+  duration_ms: 0.138167
+  type: 'test'
+  ...
+# Subtest: lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+ok 154 - lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+  ---
+  duration_ms: 0.371166
+  type: 'test'
+  ...
+# Subtest: declared control bounds match the lesson contract
+ok 155 - declared control bounds match the lesson contract
+  ---
+  duration_ms: 0.592084
+  type: 'test'
+  ...
+# Subtest: fraction helpers are exact and reduced
+ok 156 - fraction helpers are exact and reduced
+  ---
+  duration_ms: 0.194041
+  type: 'test'
+  ...
+# Subtest: money rounds half away from zero on the integers, never through a double
+ok 157 - money rounds half away from zero on the integers, never through a double
+  ---
+  duration_ms: 2.230958
+  type: 'test'
+  ...
+# Subtest: every reachable figure state keeps the unit rate, table, coupon, graph and copy true
+ok 158 - every reachable figure state keeps the unit rate, table, coupon, graph and copy true
+  ---
+  duration_ms: 25.081542
+  type: 'test'
+  ...
+# Subtest: the graph line gets steeper as the unit rate gets larger
+ok 159 - the graph line gets steeper as the unit rate gets larger
+  ---
+  duration_ms: 0.380042
+  type: 'test'
+  ...
+# Subtest: worked example values match independent arithmetic
+ok 160 - worked example values match independent arithmetic
+  ---
+  duration_ms: 0.216833
+  type: 'test'
+  ...
+# Subtest: the Try it question has exactly one proportional table and it is the marked answer
+ok 161 - the Try it question has exactly one proportional table and it is the marked answer
+  ---
+  duration_ms: 0.239709
+  type: 'test'
+  ...
+# Subtest: lesson source obeys the house rules
+ok 162 - lesson source obeys the house rules
+  ---
+  duration_ms: 0.513875
+  type: 'test'
+  ...
+# Subtest: the evaluator the rest of this file leans on really does use standard precedence
+ok 163 - the evaluator the rest of this file leans on really does use standard precedence
+  ---
+  duration_ms: 2.295792
+  type: 'test'
+  ...
+# Subtest: the declared control bounds are the ones the JSX actually wires up
+ok 164 - the declared control bounds are the ones the JSX actually wires up
+  ---
+  duration_ms: 0.164041
+  type: 'test'
+  ...
+# Subtest: the exact fraction helpers reduce, sign and format correctly
+ok 165 - the exact fraction helpers reduce, sign and format correctly
+  ---
+  duration_ms: 0.442292
+  type: 'test'
+  ...
+# Subtest: the number line geometry is a faithful, in-bounds scale
+ok 166 - the number line geometry is a faithful, in-bounds scale
+  ---
+  duration_ms: 0.145958
+  type: 'test'
+  ...
+# Subtest: every reachable state of the figure is mathematically true and stays in the viewBox
+ok 167 - every reachable state of the figure is mathematically true and stays in the viewBox
+  ---
+  duration_ms: 15.379125
+  type: 'test'
+  ...
+# Subtest: the worked example matches independent arithmetic
+ok 168 - the worked example matches independent arithmetic
+  ---
+  duration_ms: 0.492125
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the one correct share, and the feedback says it in one notation
+ok 169 - the Try it answer is the one correct share, and the feedback says it in one notation
+  ---
+  duration_ms: 0.291291
+  type: 'test'
+  ...
+# Subtest: the lesson source obeys the house rules
+ok 170 - the lesson source obeys the house rules
+  ---
+  duration_ms: 0.578458
+  type: 'test'
+  ...
+# Subtest: every operation symbol used in the copy is the one the operation means
+ok 171 - every operation symbol used in the copy is the one the operation means
+  ---
+  duration_ms: 0.120208
+  type: 'test'
+  ...
+# Subtest: declared control bounds match the exported contract
+ok 172 - declared control bounds match the exported contract
+  ---
+  duration_ms: 0.642417
+  type: 'test'
+  ...
+# Subtest: the tape is one fixed dollar ruler that the whole grid fits inside
+ok 173 - the tape is one fixed dollar ruler that the whole grid fits inside
+  ---
+  duration_ms: 0.094041
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps the two bars, the equation, and the inequality true
+ok 174 - every reachable state keeps the two bars, the equation, and the inequality true
+  ---
+  duration_ms: 79.53475
+  type: 'test'
+  ...
+# Subtest: the printed bound is exact wherever the division does not come out even
+ok 175 - the printed bound is exact wherever the division does not come out even
+  ---
+  duration_ms: 0.115083
+  type: 'test'
+  ...
+# Subtest: worked example values and the steps the student reads match independent arithmetic
+ok 176 - worked example values and the steps the student reads match independent arithmetic
+  ---
+  duration_ms: 0.221375
+  type: 'test'
+  ...
+# Subtest: the Try it question has exactly one correct expression and it is the marked answer
+ok 177 - the Try it question has exactly one correct expression and it is the marked answer
+  ---
+  duration_ms: 0.362125
+  type: 'test'
+  ...
+# Subtest: lesson source obeys the house rules
+ok 178 - lesson source obeys the house rules
+  ---
+  duration_ms: 0.577875
+  type: 'test'
+  ...
+# Subtest: the plural guard itself rejects disagreement, in either direction
+ok 179 - the plural guard itself rejects disagreement, in either direction
+  ---
+  duration_ms: 2.4455
+  type: 'test'
+  ...
+# Subtest: every reachable (width, height, radius, depth, scale) state keeps the figure true and inside the viewBox
+ok 180 - every reachable (width, height, radius, depth, scale) state keeps the figure true and inside the viewBox
+  ---
+  duration_ms: 24.186041
+  type: 'test'
+  ...
+# Subtest: worked example values are recomputed independently
+ok 181 - worked example values are recomputed independently
+  ---
+  duration_ms: 0.233167
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the choice equal to (side x scale) squared, and every rationale keeps its own units
+ok 182 - the Try it answer is the choice equal to (side x scale) squared, and every rationale keeps its own units
+  ---
+  duration_ms: 0.22475
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 183 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.559417
+  type: 'test'
+  ...
+# Subtest: the plan's three labels never overlap, at any plan size or scale
+ok 184 - the plan's three labels never overlap, at any plan size or scale
+  ---
+  duration_ms: 1.1315
+  type: 'test'
+  ...
+# Subtest: every reachable (sample size, yes count, school size) state keeps the figure true and inside the viewBox
+ok 185 - every reachable (sample size, yes count, school size) state keeps the figure true and inside the viewBox
+  ---
+  duration_ms: 1.854292
+  type: 'test'
+  ...
+# Subtest: worked example centers, spreads, and the gap are recomputed independently
+ok 186 - worked example centers, spreads, and the gap are recomputed independently
+  ---
+  duration_ms: 0.125834
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the square of the sample proportion
+ok 187 - the Try it answer is the square of the sample proportion
+  ---
+  duration_ms: 0.141833
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 188 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.512542
+  type: 'test'
+  ...
+# Subtest: every reachable pair of rental plans gets the algebra and the graph the figure claims
+ok 189 - every reachable pair of rental plans gets the algebra and the graph the figure claims
+  ---
+  duration_ms: 43.060791
+  type: 'test'
+  ...
+# Subtest: every sentence the figure renders is true in all 7744 x 2 control states
+ok 190 - every sentence the figure renders is true in all 7744 x 2 control states
+  ---
+  duration_ms: 90.414708
+  type: 'test'
+  ...
+# Subtest: the default state on load prints the shared total exactly, not rounded to 12.67
+ok 191 - the default state on load prints the shared total exactly, not rounded to 12.67
+  ---
+  duration_ms: 0.540625
+  type: 'test'
+  ...
+# Subtest: money readouts stay grammatical at every value a control can take
+ok 192 - money readouts stay grammatical at every value a control can take
+  ---
+  duration_ms: 0.18525
+  type: 'test'
+  ...
+# Subtest: the number line also traps the square root of 2 between consecutive whole numbers
+ok 193 - the number line also traps the square root of 2 between consecutive whole numbers
+  ---
+  duration_ms: 0.077666
+  type: 'test'
+  ...
+# Subtest: reduce and the decimal expansion agree with hand arithmetic on known fractions
+ok 194 - reduce and the decimal expansion agree with hand arithmetic on known fractions
+  ---
+  duration_ms: 0.110292
+  type: 'test'
+  ...
+# Subtest: the worked example really does solve 45 + 2v = 7v at v = 9, in every reveal state
+ok 195 - the worked example really does solve 45 + 2v = 7v at v = 9, in every reveal state
+  ---
+  duration_ms: 0.192083
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the only listed number that is not a ratio of whole numbers
+ok 196 - the Try it answer is the only listed number that is not a ratio of whole numbers
+  ---
+  duration_ms: 0.136416
+  type: 'test'
+  ...
+# Subtest: the lesson source keeps the accessibility and citation contract
+ok 197 - the lesson source keeps the accessibility and citation contract
+  ---
+  duration_ms: 0.582625
+  type: 'test'
+  ...
+# Subtest: no rendered sentence ever calls a negative value a whole number
+ok 198 - no rendered sentence ever calls a negative value a whole number
+  ---
+  duration_ms: 6.456459
+  type: 'test'
+  ...
+# Subtest: the control grid the test enumerates is the one the lesson declares inline
+ok 199 - the control grid the test enumerates is the one the lesson declares inline
+  ---
+  duration_ms: 0.664333
+  type: 'test'
+  ...
+# Subtest: the stepper clamps at both bounds and disables there
+ok 200 - the stepper clamps at both bounds and disables there
+  ---
+  duration_ms: 0.130958
+  type: 'test'
+  ...
+# Subtest: the liters axis is fixed, so no two settings can draw the same picture
+ok 201 - the liters axis is fixed, so no two settings can draw the same picture
+  ---
+  duration_ms: 0.470625
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps the barrel figure true and inside its viewBox
+ok 202 - every reachable state keeps the barrel figure true and inside its viewBox
+  ---
+  duration_ms: 23.458459
+  type: 'test'
+  ...
+# Subtest: barrel B's table recovers its rate of change by division
+ok 203 - barrel B's table recovers its rate of change by division
+  ---
+  duration_ms: 0.160958
+  type: 'test'
+  ...
+# Subtest: the non-example really is not a function
+ok 204 - the non-example really is not a function
+  ---
+  duration_ms: 0.272583
+  type: 'test'
+  ...
+# Subtest: the worked example's candle arithmetic is right at every step
+ok 205 - the worked example's candle arithmetic is right at every step
+  ---
+  duration_ms: 0.100042
+  type: 'test'
+  ...
+# Subtest: every line the worked example prints says what the arithmetic says
+ok 206 - every line the worked example prints says what the arithmetic says
+  ---
+  duration_ms: 0.122292
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the mathematically correct comparison
+ok 207 - the Try it answer is the mathematically correct comparison
+  ---
+  duration_ms: 0.107166
+  type: 'test'
+  ...
+# Subtest: the lesson source obeys the gates the audits enforce
+ok 208 - the lesson source obeys the gates the audits enforce
+  ---
+  duration_ms: 0.457625
+  type: 'test'
+  ...
+# Subtest: fmt prints the exact value it was given, never a rounded stand-in
+ok 209 - fmt prints the exact value it was given, never a rounded stand-in
+  ---
+  duration_ms: 0.42775
+  type: 'test'
+  ...
+# Subtest: each motion's phrase describes what its matrix actually does
+ok 210 - each motion's phrase describes what its matrix actually does
+  ---
+  duration_ms: 0.525167
+  type: 'test'
+  ...
+# Subtest: slidePhrase names the direction the figure actually moves
+ok 211 - slidePhrase names the direction the figure actually moves
+  ---
+  duration_ms: 0.114292
+  type: 'test'
+  ...
+# Subtest: the fixed triangle ABC is the 3-4-5 right triangle every readout assumes
+ok 212 - the fixed triangle ABC is the 3-4-5 right triangle every readout assumes
+  ---
+  duration_ms: 0.257792
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure true and inside its viewBox
+ok 213 - every reachable control state keeps the figure true and inside its viewBox
+  ---
+  duration_ms: 20.57325
+  type: 'test'
+  ...
+# Subtest: the worked example maps DEF onto D'E'F' with the arithmetic it shows
+ok 214 - the worked example maps DEF onto D'E'F' with the arithmetic it shows
+  ---
+  duration_ms: 0.2845
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the 180 degree turn followed by the half-size dilation
+ok 215 - the Try it answer is the 180 degree turn followed by the half-size dilation
+  ---
+  duration_ms: 0.222792
+  type: 'test'
+  ...
+# Subtest: the third-angle check uses the angle sum, and no move disturbs it
+ok 216 - the third-angle check uses the angle sum, and no move disturbs it
+  ---
+  duration_ms: 0.132666
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 217 - lesson source honors the authoring contract
+  ---
+  duration_ms: 3.125958
+  type: 'test'
+  ...
+# Subtest: no vertex name is printed on another, at any transformation
+ok 218 - no vertex name is printed on another, at any transformation
+  ---
+  duration_ms: 4.368917
+  type: 'test'
+  ...
+# Subtest: the drawing frame and the declared controls are what the lesson says they are
+ok 219 - the drawing frame and the declared controls are what the lesson says they are
+  ---
+  duration_ms: 0.573667
+  type: 'test'
+  ...
+# Subtest: plural agreement and the integer square root are exact
+ok 220 - plural agreement and the integer square root are exact
+  ---
+  duration_ms: 0.192459
+  type: 'test'
+  ...
+# Subtest: every reachable state of the figure is mathematically and visually honest
+ok 221 - every reachable state of the figure is mathematically and visually honest
+  ---
+  duration_ms: 54.554083
+  type: 'test'
+  ...
+# Subtest: the worked example is arithmetically correct, step by step
+ok 222 - the worked example is arithmetically correct, step by step
+  ---
+  duration_ms: 0.228375
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the mathematically correct one
+ok 223 - the Try it answer is the mathematically correct one
+  ---
+  duration_ms: 0.226042
+  type: 'test'
+  ...
+# Subtest: the lesson source obeys the house rules
+ok 224 - the lesson source obeys the house rules
+  ---
+  duration_ms: 0.6275
+  type: 'test'
+  ...
+# Subtest: the eight players and the scatter pattern are the audited ones
+ok 225 - the eight players and the scatter pattern are the audited ones
+  ---
+  duration_ms: 0.62175
+  type: 'test'
+  ...
+# Subtest: every reachable (slope, scatter, predict-for) state satisfies the figure's claims
+ok 226 - every reachable (slope, scatter, predict-for) state satisfies the figure's claims
+  ---
+  duration_ms: 1.708709
+  type: 'test'
+  ...
+# Subtest: readouts pluralize at every value
+ok 227 - readouts pluralize at every value
+  ---
+  duration_ms: 0.066375
+  type: 'test'
+  ...
+# Subtest: worked example values are the ones the arithmetic gives
+ok 228 - worked example values are the ones the arithmetic gives
+  ---
+  duration_ms: 0.125041
+  type: 'test'
+  ...
+# Subtest: Try it: the marked choice is the true prediction and each distractor is what its feedback says
+ok 229 - Try it: the marked choice is the true prediction and each distractor is what its feedback says
+  ---
+  duration_ms: 0.134084
+  type: 'test'
+  ...
+# Subtest: lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+ok 230 - lesson source: standards, svg viewBox, button types, inline control bounds, no CJK
+  ---
+  duration_ms: 0.483209
+  type: 'test'
+  ...
+# Subtest: the scale functions map the declared plot corners exactly
+ok 231 - the scale functions map the declared plot corners exactly
+  ---
+  duration_ms: 0.389791
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure true and inside its viewBox
+ok 232 - every reachable control state keeps the figure true and inside its viewBox
+  ---
+  duration_ms: 39.819917
+  type: 'test'
+  ...
+# Subtest: worked example values recompute independently from the three constants
+ok 233 - worked example values recompute independently from the three constants
+  ---
+  duration_ms: 0.455375
+  type: 'test'
+  ...
+# Subtest: the Try it correct option is the only statement equivalent to 18 + 7b ≤ 60
+ok 234 - the Try it correct option is the only statement equivalent to 18 + 7b ≤ 60
+  ---
+  duration_ms: 0.191917
+  type: 'test'
+  ...
+# Subtest: formatFraction, exactShirts and mostShirts agree on spot values
+ok 235 - formatFraction, exactShirts and mostShirts agree on spot values
+  ---
+  duration_ms: 0.073125
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 236 - lesson source honors the authoring contract
+  ---
+  duration_ms: 2.522708
+  type: 'test'
+  ...
+# Subtest: the declared control grid is exactly the one the test enumerates
+ok 237 - the declared control grid is exactly the one the test enumerates
+  ---
+  duration_ms: 0.609583
+  type: 'test'
+  ...
+# Subtest: the scales map the declared plot corners exactly
+ok 238 - the scales map the declared plot corners exactly
+  ---
+  duration_ms: 0.123416
+  type: 'test'
+  ...
+# Subtest: gcd and reduce return reduced fractions
+ok 239 - gcd and reduce return reduced fractions
+  ---
+  duration_ms: 0.08125
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure true and inside its viewBox
+ok 240 - every reachable control state keeps the figure true and inside its viewBox
+  ---
+  duration_ms: 1.929791
+  type: 'test'
+  ...
+# Subtest: the worked example's arithmetic is right, step by step
+ok 241 - the worked example's arithmetic is right, step by step
+  ---
+  duration_ms: 0.114333
+  type: 'test'
+  ...
+# Subtest: exactly one Try it option is true, and it is the notation read correctly
+ok 242 - exactly one Try it option is true, and it is the notation read correctly
+  ---
+  duration_ms: 0.133958
+  type: 'test'
+  ...
+# Subtest: the lesson source obeys the structural rules the gates enforce
+ok 243 - the lesson source obeys the structural rules the gates enforce
+  ---
+  duration_ms: 1.987709
+  type: 'test'
+  ...
+# Subtest: the scale functions map the declared plot corners exactly
+ok 244 - the scale functions map the declared plot corners exactly
+  ---
+  duration_ms: 0.4215
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the figure true and inside its viewBox
+ok 245 - every reachable control state keeps the figure true and inside its viewBox
+  ---
+  duration_ms: 96.583666
+  type: 'test'
+  ...
+# Subtest: the time slider speaks a grammatical value at every stop, including the seed state
+ok 246 - the time slider speaks a grammatical value at every stop, including the seed state
+  ---
+  duration_ms: 0.559292
+  type: 'test'
+  ...
+# Subtest: worked example values recompute independently from the four constants
+ok 247 - worked example values recompute independently from the four constants
+  ---
+  duration_ms: 0.287958
+  type: 'test'
+  ...
+# Subtest: the Try it correct option is the true maximum height of −16t² + 64t + 5
+ok 248 - the Try it correct option is the true maximum height of −16t² + 64t + 5
+  ---
+  duration_ms: 0.306125
+  type: 'test'
+  ...
+# Subtest: lesson source honors the authoring contract
+ok 249 - lesson source honors the authoring contract
+  ---
+  duration_ms: 2.872333
+  type: 'test'
+  ...
+# Subtest: formatting helpers are exact
+ok 250 - formatting helpers are exact
+  ---
+  duration_ms: 0.500375
+  type: 'test'
+  ...
+# Subtest: every reachable state keeps the four readouts true and the drawing inside the viewBox
+ok 251 - every reachable state keeps the four readouts true and the drawing inside the viewBox
+  ---
+  duration_ms: 2.653459
+  type: 'test'
+  ...
+# Subtest: every sentence the student reads is rebuilt from the controls and true in every state
+ok 252 - every sentence the student reads is rebuilt from the controls and true in every state
+  ---
+  duration_ms: 2.249708
+  type: 'test'
+  ...
+# Subtest: worked example values are recomputed independently
+ok 253 - worked example values are recomputed independently
+  ---
+  duration_ms: 0.215542
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the point one third of the way from K to L
+ok 254 - the Try it answer is the point one third of the way from K to L
+  ---
+  duration_ms: 0.170708
+  type: 'test'
+  ...
+# Subtest: lesson source cites only brief standards and keeps its markup contract
+ok 255 - lesson source cites only brief standards and keeps its markup contract
+  ---
+  duration_ms: 0.463042
+  type: 'test'
+  ...
+# Subtest: the data design makes the drawn line the exact least-squares line
+ok 256 - the data design makes the drawn line the exact least-squares line
+  ---
+  duration_ms: 0.7105
+  type: 'test'
+  ...
+# Subtest: the score axis is scaled to the reachable band, so one point is ten pixels
+ok 257 - the score axis is scaled to the reachable band, so one point is ten pixels
+  ---
+  duration_ms: 0.277542
+  type: 'test'
+  ...
+# Subtest: formatting helpers read correctly at every value they can take
+ok 258 - formatting helpers read correctly at every value they can take
+  ---
+  duration_ms: 0.275334
+  type: 'test'
+  ...
+# Subtest: every reachable control state keeps the two panels true, visible and inside the viewBox
+ok 259 - every reachable control state keeps the two panels true, visible and inside the viewBox
+  ---
+  duration_ms: 3.689542
+  type: 'test'
+  ...
+# Subtest: the worked example is recomputed from the five measurements
+ok 260 - the worked example is recomputed from the five measurements
+  ---
+  duration_ms: 0.190125
+  type: 'test'
+  ...
+# Subtest: the Try it answer is the only choice equal to actual minus predicted
+ok 261 - the Try it answer is the only choice equal to actual minus predicted
+  ---
+  duration_ms: 0.144583
+  type: 'test'
+  ...
+# Subtest: lesson source cites only what it develops and keeps its markup contract
+ok 262 - lesson source cites only what it develops and keeps its markup contract
+  ---
+  duration_ms: 0.724542
+  type: 'test'
+  ...
+1..262
+# tests 262
+# suites 0
+# pass 262
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6203.477792
