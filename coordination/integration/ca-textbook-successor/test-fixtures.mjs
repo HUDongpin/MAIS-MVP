@@ -54,6 +54,7 @@ export function registeredFixture(
     sourcePayload = false,
     releasePayload = false,
     declaredPayload = false,
+    legacyV1 = false,
   } = {},
 ) {
   const root = realpathSync(mkdtempSync("/tmp/ca-registered-"));
@@ -143,7 +144,12 @@ export function registeredFixture(
       ROOT + "/lifecycle-A23-20261029.md",
     ].sort();
     for (const file of releasePaths)
-      write(file, readFileSync(path.join(project, file)));
+      write(
+        file,
+        legacyV1
+          ? execFileSync("/usr/bin/git", ["show", "0adfef5b8fcb10a5718967e23d7476d9d7049d2b:" + file], { cwd: root, env, maxBuffer: 128 * 1024 * 1024 })
+          : readFileSync(path.join(project, file)),
+      );
     if (releasePayload)
       write(
         ROOT + "/package.json",
@@ -431,14 +437,14 @@ export function registeredFixture(
     }
     const ledger = {
         schemaVersion: "ca-textbook-checker-ledger.v1",
-        version: VERSION,
+        version: legacyV1 ? "ca-textbook-successor.v1" : VERSION,
         releaseCommit: release,
         bundleDigest,
         files: bindings,
         dependencies,
         reviews,
       },
-      ledgerPath = ROOT + "/checker-releases.json",
+      ledgerPath = legacyV1 ? ROOT + "/checker-releases.json" : prefix + "/checker-release.json",
       checkerLedger = save(ledgerPath, ledger);
     const marker = path.join(root, "UNREVIEWED-PARSER-MARKER"),
       wrapper =
@@ -491,7 +497,7 @@ export function registeredFixture(
     }
     const m = {
       schemaVersion: "ca-textbook-manifest.v1",
-      version: VERSION,
+      version: legacyV1 ? "ca-textbook-successor.v1" : VERSION,
       pullRequestNumber: 304,
       attemptId: "ca-textbook-fixture",
       baseCommit: ANCHOR,
@@ -524,7 +530,7 @@ export function registeredFixture(
     write(
       m.descriptorPath,
       JSON.stringify({
-        schemaVersion: "ca-textbook-successor.v1",
+        schemaVersion: legacyV1 ? "ca-textbook-successor.v1" : VERSION,
         relation: "immutable-content-successor",
         manifest: { path: manifestPath, sha256: hash(manifestBytes) },
         evidenceCommit: evidence,

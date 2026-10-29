@@ -1,5 +1,5 @@
 export const ROOT = "coordination/integration/ca-textbook-successor";
-export const VERSION = "ca-textbook-successor.v1";
+export const VERSION = "ca-textbook-successor.v2";
 export const SLUGS = Object.freeze([
   "ca-g10-ch01-congruence-proof",
   "ca-g10-ch02-similarity-right-triangle-reasoning",

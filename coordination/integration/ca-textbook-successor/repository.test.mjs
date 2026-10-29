@@ -119,7 +119,7 @@ function fixture(
       disposition: ref(prefix + "/inputs/disposition.json"),
       evidenceIndex: ref(prefix + "/inputs/evidence-index.json"),
       evidenceCommit: evidence,
-      checkerLedger: ref(ROOT + "/checker-releases.json"),
+      checkerLedger: ref(prefix + "/checker-release.json"),
       checkerReleaseCommit: release,
       checkerBundleDigest: H,
       descriptorPath: prefix + "/successor.json",
@@ -138,7 +138,7 @@ function fixture(
     write(
       m.descriptorPath,
       JSON.stringify({
-        schemaVersion: "ca-textbook-successor.v1",
+        schemaVersion: VERSION,
         relation: "immutable-content-successor",
         manifest: { path: manifestPath, sha256: hash(bytes) },
         evidenceCommit: evidence,
@@ -177,6 +177,94 @@ test("real Git fixture enforces evidence then first-added execution manifest/des
     repo.clean();
     assert.equal(validatePhase(repo, m, manifestPath), execution);
   }));
+
+test("v2 ledger belongs to exactly the selected attempt", () => registeredFixture((f) => {
+  assert.equal(VERSION, "ca-textbook-successor.v2");
+  assert.equal(f.m.checkerLedger.path, path.posix.dirname(f.manifestPath) + "/checker-release.json");
+  validatePhase(f.repo, f.m, f.manifestPath);
+  for (const ledgerPath of [ROOT + "/checker-releases.json", ROOT + "/attempts/ca-textbook-other/checker-release.json"]) {
+    assert.throws(() => validatePhase(f.repo, { ...f.m, checkerLedger: { ...f.m.checkerLedger, path: ledgerPath } }, f.manifestPath), /CA_LEDGER_PATH/);
+  }
+}));
+
+for (const [name, mutate, code] of [
+  ["different manifest prefix", (m) => { m.attemptId = "ca-textbook-other"; }, "CA_MANIFEST_PATH"],
+  ["invalid attempt identity", (m) => { m.attemptId = "../other"; }, "CA_ATTEMPT_ID"],
+  ["legacy global ledger", (m) => { m.checkerLedger.path = ROOT + "/checker-releases.json"; }, "CA_LEDGER_PATH"],
+  ["other attempt ledger", (m) => { m.checkerLedger.path = ROOT + "/attempts/ca-textbook-other/checker-release.json"; }, "CA_LEDGER_PATH"],
+]) test("v2 public bootstrap rejects " + name + " before loading its ledger", () => registeredFixture((f) => {
+  const manifest = structuredClone(f.m); mutate(manifest);
+  // Only a disposable synthetic branch is rewound to prepare a different X.
+  f.git("update-ref", "HEAD", f.evidence);
+  const bytes = Buffer.from(JSON.stringify(manifest)); f.write(f.manifestPath, bytes);
+  const descriptor = parse(readFileSync(path.join(f.root, f.m.descriptorPath)));
+  descriptor.manifest.sha256 = hash(bytes); f.write(f.m.descriptorPath, JSON.stringify(descriptor));
+  f.commit([f.manifestPath, f.m.descriptorPath]);
+  const result = spawnSync(process.execPath, [path.join(f.root, ROOT, "promotion.mjs"), "validate", "--repo", f.root, "--manifest", f.manifestPath], { env: GIT_ENV, encoding: "utf8" });
+  assert.equal(result.status, 2); assert.equal(parse(Buffer.from(result.stdout)).code, code);
+}));
+
+test("v2 descendant attempt preserves an actual v1 R E X history without reusing first-add paths", () => registeredFixture(async (f) => {
+  const oldManifestBytes = readFileSync(path.join(f.root, f.manifestPath));
+  const oldRepoModule = await import(pathToFileURL(path.join(f.root, ROOT, "repository.mjs")));
+  const oldContract = await import(pathToFileURL(path.join(f.root, ROOT, "contract.mjs")));
+  const oldRepo = new oldRepoModule.Repository(f.root);
+  assert.equal(oldContract.validatePhase(oldRepo, f.m, f.manifestPath), f.execution);
+  oldContract.authenticateRelease(oldRepo, f.m);
+  const saved = new Map(f.evidencePaths.map(file => [file, readFileSync(path.join(f.root, file))]));
+  f.git("rm", "--", ...f.evidencePaths, f.manifestPath, f.m.descriptorPath);
+  for (const file of f.releasePaths) f.write(file, readFileSync(path.join(project, file)));
+  const release = f.commit(f.releasePaths);
+  const repo = new Repository(f.root), prefix = ROOT + "/attempts/ca-textbook-descendant", oldPrefix = path.posix.dirname(f.manifestPath);
+  const rewrite = value => typeof value === "string" ? value.replaceAll(oldPrefix, prefix)
+    : Array.isArray(value) ? value.map(rewrite)
+      : value && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([k,v])=>[k,rewrite(v)])) : value;
+  const paths = new Set(), save = (file, value) => {
+    const bytes = Buffer.isBuffer(value) ? value : Buffer.from(JSON.stringify(value));
+    f.write(file, bytes); paths.add(file); return { path: file, sha256: hash(bytes) };
+  };
+  const records = new Map();
+  for (const [file, bytes] of saved) {
+    if (file === f.ledgerPath) continue;
+    const next = file.replace(oldPrefix, prefix);
+    if (/\.(?:md|txt)$/.test(file)) save(next, bytes); else records.set(next, rewrite(parse(bytes)));
+  }
+  const candidate = records.get(prefix + "/inputs/candidate.json");
+  const candidateRef = save(prefix + "/inputs/candidate.json", candidate);
+  const disposition = records.get(prefix + "/inputs/disposition.json");
+  disposition.candidateDigest = digest(candidate); disposition.assetsDigest = digest(candidate.assets);
+  const dispositionRef = save(prefix + "/inputs/disposition.json", disposition);
+  const registry = records.get(prefix + "/inputs/registry.json");
+  registry.resolutions.find(row => row.decision === "retired-replaced-projection").replacement.candidateDigest = digest(candidate);
+  const registryRef = save(prefix + "/inputs/registry.json", registry);
+  const files = BUNDLE_PATHS.map(file => { const {bytes,...binding}=repo.blob(release,file); return binding; });
+  const dependencies = [dependency(f.root).binding], bundleDigest = digest({files,dependencies});
+  const index = records.get(prefix + "/inputs/evidence-index.json");
+  for (const entry of index.entries) {
+    const record = records.get(entry.record.path);
+    record.reviewedAt = new Date().toISOString(); record.checkerReleaseCommit = release; record.candidateDigest = digest(candidate);
+    if(record.role === "A24") record.details.assetsDigest = digest(candidate.assets);
+    if(record.role === "A23") record.details.dispositionDigest = digest(disposition);
+    entry.record = save(entry.record.path, record);
+  }
+  const indexRef = save(prefix + "/inputs/evidence-index.json",index), reviews=[];
+  for (const role of ["a11","a23"]) {
+    const file=prefix+"/evidence/checker/"+role+".json", review=records.get(file);
+    review.releaseCommit=release;review.bundleDigest=bundleDigest;review.reviewedAt=new Date().toISOString();reviews.push(save(file,review));
+  }
+  for(const [file,value] of records) if(!paths.has(file))save(file,value);
+  const ledgerPath=prefix+"/checker-release.json", checkerLedger=save(ledgerPath,{...f.ledger,version:VERSION,releaseCommit:release,files,dependencies,bundleDigest,reviews});
+  const evidence=f.commit([...paths].sort()), manifestPath=prefix+"/manifest.json";
+  const m={...rewrite(f.m),version:VERSION,attemptId:"ca-textbook-descendant",checkerReleaseCommit:release,evidenceCommit:evidence,checkerBundleDigest:bundleDigest,checkerLedger,candidate:candidateRef,disposition:dispositionRef,registry:registryRef,evidenceIndex:indexRef};
+  const manifestBytes=Buffer.from(JSON.stringify(m));f.write(manifestPath,manifestBytes);
+  f.write(m.descriptorPath,JSON.stringify({schemaVersion:VERSION,relation:"immutable-content-successor",manifest:{path:manifestPath,sha256:hash(manifestBytes)},evidenceCommit:evidence,candidateChanged:true,checkerChanged:true,baselineOnly:false,historicalClosureOverwritten:false,liveAllowed:false}));
+  const execution=f.commit([manifestPath,m.descriptorPath]), current=new Repository(f.root);
+  current.clean();assert.equal(validatePhase(current,m,manifestPath),execution);assert.equal(authenticateRelease(current,m).bundleDigest,bundleDigest);
+  current.ancestor(f.execution,execution);assert.equal(current.addition(ledgerPath),evidence);
+  assert.equal(f.git("show",f.execution+":"+f.manifestPath),oldManifestBytes.toString().trim());
+  assert.equal(current.blob(f.execution,f.ledgerPath).sha256,hash(saved.get(f.ledgerPath)));
+  current.absent(release,f.ledgerPath);
+}, { legacyV1: true }));
 test("intermediate execution parent is rejected", () =>
   registeredFixture(
     ({ root, m, manifestPath }) =>

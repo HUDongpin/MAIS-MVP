@@ -14,6 +14,20 @@ import {
   strictReachableConsumers,
   validateCanonicalAudit,
 } from "./audit.mjs";
+export async function correlateCandidateMarkers(root, reachablePaths, registry, readAuthoritativeFile) {
+  const rows = registry.resolutions.map((row) => ({
+    id: row.resolutionId,
+    markers: [row.candidate.path, row.candidate.packageId].filter(Boolean),
+  }));
+  const correlated = Object.fromEntries(rows.map((row) => [row.id, 0]));
+  for (const file of reachablePaths) {
+    if (!/\.[cm]?[jt]sx?$|\.json$/u.test(file)) continue;
+    const text = (await readAuthoritativeFile(root, file)).bytes.toString("utf8");
+    for (const row of rows)
+      if (row.markers.some((marker) => text.includes(marker))) correlated[row.id]++;
+  }
+  return correlated;
+}
 export async function observeSnapshot(root, request) {
   need(path.isAbsolute(root ?? ""), "CA_OBSERVER_ARGS");
   const blocked = () => {
@@ -51,23 +65,9 @@ export async function observeSnapshot(root, request) {
   validateCanonicalAudit(audit);
   const { default: ts } =
     await import("../../../node_modules/typescript/lib/typescript.js");
-  const correlated = {};
-  for (const row of registry.resolutions) {
-    let count = 0;
-    for (const file of observation.graph.reachablePaths) {
-      if (!/\.[cm]?[jt]sx?$|\.json$/u.test(file)) continue;
-      const text = (await readAuthoritativeFile(root, file)).bytes.toString(
-        "utf8",
-      );
-      if (
-        [row.candidate.path, row.candidate.packageId]
-          .filter(Boolean)
-          .some((n) => text.includes(n))
-      )
-        count++;
-    }
-    correlated[row.resolutionId] = count;
-  }
+  const correlated = await correlateCandidateMarkers(
+    root, observation.graph.reachablePaths, registry, readAuthoritativeFile,
+  );
   const source = readFileSync(
       path.join(root, "data/ccssLessonAssignments.ts"),
       "utf8",

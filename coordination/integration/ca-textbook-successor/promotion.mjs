@@ -206,8 +206,11 @@ try {
     "CA_DIRTY",
   );
   const m = parse(regular(options.manifest));
+  need(/^ca-textbook-[a-z0-9-]{1,48}$/.test(m.attemptId ?? ""), "CA_ATTEMPT_ID");
+  const attemptPrefix = ROOT + "/attempts/" + m.attemptId;
+  need(options.manifest === attemptPrefix + "/manifest.json", "CA_MANIFEST_PATH");
   need(
-    m.checkerLedger?.path === ROOT + "/checker-releases.json",
+    m.checkerLedger?.path === attemptPrefix + "/checker-release.json",
     "CA_LEDGER_PATH",
   );
   const ledgerBytes = regular(m.checkerLedger.path);
@@ -215,7 +218,7 @@ try {
   const ledger = parse(ledgerBytes);
   need(
     ledger.schemaVersion === "ca-textbook-checker-ledger.v1" &&
-      ledger.version === "ca-textbook-successor.v1" &&
+      ledger.version === "ca-textbook-successor.v2" &&
       ledger.releaseCommit === m.checkerReleaseCommit &&
       /^[a-f0-9]{40}$/.test(ledger.releaseCommit),
     "CA_RELEASE",

@@ -1107,3 +1107,29 @@ test("actual Linux source retirement cannot suppress the marker or change opaque
   delete suppressed.auditDigest; suppressed.auditDigest = digest(suppressed);
   assert.throws(() => validateCanonicalAudit(suppressed), /CA_AUDIT_TRANSITION/);
 });
+
+test("marker correlation reads each eligible file once without changing per-candidate counts", async () => {
+  const { correlateCandidateMarkers } = await import("./observer.mjs");
+  assert.equal(typeof correlateCandidateMarkers, "function");
+  const reads = [], source = {
+    "a.ts": "legacy/a.json package-a package-a",
+    "b.json": "package-b legacy/b.json",
+  };
+  const registry = { resolutions: [
+    { resolutionId: "a", candidate: { path: "legacy/a.json", packageId: "package-a" } },
+    { resolutionId: "b", candidate: { path: "legacy/b.json", packageId: "package-b" } },
+    { resolutionId: "c", candidate: { path: "legacy/c.json" } },
+  ] };
+  const actual = await correlateCandidateMarkers("/synthetic", ["a.ts", "b.json", "image.svg"], registry, async (_root, file) => {
+    reads.push(file); return { bytes: Buffer.from(source[file]) };
+  });
+  assert.deepEqual(actual, { a: 1, b: 1, c: 0 });
+  assert.deepEqual(reads, ["a.ts", "b.json"]);
+});
+test("marker correlation propagates authoritative file failures", async () => {
+  const { correlateCandidateMarkers } = await import("./observer.mjs");
+  assert.equal(typeof correlateCandidateMarkers, "function");
+  await assert.rejects(() => correlateCandidateMarkers("/synthetic", ["a.ts"], {
+    resolutions: [{ resolutionId: "a", candidate: { path: "legacy/a.json" } }],
+  }, async () => { throw new Error("AUTHORITATIVE_READ_FAILED"); }), /AUTHORITATIVE_READ_FAILED/);
+});

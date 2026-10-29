@@ -60,7 +60,7 @@ export function validatePhase(repo, m, manifestPath, { stored = false } = {}) {
   validateSchema("manifest", m);
   const prefix = attemptPaths(m);
   need(
-    m.checkerLedger.path === ROOT + "/checker-releases.json",
+    m.checkerLedger.path === prefix + "/checker-release.json",
     "CA_LEDGER_PATH",
   );
   unique(m.sourceAuthors);

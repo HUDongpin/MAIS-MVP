@@ -50,7 +50,7 @@ export function collectEvidenceArtifacts(repo, m) {
   };
   const ledger = json(
     m.checkerLedger,
-    ROOT + "/checker-releases.json",
+    prefix + "/checker-release.json",
     "ledger",
   );
   const c = json(m.candidate, prefix + "/inputs/candidate.json", "candidate");
