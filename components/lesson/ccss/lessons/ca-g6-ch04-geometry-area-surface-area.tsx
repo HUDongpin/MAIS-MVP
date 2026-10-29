@@ -83,7 +83,7 @@ export function plotPieces() {
 /** The six corners, in order round the plot, each with the offset its coordinate label is drawn at. */
 export const PLOT_CORNERS: { at: Pt; dx: number; dy: number; anchor: "start" | "end" }[] = [
   { at: [PLOT.x0, PLOT.y0], dx: -6, dy: 13, anchor: "end" }, { at: [PLOT.x1, PLOT.y0], dx: 6, dy: 13, anchor: "start" },
-  { at: [PLOT.x1, PLOT.cutY], dx: 6, dy: 4, anchor: "start" }, { at: [PLOT.cutX, PLOT.cutY], dx: 5, dy: 13, anchor: "start" },
+  { at: [PLOT.x1, PLOT.cutY], dx: 6, dy: 4, anchor: "start" }, { at: [PLOT.cutX, PLOT.cutY], dx: 5, dy: -8, anchor: "start" },
   { at: [PLOT.cutX, PLOT.y1], dx: 6, dy: -6, anchor: "start" }, { at: [PLOT.x0, PLOT.y1], dx: -6, dy: -6, anchor: "end" },
 ];
 

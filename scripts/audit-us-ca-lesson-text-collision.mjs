@@ -58,6 +58,9 @@ const ROUTES = [
  * over anything in this module.
  */
 export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs }) => {
+  if (!Number.isFinite(tol) || tol > 0 || !Number.isSafeInteger(maxPresses) || maxPresses <= 0 || !Number.isFinite(maxMs) || maxMs <= 0) {
+    return { slug, error: "invalid tolerance or finite traversal limits" };
+  }
   const root_ = document.querySelector(`[data-lesson-role="opener"] [data-ccss-lesson="${slug}"]`);
   if (!root_) return { slug, error: "opener not found" };
   const settle = () => Promise.resolve(); // React flushes discrete events synchronously
@@ -92,7 +95,8 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
   let gi = 0;
   const choices = [];
   for (const [group, members] of groups) {
-    if (members.length >= 2) choices.push({ kind: "choice", name: `choice${gi++}`, members, group });
+    if (members.length >= 2) choices.push({ kind: "choice", name: `choice${gi++}`, members, group,
+      initiallyUnselected: members.every((ref) => ref.el.getAttribute("aria-pressed") === "false") });
     else choices.push({ kind: "toggle", name: idOf(members[0].el), member: members[0], stateAttribute: "aria-pressed" });
   }
   // Choice groups are walked OUTSIDE the steppers. Some lessons let a button
@@ -137,9 +141,14 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
     const ordered = new Set([mode, terms, targets, ...steps]);
     axes = [...axes.filter((a) => !ordered.has(a)), steps[0], steps[1], targets, steps[2], mode];
   }
-  const unsupported = bs.filter((button) => !classifiedButtons.has(button)).map(idOf);
-  unsupported.push(...[...root_.querySelectorAll('input:not([type="range"]),select,textarea')]
-    .map((input) => `${input.tagName}:${input.getAttribute("aria-label") || input.getAttribute("type") || "unnamed"}`));
+  const unselected = axes.filter((a) => a.kind === "choice" && a.initiallyUnselected);
+  if (unselected.length > 1) return { slug, error: "multiple initially unselected groups require an explicit reset/replay contract" };
+  // The unanswered state cannot be restored by choosing an answer. Visit its
+  // entire remaining grid FIRST, before selecting any option in this group.
+  axes = [...unselected, ...axes.filter((a) => !unselected.includes(a)),
+    ...walkthroughs.map((sequence, index) => ({ kind: "walkthrough", name: `worked-example-${index + 1}`, ...sequence }))];
+  const unsupported = new Set();
+  const inputId = (input) => `${input.tagName}:${input.getAttribute("aria-label") || input.getAttribute("type") || "unnamed"}`;
 
   const seen = new Map();
   const lost = new Set();
@@ -148,15 +157,20 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
   let visited = 0, presses = 0, capped = false;
   const axisValues = new Map(axes.map((a) => [a, new Set()]));
   const aliasActions = new Map();
-  const walkthroughCoverage = [];
   const t0 = performance.now();
-  const initialSvgContents = [...root_.querySelectorAll("svg")].map((svg) => svg.outerHTML);
-  const gridChangedSvgIndices = new Set();
-  let measuringGrid = true;
 
   const measure = () => {
+    // A control can appear only after another interaction. Inspect the live
+    // roster at EVERY visited state, not just the initial DOM.
+    for (const button of buttons()) {
+      const knownTermAlias = axes.some((a) => a.aliasGroup?.contains(button)
+        && /^Evaluate T of \d+$/.test(button.getAttribute("aria-label") || ""));
+      if (!classifiedButtons.has(button) && !knownTermAlias) unsupported.add(idOf(button));
+    }
+    for (const input of root_.querySelectorAll("input,select,textarea")) {
+      if (!ranges.includes(input)) unsupported.add(inputId(input));
+    }
     [...root_.querySelectorAll("svg")].forEach((svg, si) => {
-      if (measuringGrid && !gridChangedSvgIndices.has(si) && svg.outerHTML !== initialSvgContents[si]) gridChangedSvgIndices.add(si);
       const items = [];
       for (const t of svg.querySelectorAll("text")) {
         const st = getComputedStyle(t);
@@ -190,6 +204,20 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
       return;
     }
     const a = axes[k];
+    if (a.kind === "walkthrough") {
+      const reset = get(a.reset), advance = get(a.advance);
+      if (!reset || !advance) { lost.add(a.name); return; }
+      reset.click(); presses += 1; await settle();
+      a.at = 0;
+      for (let step = 0; step <= maxPresses; step += 1) {
+        await walk(k + 1);
+        if (capped || advance.disabled) break;
+        if (step === maxPresses) { stuck.add(`${a.name} (reveal did not terminate)`); break; }
+        advance.click(); presses += 1; a.at += 1; await settle();
+      }
+      reset.click(); presses += 1; await settle();
+      return;
+    }
     if (a.kind === "range") {
       const input = a.input;
       if (!input.isConnected) { lost.add(a.name); return; }
@@ -229,6 +257,15 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
     }
     if (a.kind === "choice") {
       const members = [...a.group.querySelectorAll('button[type="button"][aria-pressed]')].map(refTo);
+      for (const ref of members) classifiedButtons.add(ref.el);
+      if (a.initiallyUnselected) {
+        if (!members.every((ref) => ref.el.getAttribute("aria-pressed") === "false")) {
+          stuck.add(`${a.name} (initial unanswered state cannot be restored)`); return;
+        }
+        a.at = "unselected";
+        await walk(k + 1);
+        if (capped) return;
+      }
       for (let m = 0; m < members.length; m += 1) {
         const el = get(members[m]);
         if (!el) { lost.add(`${a.name}[${m}]`); continue; }
@@ -261,41 +298,19 @@ export const auditLessonControlStates = async ({ slug, tol, maxPresses, maxMs })
       a.at += 1;
     }
     if (g >= maxPresses) stuck.add(`${a.name} (never reached its high bound)`);
+    if (a.aliasGroup && a.aliasGroup.querySelectorAll('button[type="button"]').length !== a.at + 1) {
+      stuck.add(`${a.name} (alias count differs from the traversed day domain)`);
+    }
   };
 
   // Include the initial unanswered/default state before the finite grid.
   measure();
   visited += 1;
   await walk(0);
-  // Reveal controls either leave the interactive SVG unchanged or update a
-  // separate worked-example SVG. Verify disjoint changed SVG sets before
-  // using this factorization; shared changes require an explicit joint grid.
-  measuringGrid = false;
-  const svgContents = () => [...root_.querySelectorAll("svg")].map((svg) => svg.outerHTML);
-  for (const sequence of walkthroughs) {
-    const before = svgContents();
-    const reset = get(sequence.reset), advance = get(sequence.advance);
-    if (!reset || !advance) { lost.add("worked-example controls"); continue; }
-    reset.click(); presses += 1; await settle();
-    let steps = 0;
-    const changedSvgIndices = new Set();
-    while (!advance.disabled && steps < maxPresses) {
-      advance.click(); presses += 1; steps += 1; await settle(); measure();
-      svgContents().forEach((value, index) => { if (value !== before[index]) changedSvgIndices.add(index); });
-    }
-    if (!advance.disabled) stuck.add("worked-example reveal did not terminate");
-    reset.click(); presses += 1; await settle();
-    if (JSON.stringify(svgContents()) !== JSON.stringify(before)) stuck.add("worked-example reset did not restore SVG state");
-    const sharedSvgIndices = [...changedSvgIndices].filter((index) => gridChangedSvgIndices.has(index));
-    if (sharedSvgIndices.length) stuck.add(`worked-example and grid share SVG ${sharedSvgIndices.join(",")}; joint grid required`);
-    walkthroughCoverage.push({ steps, reset: true, changedSvgIndices: [...changedSvgIndices], sharedSvgIndices });
-  }
   return {
     slug,
     axes: axes.map((a) => ({ kind: a.kind, name: a.name, values: [...axisValues.get(a)] })),
-    unsupported,
-    walkthroughCoverage,
-    gridChangedSvgIndices: [...gridChangedSvgIndices],
+    unsupported: [...unsupported],
     aliasActions: Object.fromEntries(aliasActions),
     svgs: root_.querySelectorAll("svg").length,
     texts: root_.querySelectorAll("svg text").length,
@@ -397,7 +412,7 @@ await browser.close();
 for (const slug of only) if (!results.some((r) => r.slug === slug)) unsound.push(`${slug}: requested lesson was not audited`);
 if (process.env.CCSS_AUDIT_REPORT) writeFileSync(process.env.CCSS_AUDIT_REPORT, `${JSON.stringify({
   schemaVersion: "ccss-figure-label-control-grid.v2", audited, states,
-  domain: "default plus finite diagram choices, toggles, steppers and every discrete range value; worked-example reveal/reset checked separately only for disjoint SVG changes",
+  domain: "default plus joint finite choices including one initial unanswered group, toggles, steppers, every discrete range value and all worked-example reveal steps; live controls rescanned in every state",
   tolerance: TOL, results, unsound, failures,
 }, null, 2)}\n`);
 

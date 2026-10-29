@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { collides, textBox } from "../labelSpacing";
 import {
   EDGES,
   GIFT,
@@ -203,6 +204,24 @@ test("every reachable box: the readouts are true and the net stays inside its vi
  * `step` only, so 9 x 7 x 5 states above plus the 5 steps here plus the 5 picks
  * below cover all 9 x 7 x 5 x 5 x 5 reachable UI states without a product loop.
  */
+test("worked-plot coordinate labels stay clear of the revealed area numerals", () => {
+  const pieces = plotPieces();
+  const areas = [
+    { x: gx((PLOT.x0 + PLOT.x1) / 2), y: gy((PLOT.y0 + PLOT.cutY) / 2) + 4, value: pieces.lower },
+    { x: gx((PLOT.x0 + PLOT.cutX) / 2), y: gy((PLOT.cutY + PLOT.y1) / 2) + 4, value: pieces.upper },
+    { x: gx((PLOT.cutX + PLOT.x1) / 2), y: gy((PLOT.cutY + PLOT.y1) / 2) + 4, value: pieces.missing },
+  ];
+  for (const corner of PLOT_CORNERS) {
+    const [x, y] = corner.at;
+    const label = `(${x}, ${y})`;
+    const box = textBox(gx(x) + corner.dx, gy(y) + corner.dy, label.length * 6, { anchor: corner.anchor, fontSize: 9 });
+    for (const area of areas) {
+      const areaBox = textBox(area.x, area.y, String(area.value).length * 9, { fontSize: 13 });
+      assert.equal(collides(box, areaBox, 2), false, `${label} overlaps area ${area.value}`);
+    }
+  }
+});
+
 test("every reveal step: what is drawn stays inside the viewBox and the aria-label says what is drawn", () => {
   // The grid is written out here so the geometry below is rebuilt from raw
   // numbers rather than from the lesson's own gx/gy.

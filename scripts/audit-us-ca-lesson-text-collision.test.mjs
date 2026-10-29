@@ -84,22 +84,23 @@ async function withWalkthrough(sharedSvg) {
   return page;
 }
 
-test("checks all reveal steps separately when they affect a disjoint SVG", async () => {
+test("checks the full product of diagram controls and worked-example reveal steps", async () => {
   const page = await withWalkthrough(false);
   try {
     const result = await page.evaluate(auditLessonControlStates, options);
-    assert.deepEqual(result.gridChangedSvgIndices, [0]);
-    assert.deepEqual(result.walkthroughCoverage, [{ steps: 2, reset: true, changedSvgIndices: [1], sharedSvgIndices: [] }]);
+    assert.equal(result.visited, 31);
+    assert.deepEqual(result.axes.find((a) => a.kind === "walkthrough").values, ["0", "1", "2"]);
     assert.deepEqual(result.unsupported, []);
     assert.deepEqual(result.stuck, []);
   } finally { await page.close(); }
 });
 
-test("rejects independent walkthrough coverage when the controls also alter the interactive SVG", async () => {
+test("visits shared SVG reveal changes jointly instead of assuming independence", async () => {
   const page = await withWalkthrough(true);
   try {
     const result = await page.evaluate(auditLessonControlStates, options);
-    assert.deepEqual(result.walkthroughCoverage[0].sharedSvgIndices, [0]);
-    assert.ok(result.stuck.includes("worked-example and grid share SVG 0; joint grid required"));
+    assert.equal(result.visited, 31);
+    assert.deepEqual(result.axes.find((a) => a.kind === "walkthrough").values, ["0", "1", "2"]);
+    assert.deepEqual(result.stuck, []);
   } finally { await page.close(); }
 });
