@@ -15,10 +15,14 @@ export const SOURCE_TREE = "ff3dd1ea83b47cc61bdb79bdaa1b43be3c7d7db5";
 export const SOURCE_INVENTORY = "d1785da97c30aeed268bdef4d08b6e89fcd5566d3c5e7f0008af021a4c08af56";
 export const CHECKS_SHA = "3caf16cdb3f5d9e15b21d51254c67b84f618adc7b1d16806930fd437bc615591";
 export const PULL_REQUEST = 306;
+export const PREVIOUS_TOOLING = "6bf3c1d444c56be7fbb14fc7ee1e89521578f43c";
+export const PREVIOUS_TOOLING_TREE = "4563be973471ccd14660793f02b83200103b06af";
+export const PREVIOUS_TOOLING_INVENTORY = "108c6d4d9c8a6e4b866febdcb1f2628318bd04be8f23f67144da0e8ab8b73d16";
 export const DIRECTORY = "coordination/integration/reviewed-code/pr306-v1";
 export const ADMISSION = DIRECTORY + "/admission.json";
 export const SOURCE_PATHS = Object.freeze([".env.local.example", ".github/workflows/ci.yml", "app/api/ai-tutor/resolve/route.ts", "app/api/ai-tutor/speech/route.ts", "app/api/ai-tutor/status/route.ts", "app/api/ai-tutor/voice/route.ts", "app/api/handwriting-recognition/route.ts", "app/api/lesson-audio/route.ts", "app/api/nova-lens/runs/route.ts", "app/api/teacher/assignments/route.ts", "app/api/teacher/question-generation/route.ts", "app/parent/parentRscSafeBoundary.test.ts", "components/ai/AITutorProvider.tsx", "components/ai/NovaLensGlobalOverlay.tsx", "components/lesson/LessonView.tsx", "components/onboarding/GuidedTour.tsx", "components/practice/PracticeQuestionCard.tsx", "components/practice/useReadAloud.ts", "components/providers/AppProviders.tsx", "components/providers/useAiProviderRegion.ts", "components/visualizations/signature/CountingLab.jsx", "components/visualizations/signature/TeenNumbersLab.jsx", "docs/superpowers/plans/2026-10-30-provider-company-policy.md", "lib/aiProviderCompanyPolicy.test.ts", "lib/aiProviderCompanyPolicy.ts", "lib/aiTutorCapacity.test.ts", "lib/appShellBootstrap.ts", "lib/browserSpeechPolicy.test.ts", "lib/browserSpeechPolicy.ts", "lib/llmProviderConfig.ts", "lib/practiceReadAloud.ts", "lib/server/aiProviderPolicyContext.test.ts", "lib/server/aiProviderPolicyContext.ts", "lib/server/apiSurfaceSecurity.test.ts", "lib/server/eduhkOpenApi.ts", "lib/server/llmProvider.ts", "lib/server/regionScopedProviders.test.ts", "lib/server/regionScopedProviders.ts", "lib/server/teacherAssignmentGeneration.ts", "lib/server/teacherReviewLessonLLM.ts", "lib/server/tutorModerationProvider.ts", "lib/server/tutorProviderPolicyProof.test.ts", "lib/server/tutorProviderPolicyProof.ts", "lib/server/tutorVoiceModeration.ts", "lib/server/userStore.ts", "lib/server/userStore/aiGovernancePersistence.ts", "lib/server/userStore/authAdmissionPersistence.test.ts", "lib/server/userStore/authSessionPersistence.ts", "lib/server/userStore/teacherOpsClassPersistence.ts", "lib/server/userStore/teacherOpsLessonKitPersistence.ts", "lib/server/userStore/teacherOpsSubmissionPersistence.ts", "lib/server/userStoreAuthSessionPersistence.test.ts", "lib/server/userStoreTeacherOpsClassPersistence.test.ts", "lib/server/userStoreTeacherOpsLessonKitPersistence.test.ts", "lib/server/userStoreTeacherOpsSubmissionPersistence.test.ts", "tests/e2e/ai-provider-company-policy.test.ts", "types/index.ts"]);
-export const CODE_PATHS = Object.freeze([".github/workflows/promotion-shadow.yml","scripts/promotion-reviewed-code-pr306.mjs","scripts/promotion-reviewed-code-pr306.test.mjs","docs/pr306-reviewed-code-gate.md"].sort());
+export const INITIAL_CODE_PATHS = Object.freeze([".github/workflows/promotion-shadow.yml","scripts/promotion-reviewed-code-pr306.mjs","scripts/promotion-reviewed-code-pr306.test.mjs","docs/pr306-reviewed-code-gate.md"].sort());
+export const CODE_PATHS = Object.freeze([...INITIAL_CODE_PATHS, "tests/e2e/reported-bug-source-regressions.test.ts", "components/visualizations/signature/audit-teennumbers.mjs"].sort());
 export const EVIDENCE_PATHS = Object.freeze(["admission.json","source-inventory.json","source-checks.json",...["a11","a23"].flatMap(r=>[r+"-review.json",r+"-review.md"])].map(f=>DIRECTORY+"/"+f).sort());
 export const PERMISSIONS = Object.freeze({ historicalPromotionRevalidated:false,liveAllowed:false,previewAllowed:false,deployAllowed:false,wholePackAccepted:false,historicalAuthorityTransferred:false });
 export const IDENTITIES = Object.freeze({ A11:"/root/pr306_gate_a11", A23:"/root/pr306_gate_a23" });
@@ -132,7 +136,40 @@ export const COMMANDS = Object.freeze([
     }
   }
 ].map(c => Object.freeze({ ...c, args: Object.freeze(c.args), summary: c.summary === null ? null : Object.freeze(c.summary) })));
-export const CONTRACT_TEST_COUNT = 41;
+export const TOOLING_COMMANDS = Object.freeze([
+  {
+    "name": "source-regressions",
+    "args": [
+      "--import",
+      "tsx",
+      "--test",
+      "--test-reporter=tap",
+      "tests/e2e/reported-bug-source-regressions.test.ts"
+    ],
+    "summary": {
+      "tests": 26,
+      "suites": 0,
+      "pass": 26,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "resultNamesDigest": "e400541262f5b1ddbfadce6a47f86ee328117583455fbf3db9a7e24753f4db08"
+    }
+  },
+  {
+    "name": "teen-numbers-audit",
+    "args": [
+      "components/visualizations/signature/audit-teennumbers.mjs"
+    ],
+    "summary": {
+      "checks": 46855,
+      "fail": 0,
+      "stdoutSha256": "4d42c0c5f124e8f2dee7fcb1ce7e4f289a5e27446e57229d45edea9452952e9e"
+    }
+  }
+].map(c => Object.freeze({ ...c, args: Object.freeze(c.args), summary: Object.freeze(c.summary) })));
+export const CONTRACT_TEST_COUNT = 45;
 const GIT_ENV = Object.freeze({ PATH: "/usr/bin:/bin", GIT_CONFIG_GLOBAL: "/dev/null", GIT_CONFIG_NOSYSTEM: "1", GIT_OPTIONAL_LOCKS: "0", GIT_TERMINAL_PROMPT: "0", GIT_GRAFT_FILE: "/dev/null", LC_ALL: "C" });
 const SHA = /^[a-f0-9]{40}$/u, HASH = /^[a-f0-9]{64}$/u, REPOSITORY = "HUDongpin/MAIS-MVP";
 function fail(code) { const error = new Error(code); error.code = code; throw error; }
@@ -263,11 +300,14 @@ export function assertArtifactRoot(value, repoRoot) {
 export function verifyExecution(name, result) {
   need(result.status === 0 && !result.error && !result.signal, "PR306_COMMAND_FAILED");
   const stdout = Buffer.from(result.stdout ?? []), stderr = Buffer.from(result.stderr ?? []);
-  const spec = COMMANDS.find(command => command.name === name);
+  const spec = [...COMMANDS, ...TOOLING_COMMANDS].find(command => command.name === name);
   need(name === "gate-contract" || spec, "PR306_COMMANDS");
   let summary;
   if (name === "types") {
     need(stdout.length === 0 && stderr.length === 0, "PR306_TYPE_OUTPUT"); summary = null;
+  } else if (name === "teen-numbers-audit") {
+    need(stderr.length === 0 && stdout.equals(Buffer.from("\n46855 checks, 0 failures\n")), "PR306_MATH_AUDIT_REPORT");
+    summary = { checks: 46855, fail: 0, stdoutSha256: hash(stdout) };
   } else summary = testSummary(stdout);
   if (name === "gate-contract") need(summary.tests === CONTRACT_TEST_COUNT && summary.skipped === 0, "PR306_CONTRACT_COUNT");
   else same(summary, spec.summary, "PR306_TEST_COUNT_OR_NAMES");
@@ -276,7 +316,7 @@ export function verifyExecution(name, result) {
 export function check(options) {
   const context = preflight(options), artifacts = assertArtifactRoot(options.artifactRoot, context.root);
   assertMaterializedTree(context.root, context.head);
-  const commands = [{ name: "gate-contract", args: ["--test", "--test-reporter=tap", "scripts/promotion-reviewed-code-pr306.test.mjs"] }, ...COMMANDS];
+  const commands = [{ name: "gate-contract", args: ["--test", "--test-reporter=tap", "scripts/promotion-reviewed-code-pr306.test.mjs"] }, ...TOOLING_COMMANDS, ...COMMANDS];
   const records = [];
   for (const command of commands) {
     const result = spawnSync(process.execPath, command.args, { cwd: context.root, env: commandEnvironment(), timeout: command.name === "gate-contract" ? 600000 : command.name === "types" ? 300000 : 180000, maxBuffer: 8 * 1024 * 1024 });
@@ -335,7 +375,10 @@ export function preflight({ repoRoot, eventName, eventPath }) {
   same(recordedInventory, { schemaVersion: "pr306-source-inventory.v1", baseCommit: BASE, sourceCommit: SOURCE,
     sourceTree: SOURCE_TREE, inventoryDigest: SOURCE_INVENTORY, entries }, "PR306_SOURCE_INVENTORY");
   need(SHA.test(a.toolingCommit) && SHA.test(a.toolingTree) && HASH.test(a.toolingInventoryDigest), "PR306_TOOLING");
-  same(parents(root, a.toolingCommit), [SOURCE], "PR306_TOOLING_PARENT");
+  same(parents(root, PREVIOUS_TOOLING), [SOURCE], "PR306_TOOLING_PARENT");
+  same(changed(root, SOURCE, PREVIOUS_TOOLING), INITIAL_CODE_PATHS, "PR306_INITIAL_TOOLING_PATHS");
+  need(tree(root, PREVIOUS_TOOLING) === PREVIOUS_TOOLING_TREE && digest(inventory(root, SOURCE, PREVIOUS_TOOLING)) === PREVIOUS_TOOLING_INVENTORY, "PR306_INITIAL_TOOLING_DIGEST");
+  same(parents(root, a.toolingCommit), [PREVIOUS_TOOLING], "PR306_TOOLING_PARENT");
   same(changed(root, SOURCE, a.toolingCommit), CODE_PATHS, "PR306_TOOLING_PATHS");
   need(tree(root, a.toolingCommit) === a.toolingTree && digest(inventory(root, SOURCE, a.toolingCommit)) === a.toolingInventoryDigest, "PR306_TOOLING_DIGEST");
   for (const file of CODE_PATHS) need(regular(root, file).equals(blob(root, a.toolingCommit, file)), "PR306_TOOLING_DRIFT");

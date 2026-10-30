@@ -159,7 +159,7 @@ function fixture(run, options = {}) {
     write(repo, ".git/objects/info/alternates", path.join(git(root, "rev-parse", "--path-format=absolute", "--git-common-dir"), "objects") + "\n");
     git(repo, "config", "core.sparseCheckout", "true");
     write(repo, ".git/info/sparse-checkout", [...g.SOURCE_PATHS, ...g.CODE_PATHS, g.DIRECTORY + "/"].map(p => "/" + p).join("\n") + "\n");
-    git(repo, "checkout", "--detach", "-q", g.SOURCE);
+    git(repo, "checkout", "--detach", "-q", options.parent ?? g.PREVIOUS_TOOLING);
     const commit = files => { git(repo, "add", "--sparse", "--", ...files); git(repo, "commit", "-qm", "Synthetic PR306 test fixture; not an approval"); };
     for (const file of g.CODE_PATHS) write(repo, file, readFileSync(path.join(root, file)));
     options.tooling?.(repo);
@@ -230,7 +230,7 @@ test("workflow is exactly the three deterministic insertions with old actions an
   assert.throws(()=>g.expectedWorkflow("unknown workflow"),/PR306_WORKFLOW/);
   assert.ok(g.expectedWorkflow(before).indexOf("pr306-v1")<g.expectedWorkflow(before).indexOf("coordination/integration/reviewed-code/pr305-v1/admission"));
 });
-test("complete synthetic S T E chain accepts exactly PR306 and no deployment permissions", () => fixture(({check,evidence})=>{
+test("complete synthetic S T1 T2 E chain accepts exactly PR306 and no deployment permissions", () => fixture(({check,evidence})=>{
   assert.equal(g.PULL_REQUEST, 306, "the actual requested PR number is independent of fixture configuration");
   assert.deepEqual(g.IDENTITIES, { A11: "/root/pr306_gate_a11", A23: "/root/pr306_gate_a23" });
   const result=check();assert.equal(result.evidenceCommit,evidence);assert.ok(Object.values(result.admission.permissions).every(v=>v===false));
@@ -711,4 +711,69 @@ test("the inherited native evidence and three historical inventory reports are b
 test("CLI rejects inherited Node loader authority", () => {
   const result=spawnSync(process.execPath,[path.join(root,"scripts/promotion-reviewed-code-pr306.mjs"),"select"],{env:{...g.commandEnvironment(),NODE_PATH:"synthetic-untrusted-path"},encoding:"utf8"});
   assert.equal(result.status,2);assert.equal(parse(Buffer.from(result.stderr)).code,"PR306_LOADER");
+});
+
+const toolingRegressionNames = [
+  "login native select options keep explicit contrast in dark mode dropdowns",
+  "legacy Visualization Lab route still activates the Visualization Lab nav item",
+  "teacher class creation form keeps compact labels on one line",
+  "teacher workspace parameters bypass the redirecting route root",
+  "teacher mastery-target controls stack before cramped desktop widths",
+  "adaptive knowledge galaxy avoids horizontal overflow on personalized learning",
+  "about Mission Setup renders a five-question preview from real question data",
+  "public practice mission showcase does not present a logged-out checkpoint as in progress",
+  "student assignments route exposes the final heading while assignments load",
+  "parent navigation provides hydrated loading feedback without a racy segment boundary",
+  "known routes affected by the hidden-segment race carry no segment-level loading file",
+  "personalized learning eagerly prepares the assignments route before the All assignments CTA is used",
+  "teacher add-student mutation returns refreshed detail for immediate count updates",
+  "completed lesson progress stores full completion mastery",
+  "lesson place-value illustration derives tens and ones from the focus number",
+  "practice answer submissions persist attached work photos, not just accept them",
+  "practice photo attachment control is localized in Chinese modes",
+  "number-line count mode disables Number B instead of exposing an inert slider",
+  "equation-balance tokens declare a pan-contained fit contract",
+  "student dashboard Lesson shortcut waits for a resolved lesson target",
+  "student roadmap uses the personalized current-grade path only for signed-in learners",
+  "student roadmap route shell renders roadmap pages through normal SSR and client boundaries",
+  "AI Tutor voice uses the Node WebSocket client with explicit provider headers",
+  "AI Tutor voice gates client-supplied text before speaking it",
+  "AI Tutor voice keeps unconfigured-provider text local while preserving duty of care",
+  "student /resource index exists so Resources nav does not 404"
+];
+test("the superseded tooling commit remains an exact immutable intermediate", () => {
+  assert.equal(g.PREVIOUS_TOOLING, "6bf3c1d444c56be7fbb14fc7ee1e89521578f43c");
+  assert.deepEqual(git(root, "show", "-s", "--format=%P", g.PREVIOUS_TOOLING).split(" "), [g.SOURCE]);
+  assert.equal(git(root, "rev-parse", g.PREVIOUS_TOOLING + "^{tree}"), g.PREVIOUS_TOOLING_TREE);
+  const entries = g.inventory(root, g.SOURCE, g.PREVIOUS_TOOLING);
+  assert.deepEqual(entries.map(entry => entry.path), g.INITIAL_CODE_PATHS);
+  assert.equal(g.digest(entries), g.PREVIOUS_TOOLING_INVENTORY);
+  assert.equal(g.INITIAL_CODE_PATHS.length, 4);
+  assert.equal(g.CODE_PATHS.length, 6);
+});
+test("a final tooling commit cannot skip the pinned intermediate", () => fixture(({check}) => {
+  assert.throws(check, /PR306_TOOLING_PARENT/);
+}, {parent: g.SOURCE}));
+test("the corrected source-regression suite is a separately bound final-tooling command", () => {
+  assert.equal(g.TOOLING_COMMANDS.length, 2);
+  const command = g.TOOLING_COMMANDS[0];
+  assert.deepEqual(command.args, ["--import", "tsx", "--test", "--test-reporter=tap", "tests/e2e/reported-bug-source-regressions.test.ts"]);
+  assert.equal(command.summary.tests, 26);
+  assert.equal(g.COMMANDS.some(value => value.name === command.name), false);
+  assert.deepEqual(g.verifyExecution(command.name, {status: 0, stdout: flatReport(toolingRegressionNames)}), command.summary);
+  assert.throws(() => g.verifyExecution(command.name, {status: 1, stdout: flatReport(toolingRegressionNames)}), /PR306_COMMAND_FAILED/);
+  assert.throws(() => g.verifyExecution(command.name, {status: 0, stdout: flatReport(["replacement", ...toolingRegressionNames.slice(1)])}), /PR306_TEST_COUNT_OR_NAMES/);
+  assert.ok(Object.isFrozen(command) && Object.isFrozen(command.args) && Object.isFrozen(command.summary));
+});
+
+test("the Teen Numbers audit requires the exact zero-failure output and successful exit", () => {
+  const command = g.TOOLING_COMMANDS.find(value => value.name === "teen-numbers-audit");
+  assert.deepEqual(command.args, ["components/visualizations/signature/audit-teennumbers.mjs"]);
+  const stdout = Buffer.from("\n46855 checks, 0 failures\n");
+  assert.deepEqual(g.verifyExecution(command.name, {status: 0, stdout}), command.summary);
+  for (const result of [
+    {status: 1, stdout}, {status: 0, stdout, stderr: Buffer.from("FAIL: hidden failure")},
+    {status: 0, stdout: Buffer.from("\n46855 checks, 1 failures\n")},
+    {status: 0, stdout: Buffer.concat([stdout, Buffer.from("unexpected output")])}
+  ]) assert.throws(() => g.verifyExecution(command.name, result), /PR306_(COMMAND_FAILED|MATH_AUDIT_REPORT)/);
 });

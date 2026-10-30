@@ -337,7 +337,8 @@ test("AI Tutor voice gates client-supplied text before speaking it", async () =>
 test("AI Tutor voice keeps unconfigured-provider text local while preserving duty of care", async () => {
   const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
 
-  assert.match(voiceRoute, /voiceProviderConfigured: Boolean\(providerConfig\.apiKey\)/);
+  assert.match(voiceRoute, /const providerAllowed = isAiProviderAllowedForRegion\(providerRegion, providerConfig\.apiUrl\)/);
+  assert.match(voiceRoute, /voiceProviderConfigured: providerAllowed && Boolean\(providerConfig\.apiKey\)/);
   assert.match(
     voiceRoute,
     /code: "AI_TUTOR_VOICE_NOT_CONFIGURED"[\s\S]*?status: 503/
@@ -346,10 +347,13 @@ test("AI Tutor voice keeps unconfigured-provider text local while preserving dut
   const moderationIndex = voiceRoute.indexOf("await resolveTutorVoiceModeration({");
   const safetyFlagIndex = voiceRoute.indexOf("if (voiceModeration.safetyFlag)");
   const unavailableIndex = voiceRoute.indexOf("if (!providerConfig.apiKey)");
+  const regionalUnavailableIndex = voiceRoute.indexOf("if (!providerAllowed)");
   const refusalIndex = voiceRoute.indexOf("if (!voiceModeration.allowed)");
 
   assert.ok(moderationIndex > 0, "voice duty-of-care preflight is missing");
   assert.ok(safetyFlagIndex > moderationIndex, "safety alerts must follow the local preflight");
+  assert.ok(regionalUnavailableIndex > safetyFlagIndex, "regional refusal must preserve local safety alerts");
+  assert.ok(unavailableIndex > regionalUnavailableIndex, "regional permission is checked before key readiness");
   assert.ok(unavailableIndex > safetyFlagIndex, "voice 503 must follow safety alert recording");
   assert.ok(refusalIndex > unavailableIndex, "voice 503 must win after duty of care is preserved");
 });
