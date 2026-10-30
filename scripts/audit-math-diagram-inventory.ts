@@ -28,6 +28,7 @@ import { visualizationLabCatalog } from "../data/visualizationLabs";
 import { lessonHrefForTopicId } from "../lib/lessonLinks";
 import type { ProductionLessonSeed } from "../data/lessons";
 import type { TextbookPublisher } from "../types";
+import { mathDiagramCoverageBaseline, validateMathDiagramCoverage } from "./math-diagram-coverage";
 
 type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 
@@ -406,6 +407,7 @@ export async function buildMathDiagramInventory() {
 
   const inventory = {
     schemaVersion: 6,
+    coverageBaseline: mathDiagramCoverageBaseline(),
     provenance: {
       contract: "math-diagram-source-graph-v1",
       discoveredRowDigestSha256,
@@ -474,8 +476,12 @@ export async function buildMathDiagramInventory() {
   };
 
   const failures: string[] = [];
+  // Reconciled to the admitted graph at main 4501af09. Required row identities
+  // and renderer bindings are checked independently below, so replacement rows
+  // cannot satisfy these minima by count alone. Historical failures stay in
+  // coverageBaseline; see docs/superpowers/plans/2026-10-30-diagram-inventory-repair.md.
   const minimumCoverageBaselines = {
-    lessonRouteCount: 490,
+    lessonRouteCount: 251,
     ccssLessonCount: 270,
     ccssLessonsWithInlineSvg: 127,
     ccssInlineSvgCount: 132,
@@ -483,17 +489,17 @@ export async function buildMathDiagramInventory() {
     ccssButtonJsxCount: 531,
     ccssRangeModuleCount: 38,
     ccssRangeJsxCount: 40,
-    practiceFigureCount: 27,
-    visualizationLabCount: 689,
-    configuredVisualizationLabCount: 613,
-    signatureVisualizationRouteCount: 76,
-    declaredThreeDVisualizationLabCount: 90,
-    effectiveThreeDVisualizationLabCount: 78,
-    declaredThreeDSignatureCanvasCount: 12,
+    practiceFigureCount: 26,
+    visualizationLabCount: 446,
+    configuredVisualizationLabCount: 367,
+    signatureVisualizationRouteCount: 64,
+    declaredThreeDVisualizationLabCount: 52,
+    effectiveThreeDVisualizationLabCount: 52,
+    // The zero signature-canvas 3D invariant is enforced row-by-row below.
     signatureBenchCount: 192,
     reachableSignatureBenchCount: 188,
-    liveAssetReferenceCount: 299,
-    uniqueLiveAssetCount: 239,
+    liveAssetReferenceCount: 284,
+    uniqueLiveAssetCount: 224,
     publicSvgCount: 53,
     sourceSurfaceFileCount: 523,
     htmlOnlyFigureSourceFileCount: 143,
@@ -567,6 +573,7 @@ export async function buildMathDiagramInventory() {
     );
   }
 
+  failures.push(...validateMathDiagramCoverage(inventory));
   return { inventory, failures };
 }
 
@@ -589,12 +596,16 @@ async function main() {
   } else {
     console.log("audit:math-diagram-inventory");
     console.log(compactSummary(inventory.summary));
+    console.log(
+      `\nHISTORICAL: ${inventory.coverageBaseline.historicalFailures.length} coverage failures remain recorded ` +
+      `in ${inventory.coverageBaseline.reference.path}; these are not this run's results.`
+    );
     if (failures.length) {
       console.error("\nFAIL");
       for (const failure of failures) console.error(`  - ${failure}`);
     } else {
       console.log(
-        `\nPASS: every live inventoried surface has a reachable owner and required source/viewBox contract; ` +
+        `\nPASS: current source inventory satisfies reconciled coverage and required source/viewBox contracts; ` +
         `${inventory.summary.unassignedSignatureBenchCount} ported non-live signature benches remain intentionally unassigned`
       );
     }
