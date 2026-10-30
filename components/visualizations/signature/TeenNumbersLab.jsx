@@ -102,6 +102,8 @@
    ========================================================================== */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useAiProviderRegion } from '@/components/providers/useAiProviderRegion';
+import { permittedBrowserSpeechVoice } from '@/lib/browserSpeechPolicy';
 
 /* ---------------------------------------------------------------------------
    EDIT 1 — Parameters.  This lab is for five-year-olds, so it has exactly ONE
@@ -319,6 +321,7 @@ const reduceMotion = () =>
    COMPONENT
    ========================================================================== */
 export default function TeenNumbersLab() {
+  const providerRegion = useAiProviderRegion();
   const [n, setN] = useState(START_N); // the some-more, 0–9 → value 10–19
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -396,8 +399,11 @@ export default function TeenNumbersLab() {
   const sayAloud = (text) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     try {
+      const voice = permittedBrowserSpeechVoice(providerRegion, window.speechSynthesis.getVoices(), 'en-US');
+      if (voice === null) return;
       window.speechSynthesis.cancel();
       const u = new window.SpeechSynthesisUtterance(text);
+      if (voice) u.voice = voice;
       u.rate = 0.75;
       u.lang = 'en-US';
       window.speechSynthesis.speak(u);

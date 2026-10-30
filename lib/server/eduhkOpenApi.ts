@@ -1,3 +1,5 @@
+import { assertAiProviderAllowed, fetchCompanyAllowedProvider, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+
 export type EduHKOpenApiMessage = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -171,11 +173,13 @@ export function parseEduHKGeneratedQuestionReply(reply: string): EduHKGeneratedQ
 export async function callEduHKOpenApiChatCompletion({
   config,
   chatId,
-  messages
+  messages,
+  providerRegion = null
 }: {
   config: EduHKOpenApiConfig;
   chatId: string;
   messages: EduHKOpenApiMessage[];
+  providerRegion?: ProviderPolicyRegion;
 }) {
   const missing = missingEduHKQuestionGeneratorEnv(config);
   if (missing.length) {
@@ -186,7 +190,7 @@ export async function callEduHKOpenApiChatCompletion({
   const timeout = setTimeout(() => controller.abort(), config.timeoutMs);
 
   try {
-    const response = await fetch(buildEduHKChatCompletionsUrl(config.baseUrl!), {
+    const response = await fetchCompanyAllowedProvider(providerRegion, buildEduHKChatCompletionsUrl(config.baseUrl!), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -219,15 +223,18 @@ export async function callEduHKOpenApiChatCompletion({
 export async function generateEduHKQuestion({
   config,
   chatId,
-  prompt
+  prompt,
+  providerRegion = null
 }: {
   config: EduHKOpenApiConfig;
   chatId: string;
   prompt: string;
+  providerRegion?: ProviderPolicyRegion;
 }) {
   const response = await callEduHKOpenApiChatCompletion({
     config,
     chatId,
+    providerRegion,
     messages: [{ role: "user", content: prompt }]
   });
   const reply = extractEduHKOpenApiReply(response);
@@ -238,11 +245,13 @@ export async function generateEduHKQuestion({
 export async function generateEduHKQuestionPair({
   chatId,
   prompt,
-  env = process.env
+  env = process.env,
+  providerRegion = null
 }: {
   chatId: string;
   prompt: string;
   env?: EduHKOpenApiEnv;
+  providerRegion?: ProviderPolicyRegion;
 }) {
   const primaryConfig = readEduHKQuestionGeneratorConfig("primary", env);
   const secondaryConfig = readEduHKQuestionGeneratorConfig("secondary", env);
@@ -254,9 +263,13 @@ export async function generateEduHKQuestionPair({
     throw new Error(`Missing EdUHK OpenAPI configuration: ${Array.from(new Set(missing)).join(", ")}.`);
   }
 
+  // Validate both endpoints before either parallel request can disclose data.
+  assertAiProviderAllowed(providerRegion, buildEduHKChatCompletionsUrl(primaryConfig.baseUrl!));
+  assertAiProviderAllowed(providerRegion, buildEduHKChatCompletionsUrl(secondaryConfig.baseUrl!));
+
   const [primary, secondary] = await Promise.all([
-    generateEduHKQuestion({ config: primaryConfig, chatId, prompt }),
-    generateEduHKQuestion({ config: secondaryConfig, chatId, prompt })
+    generateEduHKQuestion({ config: primaryConfig, chatId, prompt, providerRegion }),
+    generateEduHKQuestion({ config: secondaryConfig, chatId, prompt, providerRegion })
   ]);
 
   return {

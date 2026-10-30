@@ -199,7 +199,8 @@ export type TeacherOpsLessonKitAiGenerationResult =
 export type TeacherOpsLessonKitPersistenceStoreDependencies<TGenerationContext = unknown> = {
   buildGenerationContext: (
     database: TeacherOpsLessonKitPersistenceDatabase,
-    lessonKit: TeacherOpsLessonKitRecord
+    lessonKit: TeacherOpsLessonKitRecord,
+    actorId: string
   ) => TGenerationContext | null;
   buildInitialSections: (
     database: TeacherOpsLessonKitPersistenceDatabase,
@@ -953,7 +954,7 @@ export function createTeacherOpsLessonKitPersistenceStore<TGenerationContext = u
     const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === kitId);
     if (!kit || !teacherCanAccessClass(database, user, kit.class_id)) return { status: "not-found" };
 
-    const context = buildGenerationContext(database, kit);
+    const context = buildGenerationContext(database, kit, user.id);
     if (!context) return { status: "invalid" };
 
     const generation = await generateSectionsWithAi(context);

@@ -17,7 +17,7 @@ import {
 } from "@/lib/appShellBootstrap";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { dictionary, isValidLanguage, localeForLanguage, textForLanguage } from "@/lib/i18n";
-import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
+import { curriculumProfileForTrack, curriculumTrackForProfile, isCurriculumRegion, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import { isStudentLessonPath, studentLessonsPath } from "@/lib/lessonLinks";
 import { isLegacyRoadmapPath, isStudentRoadmapPath } from "@/lib/roadmapRoutes";
 import {
@@ -420,6 +420,7 @@ function readAuthSession(value: unknown): AuthSessionResponse | null {
       grade: user.grade,
       curriculumTrack,
       curriculumProfile,
+      providerPolicyRegion: isCurriculumRegion(user.providerPolicyRegion) ? user.providerPolicyRegion : null,
       role: user.role as StudentSession["role"]
     },
     settings: {

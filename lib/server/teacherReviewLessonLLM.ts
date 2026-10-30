@@ -2,9 +2,10 @@ import {
   boundedLLMNumber,
   buildLLMProviderRequestBody,
   extractLLMProviderReply,
-  readLLMProviderConfig,
   type LLMProviderMessage
 } from "@/lib/server/llmProvider";
+import { fetchCompanyAllowedProvider, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedGeneralProviderConfig } from "@/lib/server/regionScopedProviders";
 import type {
   LocalizedText,
   TeacherReviewLessonMisconceptionTag,
@@ -247,7 +248,7 @@ function applyPatch(plan: TeacherReviewLessonPlan, patch: ReviewLessonLLMPatch):
   };
 }
 
-export async function maybeEnrichTeacherReviewLessonPlanWithLLM(plan: TeacherReviewLessonPlan): Promise<TeacherReviewLessonPlan> {
+export async function maybeEnrichTeacherReviewLessonPlanWithLLM(plan: TeacherReviewLessonPlan, providerRegion: ProviderPolicyRegion = null): Promise<TeacherReviewLessonPlan> {
   const mockJson = process.env.TEACHER_REVIEW_LESSON_LLM_MOCK_JSON;
   if (mockJson?.trim()) {
     const patch = parseJsonObject(mockJson);
@@ -255,8 +256,8 @@ export async function maybeEnrichTeacherReviewLessonPlanWithLLM(plan: TeacherRev
   }
 
   if (!llmEnabled()) return plan;
-  const providerConfig = readLLMProviderConfig();
-  if (!providerConfig.apiKey) return plan;
+  const providerConfig = readRegionScopedGeneralProviderConfig(providerRegion);
+  if (!providerConfig?.apiKey) return plan;
 
   const controller = new AbortController();
   const timeout = setTimeout(
@@ -264,7 +265,7 @@ export async function maybeEnrichTeacherReviewLessonPlanWithLLM(plan: TeacherRev
     boundedLLMNumber(process.env.TEACHER_REVIEW_LESSON_LLM_TIMEOUT_MS, reviewLessonLLMTimeoutMs, 250, 60000)
   );
   try {
-    const response = await fetch(providerConfig.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(providerRegion, providerConfig.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

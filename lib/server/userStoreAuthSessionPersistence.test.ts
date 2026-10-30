@@ -1316,6 +1316,7 @@ test("auth session persistence owns authenticated session projection for legacy 
       grade: "S3",
       curriculumTrack: "HK",
       curriculumProfile: { region: "HK", publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY" },
+      providerPolicyRegion: "HK",
       role: "student"
     },
     settings: {

@@ -32,6 +32,7 @@
 // audited unavailable path rather than masquerading as a clean response.
 
 import { boundedLLMNumber } from "@/lib/server/llmProvider";
+import { companyScopedProviderRequestInit, isAiProviderAllowedForRegion, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
 import type { ContentSafetyClassification } from "@/lib/server/contentSafety";
 import {
   applyTutorOutputModeration,
@@ -68,6 +69,7 @@ export type TutorModerationProviderFailure =
   | "deadline-exhausted"
   | "http-error"
   | "malformed-response"
+  | "region-policy"
   | "request-failed";
 
 export type TutorModerationProviderResult = {
@@ -92,6 +94,7 @@ export type TutorModerationFetch = (
 ) => Promise<{ ok: boolean; status: number; json: () => Promise<unknown> }>;
 
 export type TutorModerationProviderOptions = {
+  providerRegion?: ProviderPolicyRegion;
   config?: TutorModerationProviderConfig;
   timeoutMs?: number;
   fetchImpl?: TutorModerationFetch;
@@ -518,6 +521,9 @@ export async function classifyTutorModerationWithProvider(
   if (!isTutorModerationProviderConfigured(config) || !config.apiUrl) {
     return { status: "skipped", classification: notFlagged };
   }
+  if (options.providerRegion !== undefined && !isAiProviderAllowedForRegion(options.providerRegion, config.apiUrl)) {
+    return unavailable("region-policy");
+  }
   if (typeof text !== "string" || !text.trim()) {
     return { status: "skipped", classification: notFlagged };
   }
@@ -535,7 +541,7 @@ export async function classifyTutorModerationWithProvider(
     const timeout = new Promise<"timeout">((resolve) => {
       timer = setTimeout(() => resolve("timeout"), timeoutMs);
     });
-    const request = doFetch(config.apiUrl, {
+    const requestInit: RequestInit = {
       method: "POST",
       signal: controller.signal,
       headers: {
@@ -546,7 +552,8 @@ export async function classifyTutorModerationWithProvider(
         model: config.model,
         input: text.slice(0, maxScanLength)
       })
-    });
+    };
+    const request = doFetch(config.apiUrl, options.providerRegion === undefined ? requestInit : companyScopedProviderRequestInit(options.providerRegion, config.apiUrl, requestInit));
     // A rejection that lands after the race has already been decided must not
     // surface as an unhandled rejection.
     request.catch(() => {});
@@ -640,7 +647,8 @@ export async function resolveTutorInputModeration({
   role,
   config,
   timeoutMs,
-  fetchImpl
+  fetchImpl,
+  providerRegion
 }: {
   input: string;
   role: TutorRole;
@@ -697,7 +705,8 @@ export async function resolveTutorInputModeration({
     source: "student-input",
     config: resolvedConfig,
     timeoutMs,
-    fetchImpl
+    fetchImpl,
+    providerRegion
   });
 
   if (provider.status === "unavailable" && provider.failure) {
@@ -770,7 +779,8 @@ export async function resolveTutorOutputModeration({
   language,
   config,
   timeoutMs,
-  fetchImpl
+  fetchImpl,
+  providerRegion
 }: {
   modelReply: string;
   role: TutorRole;
@@ -821,7 +831,8 @@ export async function resolveTutorOutputModeration({
     source: "tutor-output",
     config: resolvedConfig,
     timeoutMs,
-    fetchImpl
+    fetchImpl,
+    providerRegion
   });
 
   if (provider.status === "unavailable" && provider.failure) {

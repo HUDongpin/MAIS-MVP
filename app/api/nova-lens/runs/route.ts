@@ -14,10 +14,12 @@ import {
   buildLLMProviderRequestBody,
   extractLLMProviderReply,
   extractLLMProviderUsage,
-  readLLMProviderConfig,
   type LLMProviderUsage,
   type LLMProviderMessage
 } from "@/lib/server/llmProvider";
+import { combineProviderPolicyRegions, fetchCompanyAllowedProvider, providerPolicyRegionForUser, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedGeneralProviderConfig } from "@/lib/server/regionScopedProviders";
+import { createTutorProviderPolicyProof } from "@/lib/server/tutorProviderPolicyProof";
 import type {
   GradeId,
   Language,
@@ -354,14 +356,14 @@ function policyPatternFlags(text: string, blockedPatterns: string[]) {
   return Array.from(new Set(patternFlags));
 }
 
-async function fetchProviderReply(messages: LLMProviderMessage[]) {
-  const providerConfig = readLLMProviderConfig();
+async function fetchProviderReply(messages: LLMProviderMessage[], providerRegion: ProviderPolicyRegion) {
+  const providerConfig = readRegionScopedGeneralProviderConfig(providerRegion);
   const emptyUsage: LLMProviderUsage = {};
-  if (!providerConfig.apiKey) {
+  if (!providerConfig?.apiKey) {
     return {
       ok: false as const,
-      model: providerConfig.model,
-      reason: "missing-api-key",
+      model: providerConfig?.model ?? "unavailable",
+      reason: providerConfig ? "missing-api-key" : "provider-region-unavailable",
       usage: emptyUsage
     };
   }
@@ -376,7 +378,7 @@ async function fetchProviderReply(messages: LLMProviderMessage[]) {
   const timeout = setTimeout(() => controller.abort(), providerTimeoutMs);
 
   try {
-    const response = await fetch(providerConfig.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(providerRegion, providerConfig.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -467,6 +469,7 @@ async function recordRunAndRespond({
   authenticated,
   status,
   reply,
+  providerRegion,
   policyFlags,
   allowedScopes,
   deniedScopes,
@@ -481,6 +484,7 @@ async function recordRunAndRespond({
   authenticated: Awaited<ReturnType<typeof requireAuthenticatedUser>>;
   status: NovaLensRunStatus;
   reply: string;
+  providerRegion: ProviderPolicyRegion;
   policyFlags: string[];
   allowedScopes: string[];
   deniedScopes: string[];
@@ -528,6 +532,7 @@ async function recordRunAndRespond({
 	    mode: "nova-lens",
 	    status,
 	    reply,
+	    providerPolicyProof: createTutorProviderPolicyProof(authenticated.user.id, reply, providerRegion),
 	    runId: run.id,
 	    policyFlags,
 	    context: buildTutorContextForResponse(request, dataScopes, { redactSelection: status === "blocked" })
@@ -590,6 +595,7 @@ export async function POST(request: Request) {
   policyFlags.push(...policyPatternFlags(policyAuditText(novaRequest), policy.blockedPatterns));
 
   const dataScopes = resolveDataScopes(authenticated.user.role, novaRequest);
+  let providerRegion = providerPolicyRegionForUser(authenticated.user);
 
   if (policyFlags.length) {
     return recordRunAndRespond({
@@ -597,6 +603,7 @@ export async function POST(request: Request) {
       authenticated,
       status: "blocked",
       reply: buildBlockedReply(policyFlags, language),
+      providerRegion,
       policyFlags,
       allowedScopes: [],
       deniedScopes: dataScopes,
@@ -620,6 +627,9 @@ export async function POST(request: Request) {
       dataScopes
     });
     databaseContextText = databaseContext.text;
+    if (databaseContext.providerPolicyRegion !== undefined) {
+      providerRegion = combineProviderPolicyRegions(providerRegion, databaseContext.providerPolicyRegion);
+    }
     allowedScopes = databaseContext.includedScopes;
     deniedScopes = databaseContext.deniedScopes;
   } catch {
@@ -631,7 +641,7 @@ export async function POST(request: Request) {
     language,
     role: authenticated.user.role,
     databaseContext: databaseContextText
-  }));
+  }), providerRegion);
 
   if (!completion.ok || !completion.reply?.trim()) {
     return recordRunAndRespond({
@@ -639,6 +649,7 @@ export async function POST(request: Request) {
       authenticated,
       status: "provider-fallback",
       reply: buildProviderFallbackReply(novaRequest, language),
+      providerRegion,
       policyFlags: completion.ok ? ["empty-provider-reply"] : [completion.reason],
       allowedScopes,
       deniedScopes,
@@ -656,6 +667,7 @@ export async function POST(request: Request) {
     authenticated,
     status: "completed",
     reply: sanitizeProviderReply(completion.reply, novaRequest, language),
+    providerRegion,
     policyFlags,
     allowedScopes,
     deniedScopes,

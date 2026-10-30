@@ -64,6 +64,16 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Verify regional AI service-company routing with mocked providers
+        run: >-
+          node --import tsx --test --test-concurrency=1
+          lib/aiProviderCompanyPolicy.test.ts
+          lib/browserSpeechPolicy.test.ts
+          lib/server/regionScopedProviders.test.ts
+          lib/server/aiProviderPolicyContext.test.ts
+          lib/server/tutorProviderPolicyProof.test.ts
+          tests/e2e/ai-provider-company-policy.test.ts
+
       - name: Run AI Tutor authentication-admission gates
         run: |
           npx tsx --tsconfig tsconfig.json --test \

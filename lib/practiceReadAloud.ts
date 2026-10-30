@@ -1,4 +1,6 @@
 import type { Language } from "@/types";
+import type { ProviderPolicyRegion } from "./aiProviderCompanyPolicy";
+import { permittedBrowserSpeechVoice } from "./browserSpeechPolicy";
 
 const chineseOrdinals = ["一", "二", "三", "四", "五", "六", "七", "八", "九"] as const;
 
@@ -56,7 +58,7 @@ export function stopPracticeReadAloud() {
 export function speakPracticeText(
   textValue: string,
   languageCode: string,
-  { onEnd }: { onEnd?: () => void } = {}
+  { onEnd, region = null }: { onEnd?: () => void; region?: ProviderPolicyRegion } = {}
 ) {
   if (typeof window === "undefined" || !("speechSynthesis" in window) || !textValue.trim()) return false;
 
@@ -65,7 +67,10 @@ export function speakPracticeText(
     const utterance = new SpeechSynthesisUtterance(textValue);
     utterance.lang = languageCode;
     utterance.rate = 0.92;
-    const voice = pickReadAloudVoice(window.speechSynthesis.getVoices(), languageCode);
+    const voices = window.speechSynthesis.getVoices();
+    const permittedVoice = permittedBrowserSpeechVoice(region, voices, languageCode);
+    if (permittedVoice === null) { onEnd?.(); return false; }
+    const voice = permittedVoice ?? pickReadAloudVoice(voices, languageCode);
     if (voice) utterance.voice = voice;
     if (onEnd) {
       utterance.onend = onEnd;

@@ -1158,8 +1158,9 @@ test("teacher ops lesson-kit persistence generates AI lesson kits through inject
   const generatedSections = [createGeneratedSection("section-ai-main")];
   let capturedContext: unknown = null;
   const store = createTestStore(database, {
-    buildGenerationContext: (_database, kit) => ({
+    buildGenerationContext: (_database, kit, actorId) => ({
       kitId: kit.id,
+      actorId,
       originalStatus: kit.status
     }),
     generateSectionsWithAi: async (context) => {
@@ -1178,6 +1179,7 @@ test("teacher ops lesson-kit persistence generates AI lesson kits through inject
   assert.equal(result.status, "generated");
   assert.deepEqual(capturedContext, {
     kitId: "kit-old",
+    actorId: "teacher-1",
     originalStatus: "draft"
   });
   const generatedKit = database.teacher_lesson_kits.find((kit) => kit.id === "kit-old");

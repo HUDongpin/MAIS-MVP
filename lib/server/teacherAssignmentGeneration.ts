@@ -4,13 +4,13 @@ import {
   buildLLMProviderRequestBody,
   extractLLMProviderReply,
   extractLLMProviderUsage,
-  readLLMProviderConfig,
-  readQwenImageProviderConfig,
   type LLMProviderContentPart,
   type LLMProviderMessage,
   type LLMProviderName,
   type LLMProviderUsage
 } from "@/lib/server/llmProvider";
+import { fetchCompanyAllowedProvider, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedGeneralProviderConfig, readRegionScopedGeneralImageConfig } from "@/lib/server/regionScopedProviders";
 import { isSupportedDifficultyRecord, mapDifficultyToActive } from "@/lib/difficulty";
 import { normalizeQuestionDiagram, validateQuestionDiagram } from "@/lib/questionFigure";
 import type {
@@ -39,6 +39,7 @@ export type TeacherAssignmentGenerationResult = {
 };
 
 export type TeacherAssignmentGenerationInput = {
+  providerRegion: ProviderPolicyRegion;
   title: string;
   description: string;
   contentType: AssignmentContentType;
@@ -266,8 +267,8 @@ function buildPrompt(input: TeacherAssignmentGenerationInput, questionCount: num
 
 export async function generateTeacherAssignmentAssessment(input: TeacherAssignmentGenerationInput): Promise<TeacherAssignmentGenerationResult> {
   const imageDataUrl = cleanImageDataUrl(input.imageDataUrl);
-  const config = imageDataUrl ? readQwenImageProviderConfig() : readLLMProviderConfig();
-  if (!config.apiKey) {
+  const config = imageDataUrl ? readRegionScopedGeneralImageConfig(input.providerRegion) : readRegionScopedGeneralProviderConfig(input.providerRegion);
+  if (!config?.apiKey) {
     throw new TeacherAssignmentGenerationError("missing-config", "Assignment generation LLM is not configured.");
   }
 
@@ -295,7 +296,7 @@ export async function generateTeacherAssignmentAssessment(input: TeacherAssignme
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(config.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(input.providerRegion, config.apiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${config.apiKey}`,

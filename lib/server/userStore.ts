@@ -735,6 +735,9 @@ import {
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
 import { maybeEnrichTeacherReviewLessonPlanWithLLM } from "@/lib/server/teacherReviewLessonLLM";
+import { classProviderRegion, storedUserProviderRegion, trustedTutorProviderHistory } from "@/lib/server/aiProviderPolicyContext";
+import { combineProviderPolicyRegions, fetchCompanyAllowedProvider, providerPolicyRegionFromProfile, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedGeneralProviderConfig } from "@/lib/server/regionScopedProviders";
 import {
   buildDeterministicTeacherLessonKitSections,
   buildTeacherLessonKitLLMPrompt,
@@ -13914,13 +13917,14 @@ const teacherOpsSubmissionPersistenceStore = createTeacherOpsSubmissionPersisten
   },
   createId: randomUUID,
   now: () => new Date(),
-  createGradingRunRecord: (database, submission, assignment, attempt, now) =>
+  createGradingRunRecord: (database, submission, assignment, attempt, now, actorId) =>
     buildAIAssignmentGradingRun(
       database as Database,
       submission as SubmissionRecord,
       assignment as AssignmentRecord,
       attempt as AssignmentSubmissionAttemptRecord | null,
-      now
+      now,
+      actorId
     ),
   toGradingRun: (_database, run) => toAssignmentGradingRunFromTeacherOpsAssignment(run as AssignmentGradingRunRecord),
   toSubmission: (database, submission) => toSubmissionFromTeacherOpsAssignment(database as Database, submission as SubmissionRecord)
@@ -14055,7 +14059,7 @@ const teacherOpsInboxPersistenceStore = createTeacherOpsInboxPersistenceStore({
 });
 
 const teacherOpsLessonKitPersistenceStore = createTeacherOpsLessonKitPersistenceStore({
-  buildGenerationContext: (database, lessonKit) => lessonKitGenerationContext(database as Database, lessonKit as TeacherLessonKitRecord),
+  buildGenerationContext: (database, lessonKit, actorId) => lessonKitGenerationContext(database as Database, lessonKit as TeacherLessonKitRecord, actorId),
   buildInitialSections: (database, lessonKit) => {
     const context = lessonKitGenerationContext(database as Database, lessonKit as TeacherLessonKitRecord);
     return context ? buildDeterministicTeacherLessonKitSections(context) : [];
@@ -14155,7 +14159,10 @@ const teacherOpsAssessmentPersistenceStore = createTeacherOpsAssessmentPersisten
   createId: randomUUID,
   safeExportFileName: safeUploadFileNameFromTeacherOpsResource,
   buildReviewLessonDraft: buildTeacherReviewLessonDraft,
-  enrichReviewLessonPlan: maybeEnrichTeacherReviewLessonPlanWithLLM,
+  enrichReviewLessonPlan: async (plan) => {
+    const database = await readDatabase();
+    return maybeEnrichTeacherReviewLessonPlanWithLLM(plan, classProviderRegion(database, plan.classId, plan.teacherId));
+  },
   renderReviewLessonMarkdown: renderTeacherReviewLessonMarkdown,
   renderReviewLessonPptx: renderTeacherReviewLessonPptx,
   readDatabase: async () => {
@@ -16944,8 +16951,9 @@ function lessonKitGenerationQuestions(
 
 function lessonKitGenerationContext(
   database: Database,
-  kit: TeacherLessonKitRecord
-): TeacherLessonKitGenerationContext | null {
+  kit: TeacherLessonKitRecord,
+  actorId?: string
+): (TeacherLessonKitGenerationContext & { providerRegion: ProviderPolicyRegion }) | null {
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === kit.class_id);
   const topic = database.topics.find((candidate) => candidate.id === kit.topic_id && isMainlandLessonKitTopic(candidate, kit.textbook_publisher));
   if (!teacherClass || !topic) return null;
@@ -16961,6 +16969,7 @@ function lessonKitGenerationContext(
     : [];
   return {
     grade: kit.grade,
+    providerRegion: classProviderRegion(database, kit.class_id, actorId),
     gradeLabel: formatGradeLabel(kit.grade, "zh-Hans", true),
     publisher: kit.textbook_publisher,
     publisherLabel: publisherLabels[kit.textbook_publisher],
@@ -16992,9 +17001,9 @@ export const updateTeacherLessonKit = teacherOpsUserStore.updateTeacherLessonKit
 
 export const generateTeacherLessonKitWithAI = teacherOpsUserStore.generateTeacherLessonKitWithAI;
 
-async function generateTeacherLessonKitSectionsWithAI(context: TeacherLessonKitGenerationContext) {
-  const config = readLLMProviderConfig();
-  if (!config.apiKey) return { status: "missing-config" as const };
+async function generateTeacherLessonKitSectionsWithAI(context: TeacherLessonKitGenerationContext & { providerRegion: ProviderPolicyRegion }) {
+  const config = readRegionScopedGeneralProviderConfig(context.providerRegion);
+  if (!config?.apiKey) return { status: "missing-config" as const };
 
   const messages: LLMProviderMessage[] = [
     {
@@ -17009,7 +17018,7 @@ async function generateTeacherLessonKitSectionsWithAI(context: TeacherLessonKitG
 
   let data: unknown;
   try {
-    const response = await fetch(config.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(context.providerRegion, config.apiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${config.apiKey}`,
@@ -17097,7 +17106,7 @@ export const createTeacherAssignment = teacherOpsUserStore.createTeacherAssignme
 export const deleteTeacherAssignment = teacherOpsUserStore.deleteTeacherAssignment;
 export const getTeacherAssignmentDetailData = teacherOpsUserStore.getTeacherAssignmentDetailData;
 
-async function buildAIAssignmentGradingRun(database: Database, submission: SubmissionRecord, assignment: AssignmentRecord, attempt: AssignmentSubmissionAttemptRecord | null, now: string): Promise<AssignmentGradingRunRecord> {
+async function buildAIAssignmentGradingRun(database: Database, submission: SubmissionRecord, assignment: AssignmentRecord, attempt: AssignmentSubmissionAttemptRecord | null, now: string, actorId: string): Promise<AssignmentGradingRunRecord> {
   const fallback = deterministicAssignmentGradingRunFromTeacherOpsSubmission({
     database,
     submission,
@@ -17111,8 +17120,12 @@ async function buildAIAssignmentGradingRun(database: Database, submission: Submi
   const answerText = visibleAttemptTextFromTeacherOpsSubmission(attempt);
   if (!answerText) return fallback;
 
-  const config = readLLMProviderConfig();
-  if (!config.apiKey) return fallback;
+  const providerRegion = combineProviderPolicyRegions(
+    storedUserProviderRegion(database, submission.student_id),
+    classProviderRegion(database, assignment.class_id, actorId)
+  );
+  const config = readRegionScopedGeneralProviderConfig(providerRegion);
+  if (!config?.apiKey) return fallback;
 
   const prompt = [
     "You are a math teacher grading one student assignment submission.",
@@ -17133,7 +17146,7 @@ async function buildAIAssignmentGradingRun(database: Database, submission: Submi
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const response = await fetch(config.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(providerRegion, config.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18585,7 +18598,9 @@ async function getAdaptiveLearningDecisionFromCompatibility({
 
   const database = await readDatabase();
   const { generated } = buildAdaptiveGenerationContext(database, userId, grade, topicId, curriculumTrack);
-  const providerConfig = readLLMProviderConfig();
+  const providerRegion = combineProviderPolicyRegions(storedUserProviderRegion(database, userId),
+    providerPolicyRegionFromProfile(typeof curriculumTrack === "string" ? { curriculumTrack } : curriculumTrack ?? {}));
+  const providerConfig = readRegionScopedGeneralProviderConfig(providerRegion) ?? { ...readLLMProviderConfig(), apiKey: undefined };
   const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack });
   const cacheSignature = adaptiveLLMCacheSignature(generated.candidateSignature, ragEvidence);
   const cacheRecord = findAdaptiveCacheRecord(database, {
@@ -18683,8 +18698,10 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
     };
   }
 
-  const providerConfig = readLLMProviderConfig();
   const database = await readDatabase();
+  const providerRegion = combineProviderPolicyRegions(storedUserProviderRegion(database, userId),
+    providerPolicyRegionFromProfile(typeof curriculumTrack === "string" ? { curriculumTrack } : curriculumTrack ?? {}));
+  const providerConfig = readRegionScopedGeneralProviderConfig(providerRegion) ?? { ...readLLMProviderConfig(), apiKey: undefined };
   const { generated } = buildAdaptiveGenerationContext(database, userId, grade, topicId, curriculumTrack);
   const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack });
   const cacheSignature = adaptiveLLMCacheSignature(generated.candidateSignature, ragEvidence);
@@ -18776,7 +18793,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   );
 
   try {
-    const providerResponse = await fetch(providerConfig.apiUrl, {
+    const providerResponse = await fetchCompanyAllowedProvider(providerRegion, providerConfig.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19359,6 +19376,12 @@ async function buildAITutorDatabaseContextFromDatabase(
     userId,
     verifiedTargetProfile
   });
+  let providerPolicyRegion = combineProviderPolicyRegions(
+    storedUserProviderRegion(database, userId),
+    storedUserProviderRegion(database, subjectUserId)
+  );
+  const providerHistory = trustedTutorProviderHistory(database.ai_tutor_messages, userId);
+  providerPolicyRegion = combineProviderPolicyRegions(providerPolicyRegion, ...providerHistory.map(message => message.providerPolicyRegion));
 
   lines.push(...tutorCurriculumPolicyLinesFromAiGovernancePersistence(subjectCurriculumTrack));
 
@@ -19419,7 +19442,7 @@ async function buildAITutorDatabaseContextFromDatabase(
   ));
 
   lines.push(...tutorRecentTutorMessageContextLinesFromAiGovernancePersistence(
-    aiTutorRecentMessageContextInputsFromAiGovernancePersistence(database, userId)
+    providerHistory
   ));
 
   const studentDashboardContext = await aiTutorStudentDashboardScopeContextFromAiGovernancePersistence({
@@ -19437,7 +19460,14 @@ async function buildAITutorDatabaseContextFromDatabase(
 
   const teacherDashboardContext = await aiTutorTeacherDashboardScopeContextFromAiGovernancePersistence({
     canReadTeacherDashboard: scopeAccess.canReadTeacherDashboard,
-    getTeacherDashboardData: () => getTeacherDashboardData(userId),
+    getTeacherDashboardData: async () => {
+      const dashboard = await getTeacherDashboardData(userId);
+      if (dashboard) {
+        providerPolicyRegion = combineProviderPolicyRegions(providerPolicyRegion,
+          ...dashboard.classSummaries.map(summary => classProviderRegion(database, summary.classId, userId)));
+      }
+      return dashboard;
+    },
     language,
     scopeSet
   });
@@ -19478,7 +19508,9 @@ async function buildAITutorDatabaseContextFromDatabase(
     fallbackLines,
     includedScopes,
     lines,
-    subjectUserId
+    subjectUserId,
+    providerPolicyRegion,
+    providerHistory: providerHistory.map(({ role, content }) => ({ role, content }))
   });
 }
 

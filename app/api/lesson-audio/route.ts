@@ -4,6 +4,7 @@ import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
 import { consumeAiCapabilityRateLimit } from "@/lib/server/userStore";
 import { buildLessonAudioChunks } from "@/components/lesson/lessonAudioQueue";
 import { buildLessonAudioSseHeaders, createDashScopeAudioReadableStream } from "./lessonAudioSse";
+import { fetchCompanyAllowedProvider, isAiProviderAllowedForRegion, providerPolicyRegionForUser, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
 
 export const runtime = "nodejs";
 
@@ -67,11 +68,12 @@ function lessonAudioVoiceFor(language: string) {
     ?? defaultLessonAudioVoice;
 }
 
-function lessonAudioProviderConfig(language: string) {
+function lessonAudioProviderConfig(language: string, providerRegion: ProviderPolicyRegion) {
   const baseUrl = readOptionalEnv(process.env.LESSON_TTS_BASE_URL)
     ?? defaultLessonAudioBaseUrl;
 
   return {
+    providerRegion,
     apiKey: readOptionalEnv(process.env.DASHSCOPE_API_KEY) ?? readOptionalEnv(process.env.QWEN_API_KEY),
     apiUrl: `${baseUrl.replace(/\/$/, "")}/api/v1/services/audio/tts/SpeechSynthesizer`,
     model: readOptionalEnv(process.env.LESSON_TTS_MODEL) ?? defaultLessonAudioModel,
@@ -138,12 +140,12 @@ function lessonAudioHeaders(
   return headers;
 }
 
-async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number) {
+async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number, providerRegion: ProviderPolicyRegion) {
   const abortController = new AbortController();
   const timeout = setTimeout(() => abortController.abort(), timeoutMs);
 
   try {
-    return await fetch(url, {
+    return await fetchCompanyAllowedProvider(providerRegion, url, {
       ...init,
       signal: abortController.signal
     });
@@ -175,7 +177,7 @@ async function fetchLessonAudioBytes({
       "Content-Type": "application/json"
     },
     body: lessonAudioProviderPayload(text, language, providerConfig)
-  }, timeoutMs);
+  }, timeoutMs, providerConfig.providerRegion);
 
   if (!synthesizeResponse.ok) {
     throw new Error("lesson-audio-synthesis-failed");
@@ -187,7 +189,7 @@ async function fetchLessonAudioBytes({
     throw new Error("lesson-audio-url-missing");
   }
 
-  const audioResponse = await fetchWithTimeout(audioUrl, { method: "GET" }, timeoutMs);
+  const audioResponse = await fetchWithTimeout(audioUrl, { method: "GET" }, timeoutMs, providerConfig.providerRegion);
   if (!audioResponse.ok) {
     throw new Error("lesson-audio-download-failed");
   }
@@ -271,7 +273,7 @@ async function buildNativeStreamingLessonAudioResponse({
     method: "POST",
     headers: buildLessonAudioSseHeaders(apiKey),
     body: lessonAudioProviderPayload(text, language, providerConfig)
-  }, timeoutMs);
+  }, timeoutMs, providerConfig.providerRegion);
 
   if (!synthesizeResponse.ok || !synthesizeResponse.body) {
     return null;
@@ -338,7 +340,11 @@ export async function POST(request: Request) {
   }
 
   const language = cleanLessonAudioLanguage(body.language);
-  const providerConfig = lessonAudioProviderConfig(language);
+  const providerConfig = lessonAudioProviderConfig(language, providerPolicyRegionForUser(authenticated.user));
+  // This capability's provider is Alibaba; a regional host does not change its company.
+  if (!isAiProviderAllowedForRegion(providerConfig.providerRegion, providerConfig.apiUrl)) {
+    return NextResponse.json({ error: "Lesson audio is unavailable for your region.", code: "AI_PROVIDER_REGION_UNAVAILABLE" }, { status: 503 });
+  }
   if (!providerConfig.apiKey) {
     return NextResponse.json({ error: "Lesson audio TTS is not configured." }, { status: 503 });
   }

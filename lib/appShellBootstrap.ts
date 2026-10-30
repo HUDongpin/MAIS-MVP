@@ -5,10 +5,11 @@ import type {
   StudentSession,
   ThemeMode
 } from "@/types";
+import { providerPolicyRegionForUser } from "./aiProviderCompanyPolicy";
 
 export type AppShellUserSafe = Pick<
   StudentSession,
-  "id" | "name" | "role" | "passwordMustChange" | "avatarId" | "grade" | "curriculumTrack" | "curriculumProfile"
+  "id" | "name" | "role" | "passwordMustChange" | "avatarId" | "grade" | "curriculumTrack" | "curriculumProfile" | "providerPolicyRegion"
 > & {
   avatarImageDataUrl?: `/api/me/avatar?expectedUserId=${string}&revision=${string}`;
 };
@@ -118,6 +119,7 @@ export function toAuthenticatedAppShellBootstrap(source: AppShellSessionSource):
       ...(hasPrivateAvatar(source.user) ? { avatarImageDataUrl } : {}),
       grade: source.user.grade,
       curriculumTrack: source.user.curriculumTrack,
+      providerPolicyRegion: providerPolicyRegionForUser(source.user),
       curriculumProfile: {
         region: source.user.curriculumProfile.region,
         publisher: source.user.curriculumProfile.publisher

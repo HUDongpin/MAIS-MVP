@@ -1126,6 +1126,7 @@ test("teacher ops class persistence owns teacher class projection helper for leg
       region: "US",
       publisher: "US_CA_MATH"
     },
+    providerPolicyRegion: "US",
     academicYear: "2026-2027",
     description: {
       en: "Alpha class",

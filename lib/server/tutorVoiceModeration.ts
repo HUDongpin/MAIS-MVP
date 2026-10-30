@@ -114,6 +114,7 @@ export async function resolveTutorVoiceModeration({
   config,
   timeoutMs,
   fetchImpl,
+  providerRegion,
   voiceProviderConfigured = true
 }: {
   text: string;
@@ -187,7 +188,8 @@ export async function resolveTutorVoiceModeration({
     language,
     config,
     timeoutMs,
-    fetchImpl
+    fetchImpl,
+    providerRegion
   });
 
   const providerSafety = moderation.safetyClassification;

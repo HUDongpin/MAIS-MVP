@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
-import { aiTutorPublicReadCacheHeaders } from "@/lib/aiTutorReadCache";
-import { readAITutorProviderStatus } from "@/lib/llmProviderConfig";
+import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedAITutorProviderStatus } from "@/lib/server/regionScopedProviders";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const response = NextResponse.json(readAITutorProviderStatus());
-  const cacheHeaders = aiTutorPublicReadCacheHeaders();
-  for (const [name, value] of Object.entries(cacheHeaders)) {
-    response.headers.set(name, value);
-  }
-  return response;
+export async function GET(request: Request) {
+  const authenticated = await requireAuthenticatedUser(request).catch(() => null);
+  return NextResponse.json(readRegionScopedAITutorProviderStatus(
+    authenticated ? providerPolicyRegionForUser(authenticated.user) : null
+  ), { headers: { "Cache-Control": "private, no-store", Vary: "Cookie, Authorization" } });
 }

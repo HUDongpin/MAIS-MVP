@@ -11,29 +11,32 @@ async function readSource(relativePath: string) {
   return readFile(join(process.cwd(), relativePath), "utf8");
 }
 
-test("AI Tutor status and prewarm are Edge reads with CDN cache, separate from chat quota", async () => {
+test("AI Tutor regional status is a private authenticated read while prewarm stays public", async () => {
   const statusSource = await readSource("app/api/ai-tutor/status/route.ts");
   const edgeSource = await readSource("app/api/ai-tutor/route.ts");
   const catchAllSource = await readSource("app/api/ai-tutor/[...path]/route.ts");
   const governanceSource = await readSource("lib/server/aiGovernance.ts");
 
-  assert.match(statusSource, /export const runtime = "edge"/);
-  assert.match(statusSource, /readAITutorProviderStatus/);
+  assert.match(statusSource, /export const runtime = "nodejs"/);
+  assert.match(statusSource, /readRegionScopedAITutorProviderStatus/);
+  assert.match(statusSource, /requireAuthenticatedUser/);
   assert.doesNotMatch(statusSource, /from "@\/lib\/server\/llmProvider"/);
   assert.match(edgeSource, /aiTutorPublicReadCacheHeaders/);
   assert.match(catchAllSource, /export const runtime = "edge"/);
   assert.match(governanceSource, /Status, prewarm, and classroom-policy reads are not chat admissions/);
 });
 
-test("CDN cache headers are present on public tutor reads and guessed subpaths", async () => {
-  const status = await getAITutorStatusRoute();
+test("regional status cannot enter a shared CDN cache; public prewarm and guessed subpaths retain caching", async () => {
+  const status = await getAITutorStatusRoute(new Request("http://localhost/api/ai-tutor/status"));
   const prewarm = await getAITutorRoute();
   const unknownModule = await import(
     pathToFileURL(join(process.cwd(), "app/api/ai-tutor/[...path]/route.ts")).href
   ) as { GET: () => Response };
   const unknown = unknownModule.GET();
 
-  assert.equal(status.headers.get("cdn-cache-control"), AI_TUTOR_PUBLIC_CDN_CACHE_CONTROL);
+  assert.equal(status.headers.get("cache-control"), "private, no-store");
+  assert.equal(status.headers.get("cdn-cache-control"), null);
+  assert.equal(status.headers.get("vary"), "Cookie, Authorization");
   assert.equal(prewarm.headers.get("cdn-cache-control"), AI_TUTOR_PUBLIC_CDN_CACHE_CONTROL);
   assert.equal(unknown.status, 404);
   assert.equal(unknown.headers.get("cdn-cache-control"), AI_TUTOR_UNKNOWN_PATH_CDN_CACHE_CONTROL);

@@ -1,10 +1,13 @@
 import { createHash, pbkdf2, pbkdf2Sync, randomBytes, randomUUID, timingSafeEqual } from "crypto";
 import { gradeIds } from "@/data/grades";
+import { providerPolicyRegionFromProfile } from "@/lib/aiProviderCompanyPolicy";
 import {
+  curriculumProfileForPublisher,
   curriculumProfileForTrack,
   curriculumProfilesEqual,
   curriculumTrackForProfile,
-  normalizeStoredCurriculumProfile
+  normalizeStoredCurriculumProfile,
+  isTextbookPublisher
 } from "@/lib/curriculumProfile";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
 import type {
@@ -537,25 +540,33 @@ export function normalizeAuthStudentProfileRecord<
   profile: Record
 ): Record & {
   avatar_id: StudentAvatarId;
-  curriculum_track: CurriculumTrack;
-  curriculum_region: CurriculumRegion;
-  textbook_publisher: TextbookPublisher;
+  curriculum_track: CurriculumTrack | undefined;
+  curriculum_region: CurriculumRegion | undefined;
+  textbook_publisher: TextbookPublisher | undefined;
   avatar_media_object_key: string | undefined;
 } {
   const avatarImageDataUrl = normalizeAuthStudentAvatarImageDataUrl(profile.avatar_image_data_url);
   const avatarMediaObjectKey = normalizeStoredMediaObjectKey(profile.avatar_media_object_key);
+  const storedRegion = providerPolicyRegionFromProfile({
+    region: profile.curriculum_region, curriculumTrack: profile.curriculum_track, publisher: profile.textbook_publisher
+  });
+  const publisher = isTextbookPublisher(profile.textbook_publisher) &&
+    curriculumProfileForPublisher(profile.textbook_publisher).region === storedRegion
+    ? profile.textbook_publisher : undefined;
   const curriculumProfile = normalizeStoredCurriculumProfile({
     curriculumTrack: normalizeAuthCurriculumTrack(profile.curriculum_track),
-    region: profile.curriculum_region,
-    publisher: profile.textbook_publisher
+    region: storedRegion,
+    publisher
   });
 
   return {
     ...profile,
     avatar_id: isValidAuthStudentAvatarId(profile.avatar_id) ? profile.avatar_id : defaultAuthStudentAvatarId,
-    curriculum_track: curriculumTrackForProfile(curriculumProfile),
-    curriculum_region: curriculumProfile.region,
-    textbook_publisher: curriculumProfile.publisher,
+    // Keep an unresolved stored identity unresolved across persistence. Display
+    // projection can still supply its legacy curriculum default independently.
+    curriculum_track: storedRegion ? curriculumTrackForProfile(curriculumProfile) : undefined,
+    curriculum_region: storedRegion ?? undefined,
+    textbook_publisher: storedRegion ? curriculumProfile.publisher : undefined,
     parent_invite_code: "",
     avatar_media_object_key: avatarMediaObjectKey,
     ...(avatarImageDataUrl ? { avatar_image_data_url: avatarImageDataUrl } : {})
@@ -1413,6 +1424,11 @@ function toAuthenticatedUserFromRecords({
       grade: profile.grade,
       curriculumTrack,
       curriculumProfile,
+      providerPolicyRegion: providerPolicyRegionFromProfile({
+        region: profile.curriculum_region,
+        curriculumTrack: profile.curriculum_track,
+        publisher: profile.textbook_publisher
+      }),
       role: user.role
     },
     settings: {

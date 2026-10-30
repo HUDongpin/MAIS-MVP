@@ -16,6 +16,7 @@ import { cleanPracticeQuestionPromptText } from "@/components/practice/practiceP
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isStudentLessonPath } from "@/lib/lessonLinks";
 import { countingDotCardQuantitiesFor } from "@/lib/countingDotCards";
+import { providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
 import {
   buildPracticeReadAloudText,
   practiceReadAloudLanguageCode,
@@ -499,7 +500,7 @@ export function PracticeQuestionCard({
     const started = speakPracticeText(
       buildPracticeReadAloudText({ promptText: promptLabel, optionTexts, language }),
       practiceReadAloudLanguageCode(language),
-      { onEnd: () => setIsReadingAloud(false) }
+      { onEnd: () => setIsReadingAloud(false), region: providerPolicyRegionForUser(currentUser ?? {}) }
     );
     setIsReadingAloud(started);
   }

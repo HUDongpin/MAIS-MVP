@@ -112,7 +112,7 @@ test("authenticated lesson API keeps complete lesson practice access", async () 
 });
 
 test("AI tutor status reports redacted readiness without exposing secrets", async () => {
-  const response = await getAITutorStatusRoute();
+  const response = await getAITutorStatusRoute(new Request("http://localhost/api/ai-tutor/status"));
   const body = await readJson<Record<string, unknown>>(response);
 
   assert.equal(response.status, 200);
@@ -122,9 +122,10 @@ test("AI tutor status reports redacted readiness without exposing secrets", asyn
   assert.equal(typeof body.model, "string");
   assert.equal(JSON.stringify(body).includes("API_KEY"), false);
   assert.equal(JSON.stringify(body).includes("Bearer"), false);
-  assert.match(response.headers.get("cache-control") ?? "", /s-maxage=30/);
-  assert.match(response.headers.get("cdn-cache-control") ?? "", /max-age=30/);
-  assert.match(response.headers.get("vercel-cdn-cache-control") ?? "", /max-age=30/);
+  assert.equal(response.headers.get("cache-control"), "private, no-store");
+  assert.equal(response.headers.get("cdn-cache-control"), null);
+  assert.equal(response.headers.get("vercel-cdn-cache-control"), null);
+  assert.equal(response.headers.get("vary"), "Cookie, Authorization");
 
   for (const key of ["text", "image", "voice", "speech"]) {
     const capability = body[key] as Record<string, unknown> | undefined;
@@ -141,7 +142,7 @@ test("AI tutor offline fixture status ignores legacy configured marker and provi
     AI_TUTOR_STATUS_ASSUME_QWEN_CONFIGURED: "1",
     QWEN_API_KEY: "fake-test-key"
   }, async () => {
-    const response = await getAITutorStatusRoute();
+    const response = await getAITutorStatusRoute(new Request("http://localhost/api/ai-tutor/status"));
     const body = await readJson<{
       configured: boolean;
       mode: string;

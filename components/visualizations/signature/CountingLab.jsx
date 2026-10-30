@@ -63,6 +63,8 @@
    ========================================================================== */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useAiProviderRegion } from '@/components/providers/useAiProviderRegion';
+import { permittedBrowserSpeechVoice } from '@/lib/browserSpeechPolicy';
 
 /* ---------------------------------------------------------------------------
    EDIT 1 — Parameters. Two whole-number set sizes. Group A (n) is the set we
@@ -328,6 +330,7 @@ const reduceMotion = () =>
    COMPONENT
    ========================================================================== */
 export default function CountingLab() {
+  const providerRegion = useAiProviderRegion();
   const [n, setN] = useState(START.n);
   const [m, setM] = useState(START.m);
   const [step, setStep] = useState(0);
@@ -374,8 +377,11 @@ export default function CountingLab() {
     const s = speechRef.current;
     if (!s.ok || !s.on) return;
     try {
+      const voice = permittedBrowserSpeechVoice(providerRegion, window.speechSynthesis.getVoices(), 'en-US');
+      if (voice === null) return;
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
+      if (voice) u.voice = voice;
       u.rate = 0.95;
       u.pitch = 1.05;
       window.speechSynthesis.speak(u);
