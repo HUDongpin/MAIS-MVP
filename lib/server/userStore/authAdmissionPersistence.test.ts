@@ -474,6 +474,7 @@ test("joined auth rows preserve the existing user, curriculum, and settings mapp
         region: "HK",
         publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
       },
+      providerPolicyRegion: "HK",
       role: "student"
     },
     settings: {
