@@ -221,8 +221,8 @@ test("teacher ops submission persistence creates grading runs through the extrac
   const database = createDatabase();
   const seenContexts: string[] = [];
   const store = createTestStore(database, {
-    createGradingRunRecord: async (_database, submission, assignment, attempt, now) => {
-      seenContexts.push(`${submission.id}:${assignment.id}:${attempt?.id}:${now}`);
+    createGradingRunRecord: async (_database, submission, assignment, attempt, now, actorId) => {
+      seenContexts.push(`${submission.id}:${assignment.id}:${attempt?.id}:${now}:${actorId}`);
       return {
         id: "grading-run-from-boundary-test",
         submission_id: submission.id,
@@ -249,7 +249,7 @@ test("teacher ops submission persistence creates grading runs through the extrac
   assert.equal(result.status, "created");
   if (result.status !== "created") throw new Error("Expected grading run creation to succeed.");
   assert.deepEqual(seenContexts, [
-    "submission-owned-1:assignment-owned:attempt-owned-latest:2026-06-21T08:00:00.000Z"
+    "submission-owned-1:assignment-owned:attempt-owned-latest:2026-06-21T08:00:00.000Z:teacher-1"
   ]);
   assert.equal(database.assignment_grading_runs.at(-1)?.id, "grading-run-from-boundary-test");
   assert.equal(database.submissions.find((submission) => submission.id === "submission-owned-1")?.updated_at, fixedNow);

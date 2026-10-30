@@ -4,6 +4,7 @@ import { readQwenAsrRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { consumeAiCapabilityRateLimit, resolveStudentAiTutorPolicy } from "@/lib/server/userStore";
 import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
+import { isAiProviderAllowedForRegion, providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
 
 export const runtime = "nodejs";
 
@@ -268,6 +269,9 @@ export async function POST(request: Request) {
   }
 
   const providerConfig = readQwenAsrRealtimeProviderConfig();
+  if (!isAiProviderAllowedForRegion(providerPolicyRegionForUser(authenticated.user), providerConfig.apiUrl)) {
+    return NextResponse.json({ error: "Speech recognition is unavailable for your region.", code: "AI_PROVIDER_REGION_UNAVAILABLE" }, { status: 503 });
+  }
   if (!providerConfig.apiKey) {
     return NextResponse.json({ error: "Qwen speech recognition is not configured." }, { status: 503 });
   }

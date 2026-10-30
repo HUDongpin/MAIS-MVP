@@ -12,10 +12,11 @@ import {
 } from "@/lib/server/userStore";
 import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
 import { resolveTutorVoiceModeration } from "@/lib/server/tutorVoiceModeration";
+import { combineProviderPolicyRegions, isAiProviderAllowedForRegion, normalizeProviderVoiceText, providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
+import { verifyTutorProviderPolicyProof } from "@/lib/server/tutorProviderPolicyProof";
 
 export const runtime = "nodejs";
 
-const maxVoiceTextLength = 1200;
 const defaultVoiceProviderTimeoutMs = 30000;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -23,14 +24,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function cleanVoiceText(value: unknown) {
-  if (typeof value !== "string") return "";
-  return value
-    .replace(/\$\$?/g, " ")
-    .replace(/\\[a-zA-Z]+/g, " ")
-    .replace(/[{}_[\]^]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, maxVoiceTextLength);
+  return normalizeProviderVoiceText(value);
 }
 
 function cleanLanguage(value: unknown) {
@@ -320,11 +314,15 @@ export async function POST(request: Request) {
   // keep the text local, preserve any safety alert, then return the voice 503.
   const language = cleanLanguage(body.language);
   const providerConfig = readQwenRealtimeProviderConfig();
+  const providerRegion = combineProviderPolicyRegions(providerPolicyRegionForUser(authenticated.user),
+    verifyTutorProviderPolicyProof(authenticated.user.id, text, body.providerPolicyProof) ?? null);
+  const providerAllowed = isAiProviderAllowedForRegion(providerRegion, providerConfig.apiUrl);
   const voiceModeration = await resolveTutorVoiceModeration({
     text,
     role: authenticated.user.role,
     language,
-    voiceProviderConfigured: Boolean(providerConfig.apiKey)
+    providerRegion,
+    voiceProviderConfigured: providerAllowed && Boolean(providerConfig.apiKey)
   });
 
   for (const event of voiceModeration.governanceEvents) {
@@ -363,6 +361,9 @@ export async function POST(request: Request) {
 
   // Duty-of-care has now run and any local safety alert has been persisted. Do
   // not let a moderation response mask the actual unavailable voice capability.
+  if (!providerAllowed) {
+    return NextResponse.json({ error: "Voice playback is unavailable for your region.", code: "AI_PROVIDER_REGION_UNAVAILABLE" }, { status: 503 });
+  }
   if (!providerConfig.apiKey) {
     return NextResponse.json(
       {

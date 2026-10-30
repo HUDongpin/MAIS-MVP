@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
 import { generateEduHKQuestionPair } from "@/lib/server/eduhkOpenApi";
+import { AiProviderCompanyPolicyError, providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
 
 export const runtime = "nodejs";
 
@@ -13,6 +14,7 @@ function readCleanString(value: unknown, maxLength: number) {
 }
 
 function statusForGenerationError(error: unknown) {
+  if (error instanceof AiProviderCompanyPolicyError) return 503;
   if (!(error instanceof Error)) return 500;
   if (error.message.startsWith("Missing EdUHK OpenAPI configuration")) return 503;
   if (
@@ -27,6 +29,7 @@ function statusForGenerationError(error: unknown) {
 }
 
 function publicErrorForGenerationError(error: unknown) {
+  if (error instanceof AiProviderCompanyPolicyError) return "Question generation is unavailable for your region.";
   if (!(error instanceof Error)) return "Could not generate questions.";
   if (error.message.startsWith("Missing EdUHK OpenAPI configuration")) return error.message;
   if (error.message === "EDUHK_LLM_FORMAT_ERROR") return "EdUHK response did not match the expected question format.";
@@ -53,7 +56,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const pair = await generateEduHKQuestionPair({ chatId, prompt });
+    const pair = await generateEduHKQuestionPair({ chatId, prompt, providerRegion: providerPolicyRegionForUser(authenticated.user) });
     return NextResponse.json({
       questions: [
         { apiId: "api1", ...pair.primary },

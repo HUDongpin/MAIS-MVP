@@ -1,6 +1,7 @@
 import * as http from "node:http";
 import * as https from "node:https";
 import { isIP } from "node:net";
+import { assertAiProviderAllowed, companyScopedProviderRequestInit, type ProviderPolicyRegion } from "../aiProviderCompanyPolicy";
 import {
   dashScopeRegionalApiUrls,
   isDashScopeRegionalHost,
@@ -330,20 +331,27 @@ async function fetchWithPinnedIp(
 export function fetchLLMProviderResponse(
   config: LLMProviderConfig,
   init: RequestInit,
-  pinnedIp = process.env.DEEPSEEK_API_RESOLVE_IP
+  pinnedIp = process.env.DEEPSEEK_API_RESOLVE_IP,
+  providerRegion?: ProviderPolicyRegion
 ): Promise<LLMProviderHttpResponse> {
-  if (config.provider !== "qwen") {
-    return fetchLLMProviderOnce(config.apiUrl, init, config, pinnedIp);
+  if (providerRegion !== undefined) {
+    assertAiProviderAllowed(providerRegion, config.apiUrl);
+    init = companyScopedProviderRequestInit(providerRegion, config.apiUrl, init);
   }
-  return fetchQwenWithDashScopeRegionalFailover(config, init, pinnedIp);
+  if (config.provider !== "qwen") {
+    return fetchLLMProviderOnce(config.apiUrl, init, config, pinnedIp, providerRegion);
+  }
+  return fetchQwenWithDashScopeRegionalFailover(config, init, pinnedIp, providerRegion);
 }
 
 async function fetchLLMProviderOnce(
   apiUrl: string,
   init: RequestInit,
   config: LLMProviderConfig,
-  pinnedIp?: string
+  pinnedIp?: string,
+  providerRegion?: ProviderPolicyRegion
 ): Promise<LLMProviderHttpResponse> {
+  if (providerRegion !== undefined) assertAiProviderAllowed(providerRegion, apiUrl);
   const plan = buildLLMProviderTransportPlan({ ...config, apiUrl }, pinnedIp);
   if (plan.mode === "fetch") return fetch(apiUrl, init);
   return fetchWithPinnedIp(apiUrl, init, plan);
@@ -384,11 +392,12 @@ function orderedDashScopeRequestUrls(apiUrl: string) {
 async function fetchQwenWithDashScopeRegionalFailover(
   config: LLMProviderConfig,
   init: RequestInit,
-  pinnedIp?: string
+  pinnedIp?: string,
+  providerRegion?: ProviderPolicyRegion
 ): Promise<LLMProviderHttpResponse> {
   const urls = orderedDashScopeRequestUrls(config.apiUrl);
   const firstUrl = urls[0] ?? config.apiUrl;
-  let lastResponse = await fetchLLMProviderOnce(firstUrl, init, config, pinnedIp);
+  let lastResponse = await fetchLLMProviderOnce(firstUrl, init, config, pinnedIp, providerRegion);
   if (lastResponse.ok) {
     rememberDashScopeHostFromUrl(firstUrl);
     return lastResponse;
@@ -404,7 +413,7 @@ async function fetchQwenWithDashScopeRegionalFailover(
       toHost: hostnameOf(apiUrl),
       status: lastResponse.status
     });
-    lastResponse = await fetchLLMProviderOnce(apiUrl, init, config, pinnedIp);
+    lastResponse = await fetchLLMProviderOnce(apiUrl, init, config, pinnedIp, providerRegion);
     if (lastResponse.ok) {
       rememberDashScopeHostFromUrl(apiUrl);
       return lastResponse;
@@ -449,7 +458,7 @@ export function buildLLMProviderRequestBody({
     };
   }
 
-  if (provider === "qwen" || provider === "deepinfra") {
+  if (provider === "qwen" || provider === "deepinfra" || provider === "openrouter") {
     return {
       model,
       messages,

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { useAiProviderRegion } from "@/components/providers/useAiProviderRegion";
 import { useReducedMotion } from "@/components/ui/Motion";
 import { practiceReadAloudLanguageCode, speakPracticeText, stopPracticeReadAloud } from "@/lib/practiceReadAloud";
 import { cn } from "@/lib/utils";
@@ -161,6 +162,7 @@ export function GuidedTour({
   readAloudStorageKey?: string;
 }) {
   const { language, text, t } = useSettings();
+  const providerRegion = useAiProviderRegion();
   const reduceMotion = useReducedMotion();
   const [steps, setSteps] = useState<GuidedTourStep[]>([]);
   const [stepIndex, setStepIndex] = useState(0);
@@ -194,9 +196,9 @@ export function GuidedTour({
     const spoken = spokenStepRef.current;
     if (!spoken) return;
     const separator = language === "en" ? ". " : "。";
-    speakPracticeText(`${spoken.title}${separator}${spoken.body}`, practiceReadAloudLanguageCode(language));
+    speakPracticeText(`${spoken.title}${separator}${spoken.body}`, practiceReadAloudLanguageCode(language), { region: providerRegion });
     return () => stopPracticeReadAloud();
-  }, [open, readAloud, readAloudOn, currentStepId, language]);
+  }, [open, readAloud, readAloudOn, currentStepId, language, providerRegion]);
 
   const toggleReadAloud = useCallback(() => {
     setReadAloudOn((enabled) => {

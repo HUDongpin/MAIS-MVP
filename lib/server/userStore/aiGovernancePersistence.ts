@@ -25,6 +25,7 @@ import type {
   ClassAiTutorMode,
   ClassAiTutorPolicy,
   CurriculumProfile,
+  CurriculumRegion,
   CurriculumTrack,
   DashboardData,
   GradeId,
@@ -335,6 +336,7 @@ export type AiGovernancePersistenceDatabase = {
 export type AITutorDataScope = "student-dashboard" | "teacher-dashboard" | "teacher-student-profile" | "adaptive-engine";
 
 export type AITutorDatabaseContextOptions = {
+  includeConversationHistory?: boolean;
   topicId?: string;
   questionId?: string;
   lessonSlug?: string;
@@ -348,7 +350,8 @@ export type AITutorDatabaseContextOptions = {
 
 export function hasRequestedAITutorDatabaseContext(context?: AITutorDatabaseContextOptions) {
   return Boolean(
-    context?.dataScopes?.length
+    context?.includeConversationHistory
+    || context?.dataScopes?.length
     || context?.topicId?.trim()
     || context?.questionId?.trim()
     || context?.lessonSlug?.trim()
@@ -362,6 +365,8 @@ export type AITutorDatabaseContextResult = {
   includedScopes: AITutorDataScope[];
   deniedScopes: AITutorDataScope[];
   subjectUserId: string;
+  providerPolicyRegion?: CurriculumRegion | null;
+  providerHistory?: Array<{ role: "student" | "tutor"; content: string }>;
 };
 
 type AiTutorDatabaseContextAuthenticatedUser = {
@@ -1511,20 +1516,26 @@ export function aiTutorDatabaseContextResult({
   fallbackLines = [],
   includedScopes = [],
   lines,
-  subjectUserId
+  subjectUserId,
+  providerPolicyRegion,
+  providerHistory
 }: {
   deniedScopes?: AITutorDataScope[];
   fallbackLines?: string[];
   includedScopes?: AITutorDataScope[];
   lines: string[];
   subjectUserId: string;
+  providerPolicyRegion?: CurriculumRegion | null;
+  providerHistory?: Array<{ role: "student" | "tutor"; content: string }>;
 }): AITutorDatabaseContextResult {
   return {
     text: lines.join("\n"),
     deterministicSummary: fallbackLines.length ? fallbackLines.join("\n") : null,
     includedScopes,
     deniedScopes,
-    subjectUserId
+    subjectUserId,
+    ...(providerPolicyRegion !== undefined ? { providerPolicyRegion } : {}),
+    ...(providerHistory !== undefined ? { providerHistory } : {})
   };
 }
 

@@ -16,6 +16,8 @@ import {
   useState
 } from "react";
 import { usePathname } from "next/navigation";
+import { providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
+import { mayUseUnverifiedBrowserRecognition } from "@/lib/browserSpeechPolicy";
 import { NovaLensGlobalOverlay } from "@/components/ai/NovaLensGlobalOverlay";
 import { cleanVoiceTranscript, voiceTranscriptMessageInput } from "@/components/ai/tutorVoiceInput";
 import { MathText } from "@/components/math/MathText";
@@ -107,9 +109,11 @@ type TutorMessage = {
   content: string;
   visualization?: AITutorVisualization;
   status?: "thinking" | "typing";
+  providerPolicyProof?: string;
 };
 
 type TutorApiResponse = {
+  providerPolicyProof?: string;
   code?: string;
   reply?: string;
   visualization?: AITutorVisualization;
@@ -230,6 +234,7 @@ type TutorSpeechRecognitionWindow = Window & {
 export type AITutorOpenOptions = {
   initialInput?: string;
   initialReply?: string;
+  initialReplyProviderPolicyProof?: string;
   autoSend?: boolean;
   novaLensRunId?: string;
   novaLensStatus?: NovaLensRunStatus;
@@ -1469,6 +1474,7 @@ function readApiResponse(value: unknown): TutorApiResponse {
   const visualization = normalizeAITutorVisualization(value.visualization);
   return {
     code: typeof value.code === "string" ? value.code : undefined,
+    providerPolicyProof: typeof value.providerPolicyProof === "string" && value.providerPolicyProof.length <= 1024 ? value.providerPolicyProof : undefined,
     reply: typeof value.reply === "string" ? value.reply : undefined,
     ...(visualization ? { visualization } : {}),
     error: typeof value.error === "string" ? value.error : undefined,
@@ -1648,6 +1654,7 @@ function sanitizeMessagesForDraft(messages: TutorMessage[]): TutorMessage[] {
       role: message.role,
       content: message.content,
       visualization: message.visualization,
+      providerPolicyProof: typeof message.providerPolicyProof === "string" && message.providerPolicyProof.length <= 1024 ? message.providerPolicyProof : undefined,
       ...(message.status === "typing" ? { status: message.status } : {})
     }));
 }
@@ -1697,6 +1704,7 @@ function readTutorMessages(value: unknown): TutorMessage[] {
         role: message.role,
         content: message.content,
         visualization: normalizeAITutorVisualization(message.visualization),
+        providerPolicyProof: typeof message.providerPolicyProof === "string" && message.providerPolicyProof.length <= 1024 ? message.providerPolicyProof : undefined,
         ...(message.status === "typing" ? { status: message.status } : {})
       };
     })
@@ -2005,6 +2013,7 @@ async function requestTutorReply({
   if (data.reply) {
     return {
       reply: data.reply,
+      providerPolicyProof: data.providerPolicyProof,
       visualization: data.visualization,
       mode: data.mode
     };
@@ -2522,7 +2531,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [teardownNativeSpeechRecognition]);
   const startNativeSpeechCapture = useCallback(() => {
     const SpeechRecognitionConstructor = getNativeSpeechRecognitionConstructor();
-    if (!currentUser || !SpeechRecognitionConstructor) {
+    if (!currentUser || !SpeechRecognitionConstructor || !mayUseUnverifiedBrowserRecognition(providerPolicyRegionForUser(currentUser))) {
       return false;
     }
 
@@ -2634,6 +2643,9 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
       const speechText = cleanTutorSpeechText(text);
       if (!speechText) return;
+      const providerPolicyProof = messages.slice().reverse().find(message =>
+        message.role === "tutor" && cleanTutorSpeechText(message.content) === speechText
+      )?.providerPolicyProof;
       const sessionSnapshot = beginTutorSessionRequest();
       const expectedUserId = sessionSnapshot.identity?.userId;
       if (!expectedUserId) {
@@ -2660,6 +2672,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
           body: JSON.stringify({
             expectedUserId,
             text: speechText,
+            providerPolicyProof,
             language: fallbackLanguageForInput(language, speechText, [])
           }),
           cache: "no-store",
@@ -2727,6 +2740,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       currentUser,
       invalidateTutorAuthEpoch,
       language,
+      messages,
       releaseTutorSessionRequest,
       setupStatus.voice?.configured,
       stopTutorVoicePlayback,
@@ -2894,7 +2908,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         setMessages((current) =>
           current.map((message) =>
             message.id === pendingMessageId
-              ? { id: createMessageId("reply"), role: "tutor", content: reply.reply, visualization: reply.visualization, status: "typing" }
+              ? { id: createMessageId("reply"), role: "tutor", content: reply.reply, visualization: reply.visualization, providerPolicyProof: reply.providerPolicyProof, status: "typing" }
               : message
           )
         );
@@ -2990,6 +3004,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
               id: createMessageId(options?.novaLensRunId ? `nova-lens-${options.novaLensRunId}` : "nova-lens"),
               role: "tutor",
               content: initialReply,
+              providerPolicyProof: typeof options?.initialReplyProviderPolicyProof === "string" && options.initialReplyProviderPolicyProof.length <= 1024 ? options.initialReplyProviderPolicyProof : undefined,
               status: "typing"
             }
           ]);
@@ -3019,8 +3034,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [abortVoiceInputCapture, stopTutorVoicePlayback]);
 
   useEffect(() => {
-    setSpeechSupported(Boolean(getNativeSpeechRecognitionConstructor()) || Boolean(setupStatus.speech?.configured));
-  }, [setupStatus.speech?.configured]);
+    setSpeechSupported((Boolean(getNativeSpeechRecognitionConstructor()) && mayUseUnverifiedBrowserRecognition(providerPolicyRegionForUser(currentUser ?? {}))) || Boolean(setupStatus.speech?.configured));
+  }, [currentUser, setupStatus.speech?.configured]);
 
   useEffect(() => {
     setMessages((current) => {

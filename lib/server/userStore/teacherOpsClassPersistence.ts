@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { classProviderRegion } from "@/lib/server/aiProviderPolicyContext";
 import {
   curriculumProfilesEqual,
   curriculumTrackForProfile,
@@ -496,7 +497,7 @@ export function toTeacherOpsClassEnrollment(
 
 export function toTeacherOpsClass(
   database: {
-    class_enrollments: Array<{ class_id: string }>;
+    class_enrollments: Array<{ class_id: string; student_id?: string }>;
     student_profiles?: TeacherOpsClassStudentProfileRecord[];
   },
   record: TeacherOpsClassRecord
@@ -518,6 +519,11 @@ export function toTeacherOpsClass(
     grade: record.grade,
     curriculumTrack: curriculumTrackForProfile(curriculumProfile),
     curriculumProfile,
+    providerPolicyRegion: classProviderRegion({
+      teacher_classes: [record],
+      student_profiles: database.student_profiles ?? [],
+      class_enrollments: database.class_enrollments.map(row => ({ class_id: row.class_id, student_id: row.student_id ?? "" }))
+    }, record.id),
     academicYear: record.academic_year,
     description: {
       en: record.description_en,

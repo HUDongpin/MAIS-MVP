@@ -66,7 +66,6 @@ import {
   fetchLLMProviderResponse,
   isTransientLLMProviderHttpStatus,
   readAITutorProviderProfile,
-  readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
   resolveAITutorProviderTimeoutMs,
   resolveLLMMaxCompletionTokens,
@@ -79,6 +78,9 @@ import {
   type LLMProviderMessage,
   type LLMProviderName
 } from "@/lib/server/llmProvider";
+import { combineProviderPolicyRegions, hasUnrestrictedProviderCompanies, providerPolicyRegionForUser, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedTutorImageConfig, readRegionScopedTutorTextProviders } from "@/lib/server/regionScopedProviders";
+import { createTutorProviderPolicyProof } from "@/lib/server/tutorProviderPolicyProof";
 import type {
   CurriculumProfile,
   CurriculumTrack,
@@ -392,10 +394,8 @@ function readProviderConfig(): ProviderConfig {
   return readAITutorTextProviderConfigs().primary;
 }
 
-function readVisionProviderConfig(): ProviderConfig {
-  // Preference-aware: routes image turns to the US-hosted vision model when
-  // AI_TUTOR_PREFERRED_TEXT_PROVIDER=deepinfra and its key is configured.
-  return readAITutorImageProviderConfig();
+function readVisionProviderConfig(region: ProviderPolicyRegion): ProviderConfig | null {
+  return readRegionScopedTutorImageConfig(region);
 }
 
 function providerSupportsImageInput(_provider: ProviderName) {
@@ -406,16 +406,16 @@ function hasReadableImageAttachment(attachments: TutorAttachmentContext[]) {
   return attachments.some((attachment) => attachment.dataUrl?.startsWith("data:image/"));
 }
 
-function resolveProviderConfigForRequest(primaryConfig: ProviderConfig, attachments: TutorAttachmentContext[]) {
+function resolveProviderConfigForRequest(primaryConfig: ProviderConfig, attachments: TutorAttachmentContext[], region: ProviderPolicyRegion) {
   const needsImageInput = hasReadableImageAttachment(attachments);
   if (!needsImageInput) return { config: primaryConfig, usesVisionProvider: false, imageInputUnavailable: false };
 
-  const visionConfig = readVisionProviderConfig();
-  if (visionConfig.apiKey && providerSupportsImageInput(visionConfig.provider)) {
+  const visionConfig = readVisionProviderConfig(region);
+  if (visionConfig?.apiKey && providerSupportsImageInput(visionConfig.provider)) {
     return { config: visionConfig, usesVisionProvider: true, imageInputUnavailable: false };
   }
 
-  if (primaryConfig.apiKey && providerSupportsImageInput(primaryConfig.provider)) {
+  if (hasUnrestrictedProviderCompanies(region) && primaryConfig.apiKey && providerSupportsImageInput(primaryConfig.provider)) {
     return { config: primaryConfig, usesVisionProvider: false, imageInputUnavailable: false };
   }
 
@@ -428,8 +428,8 @@ function isSameProviderConfig(left: ProviderConfig, right: ProviderConfig) {
     left.model === right.model;
 }
 
-function buildTextProviderCandidates(primaryConfig: ProviderConfig) {
-  const candidates = readAITutorTextProviderConfigs().candidates;
+function buildTextProviderCandidates(primaryConfig: ProviderConfig, region: ProviderPolicyRegion) {
+  const candidates = readRegionScopedTutorTextProviders(region);
   const seen = new Set<string>();
   return [primaryConfig, ...candidates].filter((candidate) => {
     const key = `${candidate.provider}:${candidate.apiUrl}:${candidate.model}`;
@@ -1917,7 +1917,9 @@ async function handleAITutorPost(
 ) {
   const requestStartedAt = options.startedAt ?? Date.now();
   const requestSignal = options.signal ?? request.signal;
-  const primaryProviderConfig = readProviderConfig();
+  let primaryProviderConfig = readProviderConfig();
+  let activeProviderRegion: ProviderPolicyRegion = null;
+  let policyActorId: string | undefined;
   const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
   const stageTimings: AITutorStageTimings = {};
   let latencyLogged = false;
@@ -2008,7 +2010,10 @@ async function handleAITutorPost(
     markStage("persistence-scheduled");
     finalizeTutorResponse(body, init);
     flushDeferredTutorSideEffects();
-    return NextResponse.json(body, init);
+    const providerPolicyProof = policyActorId && isRecord(body) && typeof body.reply === "string"
+      ? createTutorProviderPolicyProof(policyActorId, body.reply, activeProviderRegion)
+      : undefined;
+    return NextResponse.json(providerPolicyProof && isRecord(body) ? { ...body, providerPolicyProof } : body, init);
   }
 
   function cancelledTutorResponse() {
@@ -2020,7 +2025,7 @@ async function handleAITutorPost(
   }
 
   function recordTutorMessageAfterResponse(args: Parameters<typeof recordAITutorMessage>[0]) {
-    deferTutorSideEffect(() => safeRecordTutorMessage(args));
+    deferTutorSideEffect(() => safeRecordTutorMessage({ ...args, context: { ...args.context, providerPolicyRegion: activeProviderRegion } }));
   }
 
   function recordTutorUsageAfterResponse(args: Parameters<typeof recordAITutorUsage>[0]) {
@@ -2072,7 +2077,7 @@ async function handleAITutorPost(
   const context = readTutorContext(body.context);
   const requestDataScopes = readTutorDataScopes(body.dataScopes);
   const requestTargetStudentId = cleanText(body.targetStudentId, 160);
-  const history = readHistory(body.messages);
+  let history = readHistory(body.messages);
   const grade = cleanText(body.grade, 24);
   const interfaceLanguage = cleanText(body.language, 24);
   const language = resolveTutorReplyLanguage(interfaceLanguage, input, history);
@@ -2187,6 +2192,8 @@ async function handleAITutorPost(
   }
 
   const authenticated = admission.authenticated;
+  policyActorId = authenticated.user.id;
+  activeProviderRegion = providerPolicyRegionForUser(authenticated.user);
   const authenticatedUserId = authenticated.user.id;
   const classroomPolicy = admission.classroomPolicy;
   const rateLimit = admission.rateLimit;
@@ -2458,6 +2465,7 @@ async function handleAITutorPost(
     4_000
   );
   const databaseContextLookup = await withSoftTimeout(() => buildAITutorDatabaseContext(authenticatedUserId, {
+      includeConversationHistory: history.length > 0,
       topicId: context?.topicId,
       questionId: context?.questionId,
       lessonSlug: context?.lessonSlug,
@@ -2478,6 +2486,9 @@ async function handleAITutorPost(
       error: databaseContextLookup.timedOut ? "AI Tutor context build timed out" : "AI Tutor context build failed"
     });
   }
+  // Client history has no trusted region provenance. Use only the server-owned
+  // turns whose policy was recorded with their actual authenticated request.
+  history = readHistory(databaseContext.providerHistory ?? []);
   markStage("context");
 
   let safeEvidenceContext = "";
@@ -2506,10 +2517,26 @@ async function handleAITutorPost(
       : { grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
   });
 
-  const providerSelection = resolveProviderConfigForRequest(primaryProviderConfig, attachments);
+  const providerRegion = combineProviderPolicyRegions(
+    providerPolicyRegionForUser(authenticated.user),
+    ...(databaseContext.providerPolicyRegion !== undefined ? [databaseContext.providerPolicyRegion] : [])
+  );
+  activeProviderRegion = providerRegion;
+  const permittedTextProviders = readRegionScopedTutorTextProviders(providerRegion);
+  const permittedPrimary = permittedTextProviders.find(candidate => Boolean(candidate.apiKey))
+    ?? permittedTextProviders[0]
+    ?? (hasReadableImageAttachment(attachments) ? readRegionScopedTutorImageConfig(providerRegion) : null);
+  if (!permittedPrimary) {
+    return jsonWithDeferredTutorSideEffects({
+      error: "No permitted AI service company is configured for your region.",
+      code: "AI_PROVIDER_REGION_UNAVAILABLE"
+    }, { status: 503 });
+  }
+  primaryProviderConfig = permittedPrimary;
+  const providerSelection = resolveProviderConfigForRequest(primaryProviderConfig, attachments, providerRegion);
   const providerCandidates = providerSelection.usesVisionProvider || hasReadableImageAttachment(attachments)
     ? [providerSelection.config]
-    : buildTextProviderCandidates(primaryProviderConfig);
+    : buildTextProviderCandidates(primaryProviderConfig, providerRegion);
   const firstProviderConfig = providerSelection.config;
   let lastProviderConfig = selectAvailableLLMProviderConfig(providerCandidates, aiTutorProviderCircuitBreaker)
     ?? providerCandidates.find((candidate) => Boolean(candidate.apiKey))
@@ -2777,7 +2804,7 @@ async function handleAITutorPost(
           responseFormat
         })),
         signal: controller.signal
-      });
+      }, undefined, providerRegion);
 
       if (!providerResponse.ok) {
         return {

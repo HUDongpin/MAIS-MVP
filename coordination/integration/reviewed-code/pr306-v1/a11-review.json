@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr306-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/pr306_gate_a11",
+  "result": "approved-for-exact-pr306-required-check",
+  "scope": "exact-pr306-provider-company-policy-required-check-only",
+  "sourceCommit": "dd0c4a51d7e6cd23d734da3f7f8e292d7e426042",
+  "sourceTree": "ff3dd1ea83b47cc61bdb79bdaa1b43be3c7d7db5",
+  "sourceInventoryDigest": "d1785da97c30aeed268bdef4d08b6e89fcd5566d3c5e7f0008af021a4c08af56",
+  "toolingCommit": "935d602f44d078f6b7b879d9c04dc4100866156d",
+  "toolingTree": "acb219f1f8d81788c643615f3c5184cc8d8575a4",
+  "toolingInventoryDigest": "903b7dc8caa1182c2c00cd2e168d2b098c738aa07837c05f1e3e074a2130d515",
+  "checksRawSha256": "3caf16cdb3f5d9e15b21d51254c67b84f618adc7b1d16806930fd437bc615591",
+  "reportRawSha256": "dbd5b6983837782261aa3becf80500b3e0b982e46f94aeeec502f3378c00059d",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-30T15:28:36.914Z",
+  "findings": [
+    "在实际 T2 存在后独立核对 Git：T2 唯一父提交是固定 T1，T1 唯一父提交是 S；重算 T1 树及清单、T2 树和 S→T2 六路径清单摘要，工作区干净且对应字节一致。",
+    "运行时源 S dd0c4a51 及 B→S 的 57 路径清单保持不变；冻结 source-checks 原始摘要与五项源 COMMANDS 保持不变，源测试与修正后的最终工具测试分开记录。",
+    "此前 PR305 常量复制错误已修复；生产与正向事件限定 PR306，独立字面量 306 断言和显式拒绝 PR305 的契约继续保留。",
+    "两项结构回归修正没有削弱所审既有检查：语音用例要求区域许可与配置密钥同时成立，并保留安全警示先于区域拒绝；Teen Numbers 限定三个确切导入并校验策略使用，数值及布局断言保持不变。",
+    "独立复核冻结源日志 SHA-256 和 TAP：类型检查输出为空，49 提供商、169 认证准入、7 家长安全边界、17 历史激活契约通过，无失败、取消、跳过或 TODO。未把日志复核表述为本审查重新执行。",
+    "另外独立解析最终工具输出：26 项 source-regressions 全部通过；Teen Numbers 输出精确为 46855 checks, 0 failures 且 stderr 为空；这些修正后的工具检查不是原先在 S 执行的冻结源证据。",
+    "独立解析最终 45 项准入契约日志：45/45 通过，无失败、取消、跳过或 TODO，耗时约 228.7 秒；检查器绑定测试计数/名称、数值审计精确输出、失败退出和有限超时。",
+    "原 PR305/原生后继检查器、coordination/integration 历史证据及既有图示清单未变；工作流仍只有精确增量，私有输出、环境白名单、执行前后物化与当前性校验保留。",
+    "旧 T1 审查 JSON/MD 原始摘要已复核并保持不变，仅作历史证据，不复用为 T2 批准；本报告新写于 reviews-final 并绑定实际 T2。",
+    "本决定仅批准确切 PR306 的 ordinary-code required-check 准入；实际 E 组装和最终 Ubuntu CI 待后续建立，不代表原生 Shadow/currentness、整包验收、真实服务商/配置验收、合并、Preview、部署或 live 批准，六项权限全部 false。"
+  ]
+}

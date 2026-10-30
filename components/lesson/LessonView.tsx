@@ -1,5 +1,7 @@
 "use client";
 import { saveLessonProgressRequest } from "@/lib/lessonProgressRequest";
+import { providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
+import { permittedBrowserSpeechVoice } from "@/lib/browserSpeechPolicy";
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -1281,11 +1283,14 @@ function ConceptAudioPlayer({
 
   function startLessonSpeechFallback(abortController: AbortController) {
     if (!canUseLessonSpeechFallback() || !audioText) return false;
+    const voice = permittedBrowserSpeechVoice(providerPolicyRegionForUser(currentUser ?? {}), window.speechSynthesis.getVoices(), lessonSpeechFallbackLanguageCode(language));
+    if (voice === null) return false;
 
     abortController.abort();
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(audioText);
     utterance.lang = lessonSpeechFallbackLanguageCode(language);
+    if (voice) utterance.voice = voice;
     utterance.rate = rate;
     speechFallbackUtteranceRef.current = utterance;
     speechFallbackActiveRef.current = true;

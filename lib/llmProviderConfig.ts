@@ -1,5 +1,5 @@
-export type LLMProviderName = "deepseek" | "qwen" | "deepinfra" | "openai-compatible";
-export type AITutorPreferredTextProvider = "qwen" | "deepinfra";
+export type LLMProviderName = "deepseek" | "qwen" | "deepinfra" | "openrouter" | "openai-compatible";
+export type AITutorPreferredTextProvider = "qwen" | "deepinfra" | "openrouter";
 export type LLMProviderConfig = {
   apiKey?: string;
   apiUrl: string;
@@ -7,7 +7,7 @@ export type LLMProviderConfig = {
   provider: LLMProviderName;
 };
 export type AITutorProviderProfile = "offline-fixture" | "mocked-live" | "live-smoke" | "production" | "runtime";
-export type AITutorProviderReadiness = "configured" | "missing-key" | "disabled-by-test-profile";
+export type AITutorProviderReadiness = "configured" | "missing-key" | "missing-model" | "disabled-by-test-profile" | "blocked-by-region-policy";
 export type AITutorCapabilityStatus = {
   configured: boolean;
   health: {
@@ -49,6 +49,7 @@ export const defaultQwenAsrRealtimeModel = "qwen3-asr-flash-realtime";
 export const defaultDeepInfraApiUrl = "https://api.deepinfra.com/v1/openai/chat/completions";
 export const defaultDeepInfraTextModel = "Qwen/Qwen3-VL-30B-A3B-Instruct";
 export const defaultDeepInfraVisionModel = "Qwen/Qwen3-VL-30B-A3B-Instruct";
+export const defaultOpenRouterApiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
 const aiTutorProviderProfiles = new Set<AITutorProviderProfile>([
   "offline-fixture",
@@ -138,6 +139,7 @@ function isDeepInfraApiUrl(apiUrl: string) {
 }
 
 export function resolveLLMProviderName(apiUrl: string): LLMProviderName {
+  try { if (new URL(apiUrl).hostname === "openrouter.ai") return "openrouter"; } catch { /* Unknown URL retains the existing protocol fallback. */ }
   if (isDeepSeekApiUrl(apiUrl)) return "deepseek";
   if (isQwenApiUrl(apiUrl)) return "qwen";
   if (isDeepInfraApiUrl(apiUrl)) return "deepinfra";
@@ -204,14 +206,30 @@ export function readDeepInfraVisionProviderConfig(): LLMProviderConfig {
 export function readAITutorPreferredTextProvider(
   value = process.env.AI_TUTOR_PREFERRED_TEXT_PROVIDER
 ): AITutorPreferredTextProvider {
+  if (value?.trim() === "openrouter") return "openrouter";
   return value?.trim() === "deepinfra" ? "deepinfra" : "qwen";
 }
+
+function readOpenRouterProviderConfig(capability: "TEXT" | "VISION"): LLMProviderConfig {
+  const model = readOptionalEnv(process.env[`OPENROUTER_${capability}_MODEL`]) ?? readOptionalEnv(process.env.OPENROUTER_MODEL) ?? "";
+  return {
+    // An explicit model is required: do not pick a paid model or switch services implicitly.
+    apiKey: model ? readProviderApiKey(process.env.OPENROUTER_API_KEY) : undefined,
+    apiUrl: readOptionalEnv(process.env.OPENROUTER_API_URL) ?? defaultOpenRouterApiUrl,
+    model,
+    provider: "openrouter"
+  };
+}
+
+export function readOpenRouterTextProviderConfig() { return readOpenRouterProviderConfig("TEXT"); }
+export function readOpenRouterVisionProviderConfig() { return readOpenRouterProviderConfig("VISION"); }
 
 export function readAITutorTextProviderConfigs() {
   const qwen = readQwenTextProviderConfig();
   const deepinfra = readDeepInfraTextProviderConfig();
   const preferredProvider = readAITutorPreferredTextProvider();
-  const ordered = preferredProvider === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
+  const ordered = preferredProvider === "openrouter" ? [readOpenRouterTextProviderConfig(), qwen, deepinfra]
+    : preferredProvider === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
   // The preferred provider leads, but a keyless preference never orphans the
   // tutor: the first *configured* candidate becomes primary.
   const primary = ordered.find((candidate) => Boolean(candidate.apiKey)) ?? ordered[0];
@@ -247,7 +265,9 @@ export function readQwenImageProviderConfig(): LLMProviderConfig {
 export function readAITutorImageProviderConfig(): LLMProviderConfig {
   const qwen = readAITutorQwenImageProviderConfig();
   const deepinfra = readDeepInfraVisionProviderConfig();
-  const ordered = readAITutorPreferredTextProvider() === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
+  const preferred = readAITutorPreferredTextProvider();
+  const ordered = preferred === "openrouter" ? [readOpenRouterVisionProviderConfig(), qwen, deepinfra]
+    : preferred === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
   return ordered.find((candidate) => Boolean(candidate.apiKey)) ?? ordered[0];
 }
 

@@ -393,8 +393,13 @@ ok(/SAY IT/.test(body) && /WRITE IT/.test(body) && /IT IS/.test(body), 'the thre
 
 /* ---- house-style contracts ------------------------------------------------ */
 ok(/^'use client';/.test(src), "the component is marked 'use client'");
-ok(!/^import(?!\s*\{\s*useCallback,\s*useEffect,\s*useRef,\s*useState\s*\}\s*from\s*'react')/m.test(src.replace(/^'use client';\n/, '')) || (src.match(/^import /gm) || []).length === 2, 'imports: react + node fs only in audit; the lab imports react alone');
-ok((src.match(/^import /gm) || []).length === 1, 'the lab has exactly one import — zero external dependencies');
+const expectedImports = [
+  "import { useCallback, useEffect, useRef, useState } from 'react';",
+  "import { useAiProviderRegion } from '@/components/providers/useAiProviderRegion';",
+  "import { permittedBrowserSpeechVoice } from '@/lib/browserSpeechPolicy';",
+];
+ok(JSON.stringify((src.match(/^import[^\n]*$/gm) || []).sort()) === JSON.stringify(expectedImports.sort()), 'imports are exactly React and the two first-party regional speech helpers');
+ok(/const providerRegion = useAiProviderRegion\(\)/.test(src) && /permittedBrowserSpeechVoice\(providerRegion,/.test(src) && /if \(voice === null\) return;/.test(src), 'read-aloud uses the regional policy and refuses an unavailable permitted voice');
 ok(/style jsx/.test(src), 'styles are scoped with styled-jsx so nothing leaks into the host app');
 ok(/devicePixelRatio/.test(src) && /setTransform\(dpr/.test(src), 'the canvas is DPI-aware');
 ok(/aria-live/.test(src) && /sr-only/.test(src), 'the picture is narrated for screen readers');

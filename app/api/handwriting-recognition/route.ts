@@ -27,6 +27,8 @@ import {
   selectRoutedHandwritingCandidate
 } from "@/lib/server/handwritingOcrRouting";
 import { buildSimpletexAppAuthHeaders, type SimpletexRequestFields } from "@/lib/server/simpletexAuth";
+import { combineProviderPolicyRegions, fetchCompanyAllowedProvider, hasUnrestrictedProviderCompanies, isAiProviderAllowedForRegion, providerPolicyRegionForUser, type ProviderPolicyRegion } from "@/lib/aiProviderCompanyPolicy";
+import { readRegionScopedGeneralImageConfig } from "@/lib/server/regionScopedProviders";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { consumeAiCapabilityRateLimit, recordAiGovernanceEvent } from "@/lib/server/userStore";
 import {
@@ -35,7 +37,7 @@ import {
   imageDataUrlMediaDescriptor,
   mediaStoragePolicyFromEnv
 } from "@/lib/server/aiGovernance";
-import { mediaObjectReferenceFromUnknown, readStoredMediaObject } from "@/lib/server/mediaObjectStore";
+import { mediaObjectOwnerHash, mediaObjectReferenceFromUnknown, readStoredMediaObject } from "@/lib/server/mediaObjectStore";
 
 export const runtime = "nodejs";
 
@@ -218,7 +220,7 @@ async function governedOcrImageDataUrl({
   imageDataUrl?: string;
   imageObject: unknown;
   user: { id: string; role: string };
-}): Promise<{ imageDataUrl?: string; response?: NextResponse }> {
+}): Promise<{ imageDataUrl?: string; response?: NextResponse; providerPolicyRegion?: ProviderPolicyRegion }> {
   if (imageDataUrl) {
     const media = imageDataUrlMediaDescriptor(imageDataUrl);
     if (media) {
@@ -301,7 +303,9 @@ async function governedOcrImageDataUrl({
   }
 
   return {
-    imageDataUrl: `data:${stored.metadata.mimeType};base64,${stored.bytes.toString("base64")}`
+    imageDataUrl: `data:${stored.metadata.mimeType};base64,${stored.bytes.toString("base64")}`,
+    // Admin access permits reading, not downgrading another owner's AI policy.
+    ...(stored.metadata.ownerHash !== mediaObjectOwnerHash(user.id) ? { providerPolicyRegion: null } : {})
   };
 }
 
@@ -618,8 +622,9 @@ function normalizeSimpletexCandidate(value: unknown): ProviderCandidate | null {
   };
 }
 
-async function trySimpletexRecognition(imageDataUrl: string | undefined) {
+async function trySimpletexRecognition(imageDataUrl: string | undefined, providerRegion: ProviderPolicyRegion) {
   const config = readSimpletexConfig();
+  if (!config || !isAiProviderAllowedForRegion(providerRegion, config.apiUrl)) return null;
   const image = await imageDataUrlToBlob(imageDataUrl);
   if (!config || !image) return null;
 
@@ -645,7 +650,7 @@ async function trySimpletexRecognition(imageDataUrl: string | undefined) {
     formData.append("file", image.blob, image.fileName);
 
     try {
-      const response = await fetch(config.apiUrl, {
+      const response = await fetchCompanyAllowedProvider(providerRegion, config.apiUrl, {
         method: "POST",
         headers: simpletexAuthHeaders(config, reqData),
         body: formData,
@@ -742,9 +747,9 @@ function extractMathpixAlternatives(value: unknown): HandwritingRecognitionAlter
     .filter((candidate) => candidate.text.length > 0);
 }
 
-async function tryMathpixRecognition(strokes: HandwritingStroke[]) {
+async function tryMathpixRecognition(strokes: HandwritingStroke[], providerRegion: ProviderPolicyRegion) {
   const config = readMathpixConfig();
-  if (!config) return null;
+  if (!config || !isAiProviderAllowedForRegion(providerRegion, config.apiUrl)) return null;
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Math.round(boundedNumber(
@@ -755,7 +760,7 @@ async function tryMathpixRecognition(strokes: HandwritingStroke[]) {
   )));
 
   try {
-    const response = await fetch(config.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(providerRegion, config.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -842,11 +847,14 @@ function normalizeLLMCandidate(value: unknown): ProviderCandidate | null {
   };
 }
 
-async function tryLLMRecognition(imageDataUrl: string | undefined) {
+async function tryLLMRecognition(imageDataUrl: string | undefined, providerRegion: ProviderPolicyRegion) {
   if (process.env.HANDWRITING_RECOGNITION_LLM_FALLBACK_ENABLED !== "true" || !imageDataUrl) return null;
 
-  const config = readVisionProviderConfig();
-  if (!config.apiKey || !providerSupportsImageInput(config.provider)) return null;
+  const preferred = readVisionProviderConfig();
+  const config = hasUnrestrictedProviderCompanies(providerRegion)
+    ? preferred
+    : readRegionScopedGeneralImageConfig(providerRegion);
+  if (!config?.apiKey || !providerSupportsImageInput(config.provider)) return null;
 
   const imageParts: LLMProviderContentPart[] = [
     {
@@ -881,7 +889,7 @@ async function tryLLMRecognition(imageDataUrl: string | undefined) {
   )));
 
   try {
-    const response = await fetch(config.apiUrl, {
+    const response = await fetchCompanyAllowedProvider(providerRegion, config.apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -919,6 +927,7 @@ export async function POST(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Log in before using handwriting recognition." }, { status: 401 });
   }
+  let providerRegion = providerPolicyRegionForUser(authenticated.user);
 
   let body: unknown;
   try {
@@ -938,6 +947,9 @@ export async function POST(request: Request) {
     user: authenticated.user
   });
   if (governedImage.response) return governedImage.response;
+  if (governedImage.providerPolicyRegion !== undefined) {
+    providerRegion = combineProviderPolicyRegions(providerRegion, governedImage.providerPolicyRegion);
+  }
   const imageDataUrl = governedImage.imageDataUrl;
   const hasPenStroke = hasVisiblePenStroke(strokes);
   if (strokes.length > 0 && !hasPenStroke) {
@@ -988,7 +1000,7 @@ export async function POST(request: Request) {
   // entirely (US pilot compliance, consultation Q4): strokes go straight to
   // the existing Mathpix path below, with LLM-vision as the final fallback.
   const suppressSimpletex = process.env.HANDWRITING_OCR_PRIMARY?.trim() === "mathpix";
-  const simpletexCandidate = suppressSimpletex ? null : await trySimpletexRecognition(imageDataUrl);
+  const simpletexCandidate = suppressSimpletex ? null : await trySimpletexRecognition(imageDataUrl, providerRegion);
   if (simpletexCandidate) {
     const simpletexAutoAcceptConfidence = readSimpletexAutoAcceptConfidenceThreshold();
     const simpletexAssessment = assessSimpletexRouting(simpletexCandidate, {
@@ -1002,7 +1014,7 @@ export async function POST(request: Request) {
     }
 
     const mathpixCandidate = simpletexAssessment.shouldUpgradeToMathpix && hasPenStroke
-      ? await tryMathpixRecognition(strokes)
+      ? await tryMathpixRecognition(strokes, providerRegion)
       : null;
 
     const selected = selectRoutedHandwritingCandidate({
@@ -1042,14 +1054,14 @@ export async function POST(request: Request) {
     ));
   }
 
-  const mathpixCandidate = hasPenStroke ? await tryMathpixRecognition(strokes) : null;
+  const mathpixCandidate = hasPenStroke ? await tryMathpixRecognition(strokes, providerRegion) : null;
   if (mathpixCandidate) {
     return NextResponse.json(buildResult(mathpixCandidate, providerAlternatives, undefined, {
       confidenceThreshold: readMathpixAutoAcceptConfidenceThreshold()
     }));
   }
 
-  const llmCandidate = await tryLLMRecognition(imageDataUrl);
+  const llmCandidate = await tryLLMRecognition(imageDataUrl, providerRegion);
   if (llmCandidate) {
     return NextResponse.json(buildResult(llmCandidate, providerAlternatives));
   }

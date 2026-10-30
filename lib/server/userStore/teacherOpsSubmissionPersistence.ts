@@ -134,7 +134,8 @@ export type TeacherOpsSubmissionPersistenceStoreDependencies = {
     submission: TeacherOpsSubmissionRecord,
     assignment: TeacherOpsSubmissionAssignmentRecord,
     attempt: TeacherOpsSubmissionAttemptRecord | null,
-    now: string
+    now: string,
+    actorId: string
   ) => TeacherOpsSubmissionGradingRunRecord | Promise<TeacherOpsSubmissionGradingRunRecord>;
   toGradingRun: (
     database: TeacherOpsSubmissionPersistenceDatabase,
@@ -450,7 +451,7 @@ export function createTeacherOpsSubmissionPersistenceStore({
 
       const attempt = submissionAttemptsFor(database, submission.id).slice(-1)[0] ?? null;
       const nowIso = now().toISOString();
-      const run = await createGradingRunRecord(database, submission, assignment, attempt, nowIso);
+      const run = await createGradingRunRecord(database, submission, assignment, attempt, nowIso, user.id);
 
       return mutateDatabase((mutable) => {
         const currentTeacher = mutable.users.find(candidate => candidate.id === teacherId);

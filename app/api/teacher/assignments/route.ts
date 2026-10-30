@@ -12,6 +12,7 @@ import {
   TeacherAssignmentGenerationError
 } from "@/lib/server/teacherAssignmentGeneration";
 import type { AssignmentContentType } from "@/types";
+import { combineProviderPolicyRegions, providerPolicyRegionForUser } from "@/lib/aiProviderCompanyPolicy";
 
 export const runtime = "nodejs";
 
@@ -98,6 +99,7 @@ export async function POST(request: Request) {
     let generated;
     try {
       generated = await generateTeacherAssignmentAssessment({
+        providerRegion: combineProviderPolicyRegions(providerPolicyRegionForUser(authenticated.user), providerPolicyRegionForUser(classDetail.class)),
         title: body.title,
         description: typeof body.description === "string" ? body.description : "",
         contentType,

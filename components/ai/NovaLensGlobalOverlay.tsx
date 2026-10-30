@@ -160,6 +160,7 @@ function readNovaLensResponse(value: unknown): NovaLensRunResponse | null {
     mode: record.mode === "registration-required" ? "registration-required" : "nova-lens",
     status: record.status ?? "error",
     reply: record.reply,
+    providerPolicyProof: typeof record.providerPolicyProof === "string" && record.providerPolicyProof.length <= 1024 ? record.providerPolicyProof : undefined,
     ...(typeof record.runId === "string" ? { runId: record.runId } : {}),
     ...(Array.isArray(record.policyFlags) ? { policyFlags: record.policyFlags } : {}),
     ...(record.context ? { context: record.context } : {})
@@ -371,6 +372,7 @@ export function NovaLensGlobalOverlay({ onOpenTutor }: NovaLensGlobalOverlayProp
       const options: AITutorOpenOptions = {
         initialInput: visiblePrompt(selection, action, customQuestion, redactSelection),
         initialReply: payload.reply,
+        initialReplyProviderPolicyProof: payload.providerPolicyProof,
         novaLensRunId: payload.runId,
         novaLensStatus: payload.status
       };

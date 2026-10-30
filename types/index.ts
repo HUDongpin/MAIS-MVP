@@ -1568,6 +1568,8 @@ export type StudentSession = {
   grade: GradeId;
   curriculumTrack: CurriculumTrack;
   curriculumProfile: CurriculumProfile;
+  /** Server-derived AI company policy; null preserves unresolved stored-region restrictions. */
+  providerPolicyRegion?: CurriculumRegion | null;
   role: "student" | "teacher" | "parent" | "admin";
 };
 
@@ -2357,6 +2359,7 @@ export type NovaLensRunResponse = {
   mode: "nova-lens" | "registration-required";
   status: NovaLensRunStatus;
   reply: string;
+  providerPolicyProof?: string;
   runId?: string;
   policyFlags?: string[];
   context?: {
@@ -3037,6 +3040,7 @@ export type TeacherClass = {
   grade: GradeId;
   curriculumTrack?: CurriculumTrack;
   curriculumProfile?: CurriculumProfile;
+  providerPolicyRegion?: CurriculumRegion | null;
   academicYear: string;
   description: LocalizedText;
   studentCount: number;

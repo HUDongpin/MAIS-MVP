@@ -180,8 +180,15 @@ test("the server-seeded app shell serializes only its explicit safe user allowli
     "id",
     "name",
     "passwordMustChange",
+    "providerPolicyRegion",
     "role"
   ]);
+  assert.equal(bootstrap.user.providerPolicyRegion, "HK");
+  const unresolvedBootstrap = toAuthenticatedAppShellBootstrap({
+    user: { ...user, providerPolicyRegion: null },
+    settings: { language: "zh", theme: "dark", selectedGrade: "S3" }
+  });
+  assert.equal(unresolvedBootstrap.user.providerPolicyRegion, null, "display defaults cannot relax an unresolved provider policy");
   const avatarProxyUrl = bootstrap.user.avatarImageDataUrl;
   assert.ok(avatarProxyUrl);
   assert.match(
