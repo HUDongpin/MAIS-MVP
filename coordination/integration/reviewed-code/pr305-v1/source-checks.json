@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "pr305-source-checks.v1",
+  "sourceCommit": "d6a5455ec2e5d2f01c5f893c2129eaa0f4886651",
+  "sourceTree": "06530773f3a2faeed7245896847627ef7c611d39",
+  "executedAt": "2026-10-30T06:35:57.959Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "diagram-regressions",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "tests/e2e/math-diagram-coverage.test.ts",
+        "tests/e2e/math-diagram-source-geometry.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "a1e240e0bbf91b6c765a23c71d9f3408358b475c2f2615e06eb04c0950d9b3a2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 44,
+        "suites": 0,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "62beef340a3bf3179e634ed05a929c7574ceb00c6ed603629fe051fef81646ec"
+      }
+    },
+    {
+      "name": "inventory",
+      "args": [
+        "--import",
+        "tsx",
+        "scripts/audit-math-diagram-inventory.ts",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "da26846d12359d77e5730cad3b68a3349c5593588237cc1e5d5f77ff733d6b98",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "reportDigest": "45748db4d56b2b03c45dadadd3592332d4a54c59c533e6bbb57ad33424cad607",
+        "discoveredRowDigestSha256": "737169bdab539145ee20787a9fdb35454dbd503636985eae70b5d58ae70a46bf",
+        "currentFailureCount": 0,
+        "historicalFailureCount": 10,
+        "historicalFailuresDigest": "2b698c56c86d913773780ea01ff3e4c73d325499992d3850ca9aa907a8307e7d"
+      }
+    },
+    {
+      "name": "historical-activation",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/activation.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "969b5daee233071095a0f23a17fc801360c6d7823d1b3554a2962ac9e48a2a2b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 17,
+        "suites": 0,
+        "pass": 17,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "da026388acb67cad60dfffb17b5b21e7b99f93ce9381a732f6124b34dc43fb20"
+      }
+    }
+  ]
+}
