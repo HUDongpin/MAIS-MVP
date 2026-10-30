@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "pr305-source-inventory.v1",
+  "baseCommit": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+  "sourceCommit": "d6a5455ec2e5d2f01c5f893c2129eaa0f4886651",
+  "sourceTree": "06530773f3a2faeed7245896847627ef7c611d39",
+  "inventoryDigest": "1732c817dbc0224ed224749cd31fb1c6398e5800056e2d3b64a2e81a5730eab9",
+  "entries": [
+    {
+      "path": "docs/superpowers/plans/2026-10-30-diagram-inventory-repair.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "2fd4ad480b1b17560764f919dcc86eac874361b0",
+        "rawSha256": "0333d78a8fe4275e7473e243ea6d1b8ba93e09ef229b939e08584aeb3651df08"
+      }
+    },
+    {
+      "path": "scripts/audit-math-diagram-inventory.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "137608157cc3c3a487410d578143819233c3ba61",
+        "rawSha256": "fe488efd49f5827d4b5a6fc534394476c64a7f2b0682236be803b331ce3f84bd"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "4fb9b067cd386ebe6875a1023cda06f72201f445",
+        "rawSha256": "dca1a5f421c24cd07ed63b735a020b156db46b91e39c58c4ef9d2acf8ab14562"
+      }
+    },
+    {
+      "path": "scripts/math-diagram-coverage.ts",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "bae417494fdb4044c600939b98425d1dc4c494c0",
+        "rawSha256": "72fa5cc0301b79c60919c1f26b26a0fdfd2e29e55cb49dd4a8a4db9384293acb"
+      }
+    },
+    {
+      "path": "tests/e2e/math-diagram-coverage.test.ts",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "47cabfd006038eaf9dbfdc320abfa5c3c26856a9",
+        "rawSha256": "5d3387b2dc37568d8eb8b6f27d8cd64cc79dfc237c1efa3af61ca1f93f6fb3e1"
+      }
+    },
+    {
+      "path": "tests/e2e/math-diagram-source-geometry.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "bcc07d00ef2c2577abcc725f1b6e2a71517f0a7a",
+        "rawSha256": "ecc422447ecd867345293fb2deaaf465f8c62672adf674cb7c8c6732c1e4e0d7"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "c5b12614d6b56cec6dd8891d88b256476ce4c55d",
+        "rawSha256": "cc6f99378ce8c705195111742436af2c6a4e0b0ace68382d169c02c5edb64a7c"
+      }
+    }
+  ]
+}
