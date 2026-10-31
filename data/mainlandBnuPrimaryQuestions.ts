@@ -63,9 +63,14 @@ export type MainlandBnuPrimaryQuestionGenerationMetadata = {
   assessmentPatternCardIds: string[];
   paperPatternCardIds: string[];
   sourceDistanceStatus: "passed-auto-source-scan";
-  mathQaStatus: "pass";
-  terminologyQaStatus: "pass";
-  manualQaStatus: "approved";
+  // These mirror the generated rows verbatim. They used to be narrowed to
+  // `"pass"`/`"approved"`, which reported QA this content has not had: every row
+  // in both packs still says `pending-s18-review`, and only the automated
+  // source-distance scan has passed. A04 removed the same overwrite from the HJB
+  // high adapter when these packages were de-reached; this matches that shape.
+  mathQaStatus: GeneratedBnuPrimaryQuestion["mathQaStatus"];
+  terminologyQaStatus: GeneratedBnuPrimaryQuestion["terminologyQaStatus"];
+  manualQaStatus: GeneratedBnuPrimaryQuestion["manualQaStatus"];
   independentAnswer: string;
 };
 
@@ -140,9 +145,9 @@ function metadataForQuestion(question: GeneratedBnuPrimaryQuestion): MainlandBnu
     assessmentPatternCardIds: question.assessmentPatternCardIds,
     paperPatternCardIds: question.paperPatternCardIds,
     sourceDistanceStatus: question.sourceDistanceStatus,
-    mathQaStatus: "pass",
-    terminologyQaStatus: "pass",
-    manualQaStatus: "approved",
+    mathQaStatus: question.mathQaStatus,
+    terminologyQaStatus: question.terminologyQaStatus,
+    manualQaStatus: question.manualQaStatus,
     independentAnswer: question.answer
   };
 }
