@@ -3502,9 +3502,10 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     jszip: "^3.10.1",
-    next: "15.5.23",
+    next: "15.5.28",
     pptxgenjs: "^4.0.1",
     saxes: "^6.0.0",
+    sharp: "0.35.5",
     svix: "^2.0.0",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
@@ -3570,7 +3571,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
       node: ">=v12.22.7"
     }
   });
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.28");
+  assert.equal(packageLock.packages[""].dependencies.sharp, "0.35.5");
+  assert.equal(packageLock.packages["node_modules/sharp"].version, "0.35.5");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
   assert.equal(packageLock.packages["node_modules/three-stdlib"].version, "2.36.1");
@@ -3764,13 +3767,16 @@ test("package and coordination contracts preserve security versions and closure 
   const gitignore = await readFile(path.join(repoRoot, ".gitignore"), "utf8");
   const agents = await readFile(path.join(repoRoot, "AGENTS.md"), "utf8");
 
-  assert.equal(packageJson.dependencies.next, "15.5.23");
+  assert.equal(packageJson.dependencies.next, "15.5.28");
+  assert.equal(packageJson.dependencies.sharp, "0.35.5");
   assert.equal(packageJson.dependencies.jszip, "^3.10.1");
   assert.equal(packageJson.dependencies.saxes, "^6.0.0");
   assert.equal(packageJson.devDependencies.postcss, "8.5.26");
   assert.equal(packageJson.devDependencies.yaml, "2.9.0");
   assert.equal(packageJson.overrides.postcss, "8.5.26");
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.28");
+  assert.equal(packageLock.packages[""].dependencies.sharp, "0.35.5");
+  assert.equal(packageLock.packages["node_modules/sharp"].version, "0.35.5");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages[""].dependencies.jszip, "^3.10.1");
   assert.equal(packageLock.packages[""].dependencies.saxes, "^6.0.0");
