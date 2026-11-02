@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "ca-textbook-ci-proof.v1",
+  "repository": "HUDongpin/MAIS-MVP",
+  "event": "push",
+  "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+  "base": "32f53da1b13b2c1fd28ae4eec1807fd355cc4c17",
+  "checks": [
+    {
+      "name": "postgres-integration",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "promotion-shadow-gate",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210436
+    },
+    {
+      "name": "resend-webhook-postgres-integration",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "snapshot",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "teacher-notice-outbox-postgres16",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "teacher-parent-e2e",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "validate",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    },
+    {
+      "name": "visualization-browser",
+      "conclusion": "success",
+      "head": "4501af09d87e44ab849283892bf6d1323ce0c4c6",
+      "runId": 40919210501
+    }
+  ],
+  "liveAllowed": false,
+  "observedAt": "2026-11-02T02:32:58.792Z",
+  "pullRequestNumber": null
+}
