@@ -1,0 +1,147 @@
+name: CA003 non-live finalization
+
+on:
+  push:
+    branches:
+      - codex/ca003-finalization-20261102
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ca003-finalization-evidence-20261102
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    if: ${{ github.repository == 'HUDongpin/MAIS-MVP' && github.ref == 'refs/heads/codex/ca003-finalization-20261102' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GIT_CONFIG_GLOBAL: /dev/null
+      GIT_CONFIG_NOSYSTEM: "1"
+      GIT_GRAFT_FILE: /dev/null
+      GIT_OPTIONAL_LOCKS: "0"
+      GIT_TERMINAL_PROMPT: "0"
+    steps:
+      - name: Check out the exact runner commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Bind the runner-only delta and immutable finalization input
+        run: |
+          set -euo pipefail
+          test "$GITHUB_EVENT_NAME" = push
+          test "$GITHUB_REPOSITORY" = HUDongpin/MAIS-MVP
+          test "$GITHUB_REF" = refs/heads/codex/ca003-finalization-20261102
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git show -s --format=%P HEAD)" = dd61016253fa9e8d869ef19abbd6bccee7e342c5
+          test "$(git diff --name-only HEAD^ HEAD)" = .github/workflows/ca003-finalization-run.yml
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          git merge-base --is-ancestor 360966efb0427a0d679d462d10dccf53ee135424 dd61016253fa9e8d869ef19abbd6bccee7e342c5
+          test "$(git rev-parse dd61016253fa9e8d869ef19abbd6bccee7e342c5^)" = 4501af09d87e44ab849283892bf6d1323ce0c4c6
+          printf '%s  %s\n' cd551d4b1b70cf4076be5ba098eadc2668447ffa499cb6f162442162d9883c08 \
+            coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization-input.json | sha256sum --check --strict
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+
+      - name: Install the locked dependency tree without package scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Materialize the immutable native execution checkout
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca003-native-execution"
+          test ! -e "$execution" && test ! -L "$execution"
+          git -c gc.auto=0 -c maintenance.auto=false clone --quiet --no-hardlinks --no-checkout "$GITHUB_WORKSPACE" "$execution"
+          git -C "$execution" checkout --quiet --detach 360966efb0427a0d679d462d10dccf53ee135424
+          mkdir -p "$execution/node_modules"
+          cp -R "$GITHUB_WORKSPACE/node_modules/typescript" "$execution/node_modules/typescript"
+          test "$(git -C "$execution" rev-parse HEAD)" = 360966efb0427a0d679d462d10dccf53ee135424
+          test -z "$(git -C "$execution" status --porcelain=v1 --untracked-files=all)"
+
+      - name: Execute the unchanged native finalizer and validate its result
+        timeout-minutes: 25
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca003-native-execution"
+          artifacts="$RUNNER_TEMP/ca003-finalization-proof"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          exit_code=0
+          env -u NODE_OPTIONS -u NODE_PATH node \
+            "$execution/coordination/integration/ca-textbook-successor/promotion.mjs" finalize \
+            --repo "$execution" \
+            --manifest coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/manifest.json \
+            --path coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization-input.json \
+            --storage-commit dd61016253fa9e8d869ef19abbd6bccee7e342c5 \
+            --sha256 cd551d4b1b70cf4076be5ba098eadc2668447ffa499cb6f162442162d9883c08 \
+            --execute > "$artifacts/finalize.stdout" 2> "$artifacts/finalize.stderr" || exit_code=$?
+          completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          env -u NODE_OPTIONS -u NODE_PATH node --input-type=module - \
+            "$execution" "$artifacts" "$exit_code" "$started_at" "$completed_at" <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { pathToFileURL } from 'node:url';
+          import { createHash } from 'node:crypto';
+          const [execution, artifacts, code, startedAt, completedAt] = process.argv.slice(2);
+          const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+          const stdout = fs.readFileSync(path.join(artifacts, 'finalize.stdout'));
+          const stderr = fs.readFileSync(path.join(artifacts, 'finalize.stderr'));
+          const executionRecord = {
+            schemaVersion: 'ca003-finalization-run.v1',
+            operation: 'finalize',
+            runnerCommit: process.env.GITHUB_SHA,
+            runId: process.env.GITHUB_RUN_ID,
+            runAttempt: process.env.GITHUB_RUN_ATTEMPT,
+            executionCommit: '360966efb0427a0d679d462d10dccf53ee135424',
+            storageCommit: 'dd61016253fa9e8d869ef19abbd6bccee7e342c5',
+            inputSha256: 'cd551d4b1b70cf4076be5ba098eadc2668447ffa499cb6f162442162d9883c08',
+            startedAt, completedAt, exitCode: Number(code),
+            stdout: { bytes: stdout.length, sha256: hash(stdout) },
+            stderr: { bytes: stderr.length, sha256: hash(stderr) },
+            liveAllowed: false
+          };
+          fs.writeFileSync(path.join(artifacts, 'execution.json'), JSON.stringify(executionRecord, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          if (executionRecord.exitCode !== 0 || stderr.length !== 0) throw new Error('CA003_NATIVE_FINALIZATION_FAILED');
+          const native = 'coordination/integration/ca-textbook-successor';
+          const { parse, stable } = await import(pathToFileURL(path.join(execution, native, 'common.mjs')));
+          const { verifyFinalizationRecord, sealFinalization } = await import(pathToFileURL(path.join(execution, native, 'receipts.mjs')));
+          const result = parse(stdout);
+          verifyFinalizationRecord(result, sealFinalization(result.closure));
+          const prefix = path.join(process.env.GITHUB_WORKSPACE, native, 'attempts/ca-textbook-003');
+          const inputBytes = fs.readFileSync(path.join(prefix, 'finalization-input.json'));
+          const input = parse(inputBytes);
+          const expectedBinding = parse(fs.readFileSync(path.join(prefix, 'canonical-receipt.json'))).binding;
+          if (result.result !== 'pass' || result.lifecycleState !== 'shadow_passed' || result.liveAllowed !== false ||
+              hash(inputBytes) !== executionRecord.inputSha256 ||
+              stable(result.closure.binding) !== stable(expectedBinding) ||
+              stable(result.closure.receipts) !== stable(input.receipts) ||
+              result.closure.finalizationCommit !== executionRecord.storageCommit ||
+              result.closure.mainCommit !== '4501af09d87e44ab849283892bf6d1323ce0c4c6' ||
+              result.closure.binding.executionCommit !== executionRecord.executionCommit ||
+              result.closure.binding.candidateDigest !== '4c1d8bd68e527889feb7732be58706bdadd89913938f006cbc39d1ca1455a260') {
+            throw new Error('CA003_NATIVE_FINALIZATION_BINDING');
+          }
+          console.log(JSON.stringify({ result: 'pass', closureDigest: result.closure.closureDigest, registryDigest: result.registry.registryDigest, liveAllowed: false }));
+          NODE
+          test -z "$(git -C "$execution" status --porcelain=v1 --untracked-files=all)"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Preserve the native finalization output
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ca003-finalization-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ca003-finalization-proof/
+          if-no-files-found: warn
+          retention-days: 90
