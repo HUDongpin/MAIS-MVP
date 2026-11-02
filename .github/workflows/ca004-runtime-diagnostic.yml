@@ -1,0 +1,156 @@
+name: CA004 source runtime diagnostic
+
+on:
+  push:
+    branches:
+      - codex/ca004-runtime-diagnostic-20261102
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ca004-source-diagnostic-20261102
+  cancel-in-progress: false
+
+jobs:
+  diagnose:
+    if: ${{ github.repository == 'HUDongpin/MAIS-MVP' && github.ref == 'refs/heads/codex/ca004-runtime-diagnostic-20261102' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out the exact diagnostic runner
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Bind the runner-only delta
+        run: |
+          set -euo pipefail
+          test "$GITHUB_EVENT_NAME" = push
+          test "$GITHUB_REPOSITORY" = HUDongpin/MAIS-MVP
+          test "$GITHUB_REF" = refs/heads/codex/ca004-runtime-diagnostic-20261102
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git show -s --format=%P HEAD)" = 54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e
+          test "$(git diff --name-only HEAD^ HEAD)" = .github/workflows/ca004-runtime-diagnostic.yml
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+
+      - name: Install locked source dependencies without package scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Materialize actual source C separately from the runner
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca004-source-C"
+          test ! -e "$execution" && test ! -L "$execution"
+          git -c gc.auto=0 -c maintenance.auto=false clone --quiet --no-hardlinks --no-checkout "$GITHUB_WORKSPACE" "$execution"
+          git -C "$execution" checkout --quiet --detach 54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e
+          mkdir -p "$execution/node_modules"
+          cp -R "$GITHUB_WORKSPACE/node_modules/typescript" "$execution/node_modules/typescript"
+          test -z "$(git -C "$execution" status --porcelain=v1 --untracked-files=all)"
+
+      - name: Observe C with the unchanged captured observer
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/ca004-source-C"
+          artifacts="$RUNNER_TEMP/ca004-source-diagnostic-proof"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          exit_code=0
+          started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          timeout --signal=TERM --kill-after=10 360s env -u NODE_OPTIONS -u NODE_PATH \
+            node --input-type=module - "$execution" "$artifacts" \
+            > "$artifacts/diagnostic.stdout" 2> "$artifacts/diagnostic.stderr" <<'NODE' || exit_code=$?
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { execFileSync } from 'node:child_process';
+          import { pathToFileURL } from 'node:url';
+          import { createHash } from 'node:crypto';
+          const [root, artifacts] = process.argv.slice(2);
+          const C = '54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e';
+          const tree = 'd53bd544a4da00c7243a561b61635967e8f7b899';
+          const native = 'coordination/integration/ca-textbook-successor';
+          const prefix = native + '/attempts/ca-textbook-003';
+          const hash = b => createHash('sha256').update(b).digest('hex');
+          const git = (...args) => execFileSync('/usr/bin/git', ['--no-replace-objects', '-C', root, ...args], { maxBuffer: 128 * 1024 * 1024, timeout: 60000 });
+          const write = (name, value) => fs.writeFileSync(path.join(artifacts, name), JSON.stringify(value, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          try {
+            if (fs.realpathSync(root) !== root || git('rev-parse', 'HEAD').toString().trim() !== C || git('rev-parse', 'HEAD^{tree}').toString().trim() !== tree) throw new Error('CA004_DIAGNOSTIC_SOURCE');
+            const parserBytes = git('show', '32f53da1b13b2c1fd28ae4eec1807fd355cc4c17:scripts/promotion-workflow-json-guard.mjs');
+            if (hash(parserBytes) !== 'b7b919123df63442012446f704bd454f0721b2dcbed4f8aa824d4d5180ce88e5') throw new Error('CA004_DIAGNOSTIC_PARSER');
+            const { parsePromotionWorkflowJsonBytes: parse } = await import('data:text/javascript;base64,' + parserBytes.toString('base64'));
+            const ledgerBytes = git('show', '360966efb0427a0d679d462d10dccf53ee135424:' + prefix + '/checker-release.json');
+            if (hash(ledgerBytes) !== '18638f93abc473fb67f853faa7720d08deb60dbca0bf2979e38da3da4d5b13a3') throw new Error('CA004_DIAGNOSTIC_LEDGER');
+            const ledger = parse(ledgerBytes);
+            const packageHashes = {
+              'package.json': 'ccf3a4efc6cf34acd0a191cfce0472252e1337eecd7cd158e903f965ff4901bd',
+              'package-lock.json': 'd39348a625c9e6376161d3083960255817e86596eb9ebacb23b8e8a0246291a4'
+            };
+            for (const binding of ledger.files) {
+              const file = path.join(root, binding.path), stat = fs.lstatSync(file), bytes = fs.readFileSync(file);
+              if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || fs.realpathSync(file) !== file || !bytes.equals(git('show', C + ':' + binding.path))) throw new Error('CA004_DIAGNOSTIC_MATERIALIZATION');
+              if (hash(bytes) !== (packageHashes[binding.path] ?? binding.sha256)) throw new Error('CA004_DIAGNOSTIC_BUNDLE_DRIFT');
+              if ((stat.mode & 0o111 ? '100755' : '100644') !== binding.mode) throw new Error('CA004_DIAGNOSTIC_MODE');
+            }
+            const moduleUrl = name => pathToFileURL(path.join(root, native, name));
+            const { Repository, dependency } = await import(moduleUrl('repository.mjs'));
+            const { digest, stable } = await import(moduleUrl('common.mjs'));
+            const { runCapturedObserver } = await import(moduleUrl('capsule.mjs'));
+            const { validateRuntimeResult } = await import(moduleUrl('runtime.mjs'));
+            const repo = new Repository(root); repo.clean();
+            const dep = dependency(root);
+            if (stable(dep.binding) !== stable(ledger.dependencies[0])) throw new Error('CA004_DIAGNOSTIC_TYPESCRIPT');
+            const files = ledger.files.map(f => { const { bytes, ...binding } = repo.blob(C, f.path); return binding; });
+            const bundleDigest = digest({ files, dependencies: [dep.binding] });
+            const original = repo.json(C, { path: prefix + '/manifest.json' });
+            // The old closed schema is used only as an internal observer input.
+            // It is not a CA004 Manifest, PR308 admission or source approval.
+            const adapter = { ...original, sourceCommit: C, sourceTree: tree, checkerReleaseCommit: C, checkerBundleDigest: bundleDigest };
+            const registry = repo.json(C, original.registry);
+            const candidate = repo.json(C, original.candidate);
+            write('source-binding.json', { observedHead: C, observedTree: tree, sourceCommit: C, observerFiles: files, observerBundleDigest: bundleDigest, dependency: dep.binding, diagnosticOnly: true, liveAllowed: false });
+            const observed = await runCapturedObserver(repo, adapter, registry, dep.binding);
+            write('observation.json', observed);
+            if (observed.result !== 'pass') throw new Error(observed.code ?? 'CA004_DIAGNOSTIC_OBSERVER');
+            // Measure policy only. The canonical legacy audit expectation is
+            // NEVER replaced; native validation must still match the old audit.
+            const projection = validateRuntimeResult(observed, { ...adapter, runtime: { ...original.runtime, policyDigest: observed.policyDigest } }, registry, candidate);
+            repo.clean();
+            write('diagnostic.json', { result: 'observed', observedHead: C, observedTree: tree, projection, originalCanonicalAuditUnchanged: true, diagnosticOnly: true, nativeCA004Executed: false, liveAllowed: false });
+            console.log(JSON.stringify({ result: 'observed', observedHead: C, policyDigest: projection.policyDigest, auditDigest: projection.auditDigest, diagnosticOnly: true, liveAllowed: false }));
+          } catch (error) {
+            const code = /^CA[A-Z0-9_]*$/.test(error.code ?? error.message ?? '') ? (error.code ?? error.message) : 'CA004_DIAGNOSTIC_FAILED';
+            write('diagnostic.json', { result: 'blocked', observedHead: C, observedTree: tree, code, diagnosticOnly: true, nativeCA004Executed: false, liveAllowed: false });
+            console.log(JSON.stringify({ result: 'blocked', code, diagnosticOnly: true, liveAllowed: false }));
+            process.exitCode = 2;
+          }
+          NODE
+          completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          node --input-type=module - "$artifacts" "$exit_code" "$started_at" "$completed_at" <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { createHash } from 'node:crypto';
+          const [root, code, startedAt, completedAt] = process.argv.slice(2);
+          const files = fs.readdirSync(root).sort().map(name => { const bytes = fs.readFileSync(path.join(root, name)); return { name, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') }; });
+          fs.writeFileSync(path.join(root, 'execution.json'), JSON.stringify({ schemaVersion: 'ca004-source-diagnostic-run.v1', runnerCommit: process.env.GITHUB_SHA, runId: process.env.GITHUB_RUN_ID, runAttempt: process.env.GITHUB_RUN_ATTEMPT, observedHead: '54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e', startedAt, completedAt, exitCode: Number(code), files, diagnosticOnly: true, liveAllowed: false }, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          NODE
+          test "$exit_code" -eq 0
+          test ! -s "$artifacts/diagnostic.stderr"
+
+      - name: Preserve source diagnostic evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ca004-source-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ca004-source-diagnostic-proof/
+          if-no-files-found: warn
+          retention-days: 90
