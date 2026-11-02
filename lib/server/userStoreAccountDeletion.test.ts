@@ -274,9 +274,85 @@ test("students and parents are never blocked, and an empty-handed teacher is not
   assert.deepEqual(assessAccountDeletion(database, studentId, "student"), []);
   assert.deepEqual(assessAccountDeletion(database, parentId, "parent"), []);
 
+  assert.deepEqual(assessAccountDeletion({ users: [{ id: teacherId, role: "teacher" }] }, teacherId, "teacher"), []);
+});
+
+function sharedTeachingRecords(): Record<string, unknown> {
+  return {
+    users: [{ id: teacherId, role: "teacher" }, { id: "class-owner", role: "teacher" }, { id: studentId, role: "student" }],
+    teacher_classes: [{ id: "shared-class", teacher_id: "class-owner" }],
+    school_memberships: [{ user_id: teacherId, class_id: "shared-class", role: "teacher" }],
+    teacher_class_collaborators: [{ class_id: "shared-class", teacher_id: teacherId, role: "co-teacher", status: "active" }],
+    class_enrollments: [{ id: "shared-enrollment", class_id: "shared-class", student_id: studentId }],
+    assignments: [{ id: "shared-assignment", class_id: "shared-class", created_by: teacherId }],
+    submissions: [{ id: "shared-submission", assignment_id: "shared-assignment", student_id: studentId }],
+    assignment_submission_attempts: [{ id: "shared-attempt", submission_id: "shared-submission", student_id: studentId }],
+    assignment_grading_runs: [{ id: "shared-grading", submission_id: "shared-submission" }]
+  };
+}
+
+test("co-teacher and admin erasure cannot cascade through another learner's authored assignment", () => {
+  for (const role of ["teacher", "admin"]) {
+    const database = sharedTeachingRecords();
+    const before = JSON.stringify(database);
+    const blockers = assessAccountDeletion(database, teacherId, role);
+    assert.equal(blockers[0]?.code, "shared-learning-records", role);
+    assert.deepEqual(blockers[0]?.classIds, ["shared-class"]);
+    assert.equal(JSON.stringify(database), before, "admission is read-only");
+    if (!blockers.length) deleteUserFromDatabase(database, teacherId);
+    assert.equal(JSON.stringify(database), before, "blocked erasure preserves the account and all student work");
+  }
+});
+
+test("empty current enrollment does not authorize erasing retained class work or reports", () => {
+  const database = sharedTeachingRecords();
+  database.teacher_classes = [{ id: "shared-class", teacher_id: teacherId }];
   database.class_enrollments = [];
   database.teacher_class_collaborators = [];
+  database.assignments = [{ id: "shared-assignment", class_id: "shared-class", created_by: "class-owner" }];
+  assert.equal(assessAccountDeletion(database, teacherId, "teacher")[0]?.code, "shared-learning-records");
+
+  database.assignments = [];
+  database.submissions = [];
+  database.assignment_submission_attempts = [];
+  database.assignment_grading_runs = [];
+  database.teacher_reports = [{ id: "retained-report", class_id: "shared-class", student_id: studentId }];
+  assert.equal(assessAccountDeletion(database, teacherId, "teacher")[0]?.code, "shared-learning-records");
+});
+
+test("the same guard covers authored assessments, paths, live work and frozen archives", () => {
+  const examples: Record<string, unknown>[] = [
+    { assessments: [{ id: "assessment", class_id: "shared-class", created_by: teacherId }], assessment_submissions: [{ id: "answer", assessment_id: "assessment", student_id: studentId }] },
+    { teacher_learning_paths: [{ id: "path", class_id: "shared-class", teacher_id: teacherId }], learning_path_step_progress: [{ path_id: "path", student_id: studentId }] },
+    { teacher_live_sessions: [{ id: "live", class_id: "shared-class", teacher_id: teacherId }], teacher_live_responses: [{ session_id: "live", student_id: studentId }] },
+    { teacher_live_sessions: [{ id: "live", class_id: "shared-class", teacher_id: teacherId }], classroom_work_samples: [{ session_id: "live", student_id: studentId }] },
+    { teacher_live_sessions: [{ id: "live", class_id: "shared-class", teacher_id: teacherId }], teacher_live_tool_states: [{ session_id: "live", attendance: [{ studentId }] }] },
+    { teacher_live_sessions: [{ id: "live", class_id: "shared-class", teacher_id: teacherId }], teacher_live_tool_states: [{ session_id: "live", random_call: { currentStudentId: studentId, selectedStudentIds: [studentId] } }] },
+    { teacher_mastery_targets: [{ class_id: "shared-class", teacher_id: teacherId, student_id: studentId }] },
+    { term_archives: [{ id: "archive", class_id: "shared-class", created_by: teacherId, snapshot_json: JSON.stringify({ frozenExport: { roster: [{ studentId }] } }) }] },
+    { term_archives: [{ id: "legacy-archive", class_id: "shared-class", created_by: teacherId, snapshot_json: "legacy-opaque-snapshot" }] }
+  ];
+  for (const example of examples) {
+    const database = { users: [{ id: teacherId }, { id: studentId }], ...example };
+    const before = JSON.stringify(database);
+    const blockers = assessAccountDeletion(database, teacherId, "teacher");
+    assert.equal(blockers[0]?.code, "shared-learning-records", Object.keys(example).join(","));
+    assert.deepEqual(blockers[0]?.classIds, ["shared-class"]);
+    assert.equal(JSON.stringify(database), before);
+  }
+});
+
+test("unrelated learner work and empty teaching drafts do not block teacher erasure", () => {
+  const database = sharedTeachingRecords();
+  database.assignments = [
+    { id: "shared-assignment", class_id: "shared-class", created_by: "class-owner" },
+    { id: "empty-draft", class_id: "shared-class", created_by: teacherId }
+  ];
+  const retainedWork = JSON.stringify(database.submissions);
   assert.deepEqual(assessAccountDeletion(database, teacherId, "teacher"), []);
+  deleteUserFromDatabase(database, teacherId);
+  assert.equal(JSON.stringify(database.submissions), retainedWork);
+  assert.deepEqual(database.assignments, [{ id: "shared-assignment", class_id: "shared-class", created_by: "class-owner" }]);
 });
 
 test("data export returns the subject's own rows without credentials", () => {

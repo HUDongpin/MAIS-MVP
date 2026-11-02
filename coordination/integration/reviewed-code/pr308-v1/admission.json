@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "pr308-admission.v1",
+  "pullRequest": 308,
+  "scope": "exact-pr308-recovery-and-ca004-native-required-check-only",
+  "baseCommit": "4847c89770f4a735c395773616f1d1a4a413152f",
+  "sourceCommit": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "sourceTree": "d53bd544a4da00c7243a561b61635967e8f7b899",
+  "sourceInventoryDigest": "7bd30c345c5b12e94c70f3d152bbc4c71139cab162509175622e4887bfff9813",
+  "toolingCommit": "16ab4e6a9547a8e5e9cb043122c5cb721d67022d",
+  "toolingTree": "eec66db41401fd1101ab51e64c43e11f699cfe22",
+  "toolingInventoryDigest": "948e231dae53b3f621ebfbbdb539d6408ef6aee30325e7fe51c2937e2af0848c",
+  "checksRawSha256": "a9a5dbcbf85bdb2eb42cb79f62cebda348ea156dfd39cac697b6b6516f122cc0",
+  "reviews": {
+    "A11": {
+      "decisionRawSha256": "3c2d1c52a459d0dbca5b543d2a78d1ca7afad8223415393a0c696f4d18d739d6",
+      "reportRawSha256": "939db4aec18c7b678b147263d21ed35c2a86d23ef399eb96fb0f4342eaa5512f"
+    },
+    "A23": {
+      "decisionRawSha256": "6fc71e21154f14eb7f465b4930cb50c9bd1c76ee77c464e4d15c24f94d17571e",
+      "reportRawSha256": "99e5114c639ed7d45f114d304c4b1a2706dc545b0530752eaa4bae4ea7f4eaea"
+    }
+  },
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

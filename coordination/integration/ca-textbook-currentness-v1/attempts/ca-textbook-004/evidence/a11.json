@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "ca004-review.v1",
+  "role": "A11",
+  "reviewer": "/root/ca004_release_a11",
+  "reviewedAt": "2026-11-02T04:50:58.053Z",
+  "sourceCommit": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "sourceTree": "d53bd544a4da00c7243a561b61635967e8f7b899",
+  "candidateDigest": "fda75f734941c94020fe069fb6791efa22fa84c625eb0019eba906f69c17e8ea",
+  "checkerReleaseCommit": "16ab4e6a9547a8e5e9cb043122c5cb721d67022d",
+  "checkerBundleDigest": "53b3cc89ee902ab43887f58409652754a713005b2dd6fa02e15ec6155a858586",
+  "report": {
+    "path": "coordination/integration/ca-textbook-currentness-v1/attempts/ca-textbook-004/evidence/a11.md",
+    "sha256": "b2cbe8f97c40f9b079190dfd6666fe8b8b4cb56a9f2ed10ffe52a19423f2efb3"
+  },
+  "decision": "approved-for-ca004-bounded-readiness",
+  "scope": "source-regression-and-checker-freeze",
+  "liveAllowed": false
+}

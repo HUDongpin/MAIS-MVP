@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "ca004-source-diagnostic-run.v1",
+  "runnerCommit": "1322ea57db4e80819a89a8ededf4b7f14110aba1",
+  "runId": "41382737777",
+  "runAttempt": "1",
+  "observedHead": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "startedAt": "2026-11-02T03:23:12Z",
+  "completedAt": "2026-11-02T03:24:05Z",
+  "exitCode": 0,
+  "files": [
+    {
+      "name": "diagnostic.json",
+      "bytes": 1377,
+      "sha256": "997b517c5689f3077a1b852e0b3e82d86cb475faf47b61ea324ed055804ad10c"
+    },
+    {
+      "name": "diagnostic.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diagnostic.stdout",
+      "bytes": 285,
+      "sha256": "190f09eb1ed00de3fe793a416edc50d0b3cfc713da9942a80cf73ace885fa54b"
+    },
+    {
+      "name": "observation.json",
+      "bytes": 135258,
+      "sha256": "e112aa1f801a49d86dec9afe19ca360db26e92c5f439d8d8eca853868d200174"
+    },
+    {
+      "name": "source-binding.json",
+      "bytes": 9173,
+      "sha256": "8153dacd85d21070ad01030967c1c4a40a9c96108633fea39cf098f5d3b7fc2f"
+    }
+  ],
+  "diagnosticOnly": true,
+  "liveAllowed": false
+}

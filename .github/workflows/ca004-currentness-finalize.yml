@@ -1,0 +1,178 @@
+name: CA004 native currentness
+
+on:
+  push:
+    branches:
+      - codex/ca004-shadow-execution-20261102
+  workflow_dispatch:
+    inputs:
+      merge_sha:
+        description: Exact current protected-main PR308 merge SHA
+        required: true
+        type: string
+      reviews_json:
+        description: Bounded independently authored post-merge review and owner records; no CI success flags or credentials
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: ca004-native-currentness-20261102
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: ${{ github.repository == 'HUDongpin/MAIS-MVP' && github.event_name == 'push' && github.ref == 'refs/heads/codex/ca004-shadow-execution-20261102' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact registered execution
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+      - name: Install locked dependencies without package scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Execute validate and three distinct non-live Shadows
+        timeout-minutes: 25
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          env -u NODE_OPTIONS -u NODE_PATH -u GITHUB_TOKEN -u GH_TOKEN node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { spawnSync } from 'node:child_process';
+          import { pathToFileURL } from 'node:url';
+          import { createHash } from 'node:crypto';
+          const root = process.env.GITHUB_WORKSPACE;
+          const artifacts = path.join(process.env.RUNNER_TEMP, 'ca004-native-preparation');
+          fs.mkdirSync(artifacts, { mode: 0o700 });
+          const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+          const native = 'coordination/integration/ca-textbook-currentness-v1';
+          const manifest = native + '/attempts/ca-textbook-004/manifest.json';
+          const rows = [];
+          let failed = false;
+          for (const [label, operation] of [['validate', 'validate'], ['canonical', 'shadow'], ['fresh', 'shadow'], ['replay', 'shadow']]) {
+            const args = [path.join(root, native, 'promotion.mjs'), operation, '--repo', root, '--manifest', manifest];
+            if (operation === 'shadow') args.push('--run-id', `ca004-${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}-${label}`, '--execute');
+            const startedAt = new Date().toISOString();
+            const result = spawnSync(process.execPath, args, { cwd: root, env: process.env, timeout: operation === 'validate' ? 210000 : 390000, maxBuffer: 32 * 1024 * 1024 });
+            const stdout = Buffer.from(result.stdout ?? []), stderr = Buffer.from(result.stderr ?? []);
+            fs.writeFileSync(path.join(artifacts, label + '.stdout'), stdout, { flag: 'wx', mode: 0o600 });
+            fs.writeFileSync(path.join(artifacts, label + '.stderr'), stderr, { flag: 'wx', mode: 0o600 });
+            rows.push({ label, operation, startedAt, completedAt: new Date().toISOString(), exitCode: result.status, signal: result.signal, stdout: { bytes: stdout.length, sha256: hash(stdout) }, stderr: { bytes: stderr.length, sha256: hash(stderr) } });
+            if (result.status !== 0 || result.signal || result.error || stderr.length) { failed = true; break; }
+          }
+          fs.writeFileSync(path.join(artifacts, 'execution.json'), JSON.stringify({ schemaVersion: 'ca004-preparation-run.v1', executionCommit: process.env.GITHUB_SHA, runId: process.env.GITHUB_RUN_ID, runAttempt: process.env.GITHUB_RUN_ATTEMPT, commands: rows, liveAllowed: false }, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          if (failed) throw new Error('CA004_PREPARATION_FAILED');
+          // The public validate operation authenticated R2 before these imports.
+          const { parse } = await import(pathToFileURL(path.join(root, 'coordination/integration/ca-textbook-successor/common.mjs')));
+          const gate = await import(pathToFileURL(path.join(root, native, 'currentness.mjs')));
+          const validation = parse(fs.readFileSync(path.join(artifacts, 'validate.stdout')));
+          const receipts = ['canonical', 'fresh', 'replay'].map(label => parse(fs.readFileSync(path.join(artifacts, label + '.stdout'))));
+          const comparison = gate.compareReceipts(receipts, validation.binding);
+          fs.writeFileSync(path.join(artifacts, 'comparison.json'), JSON.stringify({ result: 'pass', executionCommit: process.env.GITHUB_SHA, comparison, liveAllowed: false }, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          console.log(JSON.stringify({ result: 'pass', executionCommit: process.env.GITHUB_SHA, distinctExecutions: comparison.distinctExecutions, liveAllowed: false }));
+          NODE
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+      - name: Preserve exact native preparation outputs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ca004-preparation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ca004-native-preparation/
+          if-no-files-found: warn
+          retention-days: 90
+
+  finalize:
+    if: ${{ github.repository == 'HUDongpin/MAIS-MVP' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out the exact main observation target
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Bind protected main and store bounded review input
+        env:
+          EXPECTED_MERGE_SHA: ${{ inputs.merge_sha }}
+          POST_MERGE_REVIEWS: ${{ inputs.reviews_json }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_PROTECTED" = true
+          test "$EXPECTED_MERGE_SHA" = "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const bytes = Buffer.from(process.env.POST_MERGE_REVIEWS ?? '', 'utf8');
+          if (!bytes.length || bytes.length > 60000) throw new Error('CA004_REVIEW_INPUT_SIZE');
+          fs.writeFileSync(path.join(process.env.RUNNER_TEMP, 'ca004-postmerge-reviews.json'), bytes, { flag: 'wx', mode: 0o600 });
+          NODE
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+      - name: Install locked dependencies without package scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Materialize registered X separately from actual main
+        run: |
+          set -euo pipefail
+          manifest=coordination/integration/ca-textbook-currentness-v1/attempts/ca-textbook-004/manifest.json
+          execution_sha=$(git log --format=%H --diff-filter=A -- "$manifest")
+          test "${#execution_sha}" -eq 40
+          case "$execution_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          execution="$RUNNER_TEMP/ca004-finalization-X"
+          test ! -e "$execution" && test ! -L "$execution"
+          git -c gc.auto=0 -c maintenance.auto=false clone --quiet --no-hardlinks --no-checkout "$GITHUB_WORKSPACE" "$execution"
+          git -C "$execution" checkout --quiet --detach "$execution_sha"
+          mkdir -p "$execution/node_modules"
+          cp -R "$GITHUB_WORKSPACE/node_modules/typescript" "$execution/node_modules/typescript"
+          test -z "$(git -C "$execution" status --porcelain=v1 --untracked-files=all)"
+      - name: Finalize with authenticated read-only GitHub metadata and actual main observation
+        timeout-minutes: 40
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          env -u NODE_OPTIONS -u NODE_PATH node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { spawnSync } from 'node:child_process';
+          import { createHash } from 'node:crypto';
+          const execution = path.join(process.env.RUNNER_TEMP, 'ca004-finalization-X');
+          const artifacts = path.join(process.env.RUNNER_TEMP, 'ca004-finalization-proof');
+          fs.mkdirSync(artifacts, { mode: 0o700 });
+          const input = path.join(process.env.RUNNER_TEMP, 'ca004-postmerge-reviews.json');
+          const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+          const inputSha256 = hash(fs.readFileSync(input));
+          const startedAt = new Date().toISOString();
+          const result = spawnSync(process.execPath, [path.join(execution, 'coordination/integration/ca-textbook-currentness-v1/promotion.mjs'), 'finalize', '--repo', execution, '--manifest', 'coordination/integration/ca-textbook-currentness-v1/attempts/ca-textbook-004/manifest.json', '--observed-repo', process.env.GITHUB_WORKSPACE, '--evidence-file', input, '--evidence-sha256', inputSha256, '--execute'], { cwd: execution, env: process.env, timeout: 2160000, maxBuffer: 32 * 1024 * 1024 });
+          const stdout = Buffer.from(result.stdout ?? []), stderr = Buffer.from(result.stderr ?? []);
+          fs.writeFileSync(path.join(artifacts, 'finalize.stdout'), stdout, { flag: 'wx', mode: 0o600 });
+          fs.writeFileSync(path.join(artifacts, 'finalize.stderr'), stderr, { flag: 'wx', mode: 0o600 });
+          fs.writeFileSync(path.join(artifacts, 'execution.json'), JSON.stringify({ schemaVersion: 'ca004-finalization-run.v1', observedHead: process.env.GITHUB_SHA, runId: process.env.GITHUB_RUN_ID, runAttempt: process.env.GITHUB_RUN_ATTEMPT, inputSha256, startedAt, completedAt: new Date().toISOString(), exitCode: result.status, signal: result.signal, stdout: { bytes: stdout.length, sha256: hash(stdout) }, stderr: { bytes: stderr.length, sha256: hash(stderr) }, githubMetadataRead: true, nativeObserverCredentialsProvided: false, liveAllowed: false }, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+          if (result.status !== 0 || result.signal || result.error || stderr.length) throw new Error('CA004_NATIVE_FINALIZATION_FAILED');
+          console.log('CA004 native finalization completed; exact output retained for independent run/artifact verification.');
+          NODE
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+      - name: Preserve paired Closure and Registry output
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ca004-finalization-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ca004-finalization-proof/
+          if-no-files-found: warn
+          retention-days: 90

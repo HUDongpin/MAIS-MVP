@@ -1,0 +1,215 @@
+{
+  "result": "pass",
+  "baseCommit": "4847c89770f4a735c395773616f1d1a4a413152f",
+  "J2": "5c77f4d3fde75eb9274268a064dad1cb771633d5",
+  "sourceCommit": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "sourceTree": "d53bd544a4da00c7243a561b61635967e8f7b899",
+  "sourceInventoryDigest": "52fb40e8f49f6d057faed1483e64f4245cd8d26c3d90e1deca70147f06c58706",
+  "sourcePaths": 19,
+  "parentDelta": [
+    "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/native-execution.json",
+    "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/native-result.json",
+    "coordination/session-logs/2026-11-02-A12-account-deletion-shared-work.md"
+  ],
+  "artifactSource": {
+    "runId": 41380582363,
+    "runAttempt": 1,
+    "artifactId": 13112759110,
+    "storageCommit": "dd61016253fa9e8d869ef19abbd6bccee7e342c5",
+    "resultSha256": "03e0f924f438842982bae8326a25c79b027020b2d933e823fa76e5df922d6e41",
+    "executionSha256": "72b06b876862c35a84c6096bcdfabfb277a40c8cf082ca2f7fa471665b0f091b"
+  },
+  "entries": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization-input.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "be5d5890e3ba0a4e3e14bad309b4d7c8804e387e",
+        "sha256": "cd551d4b1b70cf4076be5ba098eadc2668447ffa499cb6f162442162d9883c08"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A11.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "9e2b55f0fc6d4abd0b512086e355f7a162e305a3",
+        "sha256": "4bdbbef3cce2f1616792677e85a6017ca124457405e983ca5f28868250435c0f"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A11.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "0a89540c586e9626980b6fa769f8c59fb1ab8a2a",
+        "sha256": "60db478676110bc2fef5beb19da177139587fe4d2eebc706d8b96bff5d1a13e3"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A22.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "80d54e417f9faf16a206162880a7fd4be5706a9f",
+        "sha256": "819cec89ab5679150ba06c7606864ae39a320268c714be3be20216591565d6fa"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A22.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "4ca4d68d59a9cd4232202dc47a33861a6054ea8e",
+        "sha256": "dd444dd8b364eacf5c5150805b31509d5886252344c286bb0a255154c20f99f3"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A23.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "a527611e37e473d908accff9f007affccb7145d1",
+        "sha256": "498a47815957af4c1479e8ea9a06e3f5f34a047cc985d045bbb92ba93da59a09"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A23.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "5fa7318b368f68e877d686263a98c6cbeb5c5547",
+        "sha256": "13c7bd369e677da7aac7baacd50ad5b53aab2f11534bdb2df6ec4b1afd1a8eb0"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A25.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "d6e473f784387dbdec37858bfab6b7e32e287074",
+        "sha256": "7a00a7d52f6c8064cc43887025b95fc7be6166e3d5631b508283aaf256881388"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A25.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "e12f2e26f6ee85b9c698980647d3d5b1926c5db8",
+        "sha256": "c6218cad185fea9fdb4841d723a8d64f7111fc529573019f0719d3564cb82a53"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/main.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "1b9cd5db572e27be53be4bbb3f09315965fc81bd",
+        "sha256": "edfb05cecf11078769b8f14b583df77e52fb4a94e0a7930fc4b584fd650723cb"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/native-execution.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "d246a63e5d29099580ba79498b0fd4db534081f4",
+        "sha256": "72b06b876862c35a84c6096bcdfabfb277a40c8cf082ca2f7fa471665b0f091b"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/native-result.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "2e487f0b50e74cd70213b6c288eb1bf1f6c954f0",
+        "sha256": "03e0f924f438842982bae8326a25c79b027020b2d933e823fa76e5df922d6e41"
+      }
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/pr.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "76a6efb688e88537c956e5266aea40168b3373ee",
+        "sha256": "a75af0671248db31913de35017faa298612852b3765e51251085d7c7e19eca08"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-11-02-A12-account-deletion-shared-work.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "ba2e0618bdf59b6eb33a716c4ae3bef94183dd98",
+        "sha256": "9332675969d529473d635072fe99b55b64720028d3d4504ebe4503e037197c3b"
+      }
+    },
+    {
+      "path": "lib/californiaGradeAware.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "4ccf2d6ff2a3ef0f70ac607f62fa2f5bd21a2b5b",
+        "sha256": "146349ae6fd1d8e1b19a39da8f9b27adafb8370598e283d68b7cfe963f681968"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "1157dd8f4fef97f166eed99849eab9ff89918dcb",
+        "sha256": "6fec63eebaf66bbfe6e3c4cb5c7cbdadd135ec686e740562dfcfd678eabe7592"
+      }
+    },
+    {
+      "path": "lib/server/userStore/accountDeletionPersistence.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "e64d3be668506ee807686106e2812002f4cfeae4",
+        "sha256": "3c5077a285a53996bdef18668115095da6b542a00366ffdbdab33fbf0bbbbd0b"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "e878b8364066f4982d70190a6989ad9fc1a3ad8b",
+        "sha256": "d0df9d9c21937f55e497d52c3a8493d0f1ebd9e00f2a4d8ea3ef398871decec3"
+      }
+    },
+    {
+      "path": "lib/server/userStoreAccountDeletion.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "ac00e7726f7eeb93a1fcf9c1f87602cbce696b8c",
+        "sha256": "eaa8492af503363ea6fde61381d1341a28e440a438a0a698a948cdc5b9fbb4d8"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "bac8d62fa0ed6714f2b8a1581117db6d59226584",
+        "sha256": "a3bc64c40040c4e51769df8bbef09e4ee1bb8160e8dcbf909ca3c79833c86077"
+      }
+    },
+    {
+      "path": "package-lock.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "554f5666078a3953988ec0d995389ceea5880c30",
+        "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "bbfd4db40edbe2f5cff2fe27d19f593510550ada",
+        "sha256": "d39348a625c9e6376161d3083960255817e86596eb9ebacb23b8e8a0246291a4"
+      }
+    },
+    {
+      "path": "package.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "95f10f0d7b615bc65d4bf36330e0351e78d5eaaa",
+        "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "94ecc7335d8b396ea0c08c1ca3a71ae38e14e5f4",
+        "sha256": "ccf3a4efc6cf34acd0a191cfce0472252e1337eecd7cd158e903f965ff4901bd"
+      }
+    }
+  ]
+}

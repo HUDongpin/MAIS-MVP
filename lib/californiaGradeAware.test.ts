@@ -4,7 +4,7 @@ import test from "node:test";
 import { publicLessonEntryTargetForGrade } from "@/components/lesson/lessonEntryTarget";
 import { californiaHighSchoolTextbookChapters, californiaHighSchoolTextbookDraft } from "@/data/usCaliforniaHighSchoolLessonIllustrations";
 import { productionLessonByTopicId } from "@/data/lessons";
-import { usCaliforniaLessonSeeds } from "@/data/usCaliforniaLessons";
+import { californiaElementaryMicroLessonSeeds, californiaK5TextbookLessonSeeds, usCaliforniaLessonSeeds } from "@/data/usCaliforniaLessons";
 import { formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { authenticateInternalCaliforniaFastLogin } from "@/lib/server/internalCaliforniaFastLogin";
 
@@ -29,8 +29,13 @@ test("California practice and onboarding surfaces do not render Primary/Secondar
   assert.doesNotMatch(missionSetup, /text\(grade\.name\)/);
   assert.doesNotMatch(radarSelect, /return grade\.id;/);
   assert.match(radarSelect, /formatGradeLabelForCurriculum\(grade\.id,\s*language,\s*curriculumTrack/);
-  assert.match(loginPage, /const defaultUnitedStatesLoginGrade: GradeId = "K"/);
+  assert.match(loginPage, /const defaultLoginGrade: GradeId = "K"/);
   assert.match(registerPage, /useState<GradeId>\("K"\)/);
+});
+
+test("California candidate-only elementary projections remain excluded from runtime seeds", () => {
+  assert.deepEqual(californiaK5TextbookLessonSeeds, []);
+  assert.deepEqual(californiaElementaryMicroLessonSeeds, []);
 });
 
 test("California lesson entry does not expose candidate-only lesson seeds as live lessons", async () => {
@@ -39,7 +44,6 @@ test("California lesson entry does not expose candidate-only lesson seeds as liv
     .filter((lesson) => productionLessonByTopicId.has(lesson.topicId))
     .map((lesson) => lesson.topicId);
 
-  assert.ok(nonReadyCaliforniaSeeds.length > 0, "California should still retain candidate lesson seeds for QA");
   assert.deepEqual(leakedSeeds, []);
   const p1EntryTarget = publicLessonEntryTargetForGrade("P1", californiaProfile);
   assert.ok(p1EntryTarget, "approved California Grade 1 beta lesson should remain reachable");

@@ -1,0 +1,32 @@
+{
+  "result": "observed",
+  "observedHead": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "observedTree": "d53bd544a4da00c7243a561b61635967e8f7b899",
+  "projection": {
+    "policyDigest": "0a27a0c36c6256121cc5a13166b2d6809f7cfbeb3a0d4464ccdae93c2f54b505",
+    "auditDigest": "b20edcfbfd4ea4a09243e467128a4c54ecb8c363faa93fc022fa571904120df4",
+    "jsonConsumerCount": 65,
+    "jsonConsumerDigest": "c601bed8c6f9dfa2d32973289147e558e84324d32defbc6ed594ddaa5eeac8c3",
+    "mappingsDigest": "636a7684bbc9ae04e16e4e6103c0f87f398bfa5de5884ef078c7f27a3d70f15e",
+    "witnessMembershipDigest": "257102962aff1c1844def2f9f35180c5d37a2052dda3551b8a8b390613c77bff",
+    "rawDetectedLoaders": 4,
+    "reviewedStorageLoaders": 4,
+    "unclassifiedLoaders": 0,
+    "storageLoaderPartitionDigest": "ebde0b1704369fb76edd2b6518deece3b940a589538b92d34a8d637e64a00238",
+    "issuedObservationDigest": "a9f4f4ef3cff23fed86fab780f5ba70807c6681da379df98bedc2c323de2d6ed",
+    "dependencyResolutionDigest": "eeacd303dd17981d10ead253edb9c7a7b8c1d0aff5c8902ab3dee35fcc1a11c9",
+    "retiredProjectionUnreachable": true,
+    "newLessonCount": 35,
+    "effects": {
+      "network": 0,
+      "provider": 0,
+      "database": 0,
+      "deploy": 0,
+      "liveWrites": 0
+    }
+  },
+  "originalCanonicalAuditUnchanged": true,
+  "diagnosticOnly": true,
+  "nativeCA004Executed": false,
+  "liveAllowed": false
+}
