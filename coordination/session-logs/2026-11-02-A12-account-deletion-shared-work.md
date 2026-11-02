@@ -57,3 +57,22 @@ Parent reviewer `/root` independently reviewed the exact package change, 42 chan
 The real installed versions are Next 15.5.28, sharp 0.35.5, TypeScript 5.8.3, and React/React DOM 19.2.5. The sharp native module loaded successfully and produced a one-pixel synthetic PNG; its reported libvips/libheif versions are 8.18.7/1.23.5. With these new dependencies installed, the 37 account/API/California regression tests passed without failures or skips, strict nonincremental TypeScript passed, and `git diff --check` passed. This supersedes the earlier existing-dependency-only validation limitation. A full application build and browser runs remain required in final CI; no local production build was attempted.
 
 The parent authorized committing exactly package.json, package-lock.json and this log after the independent review and installation checks, then promptly pushing this branch for recovery. This action still does not integrate a guessed PR307 baseline or deploy production.
+
+## Reviewed recovery composition after PR307
+
+- Current owner: `/root/low_frequency_release`, A12 source repair and A22 composition; parent `/root` coordinates release review and publication.
+- Current branch: `codex/production-recovery-20261102`, created 2026-11-02, Asia/Taipei, reusing the same worktree above. Target PR: pending actual creation. Expected closeout: 2026-11-02 or after the authorized release verification; no worktree deletion is assigned.
+- Verified merged-main baseline M307: `4847c89770f4a735c395773616f1d1a4a413152f`, with ordered parents `b56ede5c36f94d7ee8884048ce80e6f1afea8521` and `c09da494c8e5e18fbf1e956fedc9f6a6657c4443`.
+- Reviewed repair/security tip: `4490ee972ba6b2a746501bca0341b4b43d0b7da2`, retaining account fix `6bb35e00111e20a8b1bb6c683dd6438f388eb27c` as its parent. The old branch remains backed up and recoverable.
+- J1: `9e29c05bb0fe334f19035b6e4c908d69d9e66f9d`, ordered parents M307 and the repair/security tip.
+- Original CA003 finalization storage F: `dd61016253fa9e8d869ef19abbd6bccee7e342c5`.
+- J2: `5c77f4d3fde75eb9274268a064dad1cb771633d5`, ordered parents J1 and F. Both merges were disjoint and required no conflict resolution.
+
+The exact M307-to-J2 inventory is 17 paths: six reviewed repair/package/log paths, byte-identical to the repair/security tip, and the 11 original finalization input/role/CI-proof paths, byte-identical to F. The runner-only child `4d01d2427b4339e78bf71ccd482a5a8647073841` was not merged. On J2 with the actual new Next/sharp dependencies, the 37 repair/API/California tests, 98 hourly operational tests and strict nonincremental TypeScript all passed without skipped tests. These checks use synthetic/offline inputs and do not establish production behavior.
+
+The parent next authorized adding only the exact actual native output and execution record from successful GitHub run `41380582363`, attempt 1, artifact `13112759110`, plus this lifecycle update. The content reviewer independently verified the native finalization record, original transport and role-evidence digest. The files are copied byte-for-byte, not reconstructed or split:
+
+- `finalization/native-result.json`: 4,947 bytes; SHA-256 `03e0f924f438842982bae8326a25c79b027020b2d933e823fa76e5df922d6e41`.
+- `finalization/native-execution.json`: 756 bytes; SHA-256 `72b06b876862c35a84c6096bcdfabfb277a40c8cf082ca2f7fa471665b0f091b`.
+
+The original execution is `360966efb0427a0d679d462d10dccf53ee135424`, storage remains F, and the input transport SHA-256 remains `cd551d4b1b70cf4076be5ba098eadc2668447ffa499cb6f162442162d9883c08`. Native closure digest `d6d6068c0b6a293b986d5c2d4309b2a22164d00b54353cf3a11e0d5938bab64f` and registry digest `70b34f035f455fd92910d916cf75ed6854f38d41d407cfebb13524a69eb2d0a1` establish original-CA003 `shadow_passed` only, with `liveAllowed=false`. The new composition commit is not F, and this custody does not transfer historical currentness or approval to its new runtime/dependency bytes. Current-source review, exact final-head checks and production release gates remain separate.
