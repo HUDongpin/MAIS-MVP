@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "pr307-source-inventory.v1",
+  "baseCommit": "b56ede5c36f94d7ee8884048ce80e6f1afea8521",
+  "sourceCommit": "462cf236fc599d332deb77c62bb9bb45b5f65465",
+  "sourceTree": "464ba82371c91a37de03d819e03adc4b8ce389d9",
+  "inventoryDigest": "ab48a5bc2331532a91558d5f5b2ef9d7bd67bb428286712dd8e5853961469889",
+  "entries": [
+    {
+      "path": ".github/workflows/parent-production-acceptance.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "b0562325d00c2eafa8543acd2bff42094c2e1959",
+        "rawSha256": "604526a3107f6571e96adcce1139ca6122bfe9dba197e038fef65df4a4abf293"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "0e3dfcfb9dc93834360ec8979e285d87816989f0",
+        "rawSha256": "7ee3a59dcb81c9bd41c995014df5ead84bfa93399d69dffa010e1b0e5830b336"
+      }
+    },
+    {
+      "path": ".github/workflows/teacher-notice-health-monitor.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "759d9d720d876ac3bc2365a4a9a2420acae5442e",
+        "rawSha256": "b538ff3183c547ba6a66a20c8a4ae6f4c4ee88992cd73d7b11813d18d2dfaca9"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "f1db9e5ad57ff28ae047e6bd884b299c759858de",
+        "rawSha256": "41488922b5239613c49133368763d685d0dada6d66e0cc7d976204eb35b8cdd4"
+      }
+    },
+    {
+      "path": "RELEASE.md",
+      "before": {
+        "mode": "100644",
+        "objectId": "0c313c357f21519b87553092a68dd726c1eda085",
+        "rawSha256": "a548ebf558cefa1a658807faadd8b633e15b73a08ca69be6e6fc337a5da9458e"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "468c9fbafcff314ef7b6a5caa9ba704862517e80",
+        "rawSha256": "89c941a430ec6ec58a543245f33f076683dda6d7d24835db85df8a5a00f40209"
+      }
+    },
+    {
+      "path": "app/api/cron/teacher-notice-resend-webhook-maintenance/route.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "1ebfefe686b3353465ef7ca63409af337a52873c",
+        "rawSha256": "fbcd626acb0a400a5cee54607579bb1bb6610243e2275958bc031d7a7b9f91ee"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "826d5475ebb6831176e002f8addcde0b18ab0d01",
+        "rawSha256": "5b6b711e4d777be6ec99e2e97dcb58baa2e9e1de2f928547f67cf789d7cb184e"
+      }
+    },
+    {
+      "path": "app/api/health/route.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "b1fcb340e836c65fdfa6ff492424319ded253939",
+        "rawSha256": "bc3deb2a2ae520c54c0e0ba9f343df55ef61667d5f42667750f929f934bab9d6"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "00893261743441d009bc3ced9e194579912e0a05",
+        "rawSha256": "7785b459ad1406e3189faf853951c344b2eac3c502b0707067a3f23daaa2748d"
+      }
+    },
+    {
+      "path": "app/api/health/teacher-notices/route.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "e2773f9428cdb33ea20b3b02e2ea4468470105cb",
+        "rawSha256": "947757ad734f2938dbd2ef77df3d21af20d83101418f681b9497608f8427397c"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "1ea86b1f99fcee7092d6986c08344b4354417335",
+        "rawSha256": "42c5c5013c2c0e76d0be6218bbc4a609e690e728aea8e6022c9a831542ab2f43"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-11-02-A22-teacher-notice-hourly-01a19836.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "3a2329b5d079902b97119047fe9c42809aff1d1e",
+        "rawSha256": "0c7ae289f220335ddc8f644cc077315d3f65af71b71b247efe951f12047edec3"
+      }
+    },
+    {
+      "path": "lib/server/teacherNoticeEmailOutboxHandlers.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "3e3014595756ffd1957c0ae41eec6f31f05a6119",
+        "rawSha256": "3d3867564a3f673719966b133c9011496fe5cd4ee3afc7667299327063d422eb"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "9fdbb95b7f519bea070883cb25311c8969c84e26",
+        "rawSha256": "f0d49c0c50579bd52551ebab22fd69ca403758d145f85b6c841fc12d8b336303"
+      }
+    },
+    {
+      "path": "lib/server/teacherNoticeOperationalHealth.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "c17e45f3575963c48bc5fdab5e12bea4a845db38",
+        "rawSha256": "ae48470ca19f62962e10e6ab87dc1a147723430a8b0f3ed4669e9bb02538579e"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "59391bf01525ed515fe4fb817f66ba8a7f7658cd",
+        "rawSha256": "e58808e40707722a763bb8fc7421240463b8059b9908132428719b9b53487ac3"
+      }
+    },
+    {
+      "path": "lib/server/teacherNoticeOperationalHealth.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "3edc09586f10dd57adc2e3fc083711032eb40382",
+        "rawSha256": "1b6c5094dff702f4bca7a65f3d097cc0f09a2c85dac5f024a9c52e34da21ab41"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "ca488260f02fa80d4911f8a30bbbfbc108480145",
+        "rawSha256": "0463619716b0c7247fc0891bcde8714cc3a45b6a7aa9f62188da9789cd8cbef5"
+      }
+    },
+    {
+      "path": "lib/server/userStore/teacherNoticeOperationalReadModel.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "ed853aefd6eebdcd143900c0d52be7589e8d1321",
+        "rawSha256": "ab9b5549242685398847acd87c827295294878011e208163be06bf9cd3c8d46f"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "47a69476368cb38cd45b27f082bf6bc62c0d4228",
+        "rawSha256": "450bfd462f95fdf500b330846a2aa0edc3f2c326f83fbc459562550901727a6c"
+      }
+    },
+    {
+      "path": "lib/server/userStore/teacherNoticeOperationalReadModel.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "3966faa3d2f789ea29c21d63298065463feeef4e",
+        "rawSha256": "f246e7662579e618fb2dff4adac56930b4ff467c1f90beef7cb0c00eb96fc1c4"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "e127aac0f503a9f1b4263851434cda4b334d81c6",
+        "rawSha256": "1b3e607919b7c91880eae2b865e4451eb3c6d487530f42f3c5e5bdb762e5155d"
+      }
+    },
+    {
+      "path": "scripts/monitor-teacher-notice-health.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "0dcd28c8b0bb48f53b28e420cdb2a74abb8b82cd",
+        "rawSha256": "c0851226797aa3441703f1718d2a411a14fe68bd0a63fb6e8563ea18ce918384"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "da12d118fa7ab040a1eaf7957cfbbbc4b1bec422",
+        "rawSha256": "442c315b2c636e15ffb60ab39f4cb02f101778cab46117c503eb2f4b56bfb507"
+      }
+    },
+    {
+      "path": "scripts/monitor-teacher-notice-health.test.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "3de3d924bff684e1290fb080537280d12ec6c681",
+        "rawSha256": "3006c5dbe0805184899db1421ea62c9d551ce18320efcc10045a1a1c879ca5a3"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "6b0b8a5f1c6728eecee30e9c3a470d05cf7f5408",
+        "rawSha256": "7741859f6564628d272d05fa99f7beb1494466d305b904c300fc457e6e394cc6"
+      }
+    },
+    {
+      "path": "scripts/parent-production-acceptance.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "76ec2b3ee60dbd332ca09358518f79480b65f6ca",
+        "rawSha256": "290d8086567b370a20bd49db28570b9b1c8cad62643d0026f9cff0af565f49ff"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "e9fe0fe64bc78288f62f69fff7f40b84935aa84f",
+        "rawSha256": "253ac03fdbb510bf71f5aee9333d9a97ea0af9008de10f878dbc22fdafdc025d"
+      }
+    },
+    {
+      "path": "scripts/parent-production-acceptance.test.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "3c08c4a769f4b146ee3047788756fcf85975ebbc",
+        "rawSha256": "b086ac9b3d4f7539b8946cd15d5f659edd3a36f74bf4fcbecfc0cceb58e661cc"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "93eee1d1ced58e3753fe6a2933b046ee9387ddd1",
+        "rawSha256": "0d6ea87f93d53cc6868825c84c03dab367055b3b9b36df756a72ef0756c6e806"
+      }
+    },
+    {
+      "path": "vercel.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "00a07960f91aa650dd12b083932d1709b310c10c",
+        "rawSha256": "229ae6ca004b6d22f0a152fa3f6a1ec821de8d244580dc21191c82634f0774e5"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "0deac78c5ca6425f446d973be65bb5afc6187eaa",
+        "rawSha256": "5b358767cba06c961e80482684acf6b8027dda50a530004b701857962e81bee0"
+      }
+    }
+  ]
+}

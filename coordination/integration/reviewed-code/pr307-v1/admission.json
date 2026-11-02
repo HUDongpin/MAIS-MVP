@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "pr307-admission.v1",
+  "pullRequest": 307,
+  "scope": "exact-pr307-hourly-teacher-notice-required-check-only",
+  "baseCommit": "b56ede5c36f94d7ee8884048ce80e6f1afea8521",
+  "sourceCommit": "462cf236fc599d332deb77c62bb9bb45b5f65465",
+  "sourceTree": "464ba82371c91a37de03d819e03adc4b8ce389d9",
+  "sourceInventoryDigest": "ab48a5bc2331532a91558d5f5b2ef9d7bd67bb428286712dd8e5853961469889",
+  "toolingCommit": "b898a6b331a6bc7f0156aad9b71b04007e3767bc",
+  "toolingTree": "a08d1ded09caeabe2f60a3efb326381891e550ae",
+  "toolingInventoryDigest": "38026fa8525cb75decf2506696f8b811220b735bebadafb9d8e72d274a019fc5",
+  "checksRawSha256": "62aef65d947cf0e4d7475c695b92974f701f5a66448d02bc3630ce1e78db1894",
+  "reviews": {
+    "A11": {
+      "decisionRawSha256": "7c6c891af13ecbefbb05af1abad80cdbedb979875fc57964b619699e27b61118",
+      "reportRawSha256": "ac4dda7cd72da5d327dcd9c7abb8690160ebec51bbf6fbb5274331bcb58620f3"
+    },
+    "A23": {
+      "decisionRawSha256": "fb54c03a01434ed9b7e27d3be89e3826c45c60f233bdefe76b7f9c7400e1f6e1",
+      "reportRawSha256": "6454ae7344a7768b14ce309dd7105e35855b041b89f17b7986f9120336452f9b"
+    }
+  },
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

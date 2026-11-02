@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "pr307-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/low_frequency_release",
+  "result": "approved-for-exact-pr307-required-check",
+  "scope": "exact-pr307-hourly-teacher-notice-required-check-only",
+  "sourceCommit": "462cf236fc599d332deb77c62bb9bb45b5f65465",
+  "sourceTree": "464ba82371c91a37de03d819e03adc4b8ce389d9",
+  "sourceInventoryDigest": "ab48a5bc2331532a91558d5f5b2ef9d7bd67bb428286712dd8e5853961469889",
+  "toolingCommit": "b898a6b331a6bc7f0156aad9b71b04007e3767bc",
+  "toolingTree": "a08d1ded09caeabe2f60a3efb326381891e550ae",
+  "toolingInventoryDigest": "38026fa8525cb75decf2506696f8b811220b735bebadafb9d8e72d274a019fc5",
+  "checksRawSha256": "62aef65d947cf0e4d7475c695b92974f701f5a66448d02bc3630ce1e78db1894",
+  "reportRawSha256": "ac4dda7cd72da5d327dcd9c7abb8690160ebec51bbf6fbb5274331bcb58620f3",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-11-02T02:42:55.442Z",
+  "findings": [
+    "No actionable blocker found in the exact reviewed source/tooling admission scope.",
+    "Exact 17 source paths and five tooling paths, source-check raw bytes and deterministic workflow/CI deltas independently verified.",
+    "Independent contract run passed all 45 tests with no failures/skips/cancellations/TODOs and empty stderr.",
+    "Future E evidence, final-head Linux checks and actual Ubuntu 24.04 browser jobs remain required; no live or historical Promotion authority is granted."
+  ]
+}

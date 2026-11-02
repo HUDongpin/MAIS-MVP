@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "pr307-source-checks.v1",
+  "sourceCommit": "462cf236fc599d332deb77c62bb9bb45b5f65465",
+  "sourceTree": "464ba82371c91a37de03d819e03adc4b8ce389d9",
+  "executedAt": "2026-11-02T02:29:29.896Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "hourly-regressions",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "app/api/health/route.test.ts",
+        "app/api/health/teacher-notices/route.test.ts",
+        "app/api/cron/teacher-notice-resend-webhook-maintenance/route.test.ts",
+        "lib/server/teacherNoticeEmailOutboxHandlers.test.ts",
+        "lib/server/teacherNoticeOperationalHealth.test.ts",
+        "lib/server/userStore/teacherNoticeOperationalReadModel.test.ts",
+        "lib/server/userStore/teacherNoticeEmailCronHeartbeatPersistence.test.ts",
+        "scripts/monitor-teacher-notice-health.test.mjs",
+        "scripts/parent-production-acceptance.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "9397f308325acd1c7b4f20d927e186ed72279a430e32259030746a9fe722bd2a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 98,
+        "suites": 0,
+        "pass": 98,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "f929e1b209eec7ba7cb85eb11ab5bc3c604803f5dc305211af2933480ac600d9"
+      }
+    },
+    {
+      "name": "historical-activation",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/activation.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "6e917cd85a9ae00c39d933bc628ca90ac86f3df1e2c86f77ac69da2ce9de948c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 17,
+        "suites": 0,
+        "pass": 17,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "da026388acb67cad60dfffb17b5b21e7b99f93ce9381a732f6124b34dc43fb20"
+      }
+    }
+  ]
+}
