@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "ca-textbook-finalization.v1",
+  "manifestPath": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/manifest.json",
+  "receipts": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/canonical-receipt.json",
+      "storageCommit": "51fc0b1503c4aa2b00c0d431347362c6d9d9a788",
+      "sha256": "3dff990fc57c23b1b914590a63d9c56baf936c9e13bd3c2abd54fc3cd50dce5c"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/receipts/fresh.json",
+      "storageCommit": "51fc0b1503c4aa2b00c0d431347362c6d9d9a788",
+      "sha256": "e7069503a8d43e9f9b0ed07882e4c959b2b9bf7adc9027559694f278a0b8ad72"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/receipts/replay.json",
+      "storageCommit": "51fc0b1503c4aa2b00c0d431347362c6d9d9a788",
+      "sha256": "5b3d0ac7e51e4b7c9e54e12848bd99ef12d41d07d59b87b10b5a9e8d2d905592"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A11.json",
+      "sha256": "4bdbbef3cce2f1616792677e85a6017ca124457405e983ca5f28868250435c0f"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A22.json",
+      "sha256": "819cec89ab5679150ba06c7606864ae39a320268c714be3be20216591565d6fa"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A23.json",
+      "sha256": "498a47815957af4c1479e8ea9a06e3f5f34a047cc985d045bbb92ba93da59a09"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/A25.json",
+      "sha256": "7a00a7d52f6c8064cc43887025b95fc7be6166e3d5631b508283aaf256881388"
+    }
+  ],
+  "prProof": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/pr.json",
+    "sha256": "a75af0671248db31913de35017faa298612852b3765e51251085d7c7e19eca08"
+  },
+  "mainProof": {
+    "path": "coordination/integration/ca-textbook-successor/attempts/ca-textbook-003/finalization/main.json",
+    "sha256": "edfb05cecf11078769b8f14b583df77e52fb4a94e0a7930fc4b584fd650723cb"
+  },
+  "liveAllowed": false,
+  "releaseCommit": "e402520bb223d80655c353af68dca8db2f6cd277",
+  "releaseInventoryDigest": "c789f2b834ecf0ea1383fe13143e35a66c0a4778212131c87a1ee264fd71db97",
+  "releaseFiles": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "mode": "100644",
+      "objectId": "f1e8ce74a20dd75f313e28c87fd529f071a1122d",
+      "sha256": "03ff54df1fe64e8204654a8c9d72f54d683f59f762f83fa17babd6bf6e999cf0"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/a11.json",
+      "mode": "100644",
+      "objectId": "3e74c5efd368f9b1fb6ae862e6e14a4ffe9fe927",
+      "sha256": "4d5ecb1821a912ac226c99b9a0d57529c101cffe5ffed45bed0eaa1dc4d3d422"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/a11.md",
+      "mode": "100644",
+      "objectId": "5e4ee7c87689170e144f37dab883df2040d5b989",
+      "sha256": "94a1b86366ee1917d8f66322bb4626c369fe4c732c29db89db989570fb2f3309"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/a23.json",
+      "mode": "100644",
+      "objectId": "562c0985acb0af23270eba050525d2fec5da68ad",
+      "sha256": "26167c01378c584a0364d215e7646ef66d5e131ad6c6a06fb4bf501eecd0b920"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/a23.md",
+      "mode": "100644",
+      "objectId": "12dded443ff11eec81074d853eea6a1434198540",
+      "sha256": "d0ab17139b10e1f4af79f6598cf78580d294676c097e39f45fe78d686a9175e7"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/activation.test.mjs",
+      "mode": "100644",
+      "objectId": "3fb85909a3bca4478f23a3c000048444992e0344",
+      "sha256": "0fa155e9fdf600b60e0b62bb6ed866ef521d22425d6f894d0ff5090e81f6ecc5"
+    },
+    {
+      "path": "coordination/integration/ca-textbook-successor/activation/ca-textbook-003/admission.json",
+      "mode": "100644",
+      "objectId": "3b5b25dce7db36e749d91da043e464d70be8f017",
+      "sha256": "a67444e44ee23806c5d6b67db622b3dd41d35f6ee7363400505ff05ceb36b384"
+    },
+    {
+      "path": "scripts/promotion-required-check-ca-textbook-successor.mjs",
+      "mode": "100644",
+      "objectId": "4db940c406900a452b2c50a60c3dd9c511b53d07",
+      "sha256": "a8922b66f346aa566da6b62a0b48603b205e6333d98a3e1d2a4a51f1df80e53f"
+    }
+  ]
+}
