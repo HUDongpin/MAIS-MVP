@@ -615,16 +615,88 @@ export function deleteUserFromDatabase(database: MutableDatabase, userId: string
 }
 
 export type AccountDeletionBlocker = {
-  code: "owns-active-classes";
+  code: "owns-active-classes" | "shared-learning-records";
   message: string;
   classIds: string[];
 };
 
+/** Read-only projection of the existing direct/cascade deletion rules. */
+function plannedDeletionRows(database: MutableDatabase, userId: string) {
+  const removed = new Map<string, Set<Row>>();
+  const removedIds = new Map<string, Set<string>>();
+  const include = (table: string, row: Row) => {
+    if (!removed.has(table)) removed.set(table, new Set());
+    if (removed.get(table)!.has(row)) return false;
+    removed.get(table)!.add(row);
+    if (typeof row.id === "string") {
+      if (!removedIds.has(table)) removedIds.set(table, new Set());
+      removedIds.get(table)!.add(row.id);
+    }
+    return true;
+  };
+  for (const [table, rule] of Object.entries(accountDeletionPlan)) {
+    if (!rule.purgeWhen?.length) continue;
+    for (const row of rowsOf(database, table) ?? []) {
+      if (matchesSubject(row, rule.purgeWhen, userId)) include(table, row);
+    }
+  }
+  for (let pass = 0; pass < Object.keys(accountDeletionPlan).length; pass += 1) {
+    let progressed = false;
+    for (const [table, rule] of Object.entries(accountDeletionPlan)) {
+      if (!rule.cascadeFrom?.length) continue;
+      for (const row of rowsOf(database, table) ?? []) {
+        if (rule.cascadeFrom.some((edge) => typeof row[edge.toField] === "string"
+          && removedIds.get(edge.table)?.has(row[edge.toField] as string))) {
+          progressed = include(table, row) || progressed;
+        }
+      }
+    }
+    if (!progressed) break;
+  }
+  return removed;
+}
+
+const protectedLearningTables = new Set([
+  "submissions", "assignment_submission_attempts", "assessment_submissions",
+  "learning_path_step_progress", "teacher_mastery_targets", "student_accommodations",
+  "teacher_reports", "teacher_live_responses", "classroom_work_samples"
+]);
+
+function containsOtherLearnerWork(table: string, row: Row, userId: string) {
+  // A missing owner on a selected learning record is not proof that deleting
+  // it is safe. Joint messages/notices retain their separate existing policy.
+  if (protectedLearningTables.has(table)) return row.student_id !== userId;
+  // A class archive is retained history, including opaque legacy snapshots.
+  if (table === "term_archives") return true;
+  if (table !== "teacher_live_tool_states") return false;
+  if (Array.isArray(row.attendance)
+    && row.attendance.some((entry) => !isRow(entry) || entry.studentId !== userId)) return true;
+  const randomCall = row.random_call;
+  return isRow(randomCall) && (
+    (randomCall.currentStudentId != null && randomCall.currentStudentId !== userId)
+    || (Array.isArray(randomCall.selectedStudentIds)
+      && randomCall.selectedStudentIds.some((id) => id !== userId))
+  );
+}
+
+function learningRecordClassIds(database: MutableDatabase, table: string, row: Row, visited = new Set<string>()): string[] {
+  if (visited.has(table)) return [];
+  if (typeof row.class_id === "string") return [row.class_id];
+  if (table === "teacher_classes" && typeof row.id === "string") return [row.id];
+  const nextVisited = new Set([...visited, table]);
+  return (accountDeletionPlan[table]?.cascadeFrom ?? []).flatMap((edge) =>
+    (rowsOf(database, edge.table) ?? [])
+      .filter((parent) => typeof parent.id === "string" && parent.id === row[edge.toField])
+      .flatMap((parent) => learningRecordClassIds(database, edge.table, parent, nextVisited))
+  );
+}
+
 /**
  * Deleting a teacher would cascade through their classes and take other
- * children's enrollments, submissions and reports with it. Refuse while any
- * owned class still has enrollments or collaborators — those must be reassigned
- * or archived first. Students and parents are never blocked.
+ * children's work with it, including authored records in someone else's class
+ * and history retained after enrollment ends. Admission is read-only and runs
+ * under the canonical account/snapshot lock before any erasure marker or write.
+ * Students and parents retain their existing subject-erasure policy.
  */
 export function assessAccountDeletion(database: MutableDatabase, userId: string, role: string): AccountDeletionBlocker[] {
   if (role !== "teacher" && role !== "admin") return [];
@@ -633,8 +705,6 @@ export function assessAccountDeletion(database: MutableDatabase, userId: string,
   const ownedClassIds = classes
     .filter((row) => row.teacher_id === userId && typeof row.id === "string")
     .map((row) => row.id as string);
-  if (!ownedClassIds.length) return [];
-
   const owned = new Set(ownedClassIds);
   const enrollments = rowsOf(database, "class_enrollments") ?? [];
   const collaborators = rowsOf(database, "teacher_class_collaborators") ?? [];
@@ -647,15 +717,29 @@ export function assessAccountDeletion(database: MutableDatabase, userId: string,
     if (typeof row.class_id === "string" && owned.has(row.class_id) && row.teacher_id !== userId) occupied.add(row.class_id);
   }
 
-  if (!occupied.size) return [];
-  return [
-    {
+  if (occupied.size) {
+    return [{
       code: "owns-active-classes",
       message:
         "This teacher still owns classes with enrolled learners or co-teachers. Reassign or archive those classes before deleting the account, so other learners' records are not destroyed.",
       classIds: [...occupied].sort()
+    }];
+  }
+
+  let containsSharedWork = false;
+  const sharedClassIds = new Set<string>();
+  for (const [table, rows] of plannedDeletionRows(database, userId)) {
+    for (const row of rows) {
+      if (!containsOtherLearnerWork(table, row, userId)) continue;
+      containsSharedWork = true;
+      for (const id of learningRecordClassIds(database, table, row)) sharedClassIds.add(id);
     }
-  ];
+  }
+  return containsSharedWork ? [{
+    code: "shared-learning-records",
+    message: "This account's teaching records still contain other learners' work or class archives. Reassign or preserve those records before deleting the account.",
+    classIds: [...sharedClassIds].sort()
+  }] : [];
 }
 
 export type AccountDataExport = {
