@@ -479,7 +479,7 @@ test("Vercel schedules the outbox worker separately and the environment example 
 
   assert.deepEqual(
     vercel.crons?.filter((cron) => cron.path === "/api/cron/teacher-notice-email"),
-    [{ path: "/api/cron/teacher-notice-email", schedule: "*/10 * * * *" }]
+    [{ path: "/api/cron/teacher-notice-email", schedule: "0 * * * *" }]
   );
   assert.match(environmentExample, /^CRON_SECRET=$/m);
   assert.doesNotMatch(environmentExample, /NEXT_PUBLIC_(?:CRON_SECRET|TEACHER_NOTICE_RESEND_API_KEY)/);

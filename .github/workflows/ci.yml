@@ -344,7 +344,7 @@ jobs:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
     # Runs on the same complete release event matrix as the server-side gates.
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
     env:
@@ -471,7 +471,7 @@ jobs:
     # event SHA so a merged or merge-queue candidate cannot reuse another SHA's
     # browser evidence.
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
     env:

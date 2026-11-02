@@ -81,7 +81,7 @@ test("monitor checks both exact production origins with authenticated read-only 
 test("monitor fails closed for stale/mismatched health, cached responses, cookies, and redirects", async () => {
   for (const response of [
     healthyResponse({ scheduler: { candidateMatch: false, heartbeatAgeSeconds: 10, heartbeatStatus: "succeeded" } }),
-    healthyResponse({ scheduler: { candidateMatch: true, heartbeatAgeSeconds: 901, heartbeatStatus: "succeeded" } }),
+    healthyResponse({ scheduler: { candidateMatch: true, heartbeatAgeSeconds: 4_501, heartbeatStatus: "succeeded" } }),
     healthyResponse({}, { "x-vercel-cache": "HIT" }),
     healthyResponse({}, { "cache-control": "private-x, x-no-store" }),
     healthyResponse({}, {
@@ -104,6 +104,16 @@ test("monitor fails closed for stale/mismatched health, cached responses, cookie
       /health|cache|cookie/i
     );
   }
+});
+
+test("monitor accepts a matching successful heartbeat through the hourly grace boundary", async () => {
+  const result = await monitorTeacherNoticeHealth({
+    secret,
+    fetchImpl: async () => healthyResponse({
+      scheduler: { candidateMatch: true, heartbeatAgeSeconds: 4_500, heartbeatStatus: "succeeded" }
+    })
+  });
+  assert.deepEqual(result.results.map((entry) => entry.heartbeatAgeSeconds), [4_500, 4_500]);
 });
 
 test("monitor drill intentionally fails only after both healthy origins were checked", async () => {
@@ -301,8 +311,7 @@ test("scheduled monitor is read-only, bounded, and supports an explicit alert dr
   );
   const workflow = YAML.parse(text);
   assert.deepEqual(Object.keys(workflow.on).sort(), ["schedule", "workflow_dispatch"]);
-  // #294 / #273: temporary hourly cron. Flip this assertion back to
-  // "3-59/5 * * * *" when #273 closes and the schedule is restored.
+  // Intentional hourly monitoring follows the two aligned hourly workers.
   assert.deepEqual(workflow.on.schedule, [{ cron: "7 * * * *" }]);
   assert.equal(workflow.on.workflow_dispatch.inputs.alert_drill.type, "boolean");
   assert.equal(workflow.on.workflow_dispatch.inputs.alert_drill.default, false);
@@ -320,7 +329,7 @@ test("scheduled monitor is read-only, bounded, and supports an explicit alert dr
   );
   assert.ok(
     TEACHER_NOTICE_MONITOR_WORST_CASE_ORIGIN_MS < 5 * 60_000,
-    "The monitor must finish its bounded retry window before the next five-minute probe."
+    "The monitor must finish its bounded retry window within the five-minute job timeout."
   );
   const healthStep = workflow.jobs.health.steps.find((step) => step.id === "health_check");
   const checkout = workflow.jobs.health.steps.find((step) =>

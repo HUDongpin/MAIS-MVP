@@ -723,7 +723,9 @@ type TeacherNoticeOperationalReadModelOptions = {
   ) => TeacherNoticeOperationalSnapshot | Promise<TeacherNoticeOperationalSnapshot>;
 };
 
-export const teacherNoticeOperationalRecentWindowSeconds = 3_600;
+// Overlap hourly health probes so recent terminal/provider failures remain
+// observable despite normal scheduling delay. This does not alter retention.
+export const teacherNoticeOperationalRecentWindowSeconds = 75 * 60;
 
 function readConfiguredSqliteOperationalSnapshot(
   dbPath: string,

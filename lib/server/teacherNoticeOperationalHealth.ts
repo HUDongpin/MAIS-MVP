@@ -1,11 +1,13 @@
 import type { TeacherNoticeOperationalSnapshot } from
   "./userStore/teacherNoticeOperationalReadModel";
 
+// Hourly workers have a fifteen-minute execution/scheduling allowance. Keep
+// failures visible across an hourly probe even after a newer worker succeeds.
 export const teacherNoticeOperationalHealthPolicy = Object.freeze({
-  maxActionableAgeSeconds: 15 * 60,
-  maxHeartbeatAgeSeconds: 15 * 60,
-  recentFailureWindowSeconds: 15 * 60,
-  maxUnmatchedAgeSeconds: 15 * 60
+  maxActionableAgeSeconds: 75 * 60,
+  maxHeartbeatAgeSeconds: 75 * 60,
+  recentFailureWindowSeconds: 75 * 60,
+  maxUnmatchedAgeSeconds: 75 * 60
 });
 
 export type TeacherNoticeOperationalHealthReason =

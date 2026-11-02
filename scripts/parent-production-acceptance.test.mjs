@@ -380,7 +380,7 @@ test("production acceptance workflow is protected-main-only, serialized, exact-a
   assert.equal(inputs.allow_resend_test_delivery.type, "boolean");
   const job = workflow.jobs.acceptance;
   assert.equal(job.environment, "production-health");
-  assert.equal(job["timeout-minutes"], 45);
+  assert.equal(job["timeout-minutes"], 110);
   const checkout = job.steps.find((step) => String(step.name).includes("Check out"));
   assert.equal(checkout.uses, "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683");
   assert.deepEqual(checkout.with, {
@@ -615,7 +615,7 @@ test("Resend delivery and webhook progress accept only the official delivered te
       observedAt: "2026-08-28T10:05:00.000Z",
       scheduler: {
         heartbeatStatus: "succeeded",
-        heartbeatAgeSeconds: 30,
+        heartbeatAgeSeconds: 4_500,
         candidateMatch: true,
         lastFailureAgeSeconds: null
       },
@@ -644,6 +644,12 @@ test("Resend delivery and webhook progress accept only the official delivered te
     }
   });
   const healthProgress = validateTeacherNoticeHealthProgress({ before: health(0), after: health(1) });
+  const overdue = health(1);
+  overdue.health.scheduler.heartbeatAgeSeconds = 4_501;
+  assert.throws(
+    () => validateTeacherNoticeHealthProgress({ before: health(0), after: overdue }),
+    /teacher notice health progress failed/i
+  );
   assert.deepEqual(healthProgress, {
     deliveredEventDelta: 1,
     schedulerHealthy: true,
@@ -685,7 +691,17 @@ test("Resend delivery and webhook progress accept only the official delivered te
   );
 });
 
-for (const teacherCase of ["new", "existing", "registration-race"]) {
+test("acceptance rejects polling budgets beyond the bounded hourly window", async () => {
+  for (const healthPollAttempts of [0, 10, 1.5]) {
+    await assert.rejects(runParentProductionAcceptance({
+      toolingSha: "c".repeat(40),
+      toolingTreeSha: "d".repeat(40),
+      healthPollAttempts
+    }), /execution policy is invalid/);
+  }
+});
+
+for (const teacherCase of ["new", "existing", "registration-race", "hourly-delayed", "hourly-missing", "hourly-baseline-missing"]) {
 test(`full acceptance orchestration handles ${teacherCase} teachers without exposing credentials or durable identifiers`, async () => {
   const state = {
     teacherExists: teacherCase !== "new",
@@ -702,6 +718,9 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
     noticeSubject: "",
     parentRecipient: "",
     providerQueued: false,
+    elapsedWaitMs: 0,
+    healthRequests: 0,
+    waits: [],
     acknowledgedAt: "2026-08-28T10:09:00.000Z"
   };
   const sensitive = {
@@ -746,7 +765,7 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
       observedAt: "2026-08-28T10:10:00.000Z",
       scheduler: {
         heartbeatStatus: "succeeded",
-        heartbeatAgeSeconds: 10,
+        heartbeatAgeSeconds: 4_500,
         candidateMatch: true,
         lastFailureAgeSeconds: null
       },
@@ -914,7 +933,17 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
       });
     }
     if (url.pathname === "/api/health/teacher-notices" && method === "GET") {
-      return json(health(state.providerQueued ? 1 : 0));
+      state.healthRequests += 1;
+      const delivered = state.providerQueued && teacherCase !== "hourly-missing" &&
+        (teacherCase !== "hourly-delayed" || state.elapsedWaitMs >= 65 * 60_000);
+      const payload = health(delivered ? 1 : 0);
+      if (teacherCase === "hourly-baseline-missing") {
+        payload.health.status = "unhealthy";
+        payload.health.reasons = ["scheduler-heartbeat-stale"];
+        payload.health.scheduler.heartbeatAgeSeconds = 4_501;
+        return json(payload, 503);
+      }
+      return json(payload);
     }
     if (url.pathname === "/api/teacher/notices" && method === "GET") {
       return json({
@@ -973,7 +1002,7 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
     throw new Error(`Unexpected fixture request: ${method} ${url.origin}${url.pathname}`);
   };
 
-  const report = await runParentProductionAcceptance({
+  const execution = runParentProductionAcceptance({
     toolingSha: "c".repeat(40),
     toolingTreeSha: "d".repeat(40),
     executionId: "123456789:1",
@@ -986,10 +1015,13 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
       ...validRuntime, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: validTeacherInvite
     },
     fetchImpl,
-    sleep: async () => undefined,
+    sleep: async (milliseconds) => {
+      state.waits.push(milliseconds);
+      state.elapsedWaitMs += milliseconds;
+    },
     concurrency: 4,
     maxReplayBatches: 1,
-    healthPollAttempts: 1,
+    ...(teacherCase.startsWith("hourly-") ? {} : { healthPollAttempts: 1 }),
     verifyToolingChecks: async (input) => {
       toolingVerificationCalls += 1;
       assert.equal(input.candidateSha, "c".repeat(40));
@@ -1013,6 +1045,28 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
     toolingEnv: { GITHUB_TOKEN: "fixture-token" },
     repoRoot: process.cwd()
   });
+  if (teacherCase === "hourly-baseline-missing") {
+    await assert.rejects(execution, /was not ready before the synthetic delivery/);
+    assert.deepEqual(state.waits, [10 * 60_000]);
+    assert.equal(state.healthRequests, 4, "an unhealthy baseline gets at most two sparse checks of both aliases");
+    assert.equal(state.providerQueued, false);
+    assert.equal(state.noticeCreated, false);
+    return;
+  }
+  if (teacherCase === "hourly-missing") {
+    await assert.rejects(execution, /did not record the synthetic provider delivery/);
+    assert.equal(state.elapsedWaitMs, 80 * 60_000);
+    assert.deepEqual(state.waits, Array(8).fill(10 * 60_000));
+    assert.equal(state.healthRequests, 20, "two baseline reads plus nine two-alias progress checks");
+    assert.equal(deploymentVerificationCalls, 1, "no success postflight after failed delivery evidence");
+    return;
+  }
+  const report = await execution;
+  if (teacherCase === "hourly-delayed") {
+    assert.equal(state.elapsedWaitMs, 70 * 60_000);
+    assert.deepEqual(state.waits, Array(7).fill(10 * 60_000));
+    assert.equal(state.healthRequests, 18, "two baseline reads plus eight sparse progress checks");
+  }
   assert.equal(report.schemaVersion, 1);
   assert.equal(report.candidateSha, candidateSha);
   assert.equal(report.toolingSha, "c".repeat(40));
@@ -1032,7 +1086,7 @@ test(`full acceptance orchestration handles ${teacherCase} teachers without expo
     student: { role: "student", created: true, cookieContract: true },
     parent: { role: "parent", created: true, cookieContract: true }
   });
-  assert.equal(state.teacherRegistrationCalls, teacherCase === "existing" ? 0 : 1);
+  assert.equal(state.teacherRegistrationCalls, ["new", "registration-race"].includes(teacherCase) ? 1 : 0);
   assert.equal(report.family.classReady, true);
   assert.equal(report.cookie.authenticatedAcrossAliases, true);
   assert.equal(report.family.enrollmentReady, true);

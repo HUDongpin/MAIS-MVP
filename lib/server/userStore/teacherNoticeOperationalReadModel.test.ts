@@ -557,7 +557,7 @@ test("configured PostgreSQL operational reads do not derive observation time fro
   });
 
   assert.equal((await read()).observedAt, "2026-08-24T12:00:00.000Z");
-  assert.equal(receivedWindow, 3_600);
+  assert.equal(receivedWindow, 4_500, "hourly probes need a fifteen-minute overlap for adverse and terminal events");
 });
 
 test("configured PostgreSQL operational reads coalesce only overlapping health requests", async () => {
