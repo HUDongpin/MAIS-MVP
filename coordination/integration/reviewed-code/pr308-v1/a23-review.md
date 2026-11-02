@@ -1,0 +1,43 @@
+# Independent A23 exact PR308 required-check review
+
+Decision: `approved-for-exact-pr308-required-check`.
+Scope: `exact-pr308-recovery-and-ca004-native-required-check-only`.
+No actionable findings remain in the reviewed frozen scope.
+
+Reviewed at: 2026-11-02T04:50:38.800Z
+Independent reviewer: `/root/ca004_release_a23` (A23). This reviewer authored neither source C nor either checker partition.
+
+Frozen source C: `54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e`, tree `d53bd544a4da00c7243a561b61635967e8f7b899`.
+Native code R1: `f2daf39aa92c40c26849aaa8e648031c7f7229ff`, tree `f813a316994c2a55bc3965f5aaa5a69ee09c2386`, sole parent C.
+Combined checker R2: `16ab4e6a9547a8e5e9cb043122c5cb721d67022d`, tree `eec66db41401fd1101ab51e64c43e11f699cfe22`, sole parent R1.
+C-to-R2 ten-path tooling inventory: `948e231dae53b3f621ebfbbdb539d6408ef6aee30325e7fe51c2937e2af0848c`.
+Native checker bundle: `53b3cc89ee902ab43887f58409652754a713005b2dd6fa02e15ec6155a858586`.
+Candidate digest: `fda75f734941c94020fe069fb6791efa22fa84c625eb0019eba906f69c17e8ea`.
+
+The actual R2 checkout was clean. All 43 native/outer/observer file mode, Git-object and SHA-256 bindings were independently compared with frozen Git blobs and current bytes. The five native R1 files remain unchanged at R2. C-to-R2 changes exactly the two five-path checker partitions; no product/package/source change is admitted after C. The complete native bundle digest and source/R1/R2 inventories were recomputed independently.
+
+The outer selector precedes inherited PR307 admission and fails closed for an invalid present PR308 marker. It binds actual BASE/C/R1/R2 identities, clean source/code bytes, exact review/evidence first additions, the finite E/X/F4 chain and the actual PR/push event. It rejects arbitrary descendants, extra paths/parents, a moved base and a non-equivalent main tree. All six ordinary permission flags remain false.
+
+The actual frozen wrapper validates the native observe-current envelope exactly as {result, observation, liveAllowed} before validating its observation. Raw, blocked, live, null and extra-field forms are rejected. The checker performs seven native CLI operations: validate, fresh Shadow, replay Shadow, three fixed stored-receipt verifications, and actual-H/M observation. It verifies both stored and fresh semantic comparisons, transported byte identities, distinct replay identities, runtime/registry equality and actual head/tree bindings.
+
+The workflow resolves X through the verified contract, materializes a separate clean local clone at that exact X, and copies only the required TypeScript dependency. Node hooks and credential-like variables do not enter native children. Full materialization/clean/phase checks surround execution. The artifact verifier binds exactly seven stdout/stderr pairs plus the run record, checking operation order, modes, sizes and hashes before emitting the outer decision. The decision explicitly leaves finalization unproved.
+
+The release-governance change is exactly the reviewed Next/sharp assertion repair. It does not weaken other assertions or alter package bytes. The test parser preserves the eleven specific historical skips as skips and rejects new skips, malformed/truncated TAP, failures, cancellation and TODO results. The other configured commands allow no skips. Actual native contract summary is 47 tests with names digest `79e702b76bc14bcf67ca6de1aeb94301c0b92721d14aca7ed2754cdab0429407`.
+
+Permission projection: historicalPromotionRevalidated=false; liveAllowed=false; previewAllowed=false; deployAllowed=false; wholePackAccepted=false; historicalAuthorityTransferred=false.
+
+Validation evidence and limits:
+
+- Independently inspected the receipt/transport/currentness/finalization code and the two-job native workflow, and checked the exact outer Promotion-workflow and dependency-assertion transformations.
+- Independently verified the C diagnostic file hashes, all 137 candidate bindings against actual C, the exact three tooling/test changes, unchanged substantive candidate structures, and the 31 preserved observer code files plus the two actual C package inputs. Diagnostic-only observations remain diagnostic-only.
+- Independently reproduced all five resealed finalization substitutions against the earlier code, then reran the same narrow offline probes against corrected R1. The valid fixture passes and changed receipt transport SHA, comparison digest, semantic digest, review report hash and acquisition run ID all reject. Corrected currentness SHA-256 is `460f558e21fc8a1ac277a6d0a5a48945f4ade8017e3ee3ad1cfa0e2a50ce42d0`.
+- Consumed and independently rehashed/parsed the producer's final raw logs: outer contracts 69 passed/0 skipped, native contracts 47 passed/0 skipped, and release governance 175 total with 164 passed and exactly 11 named historical skips. All three stderr files are empty. These are consumed producer executions, not an A23 full-suite rerun.
+- Revalidated the frozen source-check record with raw SHA-256 `a9a5dbcbf85bdb2eb42cb79f62cebda348ea156dfd39cac697b6b6516f122cc0`: TypeScript plus 37 account/API/California, 98 hourly operational and 17 historical activation checks. No live probes are declared. The source-C full-CI dependency assertion failures are not relabeled as a pass; R2's exact test-only version repair addresses those assertions.
+
+Retained boundaries:
+
+- The original CA003 records and native Closure/Registry retain their original historical authority; they do not become current CA004 receipts or live evidence.
+- The ten historical global inventory findings remain findings. The unchanged canonical audit retains its recorded new/opaque conflicts and `LEGACY_DISCOVERY_INCOMPLETE`; this review is not a global content-inventory pass.
+- This is a frozen-code/readiness review. Actual E/X/F4/M and native validate, Shadow, replay, receipt verification, required remote CI, post-main paired Closure/Registry and final exact-SHA release handoff remain later gates. No future artifact or commit is approved by name alone.
+- Local macOS full-tree materialization has the disclosed unchanged historical path-length limitation. Actual clean Linux execution, complete final-head CI/build/browser checks and real H/M observations remain required. No application build, full application test rerun, remote CI run or live acceptance was performed by A23 for this review.
+- The A23 session made no source/Git mutation, credential access, project API request, provider/database call, deployment or production write. Native/ordinary outputs retain their non-live permissions. Owner authorization remains separate from this review.

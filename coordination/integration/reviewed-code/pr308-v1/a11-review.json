@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "pr308-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/ca004_release_a11",
+  "result": "approved-for-exact-pr308-required-check",
+  "scope": "exact-pr308-recovery-and-ca004-native-required-check-only",
+  "sourceCommit": "54d6080cfb7c137c03a83ba5da1c5d1bb7256b5e",
+  "sourceTree": "d53bd544a4da00c7243a561b61635967e8f7b899",
+  "sourceInventoryDigest": "7bd30c345c5b12e94c70f3d152bbc4c71139cab162509175622e4887bfff9813",
+  "toolingCommit": "16ab4e6a9547a8e5e9cb043122c5cb721d67022d",
+  "toolingTree": "eec66db41401fd1101ab51e64c43e11f699cfe22",
+  "toolingInventoryDigest": "948e231dae53b3f621ebfbbdb539d6408ef6aee30325e7fe51c2937e2af0848c",
+  "checksRawSha256": "a9a5dbcbf85bdb2eb42cb79f62cebda348ea156dfd39cac697b6b6516f122cc0",
+  "reportRawSha256": "939db4aec18c7b678b147263d21ed35c2a86d23ef399eb96fb0f4342eaa5512f",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-11-02T04:50:58.053Z",
+  "findings": [
+    "No unresolved blocking code finding remains for the exact C/R1/R2 bindings.",
+    "A11 independently recomputed all ten tooling and 33 observer file bindings, both tooling inventory digests and the full native bundle.",
+    "A11 personally ran the focused finalization regression: 6 passed; all five consistently resealed context substitutions were rejected.",
+    "Authors execution logs were consumed and checked separately: source types plus 37/98/17 tests, 69 outer and 47 native contracts passed; release trio has 164 pass and eleven exact historical skips.",
+    "The finite exact-path chain, trusted native code pin, mandatory native verification, actual H/M observation and non-live boundaries remain enforced.",
+    "No real registered CA004 execution, final-head CI, post-main finalization or production recovery is claimed by this code-review decision."
+  ]
+}
