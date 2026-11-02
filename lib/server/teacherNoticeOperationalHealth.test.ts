@@ -24,7 +24,7 @@ const unhealthySnapshot: TeacherNoticeOperationalSnapshot = {
       providerAccepted: 5,
       retryable: 1
     },
-    oldestActionableAgeSeconds: 901,
+    oldestActionableAgeSeconds: 4_501,
     recentTerminalCounts: { blocked: 1, deadLetter: 1 },
     staleLeaseCount: 1
   },
@@ -42,7 +42,7 @@ const unhealthySnapshot: TeacherNoticeOperationalSnapshot = {
     windowSeconds: 3_600
   },
   webhookReconciliation: {
-    oldestUnmatchedAgeSeconds: 901,
+    oldestUnmatchedAgeSeconds: 4_501,
     unmatchedCount: 2
   }
 };
@@ -254,7 +254,7 @@ test("operational health fails closed for missing, incomplete, failed, stale, or
     [
       {
         candidateMatch: true,
-        heartbeatAgeSeconds: 901,
+        heartbeatAgeSeconds: 4_501,
         heartbeatStatus: "succeeded",
         lastFailureAgeSeconds: null
       },
@@ -315,7 +315,7 @@ test("a recent durable scheduler failure survives a newer success and recovers a
     candidateMatch: true,
     heartbeatAgeSeconds: 30,
     heartbeatStatus: "succeeded",
-    lastFailureAgeSeconds: 15 * 60
+    lastFailureAgeSeconds: 75 * 60
   } as never;
 
   const stillUnhealthy = evaluateTeacherNoticeOperationalHealth(successfulAfterFailure);
@@ -325,12 +325,45 @@ test("a recent durable scheduler failure survives a newer success and recovers a
     candidateMatch: true,
     heartbeatAgeSeconds: 30,
     heartbeatStatus: "succeeded",
-    lastFailureAgeSeconds: 15 * 60
+    lastFailureAgeSeconds: 75 * 60
   });
 
   const recovered = structuredClone(successfulAfterFailure);
-  recovered.scheduler.lastFailureAgeSeconds = 15 * 60 + 1;
+  recovered.scheduler.lastFailureAgeSeconds = 75 * 60 + 1;
   const recoveredHealth = evaluateTeacherNoticeOperationalHealth(recovered);
   assert.equal(recoveredHealth.status, "healthy");
   assert.deepEqual(recoveredHealth.reasons, []);
+});
+
+test("hourly operations allow one interval plus fifteen minutes, then report each overdue aggregate", () => {
+  const snapshot = structuredClone(unhealthySnapshot);
+  snapshot.scheduler.heartbeatAgeSeconds = 4_500;
+  snapshot.outbox = {
+    actionableCount: 1,
+    counts: { blocked: 0, deadLetter: 0, leased: 0, pending: 1, providerAccepted: 0, retryable: 0 },
+    oldestActionableAgeSeconds: 4_500,
+    recentTerminalCounts: { blocked: 0, deadLetter: 0 },
+    staleLeaseCount: 0
+  };
+  snapshot.providerEvents = {
+    counts: { bounced: 0, complained: 0, delivered: 0, deliveryDelayed: 0, failed: 0, sent: 0, suppressed: 0 },
+    latestReceivedAt: null,
+    windowSeconds: 4_500
+  };
+  snapshot.webhookReconciliation = { oldestUnmatchedAgeSeconds: 4_500, unmatchedCount: 1 };
+  assert.equal(evaluateTeacherNoticeOperationalHealth(snapshot).status, "healthy");
+
+  for (const [field, reason] of [
+    ["heartbeat", "scheduler-heartbeat-stale"],
+    ["actionable", "outbox-actionable-stale"],
+    ["unmatched", "webhook-reconciliation-stale"]
+  ]) {
+    const overdue = structuredClone(snapshot);
+    if (field === "heartbeat") overdue.scheduler.heartbeatAgeSeconds = 4_501;
+    if (field === "actionable") overdue.outbox.oldestActionableAgeSeconds = 4_501;
+    if (field === "unmatched") overdue.webhookReconciliation.oldestUnmatchedAgeSeconds = 4_501;
+    const health = evaluateTeacherNoticeOperationalHealth(overdue);
+    assert.equal(health.status, "unhealthy");
+    assert.deepEqual(health.reasons, [reason]);
+  }
 });

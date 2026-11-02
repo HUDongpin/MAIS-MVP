@@ -106,11 +106,41 @@ health fail-closed. Do not hand-enter a different SHA or treat custom metadata a
 
 The scheduler-heartbeat schema is v2. Its additive `last_failed_at` aggregate survives a later
 `started` or `succeeded` singleton update, so a delayed monitor still reports
-`scheduler-heartbeat-failed` for the defined 15-minute recent-failure window; recovery occurs only
+`scheduler-heartbeat-failed` for the defined 75-minute recent-failure window; recovery occurs only
 after that window. The health DTO exposes only the failure age, never a run ID or release SHA.
 Production schema preflight distinguishes exact `empty`, `v1`, `exact`, and rejected `partial`
 states; the only heartbeat mutations are a fresh `heartbeat-install-v2` or exact
 `heartbeat-v1-to-v2`, both followed by full catalog attestation.
+
+The owner-selected low-usage schedule runs the teacher-notice delivery worker and webhook
+maintenance together once per hour (`0 * * * *`). Neither `/api/warm` nor `/api/health` has a
+scheduled invocation; both endpoints retain their existing behavior for explicit requests.
+The dedicated GitHub monitor remains hourly at minute 7 and checks both production aliases.
+Heartbeat, actionable-outbox and unmatched-event ages allow 75 minutes: one hourly interval
+plus 15 minutes of execution/scheduling tolerance. Recent scheduler failures, terminal outbox
+states and adverse provider events use a 75-minute observation window to overlap hourly probes.
+Actual failures, incomplete/missing heartbeats, release mismatch and stale leases still fail
+health; retry, lease and retention policies are unchanged.
+
+The two Vercel jobs total 48 scheduled invocations/day, compared with 1,152/day for the formerly
+deployed four five-minute jobs. This is a schedule calculation, not measured Neon compute or
+billing savings. The hourly monitor additionally makes two authenticated health requests per
+run (48/day before bounded retries). The eight-attempt delivery batch remains capped: nominal
+waiting time is up to one hour only when the due queue fits the batch and the provider succeeds.
+Backlog or retries can take longer, and stale-heartbeat detection may take the following hourly
+probe when one missed execution is still inside the 75-minute allowance.
+
+The separately authorized parent production acceptance flow also accommodates hourly delivery:
+it polls both aliases every ten minutes, with at most two baseline checks and nine delivery
+checks (up to 10 and 80 minutes of waiting respectively). Its 110-minute workflow timeout includes
+setup and verification margin. It never invokes the worker itself, and it still fails if actual
+delivery evidence does not arrive within that bound. These waits apply only to an explicitly
+dispatched acceptance run; they add no recurring job or automatic synthetic email.
+
+Before restoring a disabled production Cron Jobs switch, deploy and read back the exact two-job
+hourly configuration. The project-wide switch resumes every deployed job, so enabling it against
+an older deployment would restore that deployment's old schedule. Existing release gates and
+authorization apply; changing source configuration alone does not update live cron schedules.
 
 ### 1. Refresh the dirty-tree map (A25 gate)
 ```bash

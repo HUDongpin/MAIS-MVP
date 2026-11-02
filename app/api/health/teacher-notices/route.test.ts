@@ -86,7 +86,7 @@ test("teacher-notice health returns 200 only for a fresh matching durable schedu
     observedAt: "2026-08-24T12:00:00.000Z",
     scheduler: {
       candidateMatch: true,
-      heartbeatAgeSeconds: 60,
+      heartbeatAgeSeconds: 4_500,
       heartbeatStatus: "succeeded",
       lastFailureAgeSeconds: null
     },
@@ -144,7 +144,7 @@ test("teacher-notice health returns 200 only for a fresh matching durable schedu
   const staleSnapshot = structuredClone(healthySnapshot);
   staleSnapshot.outbox.counts.pending = 1;
   staleSnapshot.outbox.actionableCount = 1;
-  staleSnapshot.outbox.oldestActionableAgeSeconds = 901;
+  staleSnapshot.outbox.oldestActionableAgeSeconds = 4_501;
   const staleHandler = createTeacherNoticeOperationalHealthHandler({
     readCronSecret: () => distinctCronSecret,
     readHealthSecret: () => validSecret,

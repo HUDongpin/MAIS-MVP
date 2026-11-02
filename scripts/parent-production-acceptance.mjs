@@ -36,6 +36,10 @@ const READ_ONLY_SMOKE_STATUS = Object.freeze([
   ["warm", 401]
 ]);
 const MAX_RELEASE_RECORD_BYTES = 5 * 1024 * 1024;
+// Acceptance must accommodate the next hourly worker without continuously
+// waking Neon. Nine checks span eighty minutes; the baseline gets at most two.
+const HEALTH_POLL_INTERVAL_MS = 10 * 60_000;
+const MAX_HEALTH_POLL_ATTEMPTS = 9;
 const PRODUCTION_RUNTIME_REQUIRED_KEYS = Object.freeze([
   "TEACHER_NOTICE_HEALTH_SECRET"
 ]);
@@ -317,7 +321,7 @@ export function validateTeacherNoticeHealthProgress({ before, after }) {
       health.scheduler?.candidateMatch !== true ||
       !Number.isSafeInteger(health.scheduler?.heartbeatAgeSeconds) ||
       health.scheduler.heartbeatAgeSeconds < 0 ||
-      health.scheduler.heartbeatAgeSeconds > 900 ||
+      health.scheduler.heartbeatAgeSeconds > 75 * 60 ||
       afterDelivered - beforeDelivered < 1 ||
       health.webhookReconciliation?.unmatchedCount !== 0 ||
       health.webhookReconciliation?.oldestUnmatchedAgeSeconds !== null ||
@@ -872,18 +876,19 @@ function healthIsReady(payload) {
     health.scheduler?.candidateMatch === true &&
     Number.isSafeInteger(health.scheduler?.heartbeatAgeSeconds) &&
     health.scheduler.heartbeatAgeSeconds >= 0 &&
-    health.scheduler.heartbeatAgeSeconds <= 900;
+    health.scheduler.heartbeatAgeSeconds <= 75 * 60;
 }
 
 async function waitForHealthyBaseline({ healthSecret, fetchImpl, sleep, healthPollAttempts }) {
-  for (let attempt = 0; attempt < healthPollAttempts; attempt += 1) {
+  const baselineAttempts = Math.min(healthPollAttempts, 2);
+  for (let attempt = 0; attempt < baselineAttempts; attempt += 1) {
     const results = await Promise.all(PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.map((origin) =>
       readTeacherNoticeHealth({ origin, healthSecret, fetchImpl })
     ));
     if (results.every((result) => result.status === 200 && healthIsReady(result.payload))) {
       return results.map((result) => result.payload);
     }
-    if (attempt < healthPollAttempts - 1) await sleep(15_000);
+    if (attempt < baselineAttempts - 1) await sleep(HEALTH_POLL_INTERVAL_MS);
   }
   throw new Error("Teacher notice production health was not ready before the synthetic delivery; details redacted.");
 }
@@ -994,7 +999,7 @@ async function waitForHealthProgress({
     } catch {
       // The worker or webhook may still be settling inside the bounded poll.
     }
-    if (attempt < healthPollAttempts - 1) await sleep(10_000);
+    if (attempt < healthPollAttempts - 1) await sleep(HEALTH_POLL_INTERVAL_MS);
   }
   throw new Error("Teacher notice health did not record the synthetic provider delivery; details redacted.");
 }
@@ -1071,7 +1076,7 @@ export async function runParentProductionAcceptance({
   // process proof without weakening the one-create invariant.
   concurrency = 8,
   maxReplayBatches = 4,
-  healthPollAttempts = 60,
+  healthPollAttempts = MAX_HEALTH_POLL_ATTEMPTS,
   verifyToolingChecks = verifyGithubCandidateChecks,
   verifyCurrentDeployment = verifyParentProductionCurrentDeployment,
   toolingEnv = process.env,
@@ -1094,7 +1099,7 @@ export async function runParentProductionAcceptance({
     maxReplayBatches > 8 ||
     !Number.isSafeInteger(healthPollAttempts) ||
     healthPollAttempts < 1 ||
-    healthPollAttempts > 90
+    healthPollAttempts > MAX_HEALTH_POLL_ATTEMPTS
   ) {
     throw new Error("Parent production acceptance execution policy is invalid.");
   }

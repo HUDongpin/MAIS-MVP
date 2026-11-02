@@ -264,7 +264,7 @@ function validateHealthyPayload(payload) {
     health.scheduler?.candidateMatch !== true ||
     !Number.isSafeInteger(health.scheduler?.heartbeatAgeSeconds) ||
     health.scheduler.heartbeatAgeSeconds < 0 ||
-    health.scheduler.heartbeatAgeSeconds > 15 * 60 ||
+    health.scheduler.heartbeatAgeSeconds > 75 * 60 ||
     !Number.isFinite(observedAt) ||
     new Date(observedAt).toISOString() !== health.observedAt
   ) {
