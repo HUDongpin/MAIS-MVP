@@ -64,9 +64,15 @@ export type MainlandBnuJuniorQuestionGenerationMetadata = {
   assessmentPatternCardIds: string[];
   zhongkaoPatternCardIds: string[];
   sourceDistanceStatus: "passed-auto-source-scan";
-  mathQaStatus: "pass";
-  terminologyQaStatus: "pass";
-  manualQaStatus: "approved";
+  // Read from the rows rather than asserted here, so a pack containing pending
+  // rows cannot be reported as passing. Every row in this bank currently says
+  // `pass`/`pass`/`approved`, so this narrows to the same values today; the
+  // point is that it will keep tracking the rows if that ever changes. An
+  // adapter may report a QA state no better than its rows support. See issue
+  // #289 and docs/mainland-bnu-primary-candidate-gate.md.
+  mathQaStatus: GeneratedBnuJuniorQuestion["mathQaStatus"];
+  terminologyQaStatus: GeneratedBnuJuniorQuestion["terminologyQaStatus"];
+  manualQaStatus: GeneratedBnuJuniorQuestion["manualQaStatus"];
   independentAnswer: string;
 };
 
@@ -124,9 +130,9 @@ export const mainlandBnuJuniorQuestionGenerationMetadata: Record<string, Mainlan
         assessmentPatternCardIds: question.assessmentPatternCardIds,
         zhongkaoPatternCardIds: question.zhongkaoPatternCardIds,
         sourceDistanceStatus: question.sourceDistanceStatus,
-        mathQaStatus: "pass" as const,
-        terminologyQaStatus: "pass" as const,
-        manualQaStatus: "approved" as const,
+        mathQaStatus: question.mathQaStatus,
+        terminologyQaStatus: question.terminologyQaStatus,
+        manualQaStatus: question.manualQaStatus,
         independentAnswer: question.answer
       }
     ])
