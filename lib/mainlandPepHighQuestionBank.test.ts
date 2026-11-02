@@ -371,7 +371,13 @@ test("Mainland HJB primary V1 candidate bank stays preserved but outside the pub
     assert.deepEqual(question.curriculumProfile, mainlandHjbProfile);
     assert.ok(topicIds.has(question.topicId), `${question.id} references missing HJB primary topic ${question.topicId}`);
     assert.equal(mainlandHjbPrimaryQuestionGenerationMetadata[question.id]?.batch, "hjb-primary-v1");
-    assert.equal(mainlandHjbPrimaryQuestionGenerationMetadata[question.id]?.manualQaStatus, "approved");
+    // The exported metadata reports the rows' real QA state. This asserted
+    // "approved" while the test itself calls this a candidate bank held outside
+    // the public aggregate, and while every row says `pending-s18-review`. The
+    // 2026-05-25 owner approval that justified "approved" was superseded when
+    // the package was de-reached on 2026-08-26; promoting it again means
+    // re-running A18 QA and updating the rows, which flips this back.
+    assert.equal(mainlandHjbPrimaryQuestionGenerationMetadata[question.id]?.manualQaStatus, "pending-s18-review");
   });
 
   const exportedHjbPrimaryQuestions = questions.filter((question) => question.publisher === "MAINLAND_HJB" && /^hjb-primary-ds-v1-/.test(question.id));

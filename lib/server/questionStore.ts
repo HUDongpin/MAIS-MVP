@@ -103,6 +103,35 @@ async function mainlandPepQuestions(grade?: GradeId) {
 }
 
 async function mainlandBnuQuestions(grade?: GradeId) {
+  // The primary band is intentionally absent: there is no P1-P6 loader here by
+  // design, not by oversight. `mainland-bnu-primary-generated-bank-v1-1500` and
+  // `-v2-1500` are candidate-only packages, and
+  // coordination/integration/v2/legacy-resolution-registry.v2.json pins both
+  // under resolutions `de-reach-bnu-primary-v1`/`-v2` with
+  // `candidateMustBeUnreachable: true`, `liveAllowed: false` and an empty
+  // `approvalReferences`. Adding a primary branch here would breach that
+  // enforcement record, so it must not be added as a "missing band" fix.
+  //
+  // The gate is deliberately three-layered and all three layers must stay in
+  // step: data/topics.ts omits mainlandBnuPrimaryTopics, data/lessons.ts omits
+  // mainlandBnuPrimaryLessonSeeds, and this loader omits the primary band. A04
+  // de-reached the aggregates, A05 the lesson seeds and A12 this loader on
+  // 2026-08-26 under the fail-closed Promotion Gate audit; the same slice
+  // de-reached HJB primary/high (see mainlandHjbQuestions, junior-only) and
+  // Florida (see unitedStatesQuestions). lib/mainlandBnuPrimaryQuestionBank.test.ts
+  // asserts the resulting unreachability across Lesson, Practice Arena and
+  // /api/questions, so those tests encode the live policy and must only change
+  // as part of an authorized promotion.
+  //
+  // Earlier S18 records under
+  // coordination/content-qa/mainland-bnu-primary-generated-bank-v{1,2}-1500/
+  // do say `approved-for-public-integration` (2026-05-27 and 2026-05-28). They
+  // are superseded, not authority to wire this up: the August Promotion Gate is
+  // fail-closed and recognizes only digest-bound resolution records, and these
+  // packages have none. Promotion needs a registry resolution carrying real
+  // `approvalReferences` plus the AGENTS.md chain -- A18 independent QA, A23
+  // promotion planning, the owning live-surface change, A11 regression evidence
+  // and A22 release readiness. See docs/mainland-bnu-primary-candidate-gate.md.
   const band = gradeBand(grade);
   const loaders = [
     ...(band === "junior" || band === "all"

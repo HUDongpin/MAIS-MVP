@@ -121,9 +121,16 @@ test("Mainland BNU primary candidate metadata preserves its row QA and evidence"
     assert.ok(metadata, `${question.id} is missing production metadata`);
     assert.ok(["bnu-primary-v1", "bnu-primary-v2"].includes(metadata.batch));
     assert.equal(metadata.sourceDistanceStatus, "passed-auto-source-scan");
-    assert.equal(metadata.mathQaStatus, "pass");
-    assert.equal(metadata.terminologyQaStatus, "pass");
-    assert.equal(metadata.manualQaStatus, "approved");
+    // The exported metadata reports the rows' real QA state. It previously
+    // asserted `pass`/`pass`/`approved`, which was the May 2026 S18 "Production
+    // Contract" written when this bank was expected to go live. The bank was
+    // de-reached instead, every row still says `pending-s18-review`, and only
+    // the automated source-distance scan above has passed. Promoting this
+    // content means re-running A18 QA and updating the rows, which flips these
+    // three assertions back as part of that work.
+    assert.equal(metadata.mathQaStatus, "pending-s18-review");
+    assert.equal(metadata.terminologyQaStatus, "pending-s18-review");
+    assert.equal(metadata.manualQaStatus, "pending-s18-review");
     assert.equal(metadata.grade, question.grade);
     assert.equal(metadata.type, question.type);
     assert.equal(metadata.topicId, question.topicId);
